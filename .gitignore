@@ -1,0 +1,3 @@
+.sequelizerc
+.env
+/node_modules
