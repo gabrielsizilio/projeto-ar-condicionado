@@ -12,10 +12,9 @@ class Usuario extends Model {
 
     static associate(models) {
         this.belongsTo(models.Credencial, {
-            foreignKey: 'credencial_id', 
+            foreignKey: 'credencial_id',
             as: 'credencial'
         })
-
     }
 }
 

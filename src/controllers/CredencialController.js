@@ -16,20 +16,19 @@ module.exports = {
 
         try {
             await credencial.save()
-
-            return {credencial}
+            return { credencial }
         } catch (error) {
-            res.send(`Erro: ${error}`)
+            return res.send(`Erro: ${error}`)
         }
     },
 
     async index(req, res) {
 
         try {
-            const credenciais = await Credencial.findAll()
-            res.json({ credenciais })
+            const credenciais = await Credencial.findAll({ include: [{ association: 'usuario' }] })
+            return res.json({ credenciais })
         } catch (error) {
-            res.send(`Erro: ${error}`)
+            return res.send(`Erro: ${error}`)
         }
     }
 }

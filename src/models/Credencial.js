@@ -12,8 +12,8 @@ class Credencial extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Usuario, {
-            foreignKey:'id',
+        this.hasOne(models.Usuario, {
+            foreignKey:'credencial_id',
             as: 'usuario'
         })
 

@@ -7,8 +7,8 @@ module.exports = {
 
     async index(req, res) {
         try {
-            const usuarios = await Usuario.findAll({ include: [{ model: Credencial, as: 'credencial' }] })
-            res.json({ usuarios })
+            const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
+            res.status(200).json({ usuarios })
         } catch (error) {
             res.send(`Erro: ${error}`)
 
@@ -19,23 +19,19 @@ module.exports = {
         const { nome } = req.body
 
         if (!nome) {
-            res.status(404).json({ mensagem: "Nome é obrigatório" })
+            return res.status(400).json({ mensagem: "Nome é obrigatório" })
         }
 
         const { credencial } = await CredencialController.create(req, res)
-
         try {
-            const usuario = new Usuario({
+            const usuario = await Usuario.create({
                 nome: nome,
                 credencial_id: credencial.id
             })
 
-            await usuario.save()
-
-            await usuario.reload({ include: [{ model: Credencial, as: 'credencial' }] })
-            res.status(201).json({ usuario })
+            return res.status(201).json({ usuario })
         } catch (error) {
-            res.send(`Erro: ${error}`)
+            return res.send(`>>>Erro: ${error}`)
         }
     }
 
