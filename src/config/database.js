@@ -9,6 +9,6 @@ module.exports = {
 
     define: {
         timestamps:true,
-        undescored: true
+        undescored:true
     }
 }
