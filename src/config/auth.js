@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 function createToken(credencial) {
 
     const secret = process.env.AUTH_TOKEN_SECRET
-    const option = { expiresIn: `${process.env.AUTH_EXPIRE_TOKEN}m` }
+    const option = { expiresIn: `${process.env.AUTH_EXPIRE_TOKEN}` }
     const payload = {
         id: credencial._id
     }

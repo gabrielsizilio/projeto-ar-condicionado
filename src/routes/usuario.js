@@ -3,7 +3,7 @@ const router = express.Router()
 const UsuarioController = require("../controllers/UsuarioController")
 const authentication = require('../middleware/authMiddleware')
 
-router.get('/', UsuarioController.index)
+router.get('/', authentication, UsuarioController.index)
 
 router.post('/cadastrar', UsuarioController.create)
 
