@@ -3,9 +3,15 @@ const jwt = require('jsonwebtoken')
 const Credencial = require('../models/Credencial')
 const { createToken } = require('../config/auth')
 
+function index(req, res) {
+    return res.render('login')
+}
 
 async function login(req, res) {
     const { email, senha } = req.body
+    console.log(email, senha)
+    // const email = req.body.email
+    // const senha = req.body.senha
 
     if (!email) {
         res.status(401).json({ msg: "Email é obrigatório!" })
@@ -26,10 +32,12 @@ async function login(req, res) {
 
         if (senhaHash) {
             const token = await createToken(credencial)
-            if(token == 500) {
-                res.status(500).json({msg: "Ocorreu um erro ao criar o token!"})
+            if (token == 500) {
+                res.status(500).json({ msg: "Ocorreu um erro ao criar o token!" })
             } else {
-                res.status(200).json({ msg: "Logado com sucesso!", token })
+                res.header('Authorization', `Bearer ${token}`);
+                // res.status(200).json({ msg: "Logado com sucesso!", token })
+                return res.redirect('/')
             }
 
         } else {
@@ -41,4 +49,7 @@ async function login(req, res) {
     }
 }
 
-module.exports = { login }
+module.exports = {
+    login,
+    index
+}

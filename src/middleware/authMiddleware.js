@@ -1,7 +1,9 @@
 const { checkToken } = require('../config/auth')
 
 function authenticationMiddleware(req, res, next) {
-    const authHeader = req.headers['authorization']
+    const authHeader = req.headers['Authorization']
+    console.log(">> ", authHeader);
+    
     if(!authHeader) {
         return res.status(401).json({ msg: "Token não fornecido!" })
     }

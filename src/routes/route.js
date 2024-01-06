@@ -5,7 +5,7 @@ const authentication = require('../middleware/authMiddleware')
 const usuario = require('./usuario')
 const login = require('./login')
 
-router.get('/', (req, res) => {
+router.get('/', authentication, (req, res) => {
     res.json({ Pagina: 'Principal' })
 })
 
