@@ -36,8 +36,8 @@ async function login(req, res) {
                 res.status(500).json({ msg: "Ocorreu um erro ao criar o token!" })
             } else {
                 res.header('Authorization', `Bearer ${token}`);
-                // res.status(200).json({ msg: "Logado com sucesso!", token })
-                return res.redirect('/')
+                res.status(200).json({ msg: "Logado com sucesso!", token })
+                // return res.redirect('/')
             }
 
         } else {
