@@ -50,7 +50,13 @@ async function login(req, res) {
     }
 }
 
+function logout(req, res) {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/login')
+}
+
 module.exports = {
     login,
+    logout,
     index
 }
