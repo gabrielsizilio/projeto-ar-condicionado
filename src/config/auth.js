@@ -6,7 +6,7 @@ function createToken(credencial) {
     const secret = process.env.AUTH_TOKEN_SECRET
     const option = { expiresIn: `${process.env.AUTH_EXPIRE_TOKEN}s` }
     const payload = {
-        id: credencial._id
+        id: credencial.id
     }
     try {
         const token = jwt.sign(payload, secret, option);
