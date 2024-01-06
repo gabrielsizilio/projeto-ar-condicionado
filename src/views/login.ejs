@@ -14,17 +14,17 @@
     <div id="container-card" class="container">
         <div class="row justify-content-around">
             <div id="card-login" class="card col-4 pb-3 pl-3 pr-3 ">
-                <form action="" method="post">
+                <form action="/login" method="post">
                     <div class="card-body text-center">
                         <h3 class="card-title"> Login </h3>
                             <div class="row mt-4 col-mb-12">
                                 <div class="">
-                                    <input name="email" type="email" placeholder="Usuário" class="form-control">
+                                    <input name="email" type="email" placeholder="Usuário" class="form-control" autofocus required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="mt-2">
-                                    <input name="senha" type="password" placeholder="Senha" class="form-control"> 
+                                    <input name="senha" type="password" placeholder="Senha" class="form-control" required> 
                                 </div>  
                             </div>
                         </div>
@@ -45,8 +45,5 @@
             </div>
         </div>
     </div>
-
-
-
 </body>
 </html>

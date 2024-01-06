@@ -36,8 +36,10 @@ async function login(req, res) {
                 res.status(500).json({ msg: "Ocorreu um erro ao criar o token!" })
             } else {
                 res.header('Authorization', `Bearer ${token}`);
-                res.status(200).json({ msg: "Logado com sucesso!", token })
-                // return res.redirect('/')
+                res.cookie('jwt', token, {/*secure: true,*/ httpOnly: true, maxAge: process.env.AUTH_EXPIRE_TOKEN * 1000})
+                // res.status(200).json({ msg: "Logado com sucesso!" })
+
+                return res.redirect('/')
             }
 
         } else {

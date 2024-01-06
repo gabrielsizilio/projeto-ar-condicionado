@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 require('./database')
 
@@ -10,6 +11,7 @@ app.set('view engine', 'ejs')
 app.set('views', './src/views')
 app.use(express.static(path.join(__dirname, "../public")))
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(cookieParser())
 app.use(express.json())
 
 const router = require('./routes/route')

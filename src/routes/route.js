@@ -14,7 +14,4 @@ router.use('/usuario', usuario)
 
 
 
-
-
-
 module.exports = router
