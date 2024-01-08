@@ -5,8 +5,6 @@ const cookieParser = require('cookie-parser')
 require('dotenv').config()
 require('./database')
 
-const path = require('path');
-
 const router = require('./routes/route')
 
 const app = express()
@@ -20,7 +18,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json())
 
-const router = require('./routes/route')
 app.use('/', router);
 
 try {
