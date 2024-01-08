@@ -18,8 +18,8 @@ router.get('/', authentication, (req, res) => {
 
 router.use('/login', login)
 router.use('/logout', logout)
-router.use('/usuario', usuario)
-router.use('/sala',sala)
+router.use('/usuario', authentication, usuario)
+router.use('/sala', authentication, sala)
 
 
 
