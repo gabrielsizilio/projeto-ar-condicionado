@@ -6,11 +6,13 @@ require('dotenv').config()
 require('./database')
 
 const app = express()
+const port = (process.env.PORT ? process.env.PORT : 3000)
 
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
+
 app.use(express.static(path.join(__dirname, "../public")))
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json())
 
@@ -18,8 +20,8 @@ const router = require('./routes/route')
 app.use('/', router);
 
 try {
-    app.listen(process.env.PORT || 8989)
-    console.log(">> SERVER ON IN PORT: ", (process.env.PORT || 8989))
+    app.listen(port)
+    console.log(`>> SERVER ON: http://127.0.0.1:${port}`)
 } catch (error) {
     console.error(">> Erro ao iniciar o servidor: ", error)
 }
