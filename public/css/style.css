@@ -1,3 +1,21 @@
+Geral
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-color: #F9F8F8 !important;
+}
+span, h2, h1, h4{
+    color: #4F4F4F !important;
+}
+.menu-lateral, .conteudo, .conteudo{
+    padding: 0px !important;
+}
+
+
+
+
 /* Login */
 #container-card{
     height: 100vh;
@@ -12,26 +30,87 @@
 
 
 
+
 /* Menu */
-i{
-    font-size: 2rem;
-    color: white;
-}
-.container-fluid{
-    padding: 0px !important;
+box-icon{
+    margin: 7px !important;
 }
 .navbar{
-    width: min-content;
+    max-width: min-content !important;
     height: 100vh;
+    position: fixed !important;
+    display: flex;
     flex-direction: column;
-    
+    justify-content: space-between;
+    box-shadow: -3px 0px 8px;
+    /* z-index: 1000; */
 } 
+.nav-link{
+    display: flex;
+    justify-content: center;
+}
+#logo{
+    border-top: #7964ff 1px  solid;
+    border-bottom: #7964ff 1px  solid;
+    text-align: center;
+}
+#logo h1{
+    color: white !important;
+    font-family: 'Lobster Two', sans-serif;
+    font-size: 2em !important;
+    max-width: 4rem;
+}
 .nav-item{
     width: 4rem;
+    display: flex;
+    justify-content: center;
 }
 .nav-item:hover{
     background-color: #7964ff;
+    cursor: pointer;
 }
 .navbar li{
     text-align: center;
+}
+
+
+
+
+/* Conteúdo - Home */
+.container-conteudo{
+    /* width: 100% !important; */
+    padding: 1rem 5rem;
+}
+.container-conteudo .saudacao h2{
+    display: inline !important;
+}
+.container-conteudo .saudacao h4{
+    display: inline !important;
+}
+.container-conteudo .saudacao p{
+    font-size: small;
+}
+.img-perfil img{
+    width: 40%;
+    border-radius: 50px;
+    border: 2px solid #7964ff;
+    padding: 1px; 
+}
+.controle-ar span, .controle-ar p{
+    color: #7964ff;
+}
+.controle-ar .card{
+    border: #7964ff 1px solid;
+    background-color: #FFFFFF !important;
+}
+.onoff button{
+    background-color: white;
+    border: none;
+    color: #7964ff;
+    font-weight: 700;
+}
+.onoff button:hover{
+    background-color: #FFFFFF;
+    border: #7964ff 1px solid;
+    color: #7964ff;
 }
