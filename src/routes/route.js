@@ -10,6 +10,7 @@ const aresCondicionados = require('./ar-condicionado')
 
 router.get('/', authentication, (req, res) => {
     // res.json({ Pagina: 'Principal' })
+    // const title = 'Principal'
     const user = {
         nome: 'Gabriel',
         sobrenome: 'Sizilio'

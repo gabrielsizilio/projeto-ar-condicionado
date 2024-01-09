@@ -3,7 +3,6 @@ const Marca = require('../models/Marca')
 
 
 async function index(req, res) {
-    
     const ares = await ArCondicionado.findAll({
         include: [{ association: 'marca' }],
         order: [[{ model: Marca, as: 'marca' }, 'nome', 'ASC']]
