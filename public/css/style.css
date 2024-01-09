@@ -1,14 +1,12 @@
-Geral
+/* Geral */
 *{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Francois One', sans-serif;
+    color: #4F4F4F !important;
 }
-
 body{
     background-color: #F9F8F8 !important;
 }
-span, h2, h1, h4{
-    color: #4F4F4F !important;
-}
+
 .menu-lateral, .conteudo, .conteudo{
     padding: 0px !important;
 }
@@ -96,21 +94,47 @@ box-icon{
     border: 2px solid #7964ff;
     padding: 1px; 
 }
-.controle-ar span, .controle-ar p{
-    color: #7964ff;
-}
-.controle-ar .card{
-    border: #7964ff 1px solid;
-    background-color: #FFFFFF !important;
+.controle-ar .card strong, .controle-ar .card button{
+    color: #7964ff !important;
 }
 .onoff button{
     background-color: white;
     border: none;
     color: #7964ff;
     font-weight: 700;
+    border: 1px solid #FFFFFF;
 }
 .onoff button:hover{
     background-color: #FFFFFF;
     border: #7964ff 1px solid;
     color: #7964ff;
+}
+.ar1, .ar2{
+    flex-direction: column !important;
+    text-align: center;
+}
+.ar1 p, .ar2 p{
+    margin-bottom: 0px;
+}
+.temperatura{
+    font-size: 3.5rem;
+    cursor: pointer;
+}
+.predios select{
+    border: 1px solid #7964ff;
+    color: #7964ff !important;
+    cursor: pointer;
+}
+.salas .card{
+    background-color: #ffffff;
+    border: 1px solid #7964ff;
+    color: #7964ff !important;
+}
+.salas .card:hover{
+    background-color: #7964ff;
+    cursor: pointer;
+    color: #FFFFFF !important;
+}
+.sala{
+    width: 23% !important;
 }
