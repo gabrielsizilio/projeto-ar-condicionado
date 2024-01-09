@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+
+    <div id="" class="">
+        <h1>Cadastrar ar-condicionado no sistema</h1>
+        <form action="/ar-condicionado/save" method="post">
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" name="nome" required>
+            </div>
+            <div class="nome error"></div>
+
+            <div class="mb-3">
+                <label for="modelo" class="form-label">Modelo</label>
+                <input type="text" class="form-control" name="modelo" required>
+            </div>
+            <div class="modelo error"></div>
+
+            <div>
+                <label for="marca" class="form-label">Marca</label>
+                <select class="form-select" name="marca_id" required>
+                    <option disabled>Selecione uma marca</option>
+                    <% for(const marca of marcas) {%>
+                        <option value="<%= marca.id%>">
+                            <%= marca.nome%>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div>
+                <a href="">
+                    Adicionar nova marca
+                </a>
+            </div>
+            <div class="modelo error"></div>
+
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="button" class="btn btn-danger">Cancelar</button>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
