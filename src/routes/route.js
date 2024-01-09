@@ -12,10 +12,9 @@ router.get('/', authentication, (req, res) => {
     // res.json({ Pagina: 'Principal' })
     // const title = 'Principal'
     const user = {
-        nome: 'Gabriel',
-        sobrenome: 'Sizilio'
+        nome: 'Yodemis',
     }
-    res.render('principal', { user })
+    res.render('home', { user })
 })
 
 router.use('/login', login)
