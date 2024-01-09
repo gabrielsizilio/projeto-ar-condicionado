@@ -10,21 +10,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      marca_id: {
+      modelo_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'marcas',
+          model: 'modelos',
           key: 'id',
           onUpdate: 'CASCADE',
-          onDelete: 'SET NULL'
+          onDelete: 'CASCADE'
         }
       },
       nome: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      modelo: {
         allowNull: false,
         type: Sequelize.STRING
       },
