@@ -1,11 +1,19 @@
 const ArCondicionado = require('../models/ArCondicionado')
+const Modelo = require('../models/Modelo')
 const Marca = require('../models/Marca')
 
 
 async function index(req, res) {
     const ares = await ArCondicionado.findAll({
-        include: [{ association: 'marca' }],
-        order: [[{ model: Marca, as: 'marca' }, 'nome', 'ASC']]
+        include: [{
+            model: Modelo, as: 'modelo',
+            include: [{
+                model: Marca, as: 'marca'
+            }]
+        }],
+        order: [[{ model: Modelo, as: 'modelo' },
+        { model: Marca, as: 'marca' },
+            'nome', 'ASC']]
     })
 
     return res.json(ares)
@@ -14,28 +22,32 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        const marcas = await Marca.findAll();
+        const modelos = await Modelo.findAll({
+            include: [{
+                model: Modelo, as: 'modelo'
+            }],
+            order: [{ model: Marca, as: 'marca' }, 'nome', 'ASC']
+        });
 
-        return res.render('arCondicionado/create', { marcas })
+        return res.render('arCondicionado/create', { modelos })
     } catch (error) {
         console.log('ERRO: ', error);
     }
 }
 
 async function store(req, res) {
-    const { nome, modelo, marca_id } = req.body
+    const { nome, modelo_id } = req.body
 
-    if (!nome || !modelo || !marca_id) {
+    if (!nome || !modelo_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
     try {
-        const marca = await Marca.findByPk(marca_id)
+        const modelo = await Modelo.findByPk(modelo_id)
 
         await ArCondicionado.create({
             nome,
-            modelo,
-            marca_id
+            modelo_id
         })
 
         res.redirect('/ar-condicionado')
@@ -48,9 +60,8 @@ async function edit(req, res) {
     const ar_id = req.params
 
     try {
-        arCondicionado = await ArCondicionado.findOne({
-            where: { id: ar_id.id },
-            include: [{ model: Marca, as: 'marca' }]
+        const arCondicionado = await ArCondicionado.findOne({
+            where: { id: ar_id.id }
         })
 
         if (!arCondicionado) {
@@ -66,9 +77,9 @@ async function edit(req, res) {
 
 async function update(req, res) {
     const ar_id = req.params
-    const { nome, modelo, marca_id } = req.body
+    const { nome, modelo_id } = req.body
 
-    if (!nome || !modelo || !marca_id) {
+    if (!nome || !modelo_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
@@ -79,7 +90,7 @@ async function update(req, res) {
     try {
         const arCondicionado = await ArCondicionado.findOne({
             where: { id: ar_id.id },
-            include: [{ model: Marca, as: 'marca' }]
+            include: [{ model: Modelo, as: 'modelo' }]
         })
 
         if (!arCondicionado) {
@@ -88,8 +99,7 @@ async function update(req, res) {
 
         await arCondicionado.update({
             nome,
-            modelo,
-            marca_id
+            modelo_id,
         })
 
         return res.status(200).json({ arCondicionado })
@@ -115,8 +125,8 @@ async function remove(req, res) {
 
         await arCondicionado.destroy()
 
-        res.json({msg: "Ar-condicionado excluído do sistema"})
-        
+        res.json({ msg: "Ar-condicionado excluído do sistema" })
+
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
     }
