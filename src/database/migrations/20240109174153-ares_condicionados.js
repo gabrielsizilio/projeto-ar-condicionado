@@ -15,10 +15,10 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'modelos',
-          key: 'id',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
-        }
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       nome: {
         allowNull: false,
