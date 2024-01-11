@@ -1,12 +1,16 @@
 /* Geral */
 *{
     font-family: 'Francois One', sans-serif;
-    color: #4F4F4F !important;
+    color: #7964ff !important;
 }
 body{
     background-color: #F9F8F8 !important;
 }
-
+select{
+    border: 1px solid #7964ff !important;
+    color: #7964ff !important;
+    cursor: pointer;
+}
 .menu-lateral, .conteudo, .conteudo{
     padding: 0px !important;
 }
@@ -23,16 +27,27 @@ body{
 }
 
 #card-login{
-    border-top: 3px solid rgb(97, 97, 255);
+    border-top: 3px solid #7964ff;
 }
+
+.botao input{
+    border: #7964ff 1px solid;
+    color: #FFFFFF !important;
+    background-color: #7964ff !important;
+    box-shadow: none !important;
+}
+.botao input:hover{
+    border: #6a53ff 1px solid;
+    color: #FFFFFF !important;
+    background-color: #6a53ff !important;
+}
+
+
 
 
 
 
 /* Menu */
-box-icon{
-    margin: 7px !important;
-}
 .navbar{
     max-width: min-content !important;
     height: 100vh;
@@ -41,8 +56,10 @@ box-icon{
     flex-direction: column;
     justify-content: space-between;
     box-shadow: -3px 0px 8px;
-    /* z-index: 1000; */
 } 
+.navbar box-icon{
+    margin: 7px !important;
+}
 .nav-link{
     display: flex;
     justify-content: center;
@@ -62,10 +79,14 @@ box-icon{
     width: 4rem;
     display: flex;
     justify-content: center;
+    margin-bottom: 5px;
 }
 .nav-item:hover{
     background-color: #7964ff;
     cursor: pointer;
+}
+.menu-selecionado{
+    background-color: #7964ff;
 }
 .navbar li{
     text-align: center;
@@ -80,12 +101,15 @@ box-icon{
     padding: 1rem 5rem;
 }
 .container-conteudo .saudacao h2{
+    color: #4F4F4F !important;
     display: inline !important;
 }
 .container-conteudo .saudacao h4{
+    color: #4F4F4F !important;
     display: inline !important;
 }
 .container-conteudo .saudacao p{
+    color: #4F4F4F !important;
     font-size: small;
 }
 .img-perfil img{
@@ -120,11 +144,6 @@ box-icon{
     font-size: 3.5rem;
     cursor: pointer;
 }
-.predios select{
-    border: 1px solid #7964ff;
-    color: #7964ff !important;
-    cursor: pointer;
-}
 .salas .card{
     background-color: #ffffff;
     border: 1px solid #7964ff;
@@ -137,4 +156,34 @@ box-icon{
 }
 .sala{
     width: 23% !important;
+}
+
+/* Contúdo - Usuários */
+
+.usuarios-top .botao button{
+    border: 1px solid #7964ff;
+}
+.usuarios-top .botao button:hover{
+    border: 1px solid #7964ff;
+    background-color: #7964ff;
+    color: #FFFFFF !important;
+}
+.usuarios-tabela td{
+    background-color: #F9F8F8 !important;
+}
+.usuarios-pesquisa .input-group input{
+    border: 1px solid #7964ff;
+    border-radius: 10px;
+}
+.usuarios-pesquisa .input-group input::placeholder{
+    color: #7964ff63;
+}
+.usuarios-pesquisa .input-group span{
+    border: 1px solid #7964ff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.usuarios-tabela img{
+    width: 0%;
+    border-radius: 50px;
 }
