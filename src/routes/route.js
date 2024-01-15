@@ -6,6 +6,7 @@ const usuario = require('./usuario')
 const login = require('./login')
 const logout = require('./logout')
 const sala = require('./sala')
+const predio = require('./predio')
 const aresCondicionado = require('./ar-condicionado')
 
 router.get('/', authentication, (req, res) => {
@@ -21,6 +22,7 @@ router.use('/login', login)
 router.use('/logout', logout)
 router.use('/usuario', authentication, usuario)
 router.use('/sala', authentication, sala)
+router.use('/predio', authentication, predio)
 router.use('/ar-condicionado', authentication, aresCondicionado)
 
 

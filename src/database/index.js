@@ -22,6 +22,6 @@ Credencial.associate(connection.models)
 Usuario.associate(connection.models)
 Modelo.associate(connection.models)
 ArCondicionado.associate(connection.models)
-Sala.associate(connection.Predio)
+Sala.associate(connection.models)
 
 module.exports = connection
