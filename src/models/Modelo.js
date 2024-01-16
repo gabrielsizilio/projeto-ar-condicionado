@@ -18,6 +18,10 @@ class Modelo extends Model {
         this.hasMany(models.ArCondicionado, {
             foreignKey: 'modelo_id',
             as: 'ares_condicionados'
+        }),
+        this.hasOne(models.Temperatura, {
+            foreignKey: 'modelo_id',
+            as: 'temperatura'
         })
     }
 }
