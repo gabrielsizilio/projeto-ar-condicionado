@@ -3,6 +3,11 @@ const Predio = require('../models/Predio')
 
 async function index(req, res) {
 
+    const predios = await Predio.findAll({
+        include: {association: 'salas'}
+    })
+
+    res.status(200).json({ predios });
 }
 
 async function create(req, res) {

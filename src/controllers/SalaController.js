@@ -3,7 +3,9 @@ const Sala = require('../models/Sala')
 
 
 async function index(req, res) {
+    const salas = await Sala.findAll()
 
+    res.status(200).json({ salas })
 }
 
 async function create(req, res) {
@@ -33,7 +35,7 @@ async function edit(req, res) {
     const sala_id = req.params
 
     try {
-        const sala =  await Sala.findOne({
+        const sala = await Sala.findOne({
             where: { id: sala_id.id },
             include: [{ model: Predio, as: 'predio' }]
         })
