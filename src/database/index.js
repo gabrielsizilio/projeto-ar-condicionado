@@ -11,6 +11,17 @@ const Temperatura = require('../models/Temperatura')
 
 const connection = new Sequelize(configDB);
 
+const authenticateConnection = async () => {
+    try {
+        await connection.authenticate();
+        console.log('>> Conectado ao banco de dados com sucesso');
+    } catch (error) {
+        console.error(`!> Erro ao conectar-se ao banco de dados: ${error}`);
+    }
+}
+
+authenticateConnection();
+
 Credencial.init(connection)
 Usuario.init(connection)
 Predio.init(connection)
