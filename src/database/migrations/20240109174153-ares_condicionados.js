@@ -20,6 +20,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      sala_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'salas',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
       nome: {
         allowNull: false,
         type: Sequelize.STRING

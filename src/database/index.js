@@ -20,8 +20,10 @@ Sala.init(connection)
 
 Credencial.associate(connection.models)
 Usuario.associate(connection.models)
+Marca.associate(connection.models)
 Modelo.associate(connection.models)
 ArCondicionado.associate(connection.models)
+Predio.associate(connection.models)
 Sala.associate(connection.models)
 
 module.exports = connection
