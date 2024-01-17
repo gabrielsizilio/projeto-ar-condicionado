@@ -9,14 +9,9 @@ const sala = require('./sala')
 const predio = require('./predio')
 const aresCondicionado = require('./ar-condicionado')
 
-router.get('/', authentication, (req, res) => {
-    // res.json({ Pagina: 'Principal' })
-    // const title = 'Principal'
-    const user = {
-        nome: 'Yodemis',
-    }
-    res.render('home', { user })
-})
+const homeController = require('../controllers/HomeController')
+
+router.get('/', authentication, homeController.index)
 
 router.use('/login', login)
 router.use('/logout', logout)
