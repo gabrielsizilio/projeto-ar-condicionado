@@ -14,6 +14,10 @@ class Usuario extends Model {
         this.belongsTo(models.Credencial, {
             foreignKey: 'credencial_id',
             as: 'credencial'
+        }),
+        this.hasOne(models.AlocacaoHorario, {
+            foreignKey: 'usuario_id',
+            as: 'alocacoes'
         })
     }
 }
