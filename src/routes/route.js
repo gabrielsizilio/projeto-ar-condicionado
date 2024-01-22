@@ -9,7 +9,7 @@ const sala = require('./sala')
 const predio = require('./predio')
 const aresCondicionado = require('./ar-condicionado')
 
-router.get('/', authentication, (req, res) => {
+router.get('/', (req, res) => {
     // res.json({ Pagina: 'Principal' })
     // const title = 'Principal'
     const user = {
