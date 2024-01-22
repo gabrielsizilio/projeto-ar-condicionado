@@ -31,9 +31,9 @@
                         </a>
                     </li>
                     
-                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Relatórios">
-                        <a class="nav-link active" aria-current="page" href="#">
-                            <box-icon name='report' type='solid' color='#ffffff' ></box-icon>
+                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Histórico">
+                        <a class="nav-link active" aria-current="page" href="historico.html">
+                            <box-icon name='time' type='solid' color='#ffffff' ></box-icon>
                         </a>
                     </li>
                     <li class="nav-item menu-selecionado" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Grade de Horários">
@@ -63,6 +63,45 @@
         </div>
         
         <div class="col-11 container-conteudo">
+            <!-- Modal -->
+            <div class="modal fade" id="alterarProfessor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="alterarProfessorLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="alterarProfessorLabel">Alterar Professor</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                        
+                                    <label for="area" class="form-label">Área:</label>
+                                    <select id="area" class="form-select">
+                                        <option selected>Computação</option>
+                                        <option value="1">Engenharia Elétrica</option>
+                                        <option value="2">Engenharia Química</option>
+                                        <option value="3">Técnico Informática</option>
+                                        <option value="4">Matemática</option>
+                                        <option value="5">Física</option>
+                                        <option value="6">Técnico Informática</option>
+                                        <option value="7">Edificações</option>
+                                        <option value="8">Ensino Médio</option>
+                                    </select>
+                                    <label for="area" class="form-label mt-4">Professor:</label>
+                                    <select id="area" class="form-select">
+                                        <option value="1" selected>Professor A</option>
+                                        <option value="2">Professor B</option>
+                                        <option value="3">Professor C</option>
+                                        <option value="4">Professor D</option>
+                                        <option value="5">Professor E</option>
+                                    </select>
+                                <div class="col-12 d-flex justify-content-end" id="salvar-grade">
+                                    <button type="submit" class="btn btn-primary mt-5 col-3">Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container-conteudo">
                 <div class="row grade-top d-flex justify-content-between">
                     <div class="titulo d-flex justify-content-start col-8">
@@ -89,10 +128,10 @@
                                 <th scope="col">SEXTA</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="table-group-divider">
                             <tr>
                                 <th scope="row">07:20</th>
-                                <td>Júlio César</td>
+                                <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Júlio César</td>
                                 <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
@@ -171,7 +210,63 @@
         container: 'body',
         trigger: 'hover'
     });
+
+    //Inicaliza os modais
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+    })
     </script>
 
 </body>
 </html>
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Variável com Select</title>
+</head>
+<body>
+
+    <label for="selectOption">Escolha uma opção:</label>
+    <select id="selectOption">
+        <option value="opcao1">Opção 1</option>
+        <option value="opcao2">Opção 2</option>
+        <option value="opcao3">Opção 3</option>
+    </select>
+
+    <p>Variável Atual: <span id="variavelAtual"></span></p>
+
+    <script>
+        // Obtém referência para o elemento select e o parágrafo que mostrará a variável
+        var selectElement = document.getElementById("selectOption");
+        var variavelAtualElement = document.getElementById("variavelAtual");
+
+        // Define uma variável inicial
+        var variavel = "Valor Inicial";
+
+        // Atualiza o parágrafo com o valor inicial da variável
+        variavelAtualElement.textContent = variavel;
+
+        // Adiciona um ouvinte de eventos para o evento de mudança no select
+        selectElement.addEventListener("change", function() {
+            // Atualiza a variável com o valor selecionado no select
+            if(selectElement.value == "opcao1"){
+                variaval = "Truco"
+            }else if(selectElement.value == "opcao2"){
+                variavel = "Jamica"
+            }else{
+                variavel = "Xiruptanga"
+            }
+
+            // Atualiza o parágrafo com o novo valor da variável
+            variavelAtualElement.textContent = variavel;
+        });
+    </script>
+
+</body>
+</html> -->
