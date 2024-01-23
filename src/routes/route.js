@@ -16,7 +16,7 @@ router.get('/', authentication, homeController.index)
 
 router.use('/login', login)
 router.use('/logout', logout)
-router.use('/usuario', authentication, usuario)
+router.use('/usuario',  usuario)
 router.use('/sala', authentication, sala)
 router.use('/predio', authentication, predio)
 router.use('/ar-condicionado', authentication, aresCondicionado)

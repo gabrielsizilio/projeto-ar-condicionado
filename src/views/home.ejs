@@ -51,14 +51,11 @@
 
                         <div class="row predios mt-5 col-4">
                             <select id="selectPredio" class="form-select">
-
-
                                 <% predios.forEach(element=> { %>
                                     <option value="<%= element.id %>">
                                         <%= element.nome %>
                                     </option>
                                     <% }) %>
-
                             </select>
                         </div>
                         <div id="salasContainer" class="row salas mt-5 justify-content-between">

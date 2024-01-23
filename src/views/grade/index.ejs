@@ -22,14 +22,6 @@
                                         <% }) %>
                                 </select>
                             </div>
-                            <div id="salasContainer" class="row salas mt-5 justify-content-between">
-                                <% var index=0 %>
-                                <% predios[index].salas.forEach(element=> { %>
-                                    <div class="card sala d-flex text-center p-2">
-                                        <%= element.nome %>
-                                    </div>
-                                    <% }) %>
-                            </div>
                         </div>
                         <div class="card mt-5 grade-horarios p-3">
                             <table class="table text-center">
@@ -46,7 +38,7 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">07:20</th>
-                                        <td>Júlio César</td>
+                                        <td><%= user[0].nome %></td>
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
@@ -54,59 +46,59 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">09:10</th>
-                                        <td>Alberto Miranda</td>
-                                        <td>Júlio César</td>
+                                        <td><%= user[2].nome %></td>
+                                        <td><%= user[3].nome %></td>
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">11:00</th>
-                                        <td>Wagner Leite</td>
-                                        <td>Alberto Miranda</td>
-                                        <td>Júlio César</td>
+                                        <td><%= user[2].nome %></td>
+                                        <td><%= user[1].nome %></td>
+                                        <td><%= user[0].nome %></td>
                                         <td>-</td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">13:20</th>
-                                        <td>Caribe Zampiroli</td>
-                                        <td>Wagner Leite</td>
-                                        <td>Alberto Miranda</td>
-                                        <td>Júlio César</td>
+                                        <td><%= user[1].nome %></td>
+                                        <td><%= user[3].nome %></td>
+                                        <td><%= user[2].nome %></td>
+                                        <td><%= user[1].nome %></td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">15:00</th>
                                         <td>-</td>
-                                        <td>Caribe Zampiroli</td>
-                                        <td>Wagner Leite</td>
-                                        <td>Alberto Miranda</td>
-                                        <td>Júlio César</td>
+                                        <td><%= user[0].nome %></td>
+                                        <td><%= user[0].nome %></td>
+                                        <td><%= user[2].nome %></td>
+                                        <td><%= user[3].nome %></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">17:00</th>
                                         <td>-</td>
                                         <td>-</td>
-                                        <td>Caribe Zampiroli</td>
-                                        <td>Júlio César</td>
-                                        <td>Alberto Miranda</td>
+                                        <td><%= user[0].nome %></td>
+                                        <td><%= user[1].nome %></td>
+                                        <td><%= user[3].nome %></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">19:00</th>
                                         <td>-</td>
                                         <td>-</td>
-                                        <td>Júlio César</td>
-                                        <td>Alberto Miranda</td>
-                                        <td>Wagner Leite</td>
+                                        <td><%= user[3].nome %></td>
+                                        <td><%= user[3].nome %></td>
+                                        <td><%= user[2].nome %></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">20:00</th>
                                         <td>-</td>
-                                        <td>Júlio César</td>
-                                        <td>Alberto Miranda</td>
-                                        <td>Wagner Leite</td>
-                                        <td>Caribe Zampiroli</td>
+                                        <td><%= user[1].nome %></td>
+                                        <td><%= user[0].nome %></td>
+                                        <td><%= user[2].nome %></td>
+                                        <td><%= user[3].nome %></td>
                                     </tr>
                                 </tbody>
                             </table>
