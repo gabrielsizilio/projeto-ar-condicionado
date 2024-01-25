@@ -28,20 +28,21 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const { model_id, tem16, tem17, tem18, tem19, tem20, tem21, tem22, tem23, tem24, tem25 } = req.body
+    const { model_id, temp16, temp17, temp18, temp19, temp20, temp21, temp22, temp23, temp24, temp25, off } = req.body
 
     try {
         const temperatura = await Temperatura.create({
-            tem16,
-            tem17,
-            tem18,
-            tem19,
-            tem20,
-            tem21,
-            tem22,
-            tem23,
-            tem24,
-            tem25,
+            temp16,
+            temp17,
+            temp18,
+            temp19,
+            temp20,
+            temp21,
+            temp22,
+            temp23,
+            temp24,
+            temp25,
+            off,
             model_id
         })
 
