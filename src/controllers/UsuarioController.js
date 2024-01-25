@@ -8,7 +8,7 @@ module.exports = {
     async index(req, res) {
         try {
             const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
-            res.status(200).json({ usuarios })
+            res.status(200).render('usuarios/index', { usuarios })
         } catch (error) {
             res.send(`Erro: ${error}`)
 
