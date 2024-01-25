@@ -12,7 +12,8 @@ class Temperatura extends Model {
             temp22: DataTypes.STRING,
             temp23: DataTypes.STRING,
             temp24: DataTypes.STRING,
-            temp25: DataTypes.STRING
+            temp25: DataTypes.STRING,
+            off: DataTypes.STRING
         }, {
             sequelize,
             tableName: 'temperaturas'
