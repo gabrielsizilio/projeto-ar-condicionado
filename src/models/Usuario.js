@@ -18,6 +18,9 @@ class Usuario extends Model {
         this.hasOne(models.AlocacaoHorario, {
             foreignKey: 'usuario_id',
             as: 'alocacoes'
+        }),
+        this.belongsToMany(models.Area, {
+            through: 'usuarios_areas'
         })
     }
 }
