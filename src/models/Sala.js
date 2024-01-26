@@ -18,6 +18,10 @@ class Sala extends Model {
         this.hasMany(models.ArCondicionado, {
             foreignKey: 'sala_id',
             as: 'ares_condicionados'
+        }),
+        this.hasMany(models.AlocacaoHorario, {
+            foreignKey: 'sala_id',
+            as: 'alocacoes'
         })
     }
 }

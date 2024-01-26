@@ -1,179 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <%- include('../partials/header.ejs')%>
-<body class="container-fluid">
+<%- include('../partials/header.ejs')%>
 
-    <div class="row d-flex">
-        <%- include('../partials/nav.ejs')%>
-        
-        <div class="col-11 container-conteudo">
-            <%- include('./alterarProfessor') %>
-            <div class="container-conteudo">
-                <div class="row grade-top d-flex justify-content-between">
-                    <div class="titulo d-flex justify-content-start col-8">
-                        <h2>Grade de Horários</h2>
-                    </div>
-                    <div class="grade-select d-flex justify-content-end col-3">
-                        <select id="selectPredio" class="form-select">
-                            <% predios.forEach(element=> { %>
-                                <option value="<%= element.id %>">
-                                    <%= element.nome %>
-                                </option>
-                                <% }) %>
-                        </select>
+    <body class="container-fluid">
+
+        <div class="row d-flex">
+            <%- include('../partials/nav.ejs')%>
+
+                <div class="col-11 container-conteudo">
+                    <div class="container-conteudo">
+                        <div class="row grade-top d-flex justify-content-between">
+                            <div class="titulo d-flex justify-content-start col-8">
+                                <h2>Grade de Horários</h2>
+                            </div>
+                            <div class="row predios mt-5 col-4">
+                                <select id="selectPredio" class="form-select">
+                                    <% predios.forEach(element=> { %>
+                                        <option value="<%= element.id %>">
+                                            <%= element.nome %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card mt-5 grade-horarios p-3">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">SEGUNDA</th>
+                                        <th scope="col">TERÇA</th>
+                                        <th scope="col">QUARTA</th>
+                                        <th scope="col">QUINTA</th>
+                                        <th scope="col">SEXTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">07:20</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">09:10</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">11:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">13:20</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">15:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">17:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">19:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">20:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>  
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="card mt-5 grade-horarios p-3">
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">SEGUNDA</th>
-                                <th scope="col">TERÇA</th>
-                                <th scope="col">QUARTA</th>
-                                <th scope="col">QUINTA</th>
-                                <th scope="col">SEXTA</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                            <tr>
-                                <th scope="row">07:20</th>
-                                <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Júlio César</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09:10</th>
-                                <td>Alberto Miranda</td>
-                                <td>Júlio César</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">11:00</th>
-                                <td>Wagner Leite</td>
-                                <td>Alberto Miranda</td>
-                                <td>Júlio César</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">13:20</th>
-                                <td>Caribe Zampiroli</td>
-                                <td>Wagner Leite</td>
-                                <td>Alberto Miranda</td>
-                                <td>Júlio César</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">15:00</th>
-                                <td>-</td>
-                                <td>Caribe Zampiroli</td>
-                                <td>Wagner Leite</td>
-                                <td>Alberto Miranda</td>
-                                <td>Júlio César</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">17:00</th>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>Caribe Zampiroli</td>
-                                <td>Júlio César</td>
-                                <td>Alberto Miranda</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">19:00</th>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>Júlio César</td>
-                                <td>Alberto Miranda</td>
-                                <td>Wagner Leite</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">20:00</th>
-                                <td>-</td>
-                                <td>Júlio César</td>
-                                <td>Alberto Miranda</td>
-                                <td>Wagner Leite</td>
-                                <td>Caribe Zampiroli</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
-    <script>
-    // Inicializa os popovers
-    var popovers = new bootstrap.Popover(document.body, {
-        selector: '[data-bs-toggle="popover"]',
-        container: 'body',
-        trigger: 'hover'
-    });
+        <script>
+            // Inicializa os popovers
+            var popovers = new bootstrap.Popover(document.body, {
+                selector: '[data-bs-toggle="popover"]',
+                container: 'body',
+                trigger: 'hover'
+            });
+        </script>
 
-    //Inicaliza os modais
-    const myModal = document.getElementById('myModal')
-    const myInput = document.getElementById('myInput')
+    </body>
 
-    myModal.addEventListener('shown.bs.modal', () => {
-    myInput.focus()
-    })
-    </script>
-
-</body>
 </html>
-
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Variável com Select</title>
-</head>
-<body>
-
-    <label for="selectOption">Escolha uma opção:</label>
-    <select id="selectOption">
-        <option value="opcao1">Opção 1</option>
-        <option value="opcao2">Opção 2</option>
-        <option value="opcao3">Opção 3</option>
-    </select>
-
-    <p>Variável Atual: <span id="variavelAtual"></span></p>
-
-    <script>
-        // Obtém referência para o elemento select e o parágrafo que mostrará a variável
-        var selectElement = document.getElementById("selectOption");
-        var variavelAtualElement = document.getElementById("variavelAtual");
-
-        // Define uma variável inicial
-        var variavel = "Valor Inicial";
-
-        // Atualiza o parágrafo com o valor inicial da variável
-        variavelAtualElement.textContent = variavel;
-
-        // Adiciona um ouvinte de eventos para o evento de mudança no select
-        selectElement.addEventListener("change", function() {
-            // Atualiza a variável com o valor selecionado no select
-            if(selectElement.value == "opcao1"){
-                variaval = "Truco"
-            }else if(selectElement.value == "opcao2"){
-                variavel = "Jamica"
-            }else{
-                variavel = "Xiruptanga"
-            }
-
-            // Atualiza o parágrafo com o novo valor da variável
-            variavelAtualElement.textContent = variavel;
-        });
-    </script>
-
-</body>
-</html> -->
