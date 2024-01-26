@@ -1,41 +1,48 @@
 #include "config.h"
 
+void setupSocket() {
+    String mac = Wifi.macAddress();
+
+    DynamicJsonDocument doc(1024);
+    JsonArray array = doc.to<JsonArray>();
+
+       // add evnet name
+       // Hint: socket.on('event_name', ....)
+       array.add("setup");
+
+       // add payload (parameters) for the event
+      JsonObject param1 = array.createNestedObject();
+      param1["macAddress"] = mac;
+
+      // JSON to String (serializion)
+      String output;
+      serializeJson(doc, output);
+
+      // Send event
+      socketIO.sendEVENT(output);
+
+}
+
 void socketIOEvent(socketIOmessageType_t type, uint8_t* payload, size_t length) {
   switch (type) {
     case sIOtype_DISCONNECT:
-      USE_SERIAL.printf("[IOc] Disconnected!\n");
-      break;
+        USE_SERIAL.printf("[IOc] Disconnected!\n");
+        break;
     case sIOtype_CONNECT:
-      USE_SERIAL.printf("[IOc] Connected to url: %s\n", payload);
-
-      // join default namespace (no auto join in Socket.IO V3)
-      socketIO.send(sIOtype_CONNECT, "/");
-      break;
+        USE_SERIAL.printf("[IOc] Connected to url: %s\n", payload);
+        setupSocket();
+      // // join default namespace (no auto join in Socket.IO V3)
+      // socketIO.send(sIOtype_CONNECT, "/");
+       break;
     case sIOtype_EVENT:
-      if (strstr((char*)payload, "button") != NULL) {
-        // Lógica a ser executada quando o evento 'button' é recebido
-        USE_SERIAL.println("led");
-      }else {
-        USE_SERIAL.printf("[IOc] get event: %s\n", payload);
-      }
-      break;
-    case sIOtype_ACK:
-      USE_SERIAL.printf("[IOc] get ack: %u\n", length);
-      hexdump(payload, length);
-      break;
-    case sIOtype_ERROR:
-      USE_SERIAL.printf("[IOc] get error: %u\n", length);
-      hexdump(payload, length);
-      break;
-    case sIOtype_BINARY_EVENT:
-      USE_SERIAL.printf("[IOc] get binary: %u\n", length);
-      hexdump(payload, length);
-      break;
-    case sIOtype_BINARY_ACK:
-      USE_SERIAL.printf("[IOc] get binary ack: %u\n", length);
-      hexdump(payload, length);
-      break;
-  }
+        if (strstr((char*)payload, "button") != NULL) {
+          // Lógica a ser executada quando o evento 'button' é recebido
+          USE_SERIAL.println("led");
+        }else {
+          USE_SERIAL.printf("[IOc] get event: %s\n", payload);
+        }
+        break;
+    }
 }
 
 void searchWifi() {
@@ -69,8 +76,6 @@ void connectWifi() {
 
 void setup() {
   USE_SERIAL.begin(9600);
-
-  // USE_SERIAL.setDebugOutput(true);
 
   USE_SERIAL.println();
   USE_SERIAL.println();
@@ -108,7 +113,6 @@ void setup() {
   socketIO.onEvent(socketIOEvent);
 }
 
-unsigned long messageTimestamp = 0;
 void loop() {
   socketIO.loop();
 
