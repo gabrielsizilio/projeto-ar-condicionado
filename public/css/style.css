@@ -1,0 +1,189 @@
+/* Geral */
+*{
+    font-family: 'Francois One', sans-serif;
+    color: #7964ff !important;
+}
+body{
+    background-color: #F9F8F8 !important;
+}
+select{
+    border: 1px solid #7964ff !important;
+    color: #7964ff !important;
+    cursor: pointer;
+}
+.menu-lateral, .conteudo, .conteudo{
+    padding: 0px !important;
+}
+
+
+
+
+/* Login */
+#container-card{
+    height: 100vh;
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#card-login{
+    border-top: 3px solid #7964ff;
+}
+
+.botao input{
+    border: #7964ff 1px solid;
+    color: #FFFFFF !important;
+    background-color: #7964ff !important;
+    box-shadow: none !important;
+}
+.botao input:hover{
+    border: #6a53ff 1px solid;
+    color: #FFFFFF !important;
+    background-color: #6a53ff !important;
+}
+
+
+
+
+
+
+/* Menu */
+.navbar{
+    max-width: min-content !important;
+    height: 100vh;
+    position: fixed !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: -3px 0px 8px;
+} 
+.navbar box-icon{
+    margin: 7px !important;
+}
+.nav-link{
+    display: flex;
+    justify-content: center;
+}
+#logo{
+    border-top: #7964ff 1px  solid;
+    border-bottom: #7964ff 1px  solid;
+    text-align: center;
+}
+#logo h1{
+    color: white !important;
+    font-family: 'Lobster Two', sans-serif;
+    font-size: 2em !important;
+    max-width: 4rem;
+}
+.nav-item{
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+.nav-item:hover{
+    background-color: #7964ff;
+    cursor: pointer;
+}
+.menu-selecionado{
+    background-color: #7964ff;
+}
+.navbar li{
+    text-align: center;
+}
+
+
+
+
+/* Conteúdo - Home */
+.container-conteudo{
+    /* width: 100% !important; */
+    padding: 1rem 5rem;
+}
+.container-conteudo .saudacao h2{
+    color: #4F4F4F !important;
+    display: inline !important;
+}
+.container-conteudo .saudacao h4{
+    color: #4F4F4F !important;
+    display: inline !important;
+}
+.container-conteudo .saudacao p{
+    color: #4F4F4F !important;
+    font-size: small;
+}
+.img-perfil img{
+    width: 40%;
+    border-radius: 50px;
+    border: 2px solid #7964ff;
+    padding: 1px; 
+}
+.controle-ar .card strong, .controle-ar .card button{
+    color: #7964ff !important;
+}
+.onoff button{
+    background-color: white;
+    border: none;
+    color: #7964ff;
+    font-weight: 700;
+    border: 1px solid #FFFFFF;
+}
+.onoff button:hover{
+    background-color: #FFFFFF;
+    border: #7964ff 1px solid;
+    color: #7964ff;
+}
+.ar1, .ar2{
+    flex-direction: column !important;
+    text-align: center;
+}
+.ar1 p, .ar2 p{
+    margin-bottom: 0px;
+}
+.temperatura{
+    font-size: 3.5rem;
+    cursor: pointer;
+}
+.salas .card{
+    background-color: #ffffff;
+    border: 1px solid #7964ff;
+    color: #7964ff !important;
+}
+.salas .card:hover{
+    background-color: #7964ff;
+    cursor: pointer;
+    color: #FFFFFF !important;
+}
+.sala{
+    width: 23% !important;
+}
+
+/* Contúdo - Usuários */
+
+.usuarios-top .botao button{
+    border: 1px solid #7964ff;
+}
+.usuarios-top .botao button:hover{
+    border: 1px solid #7964ff;
+    background-color: #7964ff;
+    color: #FFFFFF !important;
+}
+.usuarios-tabela td{
+    background-color: #F9F8F8 !important;
+}
+.usuarios-pesquisa .input-group input{
+    border: 1px solid #7964ff;
+    border-radius: 10px;
+}
+.usuarios-pesquisa .input-group input::placeholder{
+    color: #7964ff63;
+}
+.usuarios-pesquisa .input-group span{
+    border: 1px solid #7964ff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.usuarios-tabela img{
+    width: 0%;
+    border-radius: 50px;
+}

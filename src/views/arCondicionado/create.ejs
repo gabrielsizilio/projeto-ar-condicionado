@@ -1,0 +1,47 @@
+<%- include('../partials/header.ejs')%>
+
+    <body>
+        <%- include('../partials/nav.ejs')%>
+
+            <div id="" class="">
+                <h1>Cadastrar ar-condicionado no sistema</h1>
+                <form action="/ar-condicionado/save" method="post">
+
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="nome" required>
+                    </div>
+                    <div class="nome error"></div>
+
+                    <div class="mb-3">
+                        <label for="modelo" class="form-label">Modelo</label>
+                        <input type="text" class="form-control" name="modelo" required>
+                    </div>
+                    <div class="modelo error"></div>
+
+                    <div>
+                        <label for="marca" class="form-label">Marca</label>
+                        <select class="form-select" name="marca_id" required>
+                            <option disabled>Selecione uma marca</option>
+                            <% for(const marca of marcas) {%>
+                                <option value="<%= marca.id%>">
+                                    <%= marca.nome%>
+                                </option>
+                                <% } %>
+                        </select>
+                    </div>
+                    <div>
+                        <a href="">
+                            Adicionar nova marca
+                        </a>
+                    </div>
+                    <div class="modelo error"></div>
+
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="button" class="btn btn-danger">Cancelar</button>
+                </form>
+            </div>
+            </div>
+    </body>
+
+    <%- include('../partials/footer')%>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-br">
+<%- include('./partials/header.ejs') %>
+
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+        <div id="container-card" class="container">
+            <div class="row justify-content-around">
+                <div id="card-login" class="card col-4 pb-3 pl-3 pr-3 ">
+                    <form action="/login">
+                        <div class="card-body text-center">
+                            <h3 class="card-title"> Login </h3>
+                            <div class="row mt-4 col-mb-12">
+                                <div class="input-group">
+                                    <input name="email" type="email" placeholder="Usuário" class="form-control">
+                                    <span class="input-group-text">
+                                        <box-icon name='user' type='solid' color="#7964ff"></box-icon>
+                                    </span>
+                                </div>
+                                <div class="email error"></div>
+                            </div>
+                            <div class="row">
+                                <div class="mt-2 input-group">
+                                    <input name="senha" type="password" placeholder="Senha" class="form-control">
+                                    <span class="input-group-text">
+                                        <box-icon name='lock-alt' type='solid' color="#7964ff"></box-icon>
+                                    </span>
+                                </div>
+                                <div class="senha error"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div class="col-mb-2 ">
+                                <a href="#" class="link-underline link-underline-opacity-0"
+                                    style="color:#7964ff;">Recuperar senha</a>
+                            </div>
+                        </div>
+                        <div class="row botao justify-content-around">
+                            <input type="submit" value="Entrar" class="col-10  btn btn-primary mt-3">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </body>
+
+</html>
+
+<%- include('./partials/footer.ejs') %>
+
+    <script>
+        const form = document.querySelector('form')
+        const emailErr = document.querySelector('.email.error')
+        const senhaErr = document.querySelector('.senha.error')
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            emailErr.textContent = ''
+            senhaErr.textContent = ''
+
+            const email = form.email.value
+            const senha = form.senha.value
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, senha }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+
+                const data = await res.json()
+                if (data.success) {
+                    location.assign('/')
+                }
+
+                if (data.errorEmail || data.errorSenha) {
+                    console.log(data)
+                    emailErr.textContent = data.errorEmail
+                    senhaErr.textContent = data.errorSenha
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    </script>

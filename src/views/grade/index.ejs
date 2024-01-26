@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include('../partials/header.ejs')%>
+
+    <body class="container-fluid">
+
+        <div class="row d-flex">
+            <%- include('../partials/nav.ejs')%>
+
+                <div class="col-11 container-conteudo">
+                    <div class="container-conteudo">
+                        <div class="row grade-top d-flex justify-content-between">
+                            <div class="titulo d-flex justify-content-start col-8">
+                                <h2>Grade de Horários</h2>
+                            </div>
+                            <div class="row predios mt-5 col-4">
+                                <select id="selectPredio" class="form-select">
+                                    <% predios.forEach(element=> { %>
+                                        <option value="<%= element.id %>">
+                                            <%= element.nome %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card mt-5 grade-horarios p-3">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">SEGUNDA</th>
+                                        <th scope="col">TERÇA</th>
+                                        <th scope="col">QUARTA</th>
+                                        <th scope="col">QUINTA</th>
+                                        <th scope="col">SEXTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">07:20</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">09:10</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">11:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">13:20</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">15:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">17:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">19:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">20:00</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+        <script>
+            // Inicializa os popovers
+            var popovers = new bootstrap.Popover(document.body, {
+                selector: '[data-bs-toggle="popover"]',
+                container: 'body',
+                trigger: 'hover'
+            });
+        </script>
+
+    </body>
+
+</html>
