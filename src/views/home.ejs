@@ -25,11 +25,12 @@
                             <div class="card col-8">
                                 <div class="row justify-content-between pt-2 pb-2">
                                     <div class="col-5 identificacao d-flex align-items-center justify-content-start">
-                                        <span id="salaAtual"><strong>Sala 17 - Prédio 04</strong></span>
+                                        <span><strong>Sala 17 - Prédio 04</strong></span>
                                     </div>
                                     <div class="col-2 onoff text-center">
                                         <span>
-                                            <button class="btn btn-primary" type="submit">ON</button>
+                                            <button class="btn btn-primary" onclick="enviarComando()"
+                                                type="submit">ON</button>
                                         </span>
                                     </div>
                                 </div>
@@ -75,37 +76,63 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
-            <script>
-                // Inicializa os popovers
-                var popovers = new bootstrap.Popover(document.body, {
-                    selector: '[data-bs-toggle="popover"]',
-                    container: 'body',
-                    trigger: 'hover'
+        <script>
+            // Inicializa os popovers
+            var popovers = new bootstrap.Popover(document.body, {
+                selector: '[data-bs-toggle="popover"]',
+                container: 'body',
+                trigger: 'hover'
+            });
+        </script>
+
+        <script>
+            // ATUALIZA SALAS
+            var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+
+            document.getElementById('selectPredio').addEventListener('change', function () {
+                var selectedPredioId = this.value;
+
+                var predioSelecionado = predios.find(function (predio) {
+                    return predio.id == selectedPredioId;
                 });
-            </script>
-
-            <script>
-                // ATUALIZA SALAS
-                var predios = JSON.parse('<%- JSON.stringify(predios) %>');
-
-                document.getElementById('selectPredio').addEventListener('change', function () {
-                    var selectedPredioId = this.value;
-
-                    var predioSelecionado = predios.find(function (predio) {
-                        return predio.id == selectedPredioId;
-                    });
 
 
-                    document.getElementById('salasContainer').innerHTML = "";
-                    predioSelecionado.salas.forEach(function (sala) {
-                        var salaElement = document.createElement('div');
-                        salaElement.className = 'card sala d-flex text-center p-2';
-                        salaElement.textContent = sala.nome;
+                document.getElementById('salasContainer').innerHTML = "";
+                predioSelecionado.salas.forEach(function (sala) {
+                    var salaElement = document.createElement('div');
+                    salaElement.className = 'card sala d-flex text-center p-2';
+                    salaElement.textContent = sala.nome;
 
-                        document.getElementById('salasContainer').appendChild(salaElement);
-                    });
+                    document.getElementById('salasContainer').appendChild(salaElement);
                 });
-            </script>
+            });
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+
+            socket.on('eventoTeste', () => {
+                console.log("Chamou o evento corretamente")
+            })
+
+            function enviarComando() {
+                const id_controlador = '123456789'
+                const ares = [{ marca: 'Philco', modelo: 'A', temperatura: 21 }, { marca: 'Komeco', modelo: 'B', temperatura: 16 }]
+                socket.emit('enviarComandoAr', { id_controlador, ares })
+                // socket.emit('button', id);
+                // socket.emit('registrarControlador', id_controlador);
+                // socket.emit('enviarComando', comando);
+            }
+        </script>
+
+        <script>
+            // Inicializa os popovers
+            var popovers = new bootstrap.Popover(document.body, {
+                selector: '[data-bs-toggle="popover"]',
+                container: 'body',
+                trigger: 'hover'
+            });
+        </script>
 
     </body>
 
