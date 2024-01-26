@@ -10,10 +10,11 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
-    
+
     await queryInterface.bulkInsert('usuarios', [{
-      nome: 'Adminisrador',
+      nome: 'Chefão',
       nickname: 'Administrador 007',
+      tipo: 'Administrador',
       credencial_id: credencial,
       createdAt: new Date(),
       updatedAt: new Date()
