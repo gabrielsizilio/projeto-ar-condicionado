@@ -36,9 +36,9 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, modelo_id } = req.body
+    const { nome, modelo_id, sala_id } = req.body
 
-    if (!nome || !modelo_id) {
+    if (!nome || !modelo_id || !sala_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
@@ -47,7 +47,8 @@ async function store(req, res) {
 
         await ArCondicionado.create({
             nome,
-            modelo_id
+            modelo_id,
+            sala_id
         })
 
         res.redirect('/ar-condicionado')
