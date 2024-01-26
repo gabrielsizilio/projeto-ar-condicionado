@@ -30,15 +30,15 @@ void setupSocket() {
           break;
       case sIOtype_CONNECT:
           USE_SERIAL.printf("[IOc] Connected to url: %s\n", payload);
+          socketIO.send(sIOtype_CONNECT, "/");
+          delay(2000);
           setupSocket();
         // // join default namespace (no auto join in Socket.IO V3)
-        // socketIO.send(sIOtype_CONNECT, "/");
         break;
       case sIOtype_EVENT:
           if (strstr((char*)payload, "EnviaIR") != NULL) {
             // Lógica a ser executada quando o evento 'button' é recebido
-            // USE_SERIAL.println("led");
-            USE_SERIAL.printf("Payload recebido: %s\n", payload);
+            USE_SERIAL.printf("%s",payload);
           }else {
           USE_SERIAL.printf("[IOc] get event: %s\n", payload);
         }

@@ -110,7 +110,7 @@
             })
 
             function enviarComando() {
-                const id_controlador = '123456789'
+                const id_controlador = '8C:AA:B5:02:4A:02'
                 const ares = [{marca: 'Philco', modelo: 'A', temperatura: 21}, {marca: 'Komeco', modelo: 'B', temperatura: 16}]
                 socket.emit('enviarComandoAr', {id_controlador, ares})
                 // socket.emit('button', id);
