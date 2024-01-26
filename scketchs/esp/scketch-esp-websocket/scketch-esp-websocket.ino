@@ -1,7 +1,7 @@
 #include "config.h"
 
 void setupSocket() {
-    String mac = Wifi.macAddress();
+    String mac = WiFi.macAddress();
 
     DynamicJsonDocument doc(1024);
     JsonArray array = doc.to<JsonArray>();
@@ -23,22 +23,23 @@ void setupSocket() {
 
 }
 
-void socketIOEvent(socketIOmessageType_t type, uint8_t* payload, size_t length) {
-  switch (type) {
-    case sIOtype_DISCONNECT:
-        USE_SERIAL.printf("[IOc] Disconnected!\n");
+  void socketIOEvent(socketIOmessageType_t type, uint8_t* payload, size_t length) {
+    switch (type) {
+      case sIOtype_DISCONNECT:
+          USE_SERIAL.printf("[IOc] Disconnected!\n");
+          break;
+      case sIOtype_CONNECT:
+          USE_SERIAL.printf("[IOc] Connected to url: %s\n", payload);
+          setupSocket();
+        // // join default namespace (no auto join in Socket.IO V3)
+        // socketIO.send(sIOtype_CONNECT, "/");
         break;
-    case sIOtype_CONNECT:
-        USE_SERIAL.printf("[IOc] Connected to url: %s\n", payload);
-        setupSocket();
-      // // join default namespace (no auto join in Socket.IO V3)
-      // socketIO.send(sIOtype_CONNECT, "/");
-       break;
-    case sIOtype_EVENT:
-        if (strstr((char*)payload, "button") != NULL) {
-          // Lógica a ser executada quando o evento 'button' é recebido
-          USE_SERIAL.println("led");
-        }else {
+      case sIOtype_EVENT:
+          if (strstr((char*)payload, "EnviaIR") != NULL) {
+            // Lógica a ser executada quando o evento 'button' é recebido
+            // USE_SERIAL.println("led");
+            USE_SERIAL.printf("Payload recebido: %s\n", payload);
+          }else {
           USE_SERIAL.printf("[IOc] get event: %s\n", payload);
         }
         break;
@@ -107,7 +108,7 @@ void setup() {
 
   // server address, port and URL
   // socketIO.begin("192.168.0.7", 8081, "/socket.io/?EIO=4");
-  socketIO.begin("192.168.0.102", 8081, "/socket.io/?EIO=4");
+  socketIO.begin("192.168.0.100", 8081, "/socket.io/?EIO=4");
 
   // event handler
   socketIO.onEvent(socketIOEvent);
