@@ -5,7 +5,7 @@ const AlocacaoHorario = require('../models/AlocacaoHorario')
 
 async function index(req, res) {
 
-    const user = await User.findAll({include: [{association: 'credencial'}]})
+    const usuarios  = await User.findAll({include: [{association: 'credencial'}]})
     const predios = await Predio.findAll({
         include: { association: 'salas' }
     })
@@ -13,7 +13,7 @@ async function index(req, res) {
     const alocaoHorarios = await AlocacaoHorario.sequelize.query("SELECT * FROM alocacao_horarios")
     
     try {
-        res.status(200).render('grade/index', {user , predios, semana, alocaoHorarios})
+        res.status(200).render('grade/index', {usuarios, predios, semana, alocaoHorarios})
     } catch (error) {
         console.error('Ocorreu um erro: ', error);
     }
