@@ -6,37 +6,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form  method="POST" action="/usuario/store">
                     <div class="row justify-content-between">
                         <div class="col-6">
                             <label for="nome" class="form-label">Nome*:</label>
-                            <input autocomplete="off" type="text" class="form-control" id="nome" required>
+                            <input name="nome" autocomplete="off" type="text" class="form-control" id="nome" required>
                         </div>
                         <div class="col-3">
                             <label for="tipo" class="form-label">Tipo*:</label>
-                            <select id="tipo" class="form-select">
-                                <option selected>Padrão</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Manutenção</option>
+                            <select name="tipo" id="tipo" class="form-select">
+                                <option value="Padrão">Padrão</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Manutenção">Manutenção</option>
                             </select>
                         </div>
                         <div class="col-3">
                             <label for="usuario" class="form-label">Usuário*:</label>
-                            <input autocomplete="off" type="text" class="form-control" id="usuario" required>
+                            <input name="nickname" autocomplete="off" type="text" class="form-control" id="usuario" required>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-8">
                             <label for="email" class="form-label">Email*:</label>
-                            <input autocomplete="off" type="text" class="form-control" id="email" required>
+                            <input name="email" autocomplete="off" type="text" class="form-control" id="email" required>
                         </div>
                         <div class="col-4">
                             <label for="senha" class="form-label">Senha*:</label>
-                            <input autocomplete="off" type="text" class="form-control" id="senha" required>
+                            <input name="senha" autocomplete="off" type="text" class="form-control" id="senha" required>
                         </div>
                     </div>
                     <div class="col-4 mt-4" id="escolha-curso">
-                        <label for="curso" class="form-label">Curso(s):</label><br>
+                        <label for="curso" class="form-label">Área(s):</label><br>
                         <button type="button" id="curso" class="btn" onclick="escolhaCurso()"
                             data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
                     </div>

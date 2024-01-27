@@ -221,12 +221,12 @@ label h1{
     width: 0%;
     border-radius: 50px;
 }
-#excluir .modal-content{
+.remove .modal-content{
     background: linear-gradient(87deg,#f5365c,#f56036)!important;
     border: none !important;
     color: #FFFFFF !important;
 }
-#excluir .modal-content p{
+.remove .modal-content p{
     color: #FFFFFF !important;
 }
 .excluir-bottom button:nth-child(1){

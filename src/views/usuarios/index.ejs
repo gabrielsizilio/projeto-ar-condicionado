@@ -15,7 +15,7 @@
                         <button type="button" class="btn" data-bs-target="#adicionaUsuario" data-bs-toggle="modal">Adicionar</button>
                     </div>
 
-                    <%- include('./adicionar') %>   
+                    <%- include('./create') %>   
                     
                 </div>
                 <div class="row usuarios-pesquisa mt-5 d-flex justify-content-center">
@@ -37,8 +37,8 @@
                             <tr>
                                 <td><%= usuario.nome %></td>
                                 <td><%= usuario.credencial.email %></td>
-                                <%- include('./excluir') %>
-                                <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir"><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>"><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
                                 <td><a href=""><box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon></a></td>                             
                             </tr>
                         <% }); %>

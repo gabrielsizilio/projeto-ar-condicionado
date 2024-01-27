@@ -2,35 +2,69 @@ const Usuario = require('../models/Usuario')
 const CredencialController = require('../controllers/CredencialController')
 const Credencial = require('../models/Credencial')
 
-module.exports = {
-    async index(req, res) {
+async function index(req, res) {
+    const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
+    try {
         const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
-        try {
-            const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
-            res.status(200).render('usuarios/index', { usuarios })
-        } catch (error) {
-            res.send(`Erro: ${error}`)
+        res.status(200).render('usuarios/index', { usuarios })
+    } catch (error) {
+        res.send(`Erro: ${error}`)
 
-        }
-    },
-
-    async create(req, res) {
-        const { nome } = req.body
-
-        if (!nome) {
-            return res.status(400).json({ mensagem: "Nome é obrigatório" })
-        }
-
-        const { credencial } = await CredencialController.create(req, res)
-        try {
-            const usuario = await Usuario.create({
-                nome: nome,
-                credencial_id: credencial.id
-            })
-
-            return res.status(201).json({ usuario })
-        } catch (error) {
-            return res.send(`>>>Erro: ${error}`)
-        }
     }
+}
+
+async function store(req, res) {
+    const { nome, tipo, nickname } = req.body
+
+    if (!nome || !tipo || !nickname) {
+        return res.status(400).json({ msgErr: "Campos obrigatório não preenchidos" })
+    }
+
+    const { credencial } = await CredencialController.create(req, res)
+    try {
+        const usuario = await Usuario.create({
+            nome: nome,
+            nickname: nickname,
+            tipo: tipo,
+            credencial_id: credencial.id
+        })
+
+        res.status(200).redirect('/usuario')
+    } catch (error) {
+        return res.send(`!> Ocorreu um erro ao cadastrar novo usuário: ${error}`)
+    }
+}
+
+async function edit(req, res) {
+
+}
+
+async function update(req, res) {
+    
+}
+
+async function remove(req, res) {
+    const usuario_id = req.params.id
+    
+    
+    if(!usuario_id) {
+        return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser removido.' })
+    }
+    const usuario = await Usuario.findByPk(usuario_id)
+    const credencial = await Credencial.findByPk(usuario.credencial_id)
+    
+    try {
+        await credencial.destroy()
+        res.set('msg', 'Usuário excluido com sucesso')
+        res.redirect('back')
+    } catch (error) {
+        return res.send(`Erro: ${error}`)
+    }
+    
+}
+
+module.exports = {
+    index,
+    store,
+    remove
 }
