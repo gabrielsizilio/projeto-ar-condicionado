@@ -1,12 +1,15 @@
 const Usuario = require('../models/Usuario')
 const CredencialController = require('../controllers/CredencialController')
 const Credencial = require('../models/Credencial')
+const Areas = require('../models/Area')
 
 async function index(req, res) {
+
     const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
+    const areas = await Areas.findAll()
     try {
         const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
-        res.status(200).render('usuarios/index', { usuarios })
+        res.status(200).render('usuarios/index', { usuarios, areas })
     } catch (error) {
         res.send(`Erro: ${error}`)
 
@@ -15,6 +18,7 @@ async function index(req, res) {
 
 async function store(req, res) {
     const { nome, tipo, nickname } = req.body
+    return res.send(req.body)
 
     if (!nome || !tipo || !nickname) {
         return res.status(400).json({ msgErr: "Campos obrigatório não preenchidos" })
