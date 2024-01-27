@@ -49,12 +49,13 @@
                                                     data-bs-target="#excluir_<%= usuario.id %>"><box-icon
                                                         name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
                                             </td>
-                                            <%- include('./edit', {usuarioId: usuario.id, usuario}) %>
-                                            <td><a href="" data-bs-toggle="modal"
-                                                    data-bs-target="#edit_<%= usuario.id %>">
-                                                    <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
-                                                </a>
-                                            </td>
+                                            <%- include('./edit', { usuario, areasUsuario: usuario.areas }) %>
+                                                <td><a href="" data-bs-toggle="modal"
+                                                        data-bs-target="#edit_<%= usuario.id %>">
+                                                        <box-icon name='edit-alt' type='solid'
+                                                            color='#fcff64'></box-icon>
+                                                    </a>
+                                                </td>
                                     </tr>
                                     <% }); %>
                             </tbody>
@@ -95,7 +96,6 @@
             // Recuperar informações para os inputs
             function preencheInputs() {
                 var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
-                console.log(areasId);
                 atualizaAreaUsuario(areasId)
 
                 document.getElementById('nome').value = salvaInputs["nome"];

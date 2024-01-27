@@ -5,10 +5,9 @@ const Areas = require('../models/Area')
 
 async function index(req, res) {
 
-    const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
+    const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }, {association: 'areas'}] })
     const areas = await Areas.findAll()
     try {
-        const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }] })
         res.status(200).render('usuarios/index', { usuarios, areas })
     } catch (error) {
         res.send(`Erro: ${error}`)
@@ -43,7 +42,7 @@ async function store(req, res) {
             });
         }
 
-        res.status(200).redirect('back')
+        res.status(200).redirect('/usuario')
     } catch (error) {
         return res.send(`!> Ocorreu um erro ao cadastrar novo usuário: ${error}`)
     }
