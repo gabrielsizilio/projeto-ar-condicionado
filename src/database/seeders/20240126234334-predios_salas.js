@@ -3,11 +3,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const predio1 = await queryInterface.bulkInsert('predios', [{
-      nome: 'Edificações',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
 
     const predio2 = await queryInterface.bulkInsert('predios', [{
       nome: 'Computação',
@@ -22,13 +17,6 @@ module.exports = {
     }]);
 
     
-    await queryInterface.bulkInsert('salas', [{
-      nome: 'Make Space',
-      predio_id: predio1,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
-
     await queryInterface.bulkInsert('salas', [{
       nome: 'Sala 12',
       predio_id: predio2,

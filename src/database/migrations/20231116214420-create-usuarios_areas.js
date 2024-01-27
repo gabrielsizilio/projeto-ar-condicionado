@@ -23,6 +23,14 @@ module.exports = {
         references: { model: 'areas', key: 'id' },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
      

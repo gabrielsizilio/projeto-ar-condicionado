@@ -17,8 +17,7 @@ async function index(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, tipo, nickname } = req.body
-    return res.send(req.body)
+    const { nome, tipo, nickname, areas } = req.body
 
     if (!nome || !tipo || !nickname) {
         return res.status(400).json({ msgErr: "Campos obrigatório não preenchidos" })
@@ -33,7 +32,18 @@ async function store(req, res) {
             credencial_id: credencial.id
         })
 
-        res.status(200).redirect('/usuario')
+        if (areas) {
+            areas.forEach(async (areaId) => {
+                var area = await Areas.findByPk(areaId)
+                if (area) {
+                    await usuario.addArea(area)
+                } else {
+                    return res.send('!> Área não encontrada no banco')   
+                }
+            });
+        }
+
+        res.status(200).redirect('back')
     } catch (error) {
         return res.send(`!> Ocorreu um erro ao cadastrar novo usuário: ${error}`)
     }
@@ -44,19 +54,19 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
-    
+
 }
 
 async function remove(req, res) {
     const usuario_id = req.params.id
-    
-    
-    if(!usuario_id) {
+
+
+    if (!usuario_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser removido.' })
     }
     const usuario = await Usuario.findByPk(usuario_id)
     const credencial = await Credencial.findByPk(usuario.credencial_id)
-    
+
     try {
         await credencial.destroy()
         res.set('msg', 'Usuário excluido com sucesso')
@@ -64,7 +74,7 @@ async function remove(req, res) {
     } catch (error) {
         return res.send(`Erro: ${error}`)
     }
-    
+
 }
 
 module.exports = {

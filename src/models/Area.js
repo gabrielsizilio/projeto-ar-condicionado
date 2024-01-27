@@ -12,7 +12,9 @@ class Area extends Model {
 
     static associate(models) {
         this.belongsToMany(models.Usuario, {
-            through: 'usuarios_areas'
+            foreignKey: 'area_id',
+            through: 'usuarios_areas',
+            as: 'usuarios'
         })
     }
 }

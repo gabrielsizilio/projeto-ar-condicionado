@@ -22,7 +22,9 @@ class Usuario extends Model {
             as: 'alocacoes'
         }),
         this.belongsToMany(models.Area, {
-            through: 'usuarios_areas'
+            foreignKey: 'usuario_id',
+            through: 'usuarios_areas',
+            as: 'areas'
         })
     }
 }

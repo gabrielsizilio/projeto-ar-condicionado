@@ -1,12 +1,13 @@
-<div class="modal fade" id="adicionaUsuario" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Novo Usuário</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form  method="POST" action="/usuario/store">
+<form method="POST" action="/usuario/store">
+    <div class="modal fade" id="adicionaUsuario" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Novo Usuário</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="row justify-content-between">
                         <div class="col-6">
                             <label for="nome" class="form-label">Nome*:</label>
@@ -22,7 +23,8 @@
                         </div>
                         <div class="col-3">
                             <label for="usuario" class="form-label">Usuário*:</label>
-                            <input name="nickname" autocomplete="off" type="text" class="form-control" id="usuario" required>
+                            <input name="nickname" autocomplete="off" type="text" class="form-control" id="usuario"
+                                required>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -40,14 +42,14 @@
                         <div id="areaUsuario" hidden>
                         </div>
                         <button type="button" id="curso" class="btn" onclick="escolhaCurso()"
-                        data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
+                            data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
                     </div>
                     <div class="row col-12 d-flex justify-content-end salvar">
                         <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<%- include('./escolherCurso') %>
+    <%- include('./escolherCurso') %>
+</form>

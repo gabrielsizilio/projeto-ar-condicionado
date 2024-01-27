@@ -11,7 +11,7 @@ async function index(req, res) {
         const user = await Credencial.findByPk(req.credencial.id)
 
         if(!user) {
-            res.status(404).json({ msgErr: "Usuário não cadastrado no sistema!" })
+            // res.status(404).json({ msgErr: "Usuário não cadastrado no sistema!" })
             return res.redirect('/logout')
         }
         

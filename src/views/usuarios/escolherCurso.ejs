@@ -9,7 +9,7 @@
                 <% if (areas) { %>
                     <% areas.forEach(area=> { %>
                         <div class="form-check">
-                            <input name="area[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>">
+                            <input name="areas[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>">
                             <label class="form-check-label" for="area_<%= area.id %>">
                                 <%= area.nome %>
                             </label>

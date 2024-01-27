@@ -90,7 +90,8 @@
 
             // Recuperar informações para os inputs
             function preencheInputs() {
-                var areasId = document.querySelectorAll('input[name="area[]"]:checked');
+                var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
+                console.log(areasId);
                 atualizaAreaUsuario(areasId)
 
                 document.getElementById('nome').value = salvaInputs["nome"];
@@ -110,13 +111,11 @@
                     areaUsuario.hidden = false
 
                     areasId.forEach(areaId => {
-                        var p = document.createElement('p')
-
                         var area = areas.find(a => a.id == areaId.value)
+                        var li = document.createElement('li')
 
-                        p.textContent = '- ' + area.nome
-
-                        areaUsuario.appendChild(p)
+                        li.textContent = area.nome
+                        areaUsuario.appendChild(li)
                     });
                 } else {
                     areaUsuario.hidden = true;
