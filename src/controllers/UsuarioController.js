@@ -54,7 +54,29 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
+    const usuario_id = req.params.id
 
+    if (!usuario_id) {
+        return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser editado.' })
+    }
+
+    const usuario = await Usuario.findOne({
+        where: {id : usuario_id},
+        include:[{ association: 'credencial' }, {association: 'areas'}]
+    })
+
+    if (!usuario) {
+        return res.status(400).json({ msgErr: 'Usuário não encontrado no sistema.' })
+    }
+
+    res.send(usuario)
+
+    try {
+     
+    } catch (error) {
+        return res.send(`Erro ao atualizar usuário: ${error}`)
+    }
+    
 }
 
 async function remove(req, res) {
@@ -80,5 +102,6 @@ async function remove(req, res) {
 module.exports = {
     index,
     store,
+    update,
     remove
 }

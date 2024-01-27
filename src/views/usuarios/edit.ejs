@@ -1,0 +1,54 @@
+<form method="POST" action="/usuario/store">
+    <div class="modal fade" id="edit_<%= usuarioId %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuário</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-between">
+                        <div class="col-6">
+                            <label for="nome" class="form-label">Nome*:</label>
+                            <input name="nome" autocomplete="off" type="text" class="form-control" id="nome" value="<%= usuario.nome %>" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="tipo" class="form-label">Tipo*:</label>
+                            <select name="tipo" id="tipo" class="form-select">
+                                <option value="Padrão">Padrão</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Manutenção">Manutenção</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="usuario" class="form-label">Usuário*:</label>
+                            <input name="nickname" autocomplete="off" type="text" class="form-control" id="usuario" value="<%= usuario.nickname %>" required>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-8">
+                            <label for="email" class="form-label">Email*:</label>
+                            <input name="email" autocomplete="off" type="text" class="form-control" id="email" value="<%= usuario.credencial.email %>" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="senha" class="form-label">Senha*:</label>
+                            <input name="senha" autocomplete="off" type="text" class="form-control" id="senha" value="<%= usuario.credencial.senha %>" required>
+                        </div>
+                    </div>
+                    <div class="col-4 mt-4" id="escolha-curso">
+                        <label for="curso" class="form-label">Área(s):</label><br>
+                        <div id="areaUsuario">
+                        </div>
+                        <button type="button" id="curso" class="btn" onclick="escolhaCurso()"
+                            data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
+                    </div>
+                    <div class="row col-12 d-flex justify-content-end salvar">
+                        <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./escolherCurso') %>
+</form>

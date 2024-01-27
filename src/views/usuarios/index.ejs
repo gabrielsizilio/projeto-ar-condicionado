@@ -49,8 +49,12 @@
                                                     data-bs-target="#excluir_<%= usuario.id %>"><box-icon
                                                         name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
                                             </td>
-                                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                                        color='#fcff64'></box-icon></a></td>
+                                            <%- include('./edit', {usuarioId: usuario.id, usuario}) %>
+                                            <td><a href="" data-bs-toggle="modal"
+                                                    data-bs-target="#edit_<%= usuario.id %>">
+                                                    <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
+                                                </a>
+                                            </td>
                                     </tr>
                                     <% }); %>
                             </tbody>
