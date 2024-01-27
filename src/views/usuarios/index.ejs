@@ -5,7 +5,6 @@
 
     <div class="row d-flex">
         <%- include('../partials/nav.ejs')%>
-        
         <div class="col-11 container-conteudo">
             <div class="container-conteudo">
                 <div class="row usuarios-top d-flex justify-content-between">
@@ -13,32 +12,36 @@
                         <h2>Usuários</h2>
                     </div>
                     <div class="botao d-flex justify-content-end col-3">
-                        <button class="btn btn-outline-primary">Adicionar</button>
+                        <button type="button" class="btn" data-bs-target="#adicionaUsuario" data-bs-toggle="modal">Adicionar</button>
                     </div>
+
+                    <%- include('./adicionar') %>   
+                    
                 </div>
                 <div class="row usuarios-pesquisa mt-5 d-flex justify-content-center">
                     <div class="input-pesquisa col-5">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Pesquisar..." aria-label="Username" aria-describedby="basic-addon1">
+                            <input autocomplete="off" type="text" class="form-control" placeholder="Pesquisar..."
+                                aria-label="Username" aria-describedby="basic-addon1">
                             <span class="input-group-text" id="basic-addon1">
-                                <box-icon name='search' color='#7964ff' ></box-icon>
+                                <box-icon name='search' color='#7964ff'></box-icon>
                             </span>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
                 <table class="table usuarios-tabela table-sm mt-5 text-center">
                     <tbody>
                         <% usuarios.forEach(usuario=> { %>
                             <tr>
                                 <td><%= usuario.nome %></td>
                                 <td><%= usuario.credencial.email %></td>
-                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <%- include('./excluir') %>
+                                <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir"><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
                                 <td><a href=""><box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon></a></td>                             
                             </tr>
                         <% }); %>
-                        
                     </tbody>
                 </table>
             </div>
@@ -49,13 +52,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
-    // Inicializa os popovers
-    var popovers = new bootstrap.Popover(document.body, {
-        selector: '[data-bs-toggle="popover"]',
-        container: 'body',
-        trigger: 'hover'
-    });
+        // Inicializa os popovers
+        var popovers = new bootstrap.Popover(document.body, {
+            selector: '[data-bs-toggle="popover"]',
+            container: 'body',
+            trigger: 'hover'
+        });
+
+        // Inicializa os modais
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })
+        
+        // Salvar inputs ao trocar de modal
+        function escolhaCurso() {
+            var salvaInputs = {};
+            salvaInputs["nome"] = document.getElementById('nome').value;
+            salvaInputs["tipo"] = document.getElementById('tipo').value;
+            salvaInputs["usuario"] = document.getElementById('usuario').value;
+            salvaInputs["email"] = document.getElementById('email').value;
+            salvaInputs["senha"] = document.getElementById('senha').value;
+        }
+
+        // Recuperar informações para os inputs
+        function preencheInputs() {
+            document.getElementById('nome').value = salvaInputs["nome"];
+            document.getElementById('tipo').value = salvaInputs["tipo"];
+            document.getElementById('usuario').value = salvaInputs["usuario"];
+            document.getElementById('email').value = salvaInputs["email"];
+            document.getElementById('senha').value = salvaInputs["senha"];
+        }
+
     </script>
 
 </body>
+
 </html>

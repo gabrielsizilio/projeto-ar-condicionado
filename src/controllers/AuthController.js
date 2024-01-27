@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Credencial = require('../models/Credencial')
 const { createToken } = require('../config/auth')
