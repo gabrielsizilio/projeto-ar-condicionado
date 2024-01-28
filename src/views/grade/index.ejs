@@ -22,87 +22,18 @@
                                         <% }) %>
                                 </select>
                             </div>
+                            <div class="row predios mt-5 col-4">
+                                <select id="selectSala" class="form-select">
+                                    <% var i=0 %>
+                                    <% predios[i].salas.forEach(element=> { %>
+                                        <option value="<%= element.id %>">
+                                            <%= element.nome %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
                         </div>
-                        <div class="card mt-5 grade-horarios p-3">
-                            <table class="table text-center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col"><%= semana[0].nome.toUpperCase() %></th>
-                                        <th scope="col"><%= semana[1].nome.toUpperCase() %></th>
-                                        <th scope="col"><%= semana[2].nome.toUpperCase() %></th>
-                                        <th scope="col"><%= semana[3].nome.toUpperCase() %></th>
-                                        <th scope="col"><%= semana[4].nome.toUpperCase() %></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[0].horario_ini %></th>
-                                        <td><%= usuarios[0].nome %></td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[1].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[2].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[3].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[4].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[5].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[6].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"> <%= horarios[7].horario_ini %></th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <%- include('./gradeHorarios.ejs') %>
                     </div>
                 </div>
         </div>
@@ -120,7 +51,30 @@
         </script>
 
         <script>
-            
+            // ATUALIZA SALAS
+            var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+            var salaId = function (){
+                document.getElementById('selectSalas').addEventListener('change',function(){
+                    return this.value;
+                })
+            }
+
+            document.getElementById('selectPredio').addEventListener('change', function () {
+                var selectedPredioId = this.value;
+
+                var predioSelecionado = predios.find(function (predio) {
+                    return predio.id == selectedPredioId;
+                });
+
+                document.getElementById('selectSala').innerHTML = "";
+                predioSelecionado.salas.forEach(function (sala) {
+                    var salaElement = document.createElement('option');
+                    salaElement.value = salaId;
+                    salaElement.textContent = sala.nome;
+
+                    document.getElementById('selectSala').appendChild(salaElement);
+                });
+            });
         </script>
 
     </body>

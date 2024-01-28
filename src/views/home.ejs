@@ -95,10 +95,9 @@
                         return predio.id == selectedPredioId;
                     });
 
-
                     document.getElementById('salasContainer').innerHTML = "";
                     predioSelecionado.salas.forEach(function (sala) {
-                        var salaElement = document.createElement('div');
+                        var salaElement = document.createElement('option');
                         salaElement.className = 'card sala d-flex text-center p-2';
                         salaElement.textContent = sala.nome;
 
