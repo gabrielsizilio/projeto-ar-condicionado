@@ -18,6 +18,8 @@ async function index(req, res) {
 async function store(req, res) {
     const { nome, tipo, nickname, areas } = req.body
 
+    return res.send(req.body)
+
     if (!nome || !tipo || !nickname) {
         return res.status(400).json({ msgErr: "Campos obrigatório não preenchidos" })
     }
@@ -54,6 +56,8 @@ async function edit(req, res) {
 
 async function update(req, res) {
     const usuario_id = req.params.id
+
+    return res.send(req.body)
 
     if (!usuario_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser editado.' })

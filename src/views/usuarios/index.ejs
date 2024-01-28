@@ -57,7 +57,7 @@
                                                     </a>
                                                 </td>
                                     </tr>
-                                    <% }); %>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>
@@ -88,7 +88,7 @@
                 salvaInputs = {};
                 salvaInputs["nome"] = document.getElementById('nome').value;
                 salvaInputs["tipo"] = document.getElementById('tipo').value;
-                salvaInputs["usuario"] = document.getElementById('usuario').value;
+                salvaInputs["nickname"] = document.getElementById('nickname').value;
                 salvaInputs["email"] = document.getElementById('email').value;
                 salvaInputs["senha"] = document.getElementById('senha').value;
             }
@@ -100,7 +100,7 @@
 
                 document.getElementById('nome').value = salvaInputs["nome"];
                 document.getElementById('tipo').value = salvaInputs["tipo"];
-                document.getElementById('usuario').value = salvaInputs["usuario"];
+                document.getElementById('nickname').value = salvaInputs["nickname"];
                 document.getElementById('email').value = salvaInputs["email"];
                 document.getElementById('senha').value = salvaInputs["senha"];
 
@@ -123,6 +123,30 @@
                     });
                 } else {
                     areaUsuario.hidden = true;
+                }
+            }
+
+            function atualizaArea(id, areas) {
+
+                const areasUsuario = (JSON.parse(areas));
+                const usuarioId = (JSON.parse(id))
+                
+                var btnEscolheArea = document.getElementById('btnEscolheArea')
+                btnEscolheArea.setAttribute('data-bs-target', `#edit_${usuarioId}`)
+                btnEscolheArea.setAttribute('onclick', "")
+
+                const checkboxes = document.querySelectorAll('input[name="areas[]"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                if(areasUsuario && areasUsuario.length > 0) {
+                    areasUsuario.forEach(area => {
+                        const checkbox = document.getElementById(`area_${area.id}`)
+                        if(checkbox) {
+                            checkbox.checked = true
+                        }
+                    })
                 }
             }
 
