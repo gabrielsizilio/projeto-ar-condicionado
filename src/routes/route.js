@@ -14,6 +14,10 @@ const homeController = require('../controllers/HomeController')
 
 router.get('/', authentication, homeController.index)
 
+router.get('/historico', function(req,res){
+    res.render('historico')
+})
+
 router.use('/login', login)
 router.use('/logout', logout)
 router.use('/usuario',  usuario)

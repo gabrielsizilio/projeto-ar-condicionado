@@ -4,6 +4,7 @@ const arCondiciandoController = require('../controllers/ArCondicionadoController
 
 const marca = require('./marca')
 const modelo = require('./modelo')
+const temperatura = require('./temperatura')
 
 router.get('/', arCondiciandoController.index)
 
@@ -20,5 +21,7 @@ router.post('/remove/:id', arCondiciandoController.remove)
 router.use('/marca', marca)
 
 router.use('/modelo', modelo)
+
+router.use('/temperatura', temperatura)
 
 module.exports = router
