@@ -30,7 +30,8 @@
                     <div class="row mt-4">
                         <div class="col-8">
                             <label for="email" class="form-label">Email*:</label>
-                            <input name="email" autocomplete="off" type="text" class="form-control" id="email" required>
+                            <input name="email" autocomplete="off" type="email" class="form-control" id="email"
+                                required>
                         </div>
                         <div class="col-4">
                             <label for="senha" class="form-label">Senha*:</label>
@@ -41,8 +42,8 @@
                         <label for="curso" class="form-label">Área(s):</label><br>
                         <div id="areaUsuario" hidden>
                         </div>
-                        <button type="button" id="curso" class="btn" onclick="escolhaCurso()"
-                            data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
+                        <button id="btnCurso" type="button" class="btn" data-bs-target="#escolheCurso"
+                            data-bs-toggle="modal">Escolher</button>
                     </div>
                     <div class="row col-12 d-flex justify-content-end salvar">
                         <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>

@@ -12,7 +12,7 @@
                     <div class="row justify-content-between">
                         <div class="col-6">
                             <label for="nome" class="form-label">Nome*:</label>
-                            <input id="nome" name="nome" autocomplete="off" type="text" class="form-control" 
+                            <input id="nome" name="nome" autocomplete="off" type="text" class="form-control"
                                 value="<%= usuario.nome %>" required>
                         </div>
                         <div class="col-3">
@@ -53,9 +53,9 @@
                                 </li>
                                 <% }) %>
 
-                            </div>
-                            <button type="button" id="curso" class="btn" data-bs-target="#escolheCurso"
-                            data-bs-toggle="modal" onclick="atualizaArea('<%= JSON.stringify(usuario.id) %>', '<%= JSON.stringify(usuario.areas) %>')">Escolher</button>
+                        </div>
+                        <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCurso"
+                            data-bs-toggle="modal" onclick="atualizaArea(JSON.parse('<%= JSON.stringify(usuario.id) %>'), JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
                     </div>
                     <div class="row col-12 d-flex justify-content-end salvar">
                         <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
@@ -66,3 +66,25 @@
     </div>
     <%- include('./escolherCurso') %>
 </form>
+
+<script>
+    function atualizaArea(id, areas) {
+        
+        var btnEscolheArea = document.getElementById('btnEscolheArea')
+        btnEscolheArea.setAttribute('data-bs-target', `#edit_${id}`)
+
+        const checkboxes = document.querySelectorAll('input[name="areas[]"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        if (areas && areas.length > 0) {
+            areas.forEach(area => {
+                const checkbox = document.getElementById(`area_${area.id}`)
+                if (checkbox) {
+                    checkbox.checked = true
+                }
+            })
+        }
+    }
+</script>
