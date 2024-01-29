@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>na</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/franklin-gothic" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/francois-one" rel="stylesheet">
@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="scripts.js"> </script>
     <title>Document</title>
 </head>
 <body class="container-fluid">
@@ -25,7 +26,7 @@
                         <div id="logo" class="mb-3 mt-4">
                             <h1>A</h1>
                         </div>
-                        <li class="nav-item menu-selecionado justify-content-center" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Home">
+                        <li class="nav-item menu-selecionado justify-content-center" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Home" >
                             <a class="nav-link" aria-current="page" href="#">
                                 <box-icon name='home' color='#ffffff' ></box-icon>
                             </a>
@@ -61,8 +62,12 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-11 container-conteudo">
+            <div class="col-12 position-absolute menu-inferior">
+
+            </div>
+            <div class="col container-conteudo">
                 <div class="container-conteudo row justify-content-between">
+
                     <div class="saudacao col-10">
                         <h4>Bem vindo</h4>
                         <strong><h2>Yoda do Churras</h2></strong>
@@ -71,9 +76,21 @@
                     <div class="img-perfil col-2">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnrcsJrkoOqVa5zJ4dmMyzo0QU1vRzqGnObnm-KfFln7XGJlVoeQEVPAKo_GaYDR3OXJs&usqp=CAU" alt="" width="100%">
                     </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="img-perfil-mobile col-2">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnrcsJrkoOqVa5zJ4dmMyzo0QU1vRzqGnObnm-KfFln7XGJlVoeQEVPAKo_GaYDR3OXJs&usqp=CAU" alt="" width="100%">
+                        </div>
+                        <div class="saudacao-mobile col-7 d-flex align-items-center justify-content-end">
+                            <strong>
+                                <h4>Olá </h4>
+                                <h2>Yoda do Churras</h2>
+                            </strong>
+                        </div>
+                    </div>
+
 
                     <div class="row controle-ar justify-content-center mt-5">
-                        <div id="controle-individual" class="card col-8">
+                        <div id="controle-individual" class="card col-8 p-2">
                             <div class="row justify-content-between pt-2 pb-2">
                                 <div class="col-5 identificacao d-flex align-items-center justify-content-start">
                                     <span><strong>Sala 17 - Prédio 04</strong></span>
@@ -88,65 +105,84 @@
                                 </div>
                             </div>
                             <div class="row justify-content-evenly infor-ar">
-                                <div class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr1" data-bs-toggle="modal">
+                                <div class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                     <p><strong>Philco</strong></p>
                                     <p class="temperatura"><strong>22 °C</strong></p>
-                                </div>
-                                <div class="modal fade" id="alterarAr1" aria-hidden="true" aria-labelledby="alterarAr1Label" tabindex="-1">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group text-center mt-1">
-                                                        <label for="temperaturaSelecionada1">
-                                                            <h1 id="temperaturaSelecionada1">22</h1>
-                                                            <h1>°C</h1> 
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <input type="range" class="form-range mt-4" id="temperatura1Range" min="18" max="23" step="1" value="22">
-                                                    </div>
-                                                    <div class="form-group text-center mt-4" id="salvar-temperatura">
-                                                        <button class="btn">Alterar</button>
-                                                    </div>
-                                                  </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
                                     <div class="vr" style="height: 95%;"></div>
                                 </div>
-                                <div class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr2" data-bs-toggle="modal">
+                                <div class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                     <p><strong>Komeko</strong></p>
                                     <p class="temperatura"><strong>23 °C</strong></p>
                                 </div>
-                                <div class="modal fade" id="alterarAr2" aria-hidden="true" aria-labelledby="alterarAr2Label" tabindex="-1">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group text-center mt-1">
-                                                        <label for="temperaturaSelecionada2">
-                                                            <h1 id="temperaturaSelecionada2">23</h1>
-                                                            <h1>°C</h1> 
-                                                        </label>
+                                <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content d-flex justify-content-center">
+                                        <div class="modal-body">
+                                            <div id="modal-temperatura" class="position-relative">
+                                                <div class="circle">
+                                                    <div class="debug2" >
+                                                        <input id="rangeAr2" on class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" >
                                                     </div>
-                                                    <div class="form-group">
-                                                      <input type="range" class="form-range mt-4" id="temperatura2Range" min="18" max="23" step="1" value="23">
-                                                    </div>
-                                                    <div class="form-group text-center mt-4" id="salvar-temperatura">
-                                                        <button class="btn">Alterar</button>
-                                                    </div>
-                                                  </form>
+                                                    <div class="dot2"></div>
+                                                </div>
+                                            </div>
+                                            <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
+                                                <button onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
+                                                <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
                                             </div>
                                         </div>
-                                    </div>  
-                                </div>
+                                    </div>
+                                </div>  
                             </div>
                         </div>
                     </div>
-                    <div class="row predios mt-5 col-4">
+                </div>
+                    <div class="controleArMobile1 mt-5">
+                        <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
+                            <div class="card card-temperatura p-3 col-10" >
+                                <div class="row">
+                                    <h5 class="card-title d-inline col">Komeko</h5>
+                                    <div class="form-check form-switch col-1">
+                                        
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    </div>
+                                </div>
+                                <h6 class="card-subtitle mb-2">Prédio 01 - Sala 02</h6>
+                                
+                                    <div class="circle-mobile1 mt-3 mb-0">
+                                        <div class="debug-mobile1" >
+                                        <input id="rangeArMobile1" class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
+                                        </div>
+                                        <div class="dot-mobile1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="controleArMobile2 mt-3">
+                        <div class="card-temperatura2 d-flex position-relative justify-content-center col-12">
+                            <div class="card card-temperatura2 p-3 col-10" >
+                                <div class="row">
+                                    <h5 class="card-title d-inline col">Philco</h5>
+                                    <div class="form-check form-switch col-1">
+                                        
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    </div>
+                                </div>
+                                <h6 class="card-subtitle mb-2">Prédio 01 - Sala 02</h6>
+                                
+                                    <div class="circle-mobile2 mt-3 mb-0">
+                                        <div class="debug-mobile2" >
+                                            <input id="rangeArMobile2" class="form-control" value="20°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
+                                        </div>
+                                        <div class="dot-mobile2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="row predios mt-5 col-auto ">
                         <select class="form-select">
                             <option selected>Prédio 01 - Ensino Superior</option>
                             <option value="1">Prédio 02 - Ensino Médio</option>
@@ -156,61 +192,62 @@
                     </div>
                     <div class="row salas mt-5 justify-content-between">
                         <div class="modal fade" id="trocaSala" tabindex="-1" aria-labelledby="trocaSalaLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-body text-center">
                                         <h4>Deseja realmente trocar de sala?</h4>
                                         <div class="row d-flex justify-content-center mt-4">
                                             <div class="d-flex justify-content-around col-9">
-                                                <button class="btn col-3">Cancelar</button>
-                                                <button class="btn col-3">Trocar</button>
+                                                <button class="btn col-auto">Trocar</button>
+                                                <button class="btn cancelar col-auto">Cancelar</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card sala d-flex text-center p-2" data-bs-toggle="modal" data-bs-target="#trocaSala">
-                            Sala 01
-                        </div>
-                        <div class="card sala text-center p-2">
-                            Sala 02
-                        </div>
-                        <div class="card sala text-center p-2">
-                            Sala 03
-                        </div>
-                        <div class="card sala text-center p-2">
-                            Sala 04
+                    </div>
+                    <div> 
+                        <div class="row justify-content-between">
+                            <div class="btn sala col-2 text-center p-2 col-auto" data-bs-toggle="modal" data-bs-target="#trocaSala">
+                                Sala 01
+                            </div>
+                            <div class="btn sala col-2 text-center p-2">
+                                Sala 02
+                            </div>
+                            <div class="btn sala col-2 text-center p-2">
+                                Sala 03
+                            </div>
+                            <div class="btn sala col-2 text-center p-2">
+                                Sala 04
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 05
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 06
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 07
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 08
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 09
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 10
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 11
+                            </div>
+                            <div class="btn sala col-2 text-center p-2 mt-3">
+                                Sala 12
+                            </div>
                         </div>
                     </div>
-                    <div class="row salas mt justify-content-between">
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 05
-                        </div>
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 06
-                        </div>
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 07
-                        </div>
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 08
-                        </div>
-                    </div>
-                    <div class="row salas justify-content-between">
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 09
-                        </div>
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 10
-                        </div>
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 11
-                        </div>
-                        <div class="card sala text-center p-2 mt-3">
-                            Sala 12
-                        </div>
-                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -227,14 +264,6 @@
             container: 'body',
             trigger: 'hover'
         }); 
-        
-        //Ar-condicionado 01
-        var temperatura1Range = document.getElementById("temperatura1Range");
-        var temperaturaSelecionada1 = document.getElementById("temperaturaSelecionada1");
-
-        temperatura1Range.addEventListener("input", function() {
-            temperaturaSelecionada1.textContent = temperatura1Range.value;
-        });
 
         // Ar-condicionado 02
         var temperatura2Range = document.getElementById("temperatura2Range");
@@ -243,6 +272,130 @@
         temperatura2Range.addEventListener("input", function() {
             temperaturaSelecionada2.textContent = temperatura2Range.value;
         });
+
+        // Range circular ar-condicionados desktop
+        $(document).ready(function(){
+            var is_dragging = false;
+            $(document).on("mousedown touchstart",".circle",function(e){
+                is_dragging = true;
+            });
+            $(document).on("mouseup touchend",function(e){
+                is_dragging = false;
+            });
+            $(document).on("mousemove touchmove",function(e){
+                if(is_dragging){
+                var circle = $(".circle")
+                var touch = undefined;
+                if (e.originalEvent.touches){
+                    var touch = e.originalEvent.touches[0];
+                }
+                var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                var pos_x = (e.pageX || touch.pageX);
+                var pos_y = (e.pageY || touch.pageY);
+                var delta_y =  center_y - pos_y;
+                var delta_x = center_x - pos_x;
+                var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                angle -= 90;
+                if (angle < 0){
+                    angle = 360 + angle;
+                }
+                angle = Math.round(angle);
+                var minimo = document.getElementById('rangeAr2').getAttribute('min');
+                var qtdTemperaturas = document.getElementById('rangeAr2').getAttribute('max') - document.getElementById('rangeAr2').getAttribute('min')
+
+                $(".dot2").css("transform", "rotate("+angle+"deg)");
+                $(".debug2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
+                }
+            });
+            $(".debug input").on('change',function(){
+                angle = $(this).val()/360*360;
+                $(".dot2").css("transform", "rotate("+angle + 18 +"deg)");
+            })
+        });
+
+        // Range circular ar-condicionados mobile (1)
+        $(document).ready(function(){
+            var is_dragging = false;
+            $(document).on("mousedown touchstart",".circle-mobile1",function(e){
+                is_dragging = true;
+            });
+            $(document).on("mouseup touchend",function(e){
+                is_dragging = false;
+            });
+            $(document).on("mousemove touchmove",function(e){
+                if(is_dragging){
+                var circle = $(".circle-mobile1")
+                var touch = undefined;
+                if (e.originalEvent.touches){
+                    var touch = e.originalEvent.touches[0];
+                }
+                var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                var pos_x = (e.pageX || touch.pageX);
+                var pos_y = (e.pageY || touch.pageY);
+                var delta_y =  center_y - pos_y;
+                var delta_x = center_x - pos_x;
+                var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                angle -= 90;
+                if (angle < 0){
+                    angle = 360 + angle;
+                }
+                angle = Math.round(angle);
+                var minimo = document.getElementById('rangeArMobile1').getAttribute('min');
+                var qtdTemperaturas = document.getElementById('rangeArMobile1').getAttribute('max') - document.getElementById('rangeArMobile1').getAttribute('min')
+
+                $(".dot-mobile1").css("transform", "rotate("+angle+"deg)");
+                $(".debug-mobile1 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
+                }
+            });
+            $(".debug input").on('change',function(){
+                angle = $(this).val()/360*360;
+                $(".dot-mobile1").css("transform", "rotate("+angle + 18 +"deg)");
+            })
+        });
+
+        // Range circular ar-condicionados mobile (2)
+        $(document).ready(function(){
+            var is_dragging = false;
+            $(document).on("mousedown touchstart",".circle-mobile2",function(e){
+                is_dragging = true;
+            });
+            $(document).on("mouseup touchend",function(e){
+                is_dragging = false;
+            });
+            $(document).on("mousemove touchmove",function(e){
+                if(is_dragging){
+                var circle = $(".circle-mobile2")
+                var touch = undefined;
+                if (e.originalEvent.touches){
+                    var touch = e.originalEvent.touches[0];
+                }
+                var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                var pos_x = (e.pageX || touch.pageX);
+                var pos_y = (e.pageY || touch.pageY);
+                var delta_y =  center_y - pos_y;
+                var delta_x = center_x - pos_x;
+                var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                angle -= 90;
+                if (angle < 0){
+                    angle = 360 + angle;
+                }
+                angle = Math.round(angle);
+                var minimo = document.getElementById('rangeArMobile2').getAttribute('min');
+                var qtdTemperaturas = document.getElementById('rangeArMobile2').getAttribute('max') - document.getElementById('rangeArMobile2').getAttribute('min')
+
+                $(".dot-mobile2").css("transform", "rotate("+angle+"deg)");
+                $(".debug-mobile2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
+                }
+            });
+            $(".debug-mobile2 input").on('change',function(){
+                angle = $(this).val()/360*360;
+                $(".dot-mobile2").css("transform", "rotate("+angle + 18 +"deg)");
+            })
+        });
+
 
         // Inicializa os modais
         const myModal = document.getElementById('myModal')

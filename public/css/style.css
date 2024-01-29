@@ -2,6 +2,7 @@
 *{
     font-family: 'Francois One', sans-serif;
     color: #7964ff !important;
+    border: none !important;
 }
 body{
     background-color: #F9F8F8 !important;
@@ -10,6 +11,9 @@ select{
     border: 1px solid #7964ff !important;
     color: #7964ff !important;
     cursor: pointer;
+}
+input[type="number"], input[type="text"], input[type="email"], input[type="password"]{
+    border: 1px solid #7964ff !important;
 }
 input[type="range"]{
     border: 0px solid #FFFFFF !important;
@@ -35,9 +39,15 @@ label h1{
 }
 .modal #escolha-curso button{
     border: #7964ff 1px solid;
-
 }
-
+.btn{
+    border: 1px solid #7964ff !important;
+    background: #FFFFFF !important;
+}
+.btn:hover{
+    background-color: #6a53ff !important;
+    color: #FFFFFF !important;
+}
 
 
 /* Login */
@@ -69,50 +79,9 @@ label h1{
 
 
 
-/* Menu */
-.navbar{
-    max-width: min-content !important;
-    height: 100vh;
-    position: fixed !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: -3px 0px 8px;
-} 
-.navbar box-icon{
-    margin: 7px !important;
-}
-.nav-link{
-    display: flex;
-    justify-content: center;
-}
-#logo{
-    border-top: #7964ff 1px  solid;
-    border-bottom: #7964ff 1px  solid;
-    text-align: center;
-}
-#logo h1{
-    color: white !important;
-    font-family: 'Lobster Two', sans-serif;
-    font-size: 2em !important;
-    max-width: 4rem;
-}
-.nav-item{
-    width: 4rem;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-.nav-item:hover{
-    background-color: #7964ff;
-    cursor: pointer;
-}
-.menu-selecionado{
-    background-color: #7964ff;
-}
-.navbar li{
-    text-align: center;
-}
+
+/* background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);!important; */
+
 
 
 
@@ -137,22 +106,25 @@ label h1{
 .img-perfil img{
     width: 40%;
     border-radius: 50px;
-    border: 2px solid #7964ff;
+    border: 2px solid #7964ff !important;
     padding: 1px; 
+}
+.controle-ar .card{
+    border: 1px solid #7964ff !important;
+    padding-left: 10px !important;
 }
 .controle-ar .card strong, .controle-ar .card button{
     color: #7964ff !important;
 }
 .onoff button{
-    background-color: white;
     border: none;
     color: #7964ff;
     font-weight: 700;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #FFFFFF !important;
 }
 .onoff button:hover{
-    background-color: #FFFFFF;
-    border: #7964ff 1px solid;
+    background-color: #FFFFFF !important;
+    border: #7964ff 1px solid !important;
     color: #7964ff;
 }
 .ar1, .ar2{
@@ -163,16 +135,14 @@ label h1{
     margin-bottom: 0px;
 }
 .temperatura{
-    font-size: 3.5rem;
+    font-size: 3.25em;
     cursor: pointer;
 }
 .salas .card{
-    background-color: #ffffff;
     border: 1px solid #7964ff;
     color: #7964ff !important;
 }
 .salas .card:hover{
-    background-color: #7964ff;
     cursor: pointer;
     color: #FFFFFF !important;
 }
@@ -192,6 +162,24 @@ label h1{
     background-color: #7964ff;
     color: #FFFFFF !important;
 }
+.salas .modal-content{
+    background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
+    border: none;
+    color: #FFFFFF !important;
+}
+.salas h4{
+    color: #FFFFFF !important;
+}
+.salas button{
+    border: 1px solid #FFFFFF !important;
+    color: #4F4F4F !important;
+}
+.salas button:nth-child(2){
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    color: #FFFFFF !important;
+}
+
 
 /* Contúdo - Usuários */
 .usuarios-top .botao button{
@@ -199,7 +187,6 @@ label h1{
 }
 .usuarios-top .botao button:hover{
     border: 1px solid #7964ff;
-    background-color: #7964ff;
     color: #FFFFFF !important;
 }
 .usuarios-tabela td{
@@ -230,11 +217,12 @@ label h1{
     color: #FFFFFF !important;
 }
 .excluir-bottom button:nth-child(1){
-    background: #FFFFFF !important;
     color: #4F4F4F !important;
     font-size: small;
 }
 .excluir-bottom button:nth-child(2){
+    border: 1px solid transparent !important;;
+    background: transparent !important;
     color: #FFFFFF !important;
     font-size: small;
 }
@@ -248,12 +236,198 @@ label h1{
     background-color: #a79bf541;
 }
 #salvar-grade button{
-    background-color: #FFFFFF;
     border: 1px solid #7964ff !important;
     color: #7964ff !important;
 }
-#salvar-grade button:hover{
-    background-color: #7964ff;
-    border: 1px solid #FFFFFF !important;
-    color: #FFFFFF !important;
+
+
+#alterarAr .modal-content{
+    background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
+    border: none !important;
+}
+#modal-temperatura{
+    height: 40vh !important;    
+}
+.debug1, .debug2, .debug-mobile1, .debug-mobile2 {
+    margin: 150px auto;
+    width: 100%;
+    text-align: center;
+}
+.debug1 input, .debug2 input, .debug-mobile1 input, .debug-mobile2 input{
+    display: inline-block;
+    font-size: 30px;
+    width: 100px;
+    background: transparent;
+    color: #4379ff;
+    text-align: center;
+    font-family: monospace;
+    position: fixed;
+    top: 34%;
+    left: 12%;
+}
+
+.circle, .circle-mobile1, .circle-mobile2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: linear-gradient(145deg, #d4d8d9, #fdffff);
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+    box-shadow:  20px 20px 60px #c9cccd;
+
+    /* padding-bottom: 250px; */
+    transform: translate3d(-50%, -50%, 0);
+    margin-bottom: 15px;
+}
+.circle:before, .circle-mobile1:before, .circle-mobile2:before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background-color: #ecf0f1;
+    box-shadow: -20px -20px 60px #fff;
+    border-radius: 50%;
+    top: 5%;
+    left: 5%;
+}
+.dot1, .dot2, .dot-mobile1, .dot-mobile2{
+    position: absolute;
+    width: 7%;
+    height: 50%;
+    left: 47.5%;
+    top: 0;
+    transform: rotate(0deg);
+    transform-origin: center bottom;
+}
+.dot1:before, .dot2:before, .dot-mobile1:before, .dot-mobile2:before {
+    content: "";
+    position: absolute;
+    background-color: #4379FF;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, .1);
+    width: 200%;
+    transform: translate3d(-25%, -25%, 0);
+    height: 0;
+    padding-bottom: 200%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.debug,
+.debug input{
+    border: none !important;
+    user-select: none !important;
+}
+#rangeArMobile1, #rangeArMobile2{
+    user-select: none !important;
+}
+
+@media only screen and (min-width: 601px){
+    /* Menu */
+    .navbar{
+        max-width: min-content !important;
+        height: 100vh;
+        position: fixed !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: -3px 0px 8px;
+    } 
+    .navbar box-icon{
+        margin: 7px !important;
+    }
+    .nav-link{
+        display: flex;
+        justify-content: center;
+    }
+    #logo{
+        border-top: #7964ff 1px  solid;
+        border-bottom: #7964ff 1px  solid;
+        text-align: center;
+    }
+    #logo h1{
+        color: white !important;
+        font-family: 'Lobster Two', sans-serif;
+        font-size: 2em !important;
+        max-width: 4rem;
+    }
+    .nav-item{
+        width: 4rem;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+    .nav-item:hover{
+        background-color: #7964ff;
+        cursor: pointer;
+    }
+    .menu-selecionado{
+        background-color: #7964ff;
+    }
+    .navbar li{
+        text-align: center;
+    }
+    .saudacao{
+        display: inline-block;
+    }
+    .saudacao-mobile strong{
+        display: none;
+    }
+    .img-perfil-mobile{
+        display: none;
+    }
+    .controleArMobile1, .controleArMobile2{
+        display: none !important;
+    }
+}
+@media only screen and (max-width: 600px) {
+    body{
+        background: linear-gradient(180deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%) !important;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    }
+    p{
+        font-weight: 100 !important;
+    }
+    h5{
+        display: inline-block;
+    }
+    input[type="checkbox"]{
+        width: min-content;
+    }
+    .menu-lateral{
+        display: none;
+    }
+    .container-conteudo{
+        padding: 0.5rem 0.65rem;
+    }
+    .saudacao{
+        display: none;
+    }
+    .saudacao-mobile h2{
+        font-size: 1.25rem !important;
+        color: #FFFFFF !important;
+        display: inline !important;
+    }
+    .saudacao-mobile h4{
+        color: #FFFFFF !important;
+        display: inline !important;
+    }
+    .img-perfil img{
+        display: none;
+    }
+    .img-perfil-mobile img{
+        width: 85% !important;
+        border-radius: 50px;
+        border: 2px solid #7964ff;
+        padding: 1px; 
+    }
+    .controle-ar{
+        display: none !important;
+ 
+    }
+    .card-temperatura, .card-temperatura2{
+        border-radius: 15px !important;
+    }
+    .card-temperatura1 .card, .card-temperatura2 .card{
+        height: 300px;
+    }
 }
