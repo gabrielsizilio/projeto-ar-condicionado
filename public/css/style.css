@@ -12,6 +12,10 @@ select{
     color: #7964ff !important;
     cursor: pointer;
 }
+input[type="number"], input[type="text"], input[type="email"], input[type="password"]{
+    border: 1px solid #7964ff !important;
+}
+
 input[type="range"]{
     border: 0px solid #FFFFFF !important;
 }
