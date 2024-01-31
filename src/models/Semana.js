@@ -1,21 +1,21 @@
 const { Model, DataTypes } = require('sequelize')
 
-class Predio extends Model {
+class Semana extends Model {
     static init(sequelize) {
         super.init({
             nome: DataTypes.STRING
         }, {
             sequelize,
-            tableName: 'predios'
+            tableName: 'semana'
         })
     }
 
     static associate(models) {
-        this.hasMany(models.Sala, {
-            foreignKey: 'predio_id',
-            as: 'salas'
+        this.hasMany(models.AlocacaoHorario, {
+            foreignKey: 'semana_id',
+            as: 'alocacoes'
         })
     }
 }
 
-module.exports = Predio
+module.exports = Semana

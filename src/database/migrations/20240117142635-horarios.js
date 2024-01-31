@@ -3,26 +3,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('salas', {
+    await queryInterface.createTable('horarios', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nome: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING
+      horario_ini: {
+        allowNull:false,
+        type: Sequelize.TIME
       },
-      predio_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'predios',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+      horario_fim: {
+        allowNull:false,
+        type: Sequelize.TIME
       },
       createdAt: {
         allowNull: false,
@@ -36,6 +30,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable('salas')
+    await queryInterface.dropTable('horarios')
   }
 };

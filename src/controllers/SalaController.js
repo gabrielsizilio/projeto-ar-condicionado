@@ -39,7 +39,7 @@ async function edit(req, res) {
     const sala_id = req.params
 
     try {
-        const sala =  await Sala.findOne({
+        const sala = await Sala.findOne({
             where: { id: sala_id.id },
             include: [{ model: Predio, as: 'predio' }]
         })

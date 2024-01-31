@@ -1,0 +1,29 @@
+<div class="modal fade" id="escolheCurso" aria-hidden="true" aria-labelledby="escolheCursoLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="escolheCursoLabel">Cursos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-2">
+                <% if (areas) { %>
+                    <% areas.forEach(area=> { %>
+                        <div class="form-check">
+                            <input name="areas[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>">
+                            <label class="form-check-label" for="area_<%= area.id %>">
+                                <%= area.nome %>
+                            </label>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <p>Não há áreas cadastradas no sistema</p>
+                                <% } %>
+                                    <div class="row col-12 d-flex justify-content-center salvar">
+                                        <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
+                                             data-bs-target="#adicionaUsuario"
+                                            data-bs-toggle="modal" onclick="preencheInputs()">Escolher</button>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>

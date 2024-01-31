@@ -25,24 +25,24 @@
                         <div id="logo" class="mb-3 mt-4">
                             <h1>A</h1>
                         </div>
-                        <li class="nav-item justify-content-center" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Home">
+                        <li class="nav-item menu-selecionado justify-content-center" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Home">
                             <a class="nav-link" aria-current="page" href="#">
                                 <box-icon name='home' color='#ffffff' ></box-icon>
                             </a>
                         </li>
                         
-                        <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Relatórios">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                <box-icon name='report' type='solid' color='#ffffff' ></box-icon>
-                            </a>
-                        </li>
+                        <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Histórico">
+                        <a class="nav-link active" aria-current="page" href="historico.html">
+                            <box-icon name='time' type='solid' color='#ffffff' ></box-icon>
+                        </a>
+                    </li>
                         <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Grade de Horários">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link active" aria-current="page" href="grade.html">
                                 <box-icon name='grid' color='#ffffff' ></box-icon>
                             </a>
                         </li>
                         <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Usuários">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link active" aria-current="page" href="usuarios.html">
                                 <box-icon name='user' type='solid' color='#ffffff' ></box-icon>
                             </a>
                         </li>
@@ -54,10 +54,10 @@
                     </ul>
                     <ul class="navbar-nav item">
                         <li class="nav-item" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Log Out">
-                            <a class="nav-link" href="#">
-                                    <box-icon name='exit' color='#ffffff' ></box-icon>
-                                </a>
-                            </li>
+                            <a class="nav-link" href="login.html">
+                                <box-icon name='exit' color='#ffffff' ></box-icon>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -71,33 +71,77 @@
                     <div class="img-perfil col-2">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnrcsJrkoOqVa5zJ4dmMyzo0QU1vRzqGnObnm-KfFln7XGJlVoeQEVPAKo_GaYDR3OXJs&usqp=CAU" alt="" width="100%">
                     </div>
-                    
-                    <div class="row controle-ar justify-content-center flex-wrap mt-5">
-                        <div class="card col-8">
+
+                    <div class="row controle-ar justify-content-center mt-5">
+                        <div id="controle-individual" class="card col-8">
                             <div class="row justify-content-between pt-2 pb-2">
                                 <div class="col-5 identificacao d-flex align-items-center justify-content-start">
                                     <span><strong>Sala 17 - Prédio 04</strong></span>
                                 </div>
                                 <div class="col-2 onoff text-center">
                                     <span>
-                                        <button class="btn btn-primary" type="submit">ON</button>
+                                        <button class="btn" type="submit">ON</button>
                                     </span>
                                 </div>
                                 <div class="col-5 nome d-flex align-items-center justify-content-end">
-                                    <span><strong>Yodemus</strong></span>
+                                    <span><strong>Temperatura Padrão: 22°C</strong></span>
                                 </div>
                             </div>
                             <div class="row justify-content-evenly infor-ar">
-                                <div class="col-5 ar1 d-flex justify-content-start">
-                                    <p><strong>Komeko</strong></p>
-                                    <p class="temperatura"><strong>35 °C</strong></p>
+                                <div class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr1" data-bs-toggle="modal">
+                                    <p><strong>Philco</strong></p>
+                                    <p class="temperatura"><strong>22 °C</strong></p>
+                                </div>
+                                <div class="modal fade" id="alterarAr1" aria-hidden="true" aria-labelledby="alterarAr1Label" tabindex="-1">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group text-center mt-1">
+                                                        <label for="temperaturaSelecionada1">
+                                                            <h1 id="temperaturaSelecionada1">22</h1>
+                                                            <h1>°C</h1> 
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <input type="range" class="form-range mt-4" id="temperatura1Range" min="18" max="23" step="1" value="22">
+                                                    </div>
+                                                    <div class="form-group text-center mt-4" id="salvar-temperatura">
+                                                        <button class="btn">Alterar</button>
+                                                    </div>
+                                                  </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
                                     <div class="vr" style="height: 95%;"></div>
                                 </div>
-                                <div class="col-5 ar2 d-flex justify-content-start">
+                                <div class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr2" data-bs-toggle="modal">
                                     <p><strong>Komeko</strong></p>
-                                    <p class="temperatura"><strong>35 °C</strong></p>
+                                    <p class="temperatura"><strong>23 °C</strong></p>
+                                </div>
+                                <div class="modal fade" id="alterarAr2" aria-hidden="true" aria-labelledby="alterarAr2Label" tabindex="-1">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group text-center mt-1">
+                                                        <label for="temperaturaSelecionada2">
+                                                            <h1 id="temperaturaSelecionada2">23</h1>
+                                                            <h1>°C</h1> 
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <input type="range" class="form-range mt-4" id="temperatura2Range" min="18" max="23" step="1" value="23">
+                                                    </div>
+                                                    <div class="form-group text-center mt-4" id="salvar-temperatura">
+                                                        <button class="btn">Alterar</button>
+                                                    </div>
+                                                  </form>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>
@@ -108,10 +152,25 @@
                             <option value="1">Prédio 02 - Ensino Médio</option>
                             <option value="2">Prédio Edificações</option>
                             <option value="3">Prédio Administrativo</option>
-                          </select>
+                        </select>
                     </div>
                     <div class="row salas mt-5 justify-content-between">
-                        <div class="card sala d-flex text-center p-2">
+                        <div class="modal fade" id="trocaSala" tabindex="-1" aria-labelledby="trocaSalaLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <h4>Deseja realmente trocar de sala?</h4>
+                                        <div class="row d-flex justify-content-center mt-4">
+                                            <div class="d-flex justify-content-around col-9">
+                                                <button class="btn col-3">Cancelar</button>
+                                                <button class="btn col-3">Trocar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card sala d-flex text-center p-2" data-bs-toggle="modal" data-bs-target="#trocaSala">
                             Sala 01
                         </div>
                         <div class="card sala text-center p-2">
@@ -123,6 +182,8 @@
                         <div class="card sala text-center p-2">
                             Sala 04
                         </div>
+                    </div>
+                    <div class="row salas mt justify-content-between">
                         <div class="card sala text-center p-2 mt-3">
                             Sala 05
                         </div>
@@ -135,6 +196,8 @@
                         <div class="card sala text-center p-2 mt-3">
                             Sala 08
                         </div>
+                    </div>
+                    <div class="row salas justify-content-between">
                         <div class="card sala text-center p-2 mt-3">
                             Sala 09
                         </div>
@@ -148,23 +211,46 @@
                             Sala 12
                         </div>
                     </div>
-        
                 </div>
             </div>
-            </div>
+        </div>
 
        
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
-    // Inicializa os popovers
-    var popovers = new bootstrap.Popover(document.body, {
-        selector: '[data-bs-toggle="popover"]',
-        container: 'body',
-        trigger: 'hover'
-    });
+        // Inicializa os popovers
+        var popovers = new bootstrap.Popover(document.body, {
+            selector: '[data-bs-toggle="popover"]',
+            container: 'body',
+            trigger: 'hover'
+        }); 
+        
+        //Ar-condicionado 01
+        var temperatura1Range = document.getElementById("temperatura1Range");
+        var temperaturaSelecionada1 = document.getElementById("temperaturaSelecionada1");
+
+        temperatura1Range.addEventListener("input", function() {
+            temperaturaSelecionada1.textContent = temperatura1Range.value;
+        });
+
+        // Ar-condicionado 02
+        var temperatura2Range = document.getElementById("temperatura2Range");
+        var temperaturaSelecionada2 = document.getElementById("temperaturaSelecionada2");
+
+        temperatura2Range.addEventListener("input", function() {
+            temperaturaSelecionada2.textContent = temperatura2Range.value;
+        });
+
+        // Inicializa os modais
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })
     </script>
 
 </body>

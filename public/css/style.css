@@ -11,10 +11,32 @@ select{
     color: #7964ff !important;
     cursor: pointer;
 }
+input[type="range"]{
+    border: 0px solid #FFFFFF !important;
+}
+label h1{
+    display: inline-block;
+    font-size: 4rem !important;
+}
 .menu-lateral, .conteudo, .conteudo{
     padding: 0px !important;
 }
+.modal{
+    border: 1px solid #7964ff;
+}
+.modal input{
+    border: #7964ff 1px solid;
+    color: #a698ff !important;
+}
+.modal .salvar button{
+    color: white !important;
+    background-color: #7964ff !important;
+    border: #7964ff 1px solid;
+}
+.modal #escolha-curso button{
+    border: #7964ff 1px solid;
 
+}
 
 
 
@@ -157,9 +179,21 @@ select{
 .sala{
     width: 23% !important;
 }
+#salvar-temperatura button{
+    background-color: #7964ff;
+    border: 1px solid #7964ff;
+    border-radius: 20px;
+    color: #FFFFFF !important;
+}
+#trocaSala button{
+    border: 1px solid #7964ff;
+}
+#trocaSala button:hover{
+    background-color: #7964ff;
+    color: #FFFFFF !important;
+}
 
 /* Contúdo - Usuários */
-
 .usuarios-top .botao button{
     border: 1px solid #7964ff;
 }
@@ -186,4 +220,40 @@ select{
 .usuarios-tabela img{
     width: 0%;
     border-radius: 50px;
+}
+.remove .modal-content{
+    background: linear-gradient(87deg,#f5365c,#f56036)!important;
+    border: none !important;
+    color: #FFFFFF !important;
+}
+.remove .modal-content p{
+    color: #FFFFFF !important;
+}
+.excluir-bottom button:nth-child(1){
+    background: #FFFFFF !important;
+    color: #4F4F4F !important;
+    font-size: small;
+}
+.excluir-bottom button:nth-child(2){
+    color: #FFFFFF !important;
+    font-size: small;
+}
+
+
+/* Conteúdo - Grade de Horários */
+.grade-horarios td{
+    cursor: pointer;
+}
+.grade-horarios td:hover{
+    background-color: #a79bf541;
+}
+#salvar-grade button{
+    background-color: #FFFFFF;
+    border: 1px solid #7964ff !important;
+    color: #7964ff !important;
+}
+#salvar-grade button:hover{
+    background-color: #7964ff;
+    border: 1px solid #FFFFFF !important;
+    color: #FFFFFF !important;
 }

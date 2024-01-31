@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('usuarios', {
+    await queryInterface.createTable('salas', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,20 +12,16 @@ module.exports = {
       },
       nome: {
         allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
-      nickname: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      tipo: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      credencial_id: {
+      predio_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'credencials', key: 'id' },
+        allowNull:false,
+        references: {
+          model: 'predios',
+          key: 'id'
+        },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
@@ -37,12 +33,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
 
   async down(queryInterface, Sequelize) {
-
-    await queryInterface.dropTable('usuarios');
-
+    queryInterface.dropTable('salas')
   }
 };

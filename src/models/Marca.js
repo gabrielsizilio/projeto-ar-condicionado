@@ -9,6 +9,13 @@ class Marca extends Model {
             tableName: 'marcas'   
         })
     }
+
+    static associate(models) {
+        this.hasMany(models.Modelo, {
+            foreignKey: 'marca_id',
+            as: 'modelos'
+        })
+    }
 }
 
 module.exports = Marca

@@ -1,0 +1,125 @@
+<div class="modal fade" id="edit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <form method="POST" action="/usuario/update/<%= usuario.id %>">
+                    <div class="row justify-content-between">
+                        <div class="col-6">
+                            <label for="nome" class="form-label">Nome*:</label>
+                            <input id="nome" name="nome" autocomplete="off" type="text" class="form-control"
+                                value="<%= usuario.nome %>" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="tipo" class="form-label">Tipo*:</label>
+                            <select name="tipo" id="tipo" class="form-select">
+                                <option value="Padrão" <%=(usuario.tipo==='Padrão' ) ? 'selected' : '' %>>Padrão
+                                </option>
+                                <option value="Administrador" <%=(usuario.tipo==='Administrador' ) ? 'selected' : '' %>
+                                    >Administrador</option>
+                                <option value="Manutenção" <%=(usuario.tipo==='Manutenção' ) ? 'selected' : '' %>
+                                    >Manutenção</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="usuario" class="form-label">Usuário*:</label>
+                            <input name="nickname" autocomplete="off" type="text" class="form-control" id="usuario"
+                                value="<%= usuario.nickname %>" required>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-8">
+                            <label for="email" class="form-label">Email*:</label>
+                            <input name="email" autocomplete="off" type="text" class="form-control" id="email"
+                                value="<%= usuario.credencial.email %>" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="senha" class="form-label">Senha*:</label>
+                            <input name="senha" autocomplete="off" type="text" class="form-control" id="senha"
+                                value="<%= usuario.credencial.senha %>" required>
+                        </div>
+                    </div>
+                    <div class="col-4 mt-4" id="escolha-curso">
+                        <label for="curso" class="form-label">Área(s):</label><br>
+                            <div id="areaUsuarioEdit_<%= usuario.id %>">
+                                <% areasUsuario.forEach(area=> { %>
+                                    <input name="areasEdit[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>" checked>
+                                    <li>
+                                        <%= area.nome %>
+                                    </li>
+                                    <% }) %>
+                                </div>
+                        <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCurso"
+                            data-bs-toggle="modal"
+                            onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
+                        </div>
+                        <div class=" row col-12 d-flex justify-content-end salvar">
+                            <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function atualizaArea(id, areas) {
+        
+        var btnEscolheArea = document.getElementById('btnEscolheArea')
+        btnEscolheArea.setAttribute('data-bs-target', `#edit_${id}`)
+        btnEscolheArea.setAttribute('onclick', `preencheAreasUsuario(${id})`)
+
+        const checkboxes = document.querySelectorAll('input[name="areas[]"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        if (areas && areas.length > 0) {
+            areas.forEach(area => {
+                const checkbox = document.getElementById(`area_${area.id}`)
+                if (checkbox) {
+                    checkbox.checked = true
+                }
+            })
+        }
+    }
+
+    function preencheAreasUsuario(id) {
+        var areas = JSON.parse('<%- JSON.stringify(areas) %>');
+        var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
+        var areaUsuario = document.getElementById(`areaUsuarioEdit_${id}`)
+        
+        areaUsuario.innerHTML = ''
+        areaUsuario.hidden = false
+        
+        if (areasId && areasId.length > 0) {
+            
+            areasId.forEach(areaId => {
+                var area = areas.find(a => a.id == areaId.value)
+                
+                var li = document.createElement('li')
+                li.textContent = area.nome
+                areaUsuario.appendChild(li)
+                
+                var inputCheckbox = document.createElement('input');
+                inputCheckbox.type = 'checkbox';
+                inputCheckbox.name = 'areasEdit[]';
+                inputCheckbox.id = `area_${area.id}`;
+                inputCheckbox.className = 'form-check-input';
+                inputCheckbox.value = area.id;
+                inputCheckbox.checked = true;
+                // inputCheckbox.hidden = true;
+                areaUsuario.appendChild(inputCheckbox)
+            });
+        } else {
+            var p = document.createElement('p')
+            
+            p.textContent = 'Nenhuma área selecionada'
+            areaUsuario.appendChild(p)
+        }
+    }
+</script>

@@ -2,30 +2,25 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('usuarios', {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.createTable('usuarios_areas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nome: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      nickname: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      tipo: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      credencial_id: {
+      usuario_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'credencials', key: 'id' },
+        references: { model: 'usuarios', key: 'id' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      area_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'areas', key: 'id' },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
@@ -38,11 +33,10 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+     
   },
 
-  async down(queryInterface, Sequelize) {
-
-    await queryInterface.dropTable('usuarios');
-
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable('usuarios_areas');
   }
 };

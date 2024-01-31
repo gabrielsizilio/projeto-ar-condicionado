@@ -6,6 +6,10 @@ module.exports = {
     async create(req, res) {
         const { email, senha } = req.body
 
+        if (!email || !senha) {
+            return res.status(400).json({ msgErr: "Campos obrigatório não preenchidos" })
+        }
+
         const salt = await bcrypt.genSalt(12)
         const senhaHash = await bcrypt.hash(senha, salt)
 

@@ -14,6 +14,10 @@ class ArCondicionado extends Model {
         this.belongsTo(models.Modelo, {
             foreignKey: 'modelo_id',
             as: 'modelo'
+        }),
+        this.belongsTo(models.Sala, {
+            foreignKey: 'sala_id',
+            as: 'sala'
         })
     }
 }
