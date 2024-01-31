@@ -24,7 +24,7 @@
         <!-- Lista de usuários aqui -->
     </div>
 
-    <div class="user-detail">
+    <div class="user-details">
         <!-- Detalhes do usuário aqui -->
     </div>
 
@@ -38,7 +38,7 @@
         
         // Função para exibir detalhes do usuário
         function showUserDetails(user) {
-            const userDetailsElement = document.querySelector('.user-detail');
+            const userDetailsElement = document.querySelector('.user-details');
             userDetailsElement.innerHTML = `
                 <h2>${user.name}</h2>
                 <p>ID: ${user.id}</p>

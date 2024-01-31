@@ -1,6 +1,7 @@
 const User = require('../models/Usuario')
 const Credencial = require('../models/Credencial')
 const Predio = require('../models/Predio')
+const Sala = require('../models/Sala')
 
 async function index(req, res) {
 
@@ -11,6 +12,7 @@ async function index(req, res) {
         }
         // const user = await Credencial.findByPk(req.credencial.id)
         const user = await User.findByPk(req.credencial.id)
+        const sala = await Sala.findAll()
 
         if(!user) {
             res.status(404).json({ msgErr: "Usuário não cadastrado no sistema!" })

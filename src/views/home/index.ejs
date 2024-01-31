@@ -38,13 +38,15 @@
                                 </strong>
                             </div>
                         </div>
-
-                        <% var index=0 %>
+                        
                         <div class="row controle-ar justify-content-center mt-5">
                             <div id="controle-individual" class="card col-8 p-2">
                                 <div class="row justify-content-between pt-2 pb-2">
                                     <div class="col-5 identificacao d-flex align-items-center justify-content-start">
-                                        <span id="span1"><strong>- <%= predios[index].nome %></strong></span>
+                                        <span id="span1">
+
+                                            <strong><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></strong>
+                                        </span>
                                         <!-- <span><strong>Sala 17 - Prédio 04</strong></span> -->
                                     </div>
                                     
@@ -175,6 +177,7 @@
                         </div>
                         <div>
                             <div id="salasContainer" class="row justify-content-between">
+                                <% var index=0 %>
                                 <% predios[index].salas.forEach(element=> { %>
                                     <div class="btn sala col-2 text-center p-2 col-auto" data-bs-toggle="modal" data-bs-target="#trocaSala">
                                         <%= element.nome %>
@@ -189,13 +192,22 @@
         </div>
 
         <script>
+            var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
+            var salas = predio1[0].salas
+            console.log(salas)
+            
             document.getElementById('selectPredio').addEventListener('change', function(predios){
                 var predioId = this.value
-
+                
                 document.getElementById('span1').innerHTML=""
+                salas = predio1[predioId-1].salas
+                salas.forEach(element => {
+                    console.log(element)
+                });
+
                 var aux = document.createElement('strong')
-                    aux.textContent = predios[predioId].nome
-                    document.getElementById('span1').appendChild(aux)
+                    aux.textContent = salas.nome + " - " + predio1[predioId-1].nome
+                document.getElementById('span1').appendChild(aux)
             })
         </script>
 
