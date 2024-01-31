@@ -38,7 +38,7 @@ void setupSocket() {
       case sIOtype_EVENT:
           if (strstr((char*)payload, "EnviaIR") != NULL) {
             // Lógica a ser executada quando o evento 'button' é recebido
-            USE_SERIAL.printf("%s",payload);
+            USE_SERIAL.printf("%s\n",payload);
           }else {
           USE_SERIAL.printf("[IOc] get event: %s\n", payload);
         }
@@ -108,7 +108,7 @@ void setup() {
 
   // server address, port and URL
   // socketIO.begin("192.168.0.7", 8081, "/socket.io/?EIO=4");
-  socketIO.begin("192.168.0.100", 8081, "/socket.io/?EIO=4");
+  socketIO.begin("192.168.0.101", 8081, "/socket.io/?EIO=4");
 
   // event handler
   socketIO.onEvent(socketIOEvent);

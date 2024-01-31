@@ -51,8 +51,7 @@ io.on('connection', (socket) => {
             // Precisa tratar o erro corretamente
             return;
         }
-
-        io.to(controladorSockets[comando.id_controlador]).emit('EnviaIR', codigo_ir);
+        io.to(controladorSockets[comando.id_controlador]).emit('EnviaIR', numeros);
     })
 
     socket.on('disconnect', () => {
