@@ -3,7 +3,13 @@ const Sala = require('../models/Sala')
 
 
 async function index(req, res) {
+    const predios = await Predio.findAll({
+        include: [{
+            model: Sala, as: 'salas'
+        }]
+    })
 
+    res.send(predios)
 }
 
 async function create(req, res) {
