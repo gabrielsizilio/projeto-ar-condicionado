@@ -1,13 +1,13 @@
-<form method="POST" action="/usuario/update/<%= usuario.id %>">
-    <div class="modal fade" id="edit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
-        tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuário</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="edit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <form method="POST" action="/usuario/update/<%= usuario.id %>">
                     <div class="row justify-content-between">
                         <div class="col-6">
                             <label for="nome" class="form-label">Nome*:</label>
@@ -55,20 +55,20 @@
                                 </div>
                         <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCurso"
                             data-bs-toggle="modal"
-                            onclick="atualizaArea(JSON.parse('<%= JSON.stringify(usuario.id) %>'), JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
+                            onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
                         </div>
                         <div class=" row col-12 d-flex justify-content-end salvar">
                             <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
     </div>
-</form>
 
 <script>
     function atualizaArea(id, areas) {
-
+        
         var btnEscolheArea = document.getElementById('btnEscolheArea')
         btnEscolheArea.setAttribute('data-bs-target', `#edit_${id}`)
         btnEscolheArea.setAttribute('onclick', `preencheAreasUsuario(${id})`)
@@ -94,6 +94,7 @@
         var areaUsuario = document.getElementById(`areaUsuarioEdit_${id}`)
         
         areaUsuario.innerHTML = ''
+        areaUsuario.hidden = false
         
         if (areasId && areasId.length > 0) {
             

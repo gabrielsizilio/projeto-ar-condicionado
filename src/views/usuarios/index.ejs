@@ -35,22 +35,22 @@
                                 
                             </div>
                             
-                            <table class="table usuarios-tabela table-sm mt-5 text-center">
+                            <table class="table usuari os-tabela table-sm mt-5 text-center">
                                 <tbody>
-                                    <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
-                                <% usuarios.forEach(usuario=> { %>
-                                    <tr>
-                                        <td>
-                                            <%= usuario.nome %>
-                                        </td>
-                                        <td>
-                                            <%= usuario.credencial.email %>
-                                        </td>
-                                        <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
-                                            <td><a href="" data-bs-toggle="modal"
-                                                    data-bs-target="#excluir_<%= usuario.id %>"><box-icon
-                                                    name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
+                                    <% usuarios.forEach(usuario=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= usuario.nome %>
                                             </td>
+                                            <td>
+                                                <%= usuario.credencial.email %>
+                                            </td>
+                                            <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                            <td><a href="" data-bs-toggle="modal"
+                                                data-bs-target="#excluir_<%= usuario.id %>"><box-icon
+                                                name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
+                                            </td>
+                                            <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
                                                 <td><a href="" data-bs-toggle="modal"
                                                     data-bs-target="#edit_<%= usuario.id %>">
                                                     <box-icon name='edit-alt' type='solid'
