@@ -1,5 +1,4 @@
 <form method="POST" action="/usuario/update/<%= usuario.id %>">
-    <input type="hidden" name="_method" value="PUT">
     <div class="modal fade" id="edit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
         tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -46,32 +45,33 @@
                     </div>
                     <div class="col-4 mt-4" id="escolha-curso">
                         <label for="curso" class="form-label">Área(s):</label><br>
-                        <div id="areaUsuario">
-                            <% areasUsuario.forEach(area=> { %>
-                                <li>
-                                    <%= area.nome %>
-                                </li>
-                                <% }) %>
-
-                        </div>
+                            <div id="areaUsuarioEdit_<%= usuario.id %>">
+                                <% areasUsuario.forEach(area=> { %>
+                                    <input name="areasEdit[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>" checked>
+                                    <li>
+                                        <%= area.nome %>
+                                    </li>
+                                    <% }) %>
+                                </div>
                         <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCurso"
-                            data-bs-toggle="modal" onclick="atualizaArea(JSON.parse('<%= JSON.stringify(usuario.id) %>'), JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
-                    </div>
-                    <div class="row col-12 d-flex justify-content-end salvar">
-                        <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
+                            data-bs-toggle="modal"
+                            onclick="atualizaArea(JSON.parse('<%= JSON.stringify(usuario.id) %>'), JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
+                        </div>
+                        <div class=" row col-12 d-flex justify-content-end salvar">
+                            <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <%- include('./escolherCurso') %>
 </form>
 
 <script>
     function atualizaArea(id, areas) {
-        
+
         var btnEscolheArea = document.getElementById('btnEscolheArea')
         btnEscolheArea.setAttribute('data-bs-target', `#edit_${id}`)
+        btnEscolheArea.setAttribute('onclick', `preencheAreasUsuario(${id})`)
 
         const checkboxes = document.querySelectorAll('input[name="areas[]"]');
         checkboxes.forEach(checkbox => {
@@ -85,6 +85,40 @@
                     checkbox.checked = true
                 }
             })
+        }
+    }
+
+    function preencheAreasUsuario(id) {
+        var areas = JSON.parse('<%- JSON.stringify(areas) %>');
+        var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
+        var areaUsuario = document.getElementById(`areaUsuarioEdit_${id}`)
+        
+        areaUsuario.innerHTML = ''
+        
+        if (areasId && areasId.length > 0) {
+            
+            areasId.forEach(areaId => {
+                var area = areas.find(a => a.id == areaId.value)
+                
+                var li = document.createElement('li')
+                li.textContent = area.nome
+                areaUsuario.appendChild(li)
+                
+                var inputCheckbox = document.createElement('input');
+                inputCheckbox.type = 'checkbox';
+                inputCheckbox.name = 'areasEdit[]';
+                inputCheckbox.id = `area_${area.id}`;
+                inputCheckbox.className = 'form-check-input';
+                inputCheckbox.value = area.id;
+                inputCheckbox.checked = true;
+                // inputCheckbox.hidden = true;
+                areaUsuario.appendChild(inputCheckbox)
+            });
+        } else {
+            var p = document.createElement('p')
+            
+            p.textContent = 'Nenhuma área selecionada'
+            areaUsuario.appendChild(p)
         }
     }
 </script>
