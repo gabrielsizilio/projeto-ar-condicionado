@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    <style>
+        .user-list {
+            float: left;
+            width: 30%;
+        }
+        
+        .user-details {
+            float: left;
+            width: 70%;
+        }
+        
+    </style>
+
+</head>
+<body>
+
+    <div class="user-list">
+        <!-- Lista de usuários aqui -->
+    </div>
+
+    <div class="user-detail">
+        <!-- Detalhes do usuário aqui -->
+    </div>
+
+    <script>
+        // Exemplo de dados de usuários (pode ser obtido de um servidor, banco de dados, etc.)
+        const usersData = [
+            { id: 1, name: 'Usuário 1', age: 25, email: 'usuario1@example.com' },
+            { id: 2, name: 'Usuário 2', age: 30, email: 'usuario2@example.com' },
+            // Adicione mais usuários conforme necessário
+        ];
+        
+        // Função para exibir detalhes do usuário
+        function showUserDetails(user) {
+            const userDetailsElement = document.querySelector('.user-detail');
+            userDetailsElement.innerHTML = `
+                <h2>${user.name}</h2>
+                <p>ID: ${user.id}</p>
+                <p>Idade: ${user.age}</p>
+                <p>Email: ${user.email}</p>
+            `;
+        }
+        
+        // Função para popular a lista de usuários
+        function populateUserList() {
+            const userListElement = document.querySelector('.user-list');
+        
+            // Criar elementos da lista
+            usersData.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.classList.add('user-item');
+                userItem.textContent = user.name;
+        
+                // Adicionar evento de clique para exibir detalhes ao clicar em um usuário
+                userItem.addEventListener('click', () => {
+                    showUserDetails(user);
+                });
+        
+                userListElement.appendChild(userItem);
+            });
+        }
+        
+        // Chamar a função para popular a lista de usuários quando a página carrega
+        window.onload = populateUserList;
+        </script>
+</body>
+</html>

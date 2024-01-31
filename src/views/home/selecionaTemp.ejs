@@ -1,0 +1,67 @@
+<div class="row controle-ar justify-content-center mt-5">
+    <div id="controle-individual" class="card col-8 p-2">
+        <div class="row justify-content-between pt-2 pb-2">
+            <div class="col-5 identificacao d-flex align-items-center justify-content-start">
+                <span><strong>Sala 17 - Prédio 04</strong></span>
+            </div>
+            <div class="col-2 onoff text-center">
+                <span>
+                    <button class="btn" type="submit">ON</button>
+                </span>
+            </div>
+            <div class="col-5 nome d-flex align-items-center justify-content-end">
+                <span><strong>Temperatura Padrão: 22°C</strong></span>
+            </div>
+        </div>
+        <div class="row justify-content-evenly infor-ar">
+            <div class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
+                <p><strong>Philco</strong></p>
+                <p class="temperatura"><strong>22 °C</strong></p>
+            </div>
+            <div class="col-auto d-flex divisoria justify-content-center">
+                <div class="vr" style="height: 95%;"></div>
+            </div>
+            <div class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
+                <p><strong>Komeko</strong></p>
+                <p class="temperatura"><strong>23 °C</strong></p>
+            </div>
+            <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content d-flex justify-content-center">
+                    <div class="modal-body">
+                        <div id="modal-temperatura" class="position-relative">
+                            <div class="circle">
+                                <div class="debug2" >
+                                    <input id="rangeAr2" on class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" >
+                                </div>
+                                <div class="dot2"></div>
+                            </div>
+                        </div>
+                        <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
+                            <button onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
+                            <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<div class="row predios mt-5 col-auto">
+    <select id="selectPredio" class="form-select">
+        <% predios.forEach(element=> { %>
+            <option value="<%= element.id %>">
+                <%= element.nome %>
+            </option>
+            <% }) %>
+    </select>
+</div>
+<div id="salasContainer" class="row salas mt-5 justify-content-between">
+    <% var index=0 %>
+        <% predios[index].salas.forEach(element=> { %>
+            <div class="card sala d-flex text-center p-2">
+                <%= element.nome %>
+            </div>
+            <% }) %>
+</div>

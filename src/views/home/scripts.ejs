@@ -1,0 +1,170 @@
+<script>
+    // ATUALIZA SALAS
+    var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+
+    document.getElementById('selectPredio').addEventListener('change', function () {
+        var selectedPredioId = this.value;
+
+        var predioSelecionado = predios.find(function (predio) {
+            return predio.id == selectedPredioId;
+        });
+
+        document.getElementById('salasContainer').innerHTML = "";
+        predioSelecionado.salas.forEach(function (sala) {
+            var salaElement = document.createElement('option');
+            salaElement.className = "btn sala col-2 text-center p-2 col-auto";
+            salaElement.textContent = sala.nome;
+
+            document.getElementById('salasContainer').appendChild(salaElement);
+        });
+    });
+</script>
+
+<script>
+    // Inicializa os popovers
+    var popovers = new bootstrap.Popover(document.body, {
+        selector: '[data-bs-toggle="popover"]',
+        container: 'body',
+        trigger: 'hover'
+    }); 
+
+    // Ar-condicionado 02
+    var temperatura2Range = document.getElementById("temperatura2Range");
+    var temperaturaSelecionada2 = document.getElementById("temperaturaSelecionada2");
+
+    temperatura2Range.addEventListener("input", function() {
+        temperaturaSelecionada2.textContent = temperatura2Range.value;
+    });
+
+    // Range circular ar-condicionados desktop
+    $(document).ready(function(){
+        var is_dragging = false;
+        $(document).on("mousedown touchstart",".circle",function(e){
+            is_dragging = true;
+        });
+        $(document).on("mouseup touchend",function(e){
+            is_dragging = false;
+        });
+        $(document).on("mousemove touchmove",function(e){
+            if(is_dragging){
+            var circle = $(".circle")
+            var touch = undefined;
+            if (e.originalEvent.touches){
+                var touch = e.originalEvent.touches[0];
+            }
+            var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+            var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+            var pos_x = (e.pageX || touch.pageX);
+            var pos_y = (e.pageY || touch.pageY);
+            var delta_y =  center_y - pos_y;
+            var delta_x = center_x - pos_x;
+            var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+            angle -= 90;
+            if (angle < 0){
+                angle = 360 + angle;
+            }
+            angle = Math.round(angle);
+            var minimo = document.getElementById('rangeAr2').getAttribute('min');
+            var qtdTemperaturas = document.getElementById('rangeAr2').getAttribute('max') - document.getElementById('rangeAr2').getAttribute('min')
+
+            $(".dot2").css("transform", "rotate("+angle+"deg)");
+            $(".debug2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
+            }
+        });
+        $(".debug input").on('change',function(){
+            angle = $(this).val()/360*360;
+            $(".dot2").css("transform", "rotate("+angle + 18 +"deg)");
+        })
+    });
+
+    // Range circular ar-condicionados mobile (1)
+    $(document).ready(function(){
+        var is_dragging = false;
+        $(document).on("mousedown touchstart",".circle-mobile1",function(e){
+            is_dragging = true;
+        });
+        $(document).on("mouseup touchend",function(e){
+            is_dragging = false;
+        });
+        $(document).on("mousemove touchmove",function(e){
+            if(is_dragging){
+            var circle = $(".circle-mobile1")
+            var touch = undefined;
+            if (e.originalEvent.touches){
+                var touch = e.originalEvent.touches[0];
+            }
+            var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+            var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+            var pos_x = (e.pageX || touch.pageX);
+            var pos_y = (e.pageY || touch.pageY);
+            var delta_y =  center_y - pos_y;
+            var delta_x = center_x - pos_x;
+            var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+            angle -= 90;
+            if (angle < 0){
+                angle = 360 + angle;
+            }
+            angle = Math.round(angle);
+            var minimo = document.getElementById('rangeArMobile1').getAttribute('min');
+            var qtdTemperaturas = document.getElementById('rangeArMobile1').getAttribute('max') - document.getElementById('rangeArMobile1').getAttribute('min')
+
+            $(".dot-mobile1").css("transform", "rotate("+angle+"deg)");
+            $(".debug-mobile1 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
+            }
+        });
+        $(".debug input").on('change',function(){
+            angle = $(this).val()/360*360;
+            $(".dot-mobile1").css("transform", "rotate("+angle + 18 +"deg)");
+        })
+    });
+
+    // Range circular ar-condicionados mobile (2)
+    $(document).ready(function(){
+        var is_dragging = false;
+        $(document).on("mousedown touchstart",".circle-mobile2",function(e){
+            is_dragging = true;
+        });
+        $(document).on("mouseup touchend",function(e){
+            is_dragging = false;
+        });
+        $(document).on("mousemove touchmove",function(e){
+            if(is_dragging){
+            var circle = $(".circle-mobile2")
+            var touch = undefined;
+            if (e.originalEvent.touches){
+                var touch = e.originalEvent.touches[0];
+            }
+            var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+            var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+            var pos_x = (e.pageX || touch.pageX);
+            var pos_y = (e.pageY || touch.pageY);
+            var delta_y =  center_y - pos_y;
+            var delta_x = center_x - pos_x;
+            var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+            angle -= 90;
+            if (angle < 0){
+                angle = 360 + angle;
+            }
+            angle = Math.round(angle);
+            var minimo = document.getElementById('rangeArMobile2').getAttribute('min');
+            var qtdTemperaturas = document.getElementById('rangeArMobile2').getAttribute('max') - document.getElementById('rangeArMobile2').getAttribute('min')
+
+            $(".dot-mobile2").css("transform", "rotate("+angle+"deg)");
+            $(".debug-mobile2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
+            }
+        });
+        $(".debug-mobile2 input").on('change',function(){
+            angle = $(this).val()/360*360;
+            $(".dot-mobile2").css("transform", "rotate("+angle + 18 +"deg)");
+        })
+    });
+
+
+    // Inicializa os modais
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+</script>
