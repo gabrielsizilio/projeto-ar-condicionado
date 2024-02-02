@@ -70,14 +70,58 @@
             </nav>
         </div>
 
-        <div class="col-11 container-conteudo">
+        <nav class="navbar fixed-bottom bg-body-tertiary menu-inferior">
+            <div class="container-fluid">
+                <ul class="navbar-nav justify-content-around">
+                    <li class="nav-item justify-content-center" >
+                        <a class="nav-link text-center" href="#">
+                            <box-icon name='home' color='#686868' ></box-icon>
+                            <p>Home</p>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active text-center" href="historico.html">
+                            <box-icon name='time' type='solid' color='#686868' ></box-icon>
+                            <p>Histórico</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active text-center" href="grade.html">
+                            <box-icon name='grid' color='#686868' ></box-icon>
+                            <p>Grade</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active text-center menu-selecionado" href="usuarios.html">
+                            <box-icon name='user' type='solid' color='#7964ff'></box-icon>
+                            <p>Usuários</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active text-center" aria-current="page" href="#">
+                            <box-icon name='cog' type='solid' color='#686868' ></box-icon>
+                            <p>Configurações</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="col container-conteudo">
             <div class="container-conteudo">
                 <div class="row usuarios-top d-flex justify-content-between">
                     <div class="titulo d-flex justify-content-start col-8">
                         <h2>Usuários</h2>
                     </div>
                     <div class="botao d-flex justify-content-end col-3">
-                        <button type="button" class="btn" data-bs-target="#adicionaUsuario" data-bs-toggle="modal">Adicionar</button>
+                        <button id="desktop" type="button" class="btn" data-bs-target="#adicionaUsuario" data-bs-toggle="modal">Adicionar</button>
+                        <button id="mobile" type="button" class="btn" data-bs-target="#adicionaUsuarioMobile" data-bs-toggle="modal">
+                            <box-icon name='plus' color='#7964ff'></box-icon>
+                        </button>
                     </div>
 
                     <div class="modal fade" id="adicionaUsuario" aria-hidden="true"
@@ -131,86 +175,120 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="escolheCurso" aria-hidden="true"
-                        aria-labelledby="escolheCursoLabel" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-sm">
+
+                    <div class="modal fade" id="adicionaUsuarioMobile" aria-hidden="true"
+                        aria-labelledby="adicionaUsuarioLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="escolheCursoLabel">Cursos</h1>
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Novo Usuário</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body p-2">
+                                <div class="modal-body">
                                     <form>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="computacao">
-                                            <label class="form-check-label" for="computacao">Ciência da
-                                                Computação</label>
+                                        <label for="nome" class="form-label">Nome*:</label>
+                                        <input autocomplete="off" type="text" class="form-control" id="nome" required>
+                                            
+                                        <label for="tipo" class="form-label mt-4">Tipo*:</label>
+                                        <select id="tipo" class="form-select">
+                                            <option selected>Padrão</option>
+                                            <option value="1">Administrador</option>
+                                            <option value="2">Manutenção</option>
+                                        </select>
+                                            
+                                        <label for="usuario" class="form-label mt-4">Usuário*:</label>
+                                        <input autocomplete="off" type="text" class="form-control" id="usuario" required>
+                                            
+                                        <label for="email" class="form-label mt-4">Email*:</label>
+                                        <input autocomplete="off" type="text" class="form-control" id="email" required>
+                                           
+                                        <label for="senha" class="form-label mt-4">Senha*:</label>
+                                        <input autocomplete="off" type="text" class="form-control" id="senha" required>
+
+                                        <label for="curso" class="form-label mt-4">Curso(s):</label><br>
+                                        <div class="form-group custom-multiselect">
+                                            <div class="select-box" onclick="toggleOptions()">Selecionar</div>
+                                            <div class="options">
+                                              <label><input type="checkbox" value="1"> Opção 1</label>
+                                              <label><input type="checkbox" value="2"> Opção 2</label>
+                                              <label><input type="checkbox" value="3"> Opção 3</label>
+                                              <label><input type="checkbox" value="4"> Opção 4</label>
+                                              <label><input type="checkbox" value="5"> Opção 5</label>
+                                            </div>
                                         </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="eletrica">
-                                            <label class="form-check-label" for="eletrica">Engenharia Elétrica</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="quimica">
-                                            <label class="form-check-label" for="quimica">Engenharia Química</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="eletrotecnica">
-                                            <label class="form-check-label" for="eletrotecnica">Técnico em
-                                                Eletrotécnica</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="seguranca">
-                                            <label class="form-check-label" for="seguranca">Técnico em Segurança do
-                                                Trabalho</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="informatica-internet">
-                                            <label class="form-check-label" for="informatica-internet">Técnico em
-                                                Informática para Internet</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="informatica">
-                                            <label class="form-check-label" for="informatica">Técnico em
-                                                Informática</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="edificacoes">
-                                            <label class="form-check-label" for="edificacoes">Técnico em
-                                                Edificações</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="t-quimica">
-                                            <label class="form-check-label" for="t-quimica">Técnico em Química</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input name="cursos" class="form-check-input" type="checkbox" value=""
-                                                id="medio">
-                                            <label class="form-check-label" for="medio">Ensino Médio</label>
-                                        </div>
-                                        <div class="row col-12 d-flex justify-content-center salvar">
-                                            <button type="button" class="btn btn-primary col-4  mt-4"
-                                                onclick="preencheInputs()" data-bs-target="#adicionaUsuario"
-                                                data-bs-toggle="modal">Escolher</button>
+
+                                        <div class="col-12 d-flex justify-content-center salvar">
+                                            <button type="submit" class="btn btn-primary mt-5 ">Salvar</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="escolheCurso" aria-hidden="true"
+                        aria-labelledby="escolheCursoLabel" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="escolheCursoLabel">Cursos</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-2">
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="computacao">
+                                        <label class="form-check-label" for="computacao">Ciência da Computação</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="eletrica">
+                                        <label class="form-check-label" for="eletrica">Elétrica</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="quimica">
+                                        <label class="form-check-label" for="quimica">Engenharia Química</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="eletrotecnica">
+                                        <label class="form-check-label" for="eletrotecnica">Técnico em Eletrotécnica</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="seguranca">
+                                        <label class="form-check-label" for="seguranca"> Técnico em Segurança do Trabalho</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="informatica-internet"> 
+                                        <label class="form-check-label" for="informatica-internet">Técnico em Informática para Internet</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="informatica">
+                                        <label class="form-check-label" for="informatica">Técnico em Informática</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="edificacoes">
+                                        <label class="form-check-label" for="edificacoes">Técnico em Edificações</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value="" id="t-quimica">
+                                        <label class="form-check-label" for="t-quimica">Técnico em Química</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input name="cursos" class="form-check-input" type="checkbox" value=""
+                                            id="medio">
+                                        <label class="form-check-label" for="medio">Ensino Médio</label>
+                                    </div>
+                                    <div class="row col-12 d-flex justify-content-center salvar">
+                                        <button type="button" class="btn btn-primary col-4  mt-4"
+                                            onclick="preencheInputs()" data-bs-target="#adicionaUsuario" data-bs-toggle="modal">Escolher</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row usuarios-pesquisa mt-5 d-flex justify-content-center">
-                    <div class="input-pesquisa col-5">
+
+                <div class="row usuarios-pesquisa mt-5 d-flex justify-content-center col">
+                    <div class="input-pesquisa-desktop col-5">
                         <div class="input-group">
                             <input autocomplete="off" type="text" class="form-control" placeholder="Pesquisar..."
                                 aria-label="Username" aria-describedby="basic-addon1">
@@ -219,245 +297,258 @@
                             </span>
                         </div>
                     </div>
+                    <div class="input-pesquisa-mobile col-12">
+                        <div class="input-group">
+                            <input autocomplete="off" type="text" class="form-control" placeholder="Pesquisar..."
+                                aria-label="Username" aria-describedby="basic-addon1">
+        
+                           
+                        </div>
+                    </div>
 
                 </div>
 
-                <table class="table usuarios-tabela table-sm mt-5 text-center">
-                    <tbody>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <!-- Modal -->
-                            <div class="modal fade" id="excluir" tabindex="-1" aria-labelledby="excluirLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div id="excluir-topo">
-                                                <strong><p>Excluir usuário</p></strong>
-                                            </div>
-                                            <div class="excluir-corpo text-center mt-5">
-                                                <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
-                                                <p>Você realmente deseja excluir o usuário?</p>
-                                            </div>
-                                            <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
-                                                 <button class="btn excluir-confirma">EXCLUIR</button>
-                                                 <button class="btn" data-bs-dismiss="modal">CANCELAR</button>
+                <div class="table-responsive">
+                    <table class="table usuarios-tabela table-sm mt-5 text-center">
+                        <tbody>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <!-- Modal -->
+                                <div class="modal fade" id="excluir" tabindex="-1" aria-labelledby="excluirLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div id="excluir-topo">
+                                                    <strong><p>Excluir usuário</p></strong>
+                                                </div>
+                                                <div class="excluir-corpo text-center mt-5">
+                                                    <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
+                                                    <p>Você realmente deseja excluir o usuário?</p>
+                                                </div>
+                                                <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
+                                                     <button class="btn excluir-confirma">EXCLUIR</button>
+                                                     <button class="btn" data-bs-dismiss="modal">CANCELAR</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir"><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Ednaldo Pereira</td>
-                            <td>Usuário</td>
-                            <td>Professor</td>
-                            <td>eppr@professor.ifnmg.edu.br</td>
-                            <td>Ciência da Computação</td>
-                            <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
-                            <td><a href=""><box-icon name='edit-alt' type='solid'
-                                        color='#648dff'></box-icon></a></box-icon></td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir"><box-icon name='trash-alt' type='solid' color='#ff6467' size='sm'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                            <tr>
+                                <td>Ednaldo Pereira</td>
+                                <td>Usuário</td>
+                                <td>Professor</td>
+                                <td>eppr@professor.ifnmg.edu.br</td>
+                                <td>Ciência da Computação</td>
+                                <td><a href=""><box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon></a></td>
+                                <td><a href=""><box-icon name='edit-alt' type='solid'
+                                            color='#648dff'></box-icon></a></box-icon></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
+        <div class="footer"></div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
@@ -495,6 +586,12 @@
             document.getElementById('usuario').value = salvaInputs["usuario"];
             document.getElementById('email').value = salvaInputs["email"];
             document.getElementById('senha').value = salvaInputs["senha"];
+        }
+
+        //Multi-select
+        function toggleOptions() {
+            const options = document.querySelector('.custom-multiselect .options');
+            options.classList.toggle('active');
         }
 
     </script>
