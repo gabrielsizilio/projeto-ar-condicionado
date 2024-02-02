@@ -42,7 +42,6 @@ label h1{
 }
 .modal #escolha-curso button{
     border: #7964ff 1px solid;
-<<<<<<< HEAD
 }
 .btn{
     border: 1px solid #7964ff !important;
@@ -58,18 +57,6 @@ label h1{
 .table td{
     vertical-align: middle;
 }
-=======
-}
-.btn{
-    border: 1px solid #7964ff !important;
-    background: #FFFFFF !important;
-}
-.btn:hover{
-    background-color: #6a53ff !important;
-    color: #FFFFFF !important;
-}
-
->>>>>>> home
 
 /* Login */
 .escolhas label, .escolhas a{
@@ -275,7 +262,6 @@ label h1{
 #alterarAr .modal-content{
     background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
     border: none !important;
-<<<<<<< HEAD
 }
 #modal-temperatura{
     height: 40vh !important;    
@@ -599,8 +585,6 @@ label h1{
         background-color: rgb(178, 178, 238);
         color: #FFFFFF !important;
       }
-=======
->>>>>>> home
 }
 #modal-temperatura{
     height: 40vh !important;    
