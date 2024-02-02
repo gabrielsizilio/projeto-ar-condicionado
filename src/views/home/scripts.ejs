@@ -11,9 +11,12 @@
 
         document.getElementById('salasContainer').innerHTML = "";
         predioSelecionado.salas.forEach(function (sala) {
-            var salaElement = document.createElement('option');
+            var salaElement = document.createElement('div');
+            salaElement.id = "buttonSalas"
             salaElement.className = "btn sala col-2 text-center p-2 col-auto";
             salaElement.textContent = sala.nome;
+            /*salaElement.setAttribute('data-bs-toggle', 'modal');
+            salaElement.setAttribute('data-bs-target', '#trocaSala')*/
 
             document.getElementById('salasContainer').appendChild(salaElement);
         });
