@@ -38,18 +38,20 @@
                                 </strong>
                             </div>
                         </div>
-                        
+
                         <div class="row controle-ar justify-content-center mt-5">
                             <div id="controle-individual" class="card col-8 p-2">
                                 <div class="row justify-content-between pt-2 pb-2">
                                     <div class="col-5 identificacao d-flex align-items-center justify-content-start">
                                         <span id="span1">
 
-                                            <strong><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></strong>
+                                            <strong>
+                                                <%= predios[0].salas[0].nome %> - <%= predios[0].nome %>
+                                            </strong>
                                         </span>
                                         <!-- <span><strong>Sala 17 - Prédio 04</strong></span> -->
                                     </div>
-                                    
+
                                     <div class="col-2 onoff text-center">
                                         <span>
                                             <button class="btn" type="submit">ON</button>
@@ -178,11 +180,11 @@
                         <div>
                             <div id="salasContainer" class="row justify-content-between">
                                 <% var index=0 %>
-                                <% predios[index].salas.forEach(element=> { %>
-                                    <div id="buttonSalas" class="btn sala col-2 text-center p-2 col-auto" >
-                                        <%= element.nome %>
-                                    </div>
-                                    <% }) %>
+                                    <% predios[index].salas.forEach(element=> { %>
+                                        <div onclick="trocaSala(this)" class="btn sala col-2 text-center p-2 col-auto">
+                                            <%= element.nome %>
+                                        </div>
+                                        <% }) %>
                             </div>
                         </div>
                     </div>
@@ -193,36 +195,23 @@
 
         <script>
             var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
-            /*var salas = predio1[0].salas
-            console.log(salas)*/
-            
-            document.getElementById('selectPredio').addEventListener('change', function(predios){
-                var predioId = this.value
-                
-                document.getElementById('span1').innerHTML=""
-                /*salas = predio1[predioId-1].salas
-                console.log(salas[0].id)
-                salas.forEach(element => {
-                    console.log(element)
-                });*/
 
-                var aux = document.createElement('strong')
-                    aux.textContent = predio1[predioId-1].salas[0].nome + " - " + predio1[predioId-1].nome
-                document.getElementById('span1').appendChild(aux)
-                
-                /*document.getElementById('salasContainer', function(){
-                    return
-                })*/
-            })
-                document.getElementById('buttonSalas').addEventListener('click', function(element){
-                    var salaId = element.id
-                    
-                    document.getElementById('span1').innerHTML=""
-                    var aux1 = document.createElement('strong')
-                    aux1.textContent = "AAA"
-                    //aux1.textContent = predio1[predioId-1].salas[salaId-1].nome + " - " + predio1[predioId-1].nome
-                    document.getElementById('span1').appendChild(aux1)
-                })
+            function trocaSala(aux) {
+                var predioId = document.getElementById('selectPredio').value
+                var predioSelecionado
+
+                predio1.forEach(predio => {
+                    if (predio.id == predioId) {
+                        predioSelecionado = predio
+                    }
+                });
+
+                console.log(predioSelecionado)
+                document.getElementById('span1').innerHTML = ""
+                var aux1 = document.createElement('strong')
+                aux1.textContent = aux.textContent + " - " + predioSelecionado.nome
+                document.getElementById('span1').appendChild(aux1)
+            }
         </script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
