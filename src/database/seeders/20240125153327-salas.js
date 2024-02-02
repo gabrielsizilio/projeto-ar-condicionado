@@ -37,6 +37,13 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
+    
+    const controlador = await queryInterface.bulkInsert('controladores', [{
+      macAddress: "8C:AA:B5:02:4A:02",
+      sala_id: sala,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }])
 
     const temperatura = await queryInterface.bulkInsert('temperaturas', [{
       modelo_id: modelo,
