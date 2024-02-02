@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <title>Document</title>
 </head>
+
 <body class="container-fluid">
 
     <div class="row d-flex">
@@ -25,37 +27,43 @@
                     <div id="logo" class="mb-3 mt-4">
                         <h1>A</h1>
                     </div>
-                    <li class="nav-item justify-content-center" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Home">
+                    <li class="nav-item justify-content-center" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Home">
                         <a class="nav-link" aria-current="page" href="home.html">
-                            <box-icon name='home' color='#ffffff' ></box-icon>
+                            <box-icon name='home' color='#ffffff'></box-icon>
                         </a>
                     </li>
-                    
-                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Histórico">
-                        <a class="nav-link active" aria-current="page" href="historico.html">
-                            <box-icon name='time' type='solid' color='#ffffff' ></box-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item menu-selecionado" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Grade de Horários">
+
+                    <li class="nav-item menu-selecionado" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Histórico">
                         <a class="nav-link active" aria-current="page" href="#">
-                            <box-icon name='grid' color='#ffffff' ></box-icon>
+                            <box-icon name='time' type='solid' color='#ffffff'></box-icon>
                         </a>
                     </li>
-                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Usuários">
-                        <a class="nav-link active" aria-current="page" href="usuarios.html">
-                            <box-icon name='user' type='solid' color='#ffffff' ></box-icon>
+                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Grade de Horários">
+                        <a class="nav-link active" aria-current="page" href="grade.html">
+                            <box-icon name='grid' color='#ffffff'></box-icon>
                         </a>
                     </li>
-                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Configurações">
+                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Usuários">
                         <a class="nav-link active" aria-current="page" href="#">
-                            <box-icon name='cog' type='solid' color='#ffffff' ></box-icon>
+                            <box-icon name='user' type='solid' color='#ffffff'></box-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Configurações">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <box-icon name='cog' type='solid' color='#ffffff'></box-icon>
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav item">
-                    <li class="nav-item" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Log Out">
+                    <li class="nav-item" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                        data-bs-content="Log Out">
                         <a class="nav-link" href="login.html">
-                            <box-icon name='exit' color='#ffffff' ></box-icon>
+                            <box-icon name='exit' color='#ffffff'></box-icon>
                         </a>
                     </li>
                 </ul>
@@ -73,15 +81,15 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link active text-center" href="historico.html">
-                            <box-icon name='time' type='solid' color='#686868' ></box-icon>
+                        <a class="nav-link active text-center menu-selecionado" href="historico.html">
+                            <box-icon name='time' type='solid' color='#7964ff' ></box-icon>
                             <p>Histórico</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active text-center  menu-selecionado" href="grade.html">
-                            <box-icon name='grid' color='#7964ff' ></box-icon>
+                        <a class="nav-link active text-center" href="grade.html">
+                            <box-icon name='grid' color='#686868' ></box-icon>
                             <p>Grade</p>
                         </a>
                     </li>
@@ -102,159 +110,226 @@
                 </ul>
             </div>
         </nav>
-        
-        <div class="col">
-            <!-- Modal -->
-            <div class="modal fade" id="alterarProfessor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="alterarProfessorLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="alterarProfessorLabel">Alterar Professor</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                        
-                                    <label for="area" class="form-label">Área:</label>
-                                    <select id="area" class="form-select">
-                                        <option selected>Computação</option>
-                                        <option value="1">Engenharia Elétrica</option>
-                                        <option value="2">Engenharia Química</option>
-                                        <option value="3">Técnico Informática</option>
-                                        <option value="4">Matemática</option>
-                                        <option value="5">Física</option>
-                                        <option value="6">Técnico Informática</option>
-                                        <option value="7">Edificações</option>
-                                        <option value="8">Ensino Médio</option>
-                                    </select>
-                                    <label for="area" class="form-label mt-4">Professor:</label>
-                                    <select id="area" class="form-select">
-                                        <option value="1" selected>Professor A</option>
-                                        <option value="2">Professor B</option>
-                                        <option value="3">Professor C</option>
-                                        <option value="4">Professor D</option>
-                                        <option value="5">Professor E</option>
-                                    </select>
-                                <div class="col-12 d-flex justify-content-end" id="salvar-grade">
-                                    <button type="submit" class="btn btn-primary mt-5 col-3">Salvar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+
+        <div class="col container-conteudo">
+            <div class="row hitorico d-flex justify-content-between">
+                <div class="titulo d-flex justify-content-start col-sm-12 mt-3">
+                    <h2>Histórico de Acesso</h2>
                 </div>
             </div>
-            <div class="container-conteudo">
-                <div class="grade-top-desktop d-flex justify-content-between">
-                    <div class="titulo d-flex justify-content-start col-8">
-                        <h2>Grade de Horários</h2>
-                    </div>
-                    <div class="grade-select d-flex justify-content-end col-3">
-                        <select class="form-select">
-                            <option selected>Prédio 01 - Sala 01</option>
-                            <option value="1">Prédio 01 - Sala 02</option>
-                            <option value="2">Prédio 01 - Sala 03</option>
-                            <option value="3">Prédio 01 - Sala 04</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row grade-top-mobile d-flex justify-content-center">
-                    <div class="titulo d-flex justify-content-start col">
-                        <h2>Grade de Horários</h2>
-                    </div>
-                    <div class="row grade-select d-flex justify-content-center mt-5 col-12">
-                        <select class="form-select">
-                            <option selected>Prédio 01 - Sala 01</option>
-                            <option value="1">Prédio 01 - Sala 02</option>
-                            <option value="2">Prédio 01 - Sala 03</option>
-                            <option value="3">Prédio 01 - Sala 04</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="card mt-4 grade-horarios p-3">
-                    <div class="table-responsive">
-                        <table class="table text-center">
-                            <thead>
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">SEGUNDA</th>
-                                    <th scope="col">TERÇA</th>
-                                    <th scope="col">QUARTA</th>
-                                    <th scope="col">QUINTA</th>
-                                    <th scope="col">SEXTA</th>
-                                </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                <tr>
-                                    <th scope="row">07:20</th>
-                                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Júlio César</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">09:10</th>
-                                    <td>Alberto Miranda</td>
-                                    <td>Júlio César</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">11:00</th>
-                                    <td>Wagner Leite</td>
-                                    <td>Alberto Miranda</td>
-                                    <td>Júlio César</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">13:20</th>
-                                    <td>Caribe Zampiroli</td>
-                                    <td>Wagner Leite</td>
-                                    <td>Alberto Miranda</td>
-                                    <td>Júlio César</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">15:00</th>
-                                    <td>-</td>
-                                    <td>Caribe Zampiroli</td>
-                                    <td>Wagner Leite</td>
-                                    <td>Alberto Miranda</td>
-                                    <td>Júlio César</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">17:00</th>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>Caribe Zampiroli</td>
-                                    <td>Júlio César</td>
-                                    <td>Alberto Miranda</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">19:00</th>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>Júlio César</td>
-                                    <td>Alberto Miranda</td>
-                                    <td>Wagner Leite</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">20:00</th>
-                                    <td>-</td>
-                                    <td>Júlio César</td>
-                                    <td>Alberto Miranda</td>
-                                    <td>Wagner Leite</td>
-                                    <td>Caribe Zampiroli</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="table-responsive">
+                <table id="table-mobile" class="table table-hover  text-center mt-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">USUÁRIO</th>
+                            <th scope="col">AÇÃO</th>
+                            <th scope="col">DATA</th>
+                            <th scope="col">HORA</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                        <tr>
+                            <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                            <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                            <td>30/02/2002</td>
+                            <td>00:00</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
+            <table id="table-desktop" class="table table-hover  text-center mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">USUÁRIO</th>
+                        <th scope="col">PERMISSÃO</th>
+                        <th scope="col">AÇÃO</th>
+                        <th scope="col">DATA</th>
+                        <th scope="col">HORA</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                    <tr>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">Junin do Churras</td>
+                        <td>Administrador</td>
+                        <td>Cadastrou um novo usuário (Blue Pen - Usuário - Professor)</td>
+                        <td>30/02/2002</td>
+                        <td>00:00</td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
-    </div> 
+    </div>
 
     <div class="footer"></div>
 
@@ -262,21 +337,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
-    // Inicializa os popovers
-    var popovers = new bootstrap.Popover(document.body, {
-        selector: '[data-bs-toggle="popover"]',
-        container: 'body',
-        trigger: 'hover'
-    });
+        // Inicializa os popovers
+        var popovers = new bootstrap.Popover(document.body, {
+            selector: '[data-bs-toggle="popover"]',
+            container: 'body',
+            trigger: 'hover'
+        });
 
-    //Inicaliza os modais
-    const myModal = document.getElementById('myModal')
-    const myInput = document.getElementById('myInput')
+        // Inicializa os modais
+        const myModal = document.getElementById('myModal')
+        const myInput = document.getElementById('myInput')
 
-    myModal.addEventListener('shown.bs.modal', () => {
-    myInput.focus()
-    })
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })
+
     </script>
 
 </body>
+
 </html>
