@@ -21,88 +21,17 @@
                                         </option>
                                         <% }) %>
                                 </select>
+                                <select id="selectSala" class="form-select">
+                                    <% var i=0 %>
+                                    <% predios[i].salas.forEach(element=> { %>
+                                        <option value="<%= element.id %>">
+                                            <%= element.nome %>
+                                        </option>
+                                    <% }) %>
+                                </select>
                             </div>
                         </div>
-                        <div class="card mt-5 grade-horarios p-3">
-                            <table class="table text-center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">SEGUNDA</th>
-                                        <th scope="col">TERÇA</th>
-                                        <th scope="col">QUARTA</th>
-                                        <th scope="col">QUINTA</th>
-                                        <th scope="col">SEXTA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">07:20</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">09:10</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">11:00</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">13:20</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">15:00</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">17:00</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">19:00</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">20:00</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>  
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <%- include('./gradeHorarios.ejs') %>
                     </div>
                 </div>
         </div>
@@ -117,6 +46,38 @@
                 container: 'body',
                 trigger: 'hover'
             });
+        </script>
+
+        <script>
+            // ATUALIZA SALAS
+            var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+            var salaId = function (){
+                document.getElementById('selectSalas').addEventListener('change',function(){
+                    return this.value;
+                })
+            }
+
+            document.getElementById('selectPredio').addEventListener('change', function () {
+                var selectedPredioId = this.value;
+
+                var predioSelecionado = predios.find(function (predio) {
+                    return predio.id == selectedPredioId;
+                });
+
+                document.getElementById('selectSala').innerHTML = "";
+                predioSelecionado.salas.forEach(function (sala) {
+                    var salaElement = document.createElement('option');
+                    salaElement.value = salaId;
+                    salaElement.textContent = sala.nome;
+
+                    document.getElementById('selectSala').appendChild(salaElement);
+                });
+            });
+        </script>
+
+        <script>
+            //Atualiza a grade
+
         </script>
 
     </body>
