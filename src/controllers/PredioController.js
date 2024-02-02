@@ -7,7 +7,7 @@ async function index(req, res) {
         include: {association: 'salas'}
     })
 
-    res.status(200).json({ predios });
+    res.status(200).render('predio/index' ,{ predios });
 }
 
 async function create(req, res) {

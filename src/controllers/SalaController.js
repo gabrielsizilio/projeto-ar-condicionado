@@ -8,8 +8,9 @@ async function index(req, res) {
             model: Sala, as: 'salas'
         }]
     })
+    console.log(predios[0].salas);
 
-    res.send(predios)
+    res.status(200).render('salas/index', { predios })
 }
 
 async function create(req, res) {
