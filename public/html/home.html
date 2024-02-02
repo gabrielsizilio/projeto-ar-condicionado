@@ -17,9 +17,9 @@
     <script src="scripts.js"> </script>
     <title>Document</title>
 </head>
-<body class="container-fluid">
+<body class="container-body">
 
-    <div class="row d-flex">
+    <div class="d-flex">
             <div class="col-1 menu-lateral">
                 <nav class="navbar" style="background-color: #634AFE;">
                     <ul class="navbar-nav justify-content-center">
@@ -62,9 +62,46 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-12 position-absolute menu-inferior">
+            <nav class="navbar fixed-bottom bg-body-tertiary menu-inferior">
+                <div class="container-fluid">
+                    <ul class="navbar-nav justify-content-around">
+                        <li class="nav-item justify-content-center" >
+                            <a class="nav-link text-center menu-selecionado" href="#">
+                                <box-icon name='home' color='#7964ff' ></box-icon>
+                                <p>Home</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" href="historico.html">
+                                <box-icon name='time' type='solid' color='#686868' ></box-icon>
+                                <p>Histórico</p>
+                            </a>
+                        </li>
 
-            </div>
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" href="grade.html">
+                                <box-icon name='grid' color='#686868' ></box-icon>
+                                <p>Grade</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" href="usuarios.html">
+                                <box-icon name='user' type='solid' color='#686868'></box-icon>
+                                <p>Usuários</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" aria-current="page" href="#">
+                                <box-icon name='cog' type='solid' color='#686868' ></box-icon>
+                                <p>Configurações</p>
+                            </a>
+                            </li>
+                    </ul>
+                </div>
+            </nav>
             <div class="col container-conteudo">
                 <div class="container-conteudo row justify-content-between">
 
@@ -80,7 +117,7 @@
                         <div class="img-perfil-mobile col-2">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnrcsJrkoOqVa5zJ4dmMyzo0QU1vRzqGnObnm-KfFln7XGJlVoeQEVPAKo_GaYDR3OXJs&usqp=CAU" alt="" width="100%">
                         </div>
-                        <div class="saudacao-mobile col-7 d-flex align-items-center justify-content-end">
+                        <div class="saudacao-mobile col-8 d-flex align-items-center justify-content-end">
                             <strong>
                                 <h4>Olá </h4>
                                 <h2>Yoda do Churras</h2>
@@ -128,17 +165,21 @@
                                                     <div class="dot2"></div>
                                                 </div>
                                             </div>
-                                            <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
-                                                <button onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
-                                                <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
-                                            </div>
+                                                <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
+                                                    <button onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
+                                                    <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-range mt-4" id="temperatura2Range" min="18" max="23" step="1" value="23">
                                         </div>
                                     </div>
                                 </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <div class="controleArMobile1 mt-5">
                         <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
                             <div class="card card-temperatura p-3 col-10" >
@@ -190,7 +231,7 @@
                             <option value="3">Prédio Administrativo</option>
                         </select>
                     </div>
-                    <div class="row salas mt-5 justify-content-between">
+                    <div class="salas mt-5 justify-content-between">
                         <div class="modal fade" id="trocaSala" tabindex="-1" aria-labelledby="trocaSalaLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -248,10 +289,11 @@
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
 
+    <div class="footer"></div>
        
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
