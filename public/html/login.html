@@ -2,22 +2,29 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>na</title>
     <link href="css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <link href="https://fonts.cdnfonts.com/css/franklin-gothic" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/francois-one" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <title>Document</title>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <div id="container-card" class="container">
         <div class="row justify-content-around">
-            <div id="card-login" class="card col-4 pb-3 pl-3 pr-3 ">
-                <form action="home.html">
-                    <div class="card-body text-center">
+            <div id="card-login" class="card col-auto col-sm-auto pb-3 pl-3 pr-3 ">
+                <div id="border-login"></div>
+                <div class="card-body text-center">
+                    <form action="home.html">
                         <h3 class="card-title"> Login </h3>
                             <div class="row mt-4 col-mb-12">
                                 <div class="input-group">
@@ -35,22 +42,22 @@
                                     </span>
                                 </div>  
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <div class="col-mb-3">
-                                <input type="checkbox" name="gravaUsuario" id="gravaUsuario">
-                                <label for="gravaUsuario">Salvar Usuário?</label>
-                            </div><br>
-                            <div class="col-mb-2 ">
-                                <a href="#" class="link-underline link-underline-opacity-0" style="color:#7964ff;">Lembrar senha</a>
-
+                            <div class="escolhas row justify-content-between mt-3">
+                                <div class="col-6">
+                                    <input type="checkbox" name="gravaUsuario" id="gravaUsuario">
+                                    <label for="gravaUsuario">Salvar Usuário?</label>
+                                </div><br>
+                                <div class="col-6 ">
+                                    <a href="#" class="link-underline link-underline-opacity-0" style="color:#7964ff;">Lembrar senha</a>
+    
+                                </div>
                             </div>
+                            <div class="d-flex botao justify-content-around">
+                                <input type="submit" value="Entrar" class="col-10  btn btn-primary mt-3">
+                                
+                            </div>
+                </form>
                         </div>
-                        <div class="row botao justify-content-around">
-                            <input type="submit" value="Entrar" class="col-10  btn btn-primary mt-3">
-                            
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
