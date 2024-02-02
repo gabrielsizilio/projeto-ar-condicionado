@@ -15,13 +15,15 @@ select{
 input[type="number"], input[type="text"], input[type="email"], input[type="password"]{
     border: 1px solid #7964ff !important;
 }
-
 input[type="range"]{
     border: 0px solid #FFFFFF !important;
 }
 label h1{
     display: inline-block;
     font-size: 4rem !important;
+}
+.form-control:focus{
+    box-shadow: none !important;
 }
 .menu-lateral, .conteudo, .conteudo{
     padding: 0px !important;
@@ -49,9 +51,17 @@ label h1{
     background-color: #6a53ff !important;
     color: #FFFFFF !important;
 }
-
+.card{
+    border: 1px solid #7964ff !important;
+}
+.table td{
+    vertical-align: middle;
+}
 
 /* Login */
+.escolhas label, .escolhas a{
+    font-size: 0.85em !important;
+}
 #container-card{
     height: 100vh;
     display: flex ;
@@ -60,9 +70,16 @@ label h1{
 }
 
 #card-login{
-    border-top: 3px solid #7964ff;
+    box-sizing: border-box;
+    border-top: 3px solid #6a53ff !important;
 }
-
+#card-login input{
+    border: 1px solid #e6e6e6 !important;
+}
+#card-login input:focus{
+    /* border: none !important; */
+    box-shadow: none !important;
+}
 .botao input{
     border: #7964ff 1px solid;
     color: #FFFFFF !important;
@@ -255,6 +272,7 @@ label h1{
     text-align: center;
 }
 .debug1 input, .debug2 input, .debug-mobile1 input, .debug-mobile2 input{
+    border: none !important;
     display: inline-block;
     font-size: 30px;
     width: 100px;
@@ -333,6 +351,9 @@ label h1{
         justify-content: space-between;
         box-shadow: -3px 0px 8px;
     } 
+    .card{
+        border: 1px solid #7964ff !important;
+    }
     .navbar box-icon{
         margin: 7px !important;
     }
@@ -379,14 +400,32 @@ label h1{
     .controleArMobile1, .controleArMobile2{
         display: none !important;
     }
+    .menu-inferior{
+        display: none !important;
+    }
+    #table-mobile{
+        display: none !important;
+    }
+    .container-conteudo .grade-top-mobile{
+        display: none !important;
+    }
+    #table-desktop{
+        border: 1px solid #7964ff !important;
+    }
+    .input-pesquisa-mobile{
+        display: none !important;
+    }
 }
 @media only screen and (max-width: 600px) {
     body{
-        background: linear-gradient(180deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%) !important;
+        background: linear-gradient(180deg, rgb(16, 9, 59) 0%, rgba(154,138,251,1) 100%) !important;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
     }
     p{
         font-weight: 100 !important;
+    }
+    h2{
+        color: #FFFFFF !important;
     }
     h5{
         display: inline-block;
@@ -421,7 +460,7 @@ label h1{
         border: 2px solid #7964ff;
         padding: 1px; 
     }
-    .controle-ar{
+    .controle-ar{   
         display: none !important;
  
     }
@@ -431,4 +470,119 @@ label h1{
     .card-temperatura1 .card, .card-temperatura2 .card{
         height: 300px;
     }
+    .container-body{
+        height: 100%;
+        padding: 0px !important;
+    }
+    .menu-inferior{
+        border-radius: 8px 8px 0px 0px;
+        box-shadow: 0px -0.5px 5px 0px;
+        padding: 0px !important;
+    }
+  
+    box-icon{
+        margin-bottom: 0px !important;
+    }
+    .nav-item p{
+        font-size: 10px;
+        margin: 0px;
+        color: #686868 !important;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .nav-item .menu-selecionado p{
+        color: #7964ff !important;
+    }
+    .menu-inferior ul{
+       display: contents;
+    }
+    .menu-inferior li{
+        width: 20%;
+    }
+    #table-desktop{
+        display: none !important;
+    }
+    .container-conteudo .grade-top-desktop{
+        display: none !important;
+    }
+    .table{
+        font-size: 0.85em;
+    }
+    .table td{
+        vertical-align: middle;
+    }
+    .footer{
+        padding: 30px !important;
+    }
+    .input-pesquisa-desktop{
+        display: none !important;
+    }
+    .botao #desktop{
+        display: none !important;
+    }
+    .botao #mobile{
+        border: none !important;
+        vertical-align: middle;
+    }
+    #escolheCurso .modal-body input{
+       min-width: 15px;
+    }
+
+    /* Estilos personalizados para o multiselect */
+    .custom-multiselect {
+        position: relative;
+        border: 1px solid #7964ff !important;
+        border-radius: 7px !important;
+      }
+  
+      .custom-multiselect select {
+        display: none;
+      }
+  
+      .custom-multiselect .select-box {
+        cursor: pointer;
+        padding: 8px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background-color: #fff;
+        position: relative;
+      }
+  
+      .custom-multiselect .select-box:after {
+        content: '\25BC';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+      }
+  
+      .custom-multiselect .options {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        display: none;
+        border: 1px solid #037ffc;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        z-index: 1000;
+        background-color: #FFFFFF;
+      }
+  
+      .custom-multiselect .options.active {
+        display: block;
+        border: 1px solid rgb(167, 167, 167) !important;
+        border-radius: 7px;
+      }
+  
+      .custom-multiselect .options label {
+        display: block;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+  
+      .custom-multiselect .options label:hover {
+        background-color: rgb(178, 178, 238);
+        color: #FFFFFF !important;
+      }
 }
