@@ -168,7 +168,7 @@
                                             <h4>Deseja realmente trocar de sala?</h4>
                                             <div class="row d-flex justify-content-center mt-4">
                                                 <div class="d-flex justify-content-around col-9">
-                                                    <button class="btn col-auto">Trocar</button>
+                                                    <button onclick="trocarSala()" class="btn col-auto">Trocar</button>
                                                     <button class="btn cancelar col-auto">Cancelar</button>
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@
                             <div id="salasContainer" class="row justify-content-between">
                                 <% var index=0 %>
                                     <% predios[index].salas.forEach(element=> { %>
-                                        <div onclick="trocaSala(this)" class="btn sala col-2 text-center p-2 col-auto">
+                                        <div onclick="catchNome(this)" class="btn sala col-2 text-center p-2 col-auto" data-bs-toggle="modal" data-bs-target="#trocaSala">
                                             <%= element.nome %>
                                         </div>
                                         <% }) %>
@@ -195,8 +195,11 @@
 
         <script>
             var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
+            var nomeSala
 
-            function trocaSala(aux) {
+            function catchNome(aux) {nomeSala = aux}
+
+            function trocarSala(){
                 var predioId = document.getElementById('selectPredio').value
                 var predioSelecionado
 
@@ -206,10 +209,9 @@
                     }
                 });
 
-                console.log(predioSelecionado)
                 document.getElementById('span1').innerHTML = ""
                 var aux1 = document.createElement('strong')
-                aux1.textContent = aux.textContent + " - " + predioSelecionado.nome
+                aux1.textContent = nomeSala.textContent + " - " + predioSelecionado.nome
                 document.getElementById('span1').appendChild(aux1)
             }
         </script>

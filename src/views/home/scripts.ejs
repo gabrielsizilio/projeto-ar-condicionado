@@ -15,8 +15,8 @@
             salaElement.setAttribute('onclick', 'trocaSala(this)')
             salaElement.className = "btn sala col-2 text-center p-2 col-auto";
             salaElement.textContent = sala.nome;
-            /*salaElement.setAttribute('data-bs-toggle', 'modal');
-            salaElement.setAttribute('data-bs-target', '#trocaSala')*/
+            salaElement.setAttribute('data-bs-toggle', 'modal');
+            salaElement.setAttribute('data-bs-target', '#trocaSala')
 
             document.getElementById('salasContainer').appendChild(salaElement);
         });
