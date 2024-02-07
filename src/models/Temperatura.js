@@ -3,17 +3,17 @@ const { Model, DataTypes } = require('sequelize')
 class Temperatura extends Model {
     static init(sequelize) {
         super.init({
-            temp16: DataTypes.STRING,
-            temp17: DataTypes.STRING,
-            temp18: DataTypes.STRING,
-            temp19: DataTypes.STRING,
-            temp20: DataTypes.STRING,
-            temp21: DataTypes.STRING,
-            temp22: DataTypes.STRING,
-            temp23: DataTypes.STRING,
-            temp24: DataTypes.STRING,
-            temp25: DataTypes.STRING,
-            off: DataTypes.STRING
+            temp16: DataTypes.TEXT,
+            temp17: DataTypes.TEXT,
+            temp18: DataTypes.TEXT,
+            temp19: DataTypes.TEXT,
+            temp20: DataTypes.TEXT,
+            temp21: DataTypes.TEXT,
+            temp22: DataTypes.TEXT,
+            temp23: DataTypes.TEXT,
+            temp24: DataTypes.TEXT,
+            temp25: DataTypes.TEXT,
+            off: DataTypes.TEXT
         }, {
             sequelize,
             tableName: 'temperaturas'
