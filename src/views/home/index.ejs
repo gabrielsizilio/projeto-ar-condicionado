@@ -48,16 +48,16 @@
                                 </div>
                             </div>
                             <div class="row justify-content-evenly infor-ar">
-                                <div class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
+                                <div onclick="alteraIdDivSelecionada('tempA1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                     <p><strong>Philco</strong></p>
-                                    <p class="temperatura"><strong>22 °C</strong></p>
+                                    <p id="tempA1" class="temperatura"><strong>22 °C</strong></p>
                                 </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
                                     <div class="vr" style="height: 95%;"></div>
                                 </div>
-                                <div class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
+                                <div onclick="alteraIdDivSelecionada('tempA2')" class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                     <p><strong>Komeko</strong></p>
-                                    <p class="temperatura"><strong>23 °C</strong></p>
+                                    <p id="tempA2" class="temperatura"><strong>23 °C</strong></p>
                                 </div>
                                 <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
                                 <div class="modal-dialog modal-sm">
@@ -65,14 +65,14 @@
                                         <div class="modal-body">
                                             <div id="modal-temperatura" class="position-relative">
                                                 <div class="circle">
-                                                    <div class="debug2" >
+                                                    <div class="debug2 select-nulo" >
                                                         <input id="rangeAr2" on class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" >
                                                     </div>
                                                     <div class="dot2"></div>
                                                 </div>
                                             </div>
                                                 <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
-                                                    <button onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
+                                                    <button data-bs-dismiss="modal"onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
                                                     <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
                                                 </div>
                                         </div>
@@ -86,6 +86,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="controleArMobile1 mt-5">
                         <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
                             <div class="card card-temperatura p-3 col-10" >
@@ -174,6 +175,20 @@
     <div class="footer"></div>
 
     <script>
+        let div_id;
+
+        function alteraIdDivSelecionada(id) {
+            div_id = id;
+            console.log(div_id);
+        }
+
+        function altera() {
+            let inputModal = document.getElementById("rangeAr2");
+            let temperatura = inputModal.value;
+            let p = document.getElementById(div_id);
+            p.innerHTML = temperatura;
+        }
+
         // ATUALIZA SALAS
         var predios = JSON.parse('<%- JSON.stringify(predios) %>');
     

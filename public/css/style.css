@@ -94,7 +94,10 @@ label h1{
 
 
 
-
+.select-nulo {
+    pointer-events: none;
+    user-select: none;
+}
 
 
 
