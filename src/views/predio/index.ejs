@@ -13,61 +13,60 @@
                                 <h2>Gerenciamento de salas</h2>
                             </div>
                             <div class="botao d-flex justify-content-end col-3">
-                                <button type="button" class="btn" data-bs-target="#"
+                                <button type="button" class="btn" data-bs-target="#addSala"
                                     data-bs-toggle="modal">Adicionar</button>
                             </div>
-                        </div>
 
-                        <div class="row predio s mt-5 col-4">
-                            <h4>Prédios</h4>
-                            <select id="selectPredio" class="form-select">
-                                <% predios.forEach(predio=> { %>
-                                    <option value="<%= predio.id %>">
-                                        <%= predio.nome %>
-                                    </option>
-                                    <% }) %>
-                            </select>
-                        </div>
-                        <div id="salasContainer" class="row salas mt-5 justify-content-between">
-                            <table class="table usuari os-tabela table-sm mt-5 text-center">
-                                <tbody id="salaTables">
-                                    <% var index=0 %>
-                                        <% predios[index].salas.forEach(sala=> { %>
-                                            <tr>
-                                                <td>
-                                                    <%= sala.nome %>
-                                                </td>
-                                                <td><a href="" data-bs-toggle="modal"
-                                                        data-bs-target="#excluir_<%= sala.id %>"><box-icon
-                                                            name='trash-alt' type='solid'
-                                                            color='#ff6467'></box-icon></a>
-                                                </td>
-                                                <td><a href="" data-bs-toggle="modal"
-                                                        data-bs-target="#edit_<%= sala.id %>">
-                                                        <box-icon name='edit-alt' type='solid'
-                                                            color='#fcff64'></box-icon>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                            <%- include('./create', {predios}) %>
+
+                                <div class="row predio s mt-5 col-4">
+                                    <h4>Prédios</h4>
+                                    <select id="selectPredio" class="form-select" onchange="updateTable(this)">
+                                        <% predios.forEach(predio=> { %>
+                                            <option value="<%= predio.id %>">
+                                                <%= predio.nome %>
+                                            </option>
                                             <% }) %>
-                                </tbody>
-                            </table>
+                                    </select>
+                                </div>
+                                <div id="salasContainer" class="row salas mt-5 justify-content-between">
+                                    <table class="table usuarios-tabela table-sm mt-5 text-center">
+                                        <tbody id="salaTables">
+                                            <% var index=0 %>
+                                                <% predios[index].salas.forEach(sala=> { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= sala.nome %>
+                                                        </td>
+                                                        <td><a href="" data-bs-toggle="modal"
+                                                                data-bs-target="#excluir_<%= sala.id %>"><box-icon
+                                                                    name='trash-alt' type='solid'
+                                                                    color='#ff6467'></box-icon></a>
+                                                        </td>
+                                                        <td><a href="" data-bs-toggle="modal"
+                                                                data-bs-target="#edit_<%= sala.id %>">
+                                                                <box-icon name='edit-alt' type='solid'
+                                                                    color='#fcff64'></box-icon>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
                         </div>
                     </div>
-                </div>
     </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
         // ATUALIZA SALAS
         var predios = JSON.parse('<%- JSON.stringify(predios) %>');
 
-        document.getElementById('selectPredio').addEventListener('change', function () {
-            var selectedPredioId = this.value;
-
-            var predioSelecionado = predios.find(function (predio) {
-                return predio.id == selectedPredioId;
-            });
-
+        function updateTable(select) {
+            var selectedPredioId = select.value;
 
             var salasTable = document.getElementById('salaTables')
             salasTable.innerHTML = "";
@@ -102,8 +101,8 @@
 
                 // Adiciona a linha à tabela
                 salaTables.appendChild(row);
-            });
-        });
+            })
+        }
     </script>
 
 </html>
