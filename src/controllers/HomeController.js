@@ -18,8 +18,13 @@ async function index(req, res) {
         }
         
         const predios = await Predio.findAll({
-            include: { association: 'salas' }
+            include: [
+                { association: 'salas', include: 'ares_condicionados' }
+            ]
         })
+
+        console.log(predios[0].salas[0])
+
         res.status(200).render('home/index', {user, predios})
 
     } catch (error) {
