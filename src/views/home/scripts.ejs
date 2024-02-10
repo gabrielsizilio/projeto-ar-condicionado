@@ -1,4 +1,36 @@
 <script>
+    var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
+    var nomeSala
+
+    function catchNome(aux) {
+        nomeSala = aux
+    }
+
+    function trocarSala(){
+        var predioId = document.getElementById('selectPredio').value
+        var predioSelecionado
+
+        predio1.forEach(predio => {
+            if (predio.id == predioId) {
+                predioSelecionado = predio
+            }
+        });
+        
+        /*Desktop*/
+        document.getElementById('span1').innerHTML = ""
+        var aux1 = document.createElement('strong')
+        aux1.textContent = nomeSala.textContent + " - " + predioSelecionado.nome
+        document.getElementById('span1').appendChild(aux1)
+
+        /*Mobile*/
+        document.getElementById('trocaSalah61').innerHTML = ""
+        document.getElementById('trocaSalah62').innerHTML = ""
+        document.getElementById('trocaSalah61').textContent = nomeSala.textContent + " - " + predioSelecionado.nome
+        document.getElementById('trocaSalah62').textContent = nomeSala.textContent + " - " + predioSelecionado.nome
+    }
+</script>
+
+<script>
     // ATUALIZA SALAS
     var predios = JSON.parse('<%- JSON.stringify(predios) %>');
 
@@ -12,11 +44,11 @@
         document.getElementById('salasContainer').innerHTML = "";
         predioSelecionado.salas.forEach(function (sala) {
             var salaElement = document.createElement('div');
-            salaElement.setAttribute('onclick', 'trocaSala(this)')
+            salaElement.setAttribute('onclick', 'catchNome(this)')
             salaElement.className = "btn sala col-2 text-center p-2 col-auto";
             salaElement.textContent = sala.nome;
             salaElement.setAttribute('data-bs-toggle', 'modal');
-            salaElement.setAttribute('data-bs-target', '#trocaSala')
+            salaElement.setAttribute('data-bs-target', '#trocaSala');
 
             document.getElementById('salasContainer').appendChild(salaElement);
         });

@@ -7,9 +7,7 @@ const Horario = require('../models/Horario')
 async function index(req, res) {
 
     const usuarios  = await User.findAll({include: [{association: 'credencial'}]})
-    const predios = await Predio.findAll({
-        include: { association: 'salas' }
-    })
+    const predios = await Predio.findAll({include: { association: 'salas' }})
     const semana = await Semana.findAll()
     const horarios = await Horario.findAll()
     const alocaoHorarios = await AlocacaoHorario.sequelize.query("SELECT * FROM alocacao_horarios")

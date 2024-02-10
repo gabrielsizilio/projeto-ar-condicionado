@@ -49,7 +49,6 @@
                                                 <%= predios[0].salas[0].nome %> - <%= predios[0].nome %>
                                             </strong>
                                         </span>
-                                        <!-- <span><strong>Sala 17 - Prédio 04</strong></span> -->
                                     </div>
 
                                     <div class="col-2 onoff text-center">
@@ -93,7 +92,7 @@
                                                     <div
                                                         class="excluir-bottom d-flex justify-content-around text-center mt-4">
                                                         <button onclick="altera()"
-                                                            class="btn excluir-confirma">ALTERAR</button>
+                                                            class="btn excluir-confirma" data-bs-dismiss="modal">ALTERAR</button>
                                                         <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
                                                     </div>
                                                 </div>
@@ -114,7 +113,7 @@
                                                 id="flexSwitchCheckDefault">
                                         </div>
                                     </div>
-                                    <h6 class="card-subtitle mb-2">Prédio 01 - Sala 02</h6>
+                                    <h6 id="trocaSalah61" class="card-subtitle mb-2"><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></h6>
 
                                     <div class="circle-mobile1 mt-3 mb-0">
                                         <div class="debug-mobile1">
@@ -137,7 +136,7 @@
                                                 id="flexSwitchCheckDefault">
                                         </div>
                                     </div>
-                                    <h6 class="card-subtitle mb-2">Prédio 01 - Sala 02</h6>
+                                    <h6 id="trocaSalah62" class="card-subtitle mb-2"><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></h6>
 
                                     <div class="circle-mobile2 mt-3 mb-0">
                                         <div class="debug-mobile2">
@@ -168,8 +167,8 @@
                                             <h4>Deseja realmente trocar de sala?</h4>
                                             <div class="row d-flex justify-content-center mt-4">
                                                 <div class="d-flex justify-content-around col-9">
-                                                    <button onclick="trocarSala()" class="btn col-auto">Trocar</button>
-                                                    <button class="btn cancelar col-auto">Cancelar</button>
+                                                    <button onclick="trocarSala()" data-bs-dismiss="modal" class="btn col-auto">Trocar</button>
+                                                    <button class="btn cancelar col-auto" data-bs-dismiss="modal">Cancelar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,29 +191,6 @@
         </div>
         </div>
         </div>
-
-        <script>
-            var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
-            var nomeSala
-
-            function catchNome(aux) {nomeSala = aux}
-
-            function trocarSala(){
-                var predioId = document.getElementById('selectPredio').value
-                var predioSelecionado
-
-                predio1.forEach(predio => {
-                    if (predio.id == predioId) {
-                        predioSelecionado = predio
-                    }
-                });
-
-                document.getElementById('span1').innerHTML = ""
-                var aux1 = document.createElement('strong')
-                aux1.textContent = nomeSala.textContent + " - " + predioSelecionado.nome
-                document.getElementById('span1').appendChild(aux1)
-            }
-        </script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

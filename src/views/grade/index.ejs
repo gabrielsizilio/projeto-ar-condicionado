@@ -8,27 +8,28 @@
             <%- include('../partials/nav.ejs')%>
 
                 <div class="col-11 container-conteudo">
+                    <%- include('./alterarProfessor.ejs') %>
                     <div class="container-conteudo">
                         <div class="row grade-top d-flex justify-content-between">
                             <div class="titulo d-flex justify-content-start col-8">
                                 <h2>Grade de Horários</h2>
                             </div>
                             <div class="row predios mt-5 col-4">
-                                <select id="selectPredio" class="form-select">
-                                    <% predios.forEach(element=> { %>
-                                        <option value="<%= element.id %>">
-                                            <%= element.nome %>
+                                <select id="selectPredio" onchange="trocaPredio(this)" class="form-select">
+                                    <% predios.forEach(predio=> { %>
+                                        <option value="<%= predio.id %>">
+                                            <%= predio.nome %>
                                         </option>
                                         <% }) %>
                                 </select>
-                                <select id="selectSala" class="form-select">
-                                    <% var i=0 %>
-                                    <% predios[i].salas.forEach(element=> { %>
-                                        <option value="<%= element.id %>">
-                                            <%= element.nome %>
+                                <select id="selectSala" onchange="trocaSala(this)" class="form-select">
+                                    <% predios[0].salas.forEach(sala=> { %>
+                                        <option value="<%= sala.id%>">
+                                            <%= sala.nome %>
                                         </option>
                                     <% }) %>
-                                </select>
+                                </select> 
+                                <button class="btn col-10 mt-4" onclick="mudaGrade()">Mudar</button>
                             </div>
                         </div>
                         <%- include('./gradeHorarios.ejs') %>
@@ -51,11 +52,6 @@
         <script>
             // ATUALIZA SALAS
             var predios = JSON.parse('<%- JSON.stringify(predios) %>');
-            var salaId = function (){
-                document.getElementById('selectSalas').addEventListener('change',function(){
-                    return this.value;
-                })
-            }
 
             document.getElementById('selectPredio').addEventListener('change', function () {
                 var selectedPredioId = this.value;
@@ -63,11 +59,11 @@
                 var predioSelecionado = predios.find(function (predio) {
                     return predio.id == selectedPredioId;
                 });
-
+                
                 document.getElementById('selectSala').innerHTML = "";
                 predioSelecionado.salas.forEach(function (sala) {
                     var salaElement = document.createElement('option');
-                    salaElement.value = salaId;
+                    salaElement.value = sala.id;
                     salaElement.textContent = sala.nome;
 
                     document.getElementById('selectSala').appendChild(salaElement);
@@ -76,8 +72,62 @@
         </script>
 
         <script>
-            //Atualiza a grade
+            //Atualiza Grade
+            var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+            var alocacaoHorarios = JSON.parse('<%- JSON.stringify(alocaoHorarios) %>');
+            var salaAtual
 
+            function trocaPredio(predioSelecionado){
+                salaAtual = predios[predioSelecionado.selectedIndex].salas[0].id
+            }
+
+            function trocaSala(salaSelecionada){
+                var predioSelecionado = document.getElementById('selectPredio')
+                salaAtual = predios[predioSelecionado.selectedIndex].salas[salaSelecionada.selectedIndex].id
+            }
+
+            function mudaGrade(){
+                preencherGrade(salaAtual)
+            }
+
+            //Preencher Grade de Horários
+            var semanas = JSON.parse('<%- JSON.stringify(semana) %>');
+            var horario = JSON.parse('<%- JSON.stringify(horarios) %>');
+            var usuario = JSON.parse('<%- JSON.stringify(usuarios) %>');
+            var alocacao = JSON.parse('<%- JSON.stringify(alocaoHorarios) %>');
+        
+            var salaSelecionada = 0
+            
+            function preencherGrade(salaSelecionada){
+                //console.log(salaSelecionada)
+                document.getElementById('tabela').innerHTML = ''
+                
+                horario.forEach(function (horarios){
+                    var celulas1 = document.createElement('th')
+                    celulas1.scope = "row"
+                    celulas1.textContent = horarios.horario_ini 
+                    var celulas3 = document.createElement('tr') 
+                    celulas3.appendChild(celulas1)
+                    var celulas2 = []
+                    semanas.forEach(semana=>{
+                        celulas2[semana] = document.createElement('td')
+                        usuario.forEach(usuarios=>{
+                            alocacao[0].forEach(aloca=>{
+                                if(aloca.horario_id == horarios.id && aloca.semana_id == semana.id && aloca.usuario_id == usuarios.id && aloca.sala_id == salaSelecionada){
+                                    celulas2[semana].textContent = usuarios.nome
+                                    celulas2[semana].setAttribute('data-bs-toggle', 'modal');
+                                    celulas2[semana].setAttribute('data-bs-target', "#alterarProfessor")
+                                }/*else{
+                                    //celulas2[semana].textContent = "-"
+                                }*/
+                                
+                            })
+                        })
+                        celulas3.appendChild(celulas2[semana])
+                    })
+                    document.getElementById('tabela').appendChild(celulas3)
+                })
+            }        
         </script>
 
     </body>

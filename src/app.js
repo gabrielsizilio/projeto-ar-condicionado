@@ -18,10 +18,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json())
 
-app.get('/aux', function(req,res){
-    res.render('teste')
-})
-
 app.use('/', router);
 
 try {
