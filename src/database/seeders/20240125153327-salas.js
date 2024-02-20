@@ -30,21 +30,21 @@ module.exports = {
       updatedAt: new Date()
     }]);
 
+    const controlador = await queryInterface.bulkInsert('controladores', [{
+      macAddress: "8C:AA:B5:02:4A:02",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }])
+    
     const arCondicionado = await queryInterface.bulkInsert('ares_condicionados', [{
       nome: 'Ar-01',
       modelo_id: modelo,
       sala_id: sala,
+      controlador_id: controlador,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
     
-    const controlador = await queryInterface.bulkInsert('controladores', [{
-      macAddress: "8C:AA:B5:02:4A:02",
-      sala_id: sala,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }])
-
     const temperatura = await queryInterface.bulkInsert('temperaturas', [{
       modelo_id: modelo,
       off : "3444, 1616, 464, 1240, 464, 1240, 464, 300, 552, 296, 556, 296, 556, 1240, 464, 296, 552, 300, 552, 1240, 464, 1240, 464, 300, 552, 1240, 464, 300, 552, 300, 552, 1240, 464, 1236, 468, 296, 556, 1236, 464, 1240, 464, 300, 552, 300, 552, 1240, 464, 300, 552, 300, 552, 1240, 464, 296, 556, 296, 556, 296, 556, 296, 556, 296, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 296, 556, 296, 556, 296, 552, 304, 552, 296, 552, 304, 548, 1240, 464, 300, 552, 300, 552, 1240, 464, 1240, 464, 300, 552, 300, 552, 300, 552, 300, 552, 296, 556, 300, 552, 296, 552, 1240, 464, 1240, 464, 300, 552, 300, 552, 300, 552, 300, 552, 1240, 464, 296, 556, 296, 556, 300, 552, 300, 552, 300, 552, 296, 552, 304, 548, 304, 548, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 548, 304, 548, 304, 548, 304, 548, 304, 548, 300, 552, 300, 552, 304, 548, 300, 552, 304, 548, 300, 552, 300, 552, 300, 552, 300, 552, 300, 548, 304, 548, 304, 548, 304, 548, 304, 548, 304, 548, 304, 548, 1240, 464, 1240, 464, 1240, 464, 1240, 464, 1236, 464, 360, 492, 1240, 464",
