@@ -1,16 +1,22 @@
 const Predio = require('../models/Predio')
+const ArCondicionado = require('../models/ArCondicionado')
 const Sala = require('../models/Sala')
 
 
 async function index(req, res) {
-    const predios = await Predio.findAll({
+    const { id } = req.params
+
+    const sala = await Sala.findByPk(id, {
         include: [{
-            model: Sala, as: 'salas'
+            model: Predio, as: 'predio'
+        }, {
+            model: ArCondicionado, as: 'ares_condicionados'
         }]
     })
-    console.log(predios[0].salas);
+    
 
-    res.status(200).render('salas/index', { predios })
+    return res.send(sala)
+    // res.status(200).render('salas/index')
 }
 
 async function create(req, res) {

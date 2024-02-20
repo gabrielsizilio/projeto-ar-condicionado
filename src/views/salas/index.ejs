@@ -18,54 +18,10 @@
                             </div>
                         </div>
 
-                        <div class="row predios mt-5 col-4">
-                            <select id="selectPredio" class="form-select">
-                                <% predios.forEach(predio=> { %>
-                                    <option value="<%= predio.id %>">
-                                        <%= predio.nome %>
-                                    </option>
-                                    <% }) %>
-                            </select>
-                        </div>
                         <div id="salasContainer" class="row salas mt-5 justify-content-between">
-                            <% var index=0 %>
-                                <% predios[index].salas.forEach(sala=> { %>
-                                    <table class="table usuari os-tabela table-sm mt-5 text-center">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <%= sala.nome %>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                <% }) %>
+                            
                         </div>
                     </div>
                 </div>
     </body>
-
-    <script>
-            // ATUALIZA SALAS
-            var predios = JSON.parse('<%- JSON.stringify(predios) %>');
-
-            document.getElementById('selectPredio').addEventListener('change', function () {
-                var selectedPredioId = this.value;
-
-                var predioSelecionado = predios.find(function (predio) {
-                    return predio.id == selectedPredioId;
-                });
-
-
-                document.getElementById('salasContainer').innerHTML = "";
-                predioSelecionado.salas.forEach(function (sala) {
-                    var salaElement = document.createElement('div');
-                    salaElement.className = 'card sala d-flex text-center p-2';
-                    salaElement.textContent = sala.nome;
-
-                    document.getElementById('salasContainer').appendChild(salaElement);
-                });
-            });
-        </script>
-
 </html>

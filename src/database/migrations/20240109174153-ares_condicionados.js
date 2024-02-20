@@ -30,6 +30,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      controlador_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'controladores',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
       nome: {
         allowNull: false,
         type: Sequelize.STRING

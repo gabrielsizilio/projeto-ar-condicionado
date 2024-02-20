@@ -2,7 +2,7 @@ const express = require('express');
 const salaController = require('../controllers/SalaController');
 const router = express.Router()
 
-router.get('/', salaController.index)
+router.get('/:id', salaController.index)
 
 router.get('/create', salaController.create)
 

@@ -11,9 +11,9 @@ class Controlador extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.Sala, {
-            foreignKey: 'sala_id',
-            as: 'sala'
+        this.hasMany(models.ArCondicionado, {
+            foreignKey: 'controlador_id',
+            as: 'arCondicionado'
         })
     }
 }

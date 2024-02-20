@@ -14,16 +14,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      sala_id: {
-        type: Sequelize.INTEGER,
-        allowNull:false,
-        references: {
-          model: 'salas',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
