@@ -1,6 +1,7 @@
+const Sala = require('../models/Sala')
 const Predio = require('../models/Predio')
 const ArCondicionado = require('../models/ArCondicionado')
-const Sala = require('../models/Sala')
+const Controlador = require('../models/Controloador')
 
 
 async function index(req, res) {
@@ -10,13 +11,14 @@ async function index(req, res) {
         include: [{
             model: Predio, as: 'predio'
         }, {
-            model: ArCondicionado, as: 'ares_condicionados'
+            model: ArCondicionado, as: 'ares_condicionados',
+            include: [{
+                model: Controlador, as: 'controlador'
+            }] 
         }]
     })
-    
 
-    return res.send(sala)
-    // res.status(200).render('salas/index')
+    res.status(200).render('salas/index', {sala})
 }
 
 async function create(req, res) {

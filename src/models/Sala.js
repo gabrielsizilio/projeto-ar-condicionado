@@ -22,10 +22,6 @@ class Sala extends Model {
         this.hasMany(models.AlocacaoHorario, {
             foreignKey: 'sala_id',
             as: 'alocacoes'
-        }),
-        this.hasMany(models.Controlador, {
-            foreignKey: 'sala_id',
-            as: 'controladores'
         })
     }
 }
