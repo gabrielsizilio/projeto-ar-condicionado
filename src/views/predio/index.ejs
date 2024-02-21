@@ -74,6 +74,10 @@
             var salasTable = document.getElementById('salaTables')
             salasTable.innerHTML = "";
 
+            var predioSelecionado = predios.find((predio) => {
+                return predio.id == selectedPredioId;
+            })
+            
             predioSelecionado.salas.forEach(function (sala) {
                 var row = document.createElement('tr')
 
