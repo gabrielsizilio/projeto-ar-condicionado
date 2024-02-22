@@ -465,5 +465,23 @@
         })
     </script>
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('eventoTeste', () => {
+            console.log("Chamou o evento corretamente")
+        })
+
+        function enviarComando() {
+            const id_controlador = document.getElementById("id_controlador").value;
+            const ares = [{marca: 'Philco', modelo: 'A', temperatura: 21}, {marca: 'Komeco', modelo: 'B', temperatura: 16}]
+            socket.emit('enviarComandoAr', {id_controlador, ares})
+            // socket.emit('button', id);
+            // socket.emit('registrarControlador', id_controlador);
+            // socket.emit('enviarComando', comando);
+        }
+    </script>
+
 </body>
 </html>
