@@ -86,7 +86,7 @@
                                             </div>
                                                 <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
                                                     <button data-bs-dismiss="modal"onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
-                                                    <button class="btn" data-bs-dismiss="modal">DESLIGAR</button>
+                                                    <button class="btn" data-bs-dismiss="modal" onclick="desligarAr()">DESLIGAR</button>
                                                 </div>
                                         </div>
                                         
@@ -198,11 +198,11 @@
             input_ar_condicionado_id = inputArCondicionadoId;
             console.log(div_id);
             console.log(inputControladorId);
-            atualizaControladorSelecionado(inputControladorId, inputArCondicionadoId);
+            atualizaControladorSelecionado(inputControladorId);
         }
 
         // Atualiza controlador
-        function atualizaControladorSelecionado(id_controlador_selecionado, id_ar_selecionado) {
+        function atualizaControladorSelecionado(id_controlador_selecionado) {
             let inputControlador = document.getElementById("id_controlador");
             let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
             if(inputControladorSelecionado) {
@@ -210,11 +210,11 @@
                 console.log(macAddress);
                 inputControlador.value = macAddress;
             }
-            let inputArSelecionado = document.getElementById(id_ar_selecionado);
-            if(inputArSelecionado) {
-                const idArCondicionado = inputArSelecionado.value;
-                console.log(idArCondicionado);
-                input_ar_condicionado_id.value = idArCondicionado;
+            let inputArSelecionado = document.getElementById('id_arcondicionado');
+
+            if(typeof(input_ar_condicionado_id) != "undefined") {
+                inputArSelecionado.value = document.getElementById(input_ar_condicionado_id).value.trim();
+                console.log(inputArSelecionado.value);
             }
         }
 
@@ -223,6 +223,13 @@
             let temperatura = inputModal.value;
             let p = document.getElementById(div_id);
             p.innerHTML = temperatura;
+            enviarComando(temperatura);
+        }
+
+        function desligarAr() {
+            let p = document.getElementById(div_id);
+            p.innerHTML = "off";
+            enviarComando("off");
         }
 
         // ATUALIZA SALAS
@@ -473,13 +480,14 @@
             console.log("Chamou o evento corretamente")
         })
 
-        function enviarComando() {
+        function enviarComando(temperatura) {
             const id_controlador = document.getElementById("id_controlador").value;
-            const ares = [{marca: 'Philco', modelo: 'A', temperatura: 21}, {marca: 'Komeco', modelo: 'B', temperatura: 16}]
-            socket.emit('enviarComandoAr', {id_controlador, ares})
-            // socket.emit('button', id);
-            // socket.emit('registrarControlador', id_controlador);
-            // socket.emit('enviarComando', comando);
+            const id_arcondicionado = document.getElementById('id_arcondicionado').value;
+            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura})
+
+            console.log(id_controlador)
+            console.log(id_arcondicionado)
+            console.log(temperatura)
         }
     </script>
 
