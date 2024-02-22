@@ -1,4 +1,5 @@
 const Predio = require('../models/Predio')
+const Sala = require('../models/Sala')
 
 
 async function index(req, res) {
@@ -7,7 +8,7 @@ async function index(req, res) {
         include: {association: 'salas'}
     })
 
-    res.status(200).json({ predios });
+    res.status(200).render('predio/index' ,{ predios });
 }
 
 async function create(req, res) {
@@ -16,6 +17,8 @@ async function create(req, res) {
 
 async function store(req, res) {
     const { nome } = req.body
+
+    return res.send(req.body)
 
     if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })

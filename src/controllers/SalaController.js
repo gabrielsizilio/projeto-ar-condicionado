@@ -1,11 +1,26 @@
-const Predio = require('../models/Predio')
 const Sala = require('../models/Sala')
+const Predio = require('../models/Predio')
+const ArCondicionado = require('../models/ArCondicionado')
+const Controlador = require('../models/Controloador')
 
 
 async function index(req, res) {
-    const salas = await Sala.findAll()
+    const { id } = req.params
 
-    res.status(200).json({ salas })
+    const sala = await Sala.findByPk(id, {
+        include: [{
+            model: Predio, as: 'predio'
+        }, {
+            model: ArCondicionado, as: 'ares_condicionados',
+            include: [{
+                model: Controlador, as: 'controlador'
+            }] 
+        }]
+    })
+
+    console.log(sala.ares_condicionados[0].nome);
+
+    res.status(200).render('salas/index', {sala})
 }
 
 async function create(req, res) {
@@ -13,19 +28,19 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, predio_id } = req.body
+    const { nome, predio, gerenciarSala } = req.body
 
-    if (!nome || !predio_id) {
+    if (!nome || !predio) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
     try {
         await Sala.create({
             nome,
-            predio_id
+            predio_id: predio
         })
 
-        res.redirect('/ar-condicionado')
+        res.redirect('/predio')
     } catch (error) {
         res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
