@@ -77,13 +77,17 @@
             var predioSelecionado = predios.find((predio) => {
                 return predio.id == selectedPredioId;
             })
+
+            console.log(predioSelecionado);
             
             predioSelecionado.salas.forEach(function (sala) {
                 var row = document.createElement('tr')
 
                 var cell = document.createElement('td')
-                cell.textContent = sala.nome
-
+                var linkSala = document.createElement('a')
+                linkSala.href=`/predio/${selectedPredioId}/sala/${sala.id}`
+                linkSala.innerText = sala.nome
+                cell.appendChild(linkSala);
                 row.appendChild(cell)
 
                 // Adiciona um link de exclusão em outra célula

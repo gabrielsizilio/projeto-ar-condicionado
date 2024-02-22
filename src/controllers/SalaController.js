@@ -18,8 +18,6 @@ async function index(req, res) {
         }]
     })
 
-    console.log(sala.ares_condicionados[0].nome);
-
     res.status(200).render('salas/index', {sala})
 }
 
