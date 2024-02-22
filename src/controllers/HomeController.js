@@ -34,6 +34,9 @@ async function index(req, res) {
                                 { 
                                     association: 'modelo'
                                     
+                                },
+                                {
+                                    association: 'controlador'
                                 }
                             ]
                         }
@@ -41,8 +44,11 @@ async function index(req, res) {
                 }
             ]
         });
-
-        console.log(predios[0].salas[0].ares_condicionados[0].modelo)
+        
+        console.log("Modelo: ");
+        console.log(predios[0].salas[0].ares_condicionados[0].modelo);
+        console.log("Controlador: ");
+        console.log(predios[0].salas[0].ares_condicionados[0].controlador);
 
         res.status(200).render('home/index', { user, predios })
 

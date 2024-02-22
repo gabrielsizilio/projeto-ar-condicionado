@@ -31,7 +31,8 @@
                             </strong>
                         </div>
                     </div>
-
+                    <input id="id_controlador" type="hidden" value="">
+                    <input id="id_arcondicionado" type="hidden" value="">
                     <div class="row controle-ar justify-content-center mt-5">
                         <div id="controle-individual" class="card col-8 p-2">
                             <div class="row justify-content-between pt-2 pb-2">
@@ -48,16 +49,28 @@
                                 </div>
                             </div>
                             <div class="row justify-content-evenly infor-ar">
-                                <div onclick="alteraIdDivSelecionada('tempA1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
-                                    <p><strong>Philco</strong></p>
-                                    <p id="tempA1" class="temperatura"><strong>22 °C</strong></p>
+                                <div id="seletorAr1" onclick="alteraIdDivSelecionada('tempA1', 'id_controlador1', 'id_ar_condicionado1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
+                                    <% if(predios[0].salas[0].ares_condicionados[0]) { %>
+                                        <p><strong id="nome_ar1"><%= predios[0].salas[0].ares_condicionados[0].nome %></strong></p>
+                                        <% if(predios[0].salas[0].ares_condicionados[0].controlador) { %>
+                                            <input id="id_ar_condicionado1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].id %>">
+                                            <input id="id_controlador1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].controlador.macAddress %>">
+                                        <% } %>
+                                        <p id="tempA1" class="temperatura">22<strong>°C</strong></p>
+                                    <% } %>
                                 </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
                                     <div class="vr" style="height: 95%;"></div>
                                 </div>
-                                <div onclick="alteraIdDivSelecionada('tempA2')" class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
-                                    <p><strong>Komeko</strong></p>
-                                    <p id="tempA2" class="temperatura"><strong>23 °C</strong></p>
+                                <div id="seletorAr2" onclick="alteraIdDivSelecionada('tempA2', 'id_controlador2', 'id_ar_condicionado2')" class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
+                                    <% if(predios[0].salas[0].ares_condicionados[1]) { %>
+                                        <p><strong id="nome_ar2"><%= predios[0].salas[0].ares_condicionados[1].nome %></strong></p>
+                                        <% if(predios[0].salas[0].ares_condicionados[1].controlador) { %>
+                                            <input id="id_ar_condicionado2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
+                                            <input id="id_controlador2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].controlador.macAddress %>">
+                                        <% } %>
+                                        <p id="tempA2" class="temperatura">23<strong>°C</strong></p>
+                                    <% } %>
                                 </div>
                                 <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
                                 <div class="modal-dialog modal-sm">
@@ -66,7 +79,7 @@
                                             <div id="modal-temperatura" class="position-relative">
                                                 <div class="circle">
                                                     <div class="debug2 select-nulo" >
-                                                        <input id="rangeAr2" on class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" >
+                                                        <input id="rangeAr2" class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" >
                                                     </div>
                                                     <div class="dot2"></div>
                                                 </div>
@@ -175,11 +188,34 @@
     <div class="footer"></div>
 
     <script>
-        let div_id;
+        let div_id; 
+        let input_controlador_id;
+        let input_ar_condicionado_id;
 
-        function alteraIdDivSelecionada(id) {
+        function alteraIdDivSelecionada(id, inputControladorId, inputArCondicionadoId) {
             div_id = id;
+            input_controlador_id = inputControladorId;
+            input_ar_condicionado_id = inputArCondicionadoId;
             console.log(div_id);
+            console.log(inputControladorId);
+            atualizaControladorSelecionado(inputControladorId, inputArCondicionadoId);
+        }
+
+        // Atualiza controlador
+        function atualizaControladorSelecionado(id_controlador_selecionado, id_ar_selecionado) {
+            let inputControlador = document.getElementById("id_controlador");
+            let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
+            if(inputControladorSelecionado) {
+                const macAddress = inputControladorSelecionado.value;
+                console.log(macAddress);
+                inputControlador.value = macAddress;
+            }
+            let inputArSelecionado = document.getElementById(id_ar_selecionado);
+            if(inputArSelecionado) {
+                const idArCondicionado = inputArSelecionado.value;
+                console.log(idArCondicionado);
+                input_ar_condicionado_id.value = idArCondicionado;
+            }
         }
 
         function altera() {
@@ -204,32 +240,74 @@
                 var salaElement = document.createElement('div');
                 salaElement.setAttribute('onclick', 'trocaSala(this)')
                 salaElement.className = "btn sala  me-3 mb-4 col-2 text-center p-2 col-auto";
-                salaElement.textContent = sala.nome;
-                /*salaElement.setAttribute('data-bs-toggle', 'modal');
-                salaElement.setAttribute('data-bs-target', '#trocaSala')*/
-    
+                salaElement.textContent = sala.nome;    
                 document.getElementById('salasContainer').appendChild(salaElement);
             });
         });
+        
     </script>
     
     <script>
         var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
     
-        function trocaSala(aux) {
+        function trocaSala(divSala) {
             var predioId = document.getElementById('selectPredio').value
             var predioSelecionado
+            var salaSelecionada
     
             predio1.forEach(predio => {
                 if (predio.id == predioId) {
                     predioSelecionado = predio
                 }
             });
-    
-            console.log(predioSelecionado)
+
+            if(!predioSelecionado) {
+                return ;
+            }
+
+            predioSelecionado.salas.forEach(sala => {
+                if(sala.nome == divSala.textContent.trim()){
+                    salaSelecionada = sala
+                }
+            })
+            
+            if(!salaSelecionada) {
+                return ;
+            }
+
+            let divSeletor1 = document.getElementById('seletorAr1')
+            let divSeletor2 = document.getElementById('seletorAr2')
+
+            if(salaSelecionada.ares_condicionados[0]) {
+                let inputArId = document.getElementById('id_ar_condicionado1')
+                let strongNomeAr = document.getElementById('nome_ar1')
+                let inputControladorId = document.getElementById('id_controlador1')
+
+                inputArId.value = salaSelecionada.ares_condicionados[0].id
+                strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
+                inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
+                
+                divSeletor1.style.cssText = "display: flex !important"
+            } else {
+                divSeletor1.style.cssText = "visibility: hidden"
+            }
+            
+            if(salaSelecionada.ares_condicionados[1]) {
+                let inputArId = document.getElementById('id_ar_condicionado2')
+                let strongNomeAr = document.getElementById('nome_ar2')
+                let inputControladorId = document.getElementById('id_controlador2')
+
+                inputArId.value = salaSelecionada.ares_condicionados[1].id
+                strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
+                inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
+                divSeletor2.style.cssText = "display: flex !important";
+            } else {
+                divSeletor2.style.cssText = "visibility: hidden"
+            }
+            
             document.getElementById('span1').innerHTML = ""
             var aux1 = document.createElement('strong')
-            aux1.textContent = aux.textContent + " - " + predioSelecionado.nome
+            aux1.textContent = divSala.textContent + " - " + predioSelecionado.nome
             document.getElementById('span1').appendChild(aux1)
         }
     </script>
