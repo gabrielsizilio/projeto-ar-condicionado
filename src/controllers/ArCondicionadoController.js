@@ -22,14 +22,16 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        const modelos = await Modelo.findAll({
+        const arCondicionados = await ArCondicionado.findAll({
             include: [{
-                model: Modelo, as: 'modelo'
-            }],
-            order: [{ model: Marca, as: 'marca' }, 'nome', 'ASC']
+                model: Modelo, as: 'modelo',
+                include: [{
+                    model: Marca, as: 'marca'
+                }]
+            }]
         });
 
-        return res.render('arCondicionado/create', { modelos })
+        return res.render('arCondicionado/create', { arCondicionados })
     } catch (error) {
         console.log('ERRO: ', error);
     }
