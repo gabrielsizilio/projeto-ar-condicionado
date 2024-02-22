@@ -10,22 +10,41 @@ async function index(req, res) {
             return res.redirect('/logout')
         }
         // const user = await Credencial.findByPk(req.credencial.id)
-        const user = await User.findByPk(req.credencial.id)
+        const credencial = await Credencial.findByPk(req.credencial.id,
+        {
+            include: [
+                { association: 'usuario'}
+            ]
+        })
+        const user = credencial.usuario
 
-        if(!user) {
+        if (!user) {
             // res.status(404).json({ msgErr: "Usuário não cadastrado no sistema!" })
             return res.redirect('/logout')
         }
-        
+
         const predios = await Predio.findAll({
             include: [
-                { association: 'salas', include: 'ares_condicionados' }
+                { 
+                    association: 'salas', 
+                    include: [
+                        { 
+                            association: 'ares_condicionados', 
+                            include: [
+                                { 
+                                    association: 'modelo'
+                                    
+                                }
+                            ]
+                        }
+                    ]
+                }
             ]
-        })
+        });
 
-        console.log(predios[0].salas[0])
+        console.log(predios[0].salas[0].ares_condicionados[0].modelo)
 
-        res.status(200).render('home/index', {user, predios})
+        res.status(200).render('home/index', { user, predios })
 
     } catch (error) {
         console.error('Ocorreu um erro: ', error);
