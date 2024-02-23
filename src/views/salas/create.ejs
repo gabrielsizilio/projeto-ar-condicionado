@@ -1,30 +1,87 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Gerenciar Salas</title>
-</head>
-<body>
-    <form action="">
+<form method="POST" action="/predio/sala/store">
+    <div class="modal fade" id="addSala" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Nova Sala</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-between">
+                        <div class="col-7">
+                            <label for="predio" class="form-label">Prédio*:</label>
+                            <select id="selectPredio" name="predio" class="form-select" required>
+                                <% predios.forEach(predio=> { %>
+                                    <option value="<%= predio.id %>">
+                                        <%= predio.nome %>
+                                    </option>
+                                    <% }) %>
+                            </select>
 
-        <label for="predioSala">Prédio:</label>
-        <select id="predioSala" name="predioSala" required>
-            <option value="predio-1">Prédio 1</option>
-            <option value="predio-2">Prédio 2</option>
-        </select>
+                            <div class="mt-1 mb-2">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" id="novoPredio"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseNovoPredio"
+                                        aria-expanded="false" aria-controls="collapseNovoPredio" onchange=handleNovoPredio()/>
+                                    <label class="form-check-label" for="novoPredio"> Novo prédio?</label>
+                                </div>
+
+                                <div class="collapse mt-2" id="collapseNovoPredio">
+                                    <div class="card card-body">
+                                        <div class="mb-1">
+                                            <label for="nomeNovoPredio" class="form-label">Nome do novo prédio*</label>
+                                            <input type="text" class="form-control" name="nomeNovoPredio" id="nomeNovoPredio"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-7 mt-3">
+                            <label for="nome" class="form-label">Nome*:</label>
+                            <input name="nome" autocomplete="off" type="text" class="form-control" id="nome" required>
+                        </div>
+                    </div>
+
+
+                    <div class="row col-12 d-flex justify-content-end salvar">
+                        <div class="mt-5 d-flex justify-content-between">
+                            <div>
+                                <input type="checkbox" name="gerenciarSala" id="gerenciarSala" checked>
+                                <label for="gerenciarSala">
+                                    <span class="italic">
+                                        Prosseguir para o gerenciamento da sala
+                                    </span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary col-2">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxNovoPredio = document.getElementById("novoPredio");
+
+        checkboxNovoPredio.addEventListener("change", handleNovoPredio);
+        const selectPredio = document.getElementById("selectPredio");
+        const inputNomeNovoPredio = document.getElementById("nomeNovoPredio");
         
-        <label for="nomeSala">Nome/Número da Sala:</label>
-        <input type="text" id="nomeSala" name="nomeSala" required>
+        function handleNovoPredio() {
 
-        <select id="controlador" name="controlador" required>
-            <option value="controlador-1">Controlador 1</option>
-            <option value="controlador-2">Controlador 2</option>
-        </select>
-
-        <button>Cadastrar</button>
-
-    </form>
-</body>
-</html>
+            if (checkboxNovoPredio.checked) {
+                selectPredio.disabled = true;
+                selectPredio.required = false;
+                inputNomeNovoPredio.required = true;
+            } else {
+                selectPredio.disabled = false;
+                selectPredio.required = true;
+                inputNomeNovoPredio.required = false;
+            }
+        }
+    });
+</script>

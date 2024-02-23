@@ -15,6 +15,6 @@ router.post('/update/:id', predioController.update)
 
 router.post('/remove/:id', predioController.remove)
 
-router.use('/:id/sala', sala)
+router.use('/:id?/sala', sala)
 
 module.exports = router;

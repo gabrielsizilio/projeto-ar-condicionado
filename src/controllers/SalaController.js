@@ -26,21 +26,35 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, predio, gerenciarSala } = req.body
+    const { nome, nomeNovoPredio, gerenciarSala } = req.body
+    var { predio } = req.body
 
-    if (!nome || !predio) {
+    if(nomeNovoPredio) {
+        const novoPredio = await Predio.create({
+            nome: nomeNovoPredio
+        })
+
+        predio = novoPredio.id
+    }
+
+    if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
     try {
-        await Sala.create({
+
+        const sala = await Sala.create({
             nome,
             predio_id: predio
         })
 
-        res.redirect('/predio')
+        if(gerenciarSala) {
+            return res.redirect(`/predio/${sala.predio_id}/sala/${sala.id}`)
+        } else {
+            return res.redirect('/predio')
+        }
     } catch (error) {
-        res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
+        return res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
 }
 
