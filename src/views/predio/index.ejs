@@ -52,6 +52,7 @@
                                                             </a>
                                                         </td>
                                                         <%- include('./components/editSala.ejs', {salaId: sala.id}) %>
+                                                        <%- include('./remove.ejs', { sala: sala}) %>
                                                     </tr>
                                                     <% }) %>
                                         </tbody>

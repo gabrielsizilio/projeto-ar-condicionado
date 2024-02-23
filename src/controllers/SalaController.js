@@ -126,8 +126,7 @@ async function remove(req, res) {
 
         await sala.destroy()
 
-        res.json({ msg: "Sala excluída do sistema" })
-
+        return res.redirect('back')
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
     }
