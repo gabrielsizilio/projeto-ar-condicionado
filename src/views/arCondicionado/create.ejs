@@ -1,47 +1,66 @@
-<%- include('../partials/header.ejs')%>
-
-    <body>
-        <%- include('../partials/nav.ejs')%>
-
-            <div id="" class="">
-                <h1>Cadastrar ar-condicionado no sistema</h1>
-                <form action="/ar-condicionado/save" method="post">
-
+<div class="modal fade" id="addArCondicioando" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar ar-condicionado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <form action="/predio/<%= sala.predio_id %>/sala/<%= sala.id %>/ar-condicionado/store" method="post">
+                
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" class="form-control" name="nome" required>
                     </div>
-                    <div class="nome error"></div>
 
-                    <div class="mb-3">
-                        <label for="modelo" class="form-label">Modelo</label>
-                        <input type="text" class="form-control" name="modelo" required>
-                    </div>
-                    <div class="modelo error"></div>
-
+                    
+                    
                     <div>
                         <label for="marca" class="form-label">Marca</label>
                         <select class="form-select" name="marca_id" required>
                             <option disabled>Selecione uma marca</option>
-                            <% for(const marca of marcas) {%>
-                                <option value="<%= marca.id%>">
-                                    <%= marca.nome%>
-                                </option>
-                                <% } %>
-                        </select>
-                    </div>
-                    <div>
-                        <a href="">
+                            <% if (marcas.length > 0) { %>
+                                <% marcas.forEach( marca => { %>
+                                    <option value="<%= marca.id %>">
+                                        <%= marca.nome %>
+                                    </option>
+                                    <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div>
+                                <a href="">
                             Adicionar nova marca
                         </a>
                     </div>
                     <div class="modelo error"></div>
 
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
-                    <button type="button" class="btn btn-danger">Cancelar</button>
+                    <div class="mt-3">
+                        <label class="form-label">Modelo</label>
+                        <div class="d-flex flex-column">
+                            <% marcas[0].modelos.forEach(modelo => { %>
+                                <div class="form-check col-8">
+                                    <input class="form-check-input" type="radio" id="modelo_<%= modelo.id %>" value="<%= modelo.id %>" name="modelo_id">
+                                    <label class="form-check-label" for="modelo_<%= modelo.id %>">
+                                        <%= modelo.nome %>
+                                    </label>
+                                </div>
+                            <% }) %>
+                        </div>
+
+                        <div>
+                            <a href="">Novo modelo?</a>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row col-12 d-flex justify-content-end salvar">
+                            <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
+                        </div>
+                    </div>
                 </form>
             </div>
-            </div>
-    </body>
-
-    <%- include('../partials/footer')%>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,8 @@ const Sala = require('../models/Sala')
 const Predio = require('../models/Predio')
 const ArCondicionado = require('../models/ArCondicionado')
 const Controlador = require('../models/Controloador')
+const Marca = require('../models/Marca')
+const Modelo = require('../models/Modelo')
 
 
 async function index(req, res) {
@@ -18,7 +20,12 @@ async function index(req, res) {
         }]
     })
 
-    res.status(200).render('salas/index', {sala})
+    const marcas = await Marca.findAll({
+        include: [{
+            model: Modelo, as: 'modelos',
+        }]
+    })
+    res.status(200).render('salas/index', {sala, marcas})
 }
 
 async function create(req, res) {

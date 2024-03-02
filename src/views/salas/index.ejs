@@ -8,54 +8,59 @@
             <%- include('../partials/nav.ejs')%>
                 <div class="col-11 container-conteudo">
                     <div class="container-conteudo">
-                        <p>Prédio <%= sala.predio.nome %></p=>
-                        <div class="row usuarios-top d-flex justify-content-between">
-                            <div class="titulo d-flex justify-content-start col-8">
-                                <h2>Gerenciamento da sala: <%= sala.nome %></h2>
-                            </div>
-                            
-                            <div class="botao d-flex justify-content-end col-3">
-                                <button type="button" class="btn" data-bs-target="#addSala"
-                                    data-bs-toggle="modal">Adicionar</button>
-                            </div>
-
-                            <div>
-                                <% if (sala.ares_condicionados.length > 0) { %>
-                                    <% sala.ares_condicionados.forEach(ar=> { %>
-                                        <div class="card mt-5" style="width: 25rem; height: 13rem;">
-                                        <div class="card-body">
-                                            <h3 class="card-title">
-                                                <%= ar.nome %>
-                                            </h3>
-
-                                            <div id="controladores" class="card ps-2 pt-2" style="width: 100%;">
-                                                <h5>Controlador</h5>
-                                                <p class="font-monospace">
-                                                    <%= ar.controlador.macAddress %>
-                                                </p>
-                                            </div>
-                                            
-                                            <div class="d-flex justify-content-evenly mt-3">
-                                                <a href="" data-bs-toggle="modal"
-                                                data-bs-target="#excluir_<%= sala.id %>"><box-icon name='trash-alt'
-                                                type='solid' color='#ff6467'></box-icon>
-                                            </a>
-                                            <a href="" data-bs-toggle="modal"
-                                            data-bs-target="#editSala_<%= sala.id %>">
-                                            <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
-                                        </a>
+                        <p>Prédio <%= sala.predio.nome %>
+                                </p=>
+                                <div class="row usuarios-top d-flex justify-content-between">
+                                    <div class="titulo d-flex justify-content-start col-8">
+                                        <h2>Gerenciamento da sala: <%= sala.nome %>
+                                        </h2>
                                     </div>
-                                </div>
+                                    <div class="botao d-flex justify-content-end col-3">
+                                        <button type="button" class="btn" data-bs-target="#addArCondicioando"
+                                            data-bs-toggle="modal">Adicionar</button>
                                     </div>
-                                    <% }) %>
-                            <% } else { %>
-                                <div>
-                                    <p>Não há aparelhos cadastrados!</p>
-                                </div>
-                            <% } %>
-                        </div>
+                                    <%- include('../arCondicionado/create.ejs', { marcas, sala }) %>
+                                    
+                                        <div>
+                                            <% if (sala.ares_condicionados.length> 0) { %>
+                                                <% sala.ares_condicionados.forEach(ar=> { %>
+                                                    <div class="card mt-5" style="width: 25rem; height: 13rem;">
+                                                        <div class="card-body">
+                                                            <h3 class="card-title">
+                                                                <%= ar.nome %>
+                                                            </h3>
 
-                        </div>
+                                                            <div id="controladores" class="card ps-2 pt-2"
+                                                                style="width: 100%;">
+                                                                <h5>Controlador</h5>
+                                                                <p class="font-monospace">
+                                                                    <%= ar.controlador.macAddress %>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-evenly mt-3">
+                                                                <a href="" data-bs-toggle="modal"
+                                                                    data-bs-target="#excluir_<%= sala.id %>"><box-icon
+                                                                        name='trash-alt' type='solid'
+                                                                        color='#ff6467'></box-icon>
+                                                                </a>
+                                                                <a href="" data-bs-toggle="modal"
+                                                                    data-bs-target="#editSala_<%= sala.id %>">
+                                                                    <box-icon name='edit-alt' type='solid'
+                                                                        color='#fcff64'></box-icon>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                                        <% } else { %>
+                                                            <div>
+                                                                <p>Não há aparelhos cadastrados!</p>
+                                                            </div>
+                                                            <% } %>
+                                        </div>
+
+                                </div>
                     </div>
     </body>
 

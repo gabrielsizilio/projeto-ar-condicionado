@@ -7,7 +7,6 @@ const login = require('./login')
 const logout = require('./logout')
 
 const predio = require('./predio')
-const aresCondicionado = require('./ar-condicionado')
 const grade = require('./grade')
 
 const homeController = require('../controllers/HomeController')
@@ -22,7 +21,6 @@ router.use('/login', login)
 router.use('/logout', logout)
 router.use('/usuario',  usuario)
 router.use('/predio', authentication, predio)
-router.use('/ar-condicionado', authentication, aresCondicionado)
 router.use('/grade', authentication, grade)
 
 module.exports = router

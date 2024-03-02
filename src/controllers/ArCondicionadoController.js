@@ -40,7 +40,9 @@ async function create(req, res) {
 async function store(req, res) {
     const { nome, modelo_id, sala_id } = req.body
 
-    if (!nome || !modelo_id || !sala_id) {
+    return res.send(req.body);
+
+    if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
