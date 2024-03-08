@@ -40,7 +40,7 @@ async function create(req, res) {
 async function store(req, res) {
     const { nome, modelo_id, sala_id } = req.body
 
-    return res.send(req.body);
+    // return res.json(req.body);
 
     if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
@@ -55,7 +55,7 @@ async function store(req, res) {
             sala_id
         })
 
-        res.redirect('/ar-condicionado')
+        return res.redirect('back')
     } catch (error) {
         res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }

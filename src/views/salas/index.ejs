@@ -19,7 +19,7 @@
                                         <button type="button" class="btn" data-bs-target="#addArCondicioando"
                                             data-bs-toggle="modal">Adicionar</button>
                                     </div>
-                                    <%- include('../arCondicionado/create.ejs', { marcas, sala }) %>
+                                    <%- include('../arCondicionado/create.ejs', { controladores, marcas, sala }) %>
                                     
                                         <div>
                                             <% if (sala.ares_condicionados.length> 0) { %>
@@ -34,7 +34,9 @@
                                                                 style="width: 100%;">
                                                                 <h5>Controlador</h5>
                                                                 <p class="font-monospace">
-                                                                    <%= ar.controlador.macAddress %>
+                                                                    <% if (ar.controlador.macAddress) { %>
+                                                                        <%= ar.controlador.macAddress %>
+                                                                    <% } %>
                                                                 </p>
                                                             </div>
 

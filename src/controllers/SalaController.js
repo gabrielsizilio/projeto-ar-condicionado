@@ -25,7 +25,11 @@ async function index(req, res) {
             model: Modelo, as: 'modelos',
         }]
     })
-    res.status(200).render('salas/index', {sala, marcas})
+
+    const controladores = await Controlador.findAll();
+
+
+    res.status(200).render('salas/index', { controladores, sala, marcas })
 }
 
 async function create(req, res) {

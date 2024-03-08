@@ -13,8 +13,6 @@
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" class="form-control" name="nome" required>
                     </div>
-
-                    
                     
                     <div>
                         <label for="marca" class="form-label">Marca</label>
@@ -22,18 +20,18 @@
                             <option disabled>Selecione uma marca</option>
                             <% if (marcas.length > 0) { %>
                                 <% marcas.forEach( marca => { %>
-                                    <option value="<%= marca.id %>">
-                                        <%= marca.nome %>
-                                    </option>
-                                    <% }); %>
-                                    <% } %>
-                                </select>
-                            </div>
-                            <div>
-                                <a href="">
-                            Adicionar nova marca
-                        </a>
+                                <option value="<%= marca.id %>">
+                                    <%= marca.nome %>
+                                </option>
+                                <% }); %>
+                            <% } %>
+                        </select>
                     </div>
+
+                    <div>
+                        <a href=""> Adicionar nova marca </a>
+                    </div>
+
                     <div class="modelo error"></div>
 
                     <div class="mt-3">
@@ -48,10 +46,30 @@
                                 </div>
                             <% }) %>
                         </div>
-
                         <div>
                             <a href="">Novo modelo?</a>
                         </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="form-label">Controlador</label>
+                        <div class="d-flex flex-column">
+                            <% controladores.forEach(controlador => { %>
+                                <div class="form-check col-8">
+                                    <input class="form-check-input" type="radio" id="controlador_<%= controlador.id %>" value="<%= controlador.id %>" name="controlador_id">
+                                    <label class="form-check-label" for="controlador_<%= controlador.id %>">
+                                        <%= controlador.macAddress %>
+                                    </label>
+                                </div>
+                            <% }) %>
+                        </div>
+                        <div>
+                            <a href="">Novo controloador?</a>
+                        </div>
+                    </div>
+                    
+                    <div hidden>
+                        <input type="text" value="<%= sala.id %>" name="sala_id">
                     </div>
 
                     <div class="modal-footer">
