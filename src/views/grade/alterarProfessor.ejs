@@ -23,11 +23,11 @@
                         </select>
                         <label for="area" class="form-label mt-4">Professor:</label>
                         <select id="area" class="form-select">
-                            <option value="1" selected>Professor A</option>
-                            <option value="2">Professor B</option>
-                            <option value="3">Professor C</option>
-                            <option value="4">Professor D</option>
-                            <option value="5">Professor E</option>
+                            <% usuarios.forEach(usuario=> { %>
+                                <option value="<%= usuario.id %>">
+                                    <%= usuario.nome %>
+                                </option>
+                                <% }) %>
                         </select>
                     <div class="col-12 d-flex justify-content-end" id="salvar-grade">
                         <button type="submit" class="btn btn-primary mt-5 col-3">Salvar</button>

@@ -1,5 +1,5 @@
-<div class="card mt-5 grade-horarios p-3">
-    <table class="table text-center">
+<div  class="card mt-5 grade-horarios p-3">
+    <table  class="table text-center">
         <thead>
             <tr>
                 <th scope="col"></th>
@@ -11,9 +11,9 @@
             </tr>
         </thead>
         <tbody id="tabela">
-            <tr>
+            <tr>                
                 <th scope="row"> <%= horarios[0].horario_ini %></th>
-                <td><%= usuarios[0].nome %></td>
+                <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
