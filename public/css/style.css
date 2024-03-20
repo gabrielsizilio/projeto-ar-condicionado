@@ -2,7 +2,7 @@
 *{
     font-family: 'Francois One', sans-serif;
     color: #7964ff !important;
-    border: none !important;
+    /* border-color: #7964ff !important; */
 }
 body{
     background-color: #F9F8F8 !important;
@@ -62,6 +62,9 @@ label h1{
 .escolhas label, .escolhas a{
     font-size: 0.85em !important;
 }
+.container-alert #alerta{
+    color: #58151c !important;
+}
 #container-card{
     height: 100vh;
     display: flex ;
@@ -70,6 +73,7 @@ label h1{
 }
 
 #card-login{
+    min-width: 300px;
     box-sizing: border-box;
     border-top: 3px solid #6a53ff !important;
 }

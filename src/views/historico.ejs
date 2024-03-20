@@ -7,6 +7,7 @@
 
     <div class="row d-flex">
         <%- include('./partials/nav.ejs')%>
+        
 
         <div class="col-11 container-conteudo">
             <div class="container-conteudo">
@@ -141,6 +142,10 @@
             container: 'body',
             trigger: 'hover'
         });
+
+        //Seleção do menu
+        var selecionado = document.getElementById('historico');
+        selecionado.classList.add('menu-selecionado');
 
         // Inicializa os modais
         const myModal = document.getElementById('myModal')
