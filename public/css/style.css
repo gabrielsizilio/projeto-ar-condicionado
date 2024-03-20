@@ -72,6 +72,7 @@ label h1{
 #card-login{
     box-sizing: border-box;
     border-top: 3px solid #6a53ff !important;
+    min-width: 250px;
 }
 #card-login input{
     border: 1px solid #e6e6e6 !important;
