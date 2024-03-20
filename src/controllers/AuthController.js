@@ -13,11 +13,11 @@ async function login(req, res) {
     // const senha = req.body.senha
 
     if (!email) {
-        res.status(401).json({ msgErr: "Email é obrigatório!" })
+        return res.status(401).json({ msgErr: "Email é obrigatório!" })
     }
 
     if (!senha) {
-        res.status(401).json({ msgErr: "Senha é obrigatório!" })
+        return res.status(401).json({ msgErr: "Senha é obrigatório!" })
     }
 
     try {
