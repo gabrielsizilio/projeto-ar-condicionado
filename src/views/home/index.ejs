@@ -99,7 +99,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div id="controleArMobile1" class="controleArMobile1 mt-5">
                         <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
                             <div class="card card-temperatura p-3 col-10" >
@@ -142,6 +141,29 @@
                                 </div>
                             </div>
                     </div>
+
+                    <% predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
+                        <div id="controleArMobile<%= index + 1 %>" class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
+                            <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
+                                <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
+                                    <div class="row">
+                                        <h5 class="card-title d-inline col"><%= arCondicionado.marca %></h5>
+                                        <div class="form-check form-switch col-1">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                        </div>
+                                    </div>
+                                    <h6 class="card-subtitle mb-2">local </h6>
+                                    <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
+                                        <div class="debug-mobile<%= index + 1 %>">
+                                            <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
+                                        </div>
+                                        <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                    
 
                     <div class="row predios mt-5 col-auto">
                         <select id="selectPredio" class="form-select">
