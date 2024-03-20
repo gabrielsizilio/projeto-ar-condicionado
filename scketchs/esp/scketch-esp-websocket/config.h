@@ -17,5 +17,5 @@ ESP8266WiFiMulti WiFiMulti;
 #define USE_SERIAL Serial
 
 // CONFIGURAÇÃO DO WIFI
-#define WIFI_SSID "TP-LINK_555F3C"
-#define WIFI_PASS ""
+#define WIFI_SSID "AC"
+#define WIFI_PASS "Rb3608.W"

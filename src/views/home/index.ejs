@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div class="controleArMobile1 mt-5">
+                    <div id="controleArMobile1" class="controleArMobile1 mt-5">
                         <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
                             <div class="card card-temperatura p-3 col-10" >
                                 <div class="row">
@@ -116,12 +116,12 @@
                                         <div class="debug-mobile1" >
                                         <input id="rangeArMobile1" class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
                                         </div>
-                                        <div class="dot-mobile1"></div>
+                                        <div id="dot-mobile1" class="dot-mobile1"></div>
                                     </div>
                                 </div>
                             </div>
                     </div>
-                    <div class="controleArMobile2 mt-3">
+                    <div id="controleArMobile2" class="controleArMobile2 mt-3">
                         <div class="card-temperatura2 d-flex position-relative justify-content-center col-12">
                             <div class="card card-temperatura2 p-3 col-10" >
                                 <div class="row">
@@ -137,7 +137,7 @@
                                         <div class="debug-mobile2" >
                                             <input id="rangeArMobile2" class="form-control" value="20°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
                                         </div>
-                                        <div class="dot-mobile2"></div>
+                                        <div id="dot-mobile2" class="dot-mobile2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -186,6 +186,32 @@
     </div>
 
     <div class="footer"></div>
+
+    <script>
+        const controleMobile1 = document.getElementById("dot-mobile1");
+        const controleMobile2 = document.getElementById("dot-mobile2");
+        controleMobile1.addEventListener("touchstart", function(event) {
+            bloquearRolagem();
+        });
+        controleMobile2.addEventListener("touchstart", function(event) {
+            bloquearRolagem();
+        });
+
+        controleMobile1.addEventListener("touchend", function(event) {
+            desbloquearRolagem()
+        });
+        controleMobile2.addEventListener("touchend", function(event) {
+            desbloquearRolagem()
+        });
+
+        function bloquearRolagem() {
+            document.body.style.overflowY = "hidden";
+        }
+
+        function desbloquearRolagem() {
+            document.body.style.overflowY = "";
+        }
+    </script>
 
     <script>
         let div_id; 

@@ -2,6 +2,8 @@
 #define MAX_IR_SIZE 230
 #define MAX_MESSAGE_SIZE 50
 
+#define IR_SEND_PIN 2
+
 IRsend irsend;
 
 unsigned int IRSignal[MAX_IR_SIZE];
