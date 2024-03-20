@@ -12,11 +12,8 @@ const Temperatura = require('../models/Temperatura')
 const Semana = require('../models/Semana')
 const Horario = require('../models/Horario')
 const AlocacaoHorario = require('../models/AlocacaoHorario')
-<<<<<<< HEAD
 const Area = require('../models/Area')
-=======
 const Log = require('../models/Log')
->>>>>>> logs
 
 const connection = new Sequelize(configDB);
 
