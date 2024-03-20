@@ -11,6 +11,7 @@ const Temperatura = require('../models/Temperatura')
 const Semana = require('../models/Semana')
 const Horario = require('../models/Horario')
 const AlocacaoHorario = require('../models/AlocacaoHorario')
+const Log = require('../models/Log')
 
 const connection = new Sequelize(configDB);
 
@@ -36,6 +37,8 @@ Temperatura.init(connection)
 Semana.init(connection)
 Horario.init(connection)
 AlocacaoHorario.init(connection)
+Log.init(connection)
+
 
 Credencial.associate(connection.models)
 Usuario.associate(connection.models)
@@ -48,5 +51,6 @@ Temperatura.associate(connection.models)
 Semana.associate(connection.models)
 Horario.associate(connection.models)
 AlocacaoHorario.associate(connection.models)
+Log.associate(connection.models)
 
 module.exports = connection

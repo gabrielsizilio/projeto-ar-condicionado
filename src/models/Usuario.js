@@ -20,6 +20,10 @@ class Usuario extends Model {
         this.hasOne(models.AlocacaoHorario, {
             foreignKey: 'usuario_id',
             as: 'alocacoes'
+        }),
+        this.hasMany(models.Log, {
+            foreignKey: 'usuario_id',
+            as: 'logs'
         })
     }
 }
