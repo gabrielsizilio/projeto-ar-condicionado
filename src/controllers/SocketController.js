@@ -48,8 +48,11 @@ class SocketController {
             return;
         }
         io.to(macAddressMapping[comando.id_controlador]).emit('EnviaIR', codigo_ir)
-        await Log.create(
-        )
+        
+        await Log.create({
+            descricao: "Alterou para temperatura",
+            usuario_id: user.id
+        })
     }
 
     disconnect(socket, macAddressMapping) {
