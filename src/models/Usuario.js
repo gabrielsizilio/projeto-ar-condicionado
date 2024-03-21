@@ -17,15 +17,19 @@ class Usuario extends Model {
             foreignKey: 'credencial_id',
             as: 'credencial'
         }),
-        this.hasOne(models.AlocacaoHorario, {
-            foreignKey: 'usuario_id',
-            as: 'alocacoes'
-        }),
-        this.belongsToMany(models.Area, {
-            foreignKey: 'usuario_id',
-            through: 'usuarios_areas',
-            as: 'areas'
-        })
+            this.hasOne(models.AlocacaoHorario, {
+                foreignKey: 'usuario_id',
+                as: 'alocacoes'
+            }),
+            this.belongsToMany(models.Area, {
+                foreignKey: 'usuario_id',
+                through: 'usuarios_areas',
+                as: 'areas'
+            }),
+            this.hasMany(models.Log, {
+                foreignKey: 'usuario_id',
+                as: 'logs'
+            })
     }
 }
 
