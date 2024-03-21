@@ -6,6 +6,8 @@
 }
 body{
     background-color: #F9F8F8 !important;
+    min-height: 100vh;
+    max-width: 99vw;
 }
 select{
     border: 1px solid #7964ff !important;
