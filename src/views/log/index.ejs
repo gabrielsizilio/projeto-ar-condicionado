@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include('../partials/header.ejs')%>
+
+    <body class="container-fluid">
+
+        <div class="row d-flex">
+            <%- include('../partials/nav.ejs')%>
+
+
+                <div class="col-11 container-conteudo">
+                    <div class="container-conteudo">
+                        <div class="row hitorico d-flex justify-content-between">
+                            <div class="titulo d-flex justify-content-start col-8">
+                                <h2>Histórico</h2>
+                            </div>
+                        </div>
+
+                        <table class="table table-hover  text-center mt-5">
+                            <thead>
+                                <tr>
+                                    <th scope="col">USUÁRIO</th>
+                                    <th scope="col">NICK</th>
+                                    <th scope="col">PERMISSÃO</th>
+                                    <th scope="col">AÇÃO</th>
+                                    <th scope="col">DATA</th>
+                                    <th scope="col">HORA</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <% if (logs) { %>
+                                    <% logs.forEach(log=> { %>
+                                        <tr>
+                                            <td> <%= log.usuario.nome %> </td>
+                                            <td> <%= log.usuario.nickname %> </td>
+                                            <td> <%= log.usuario.tipo %> </td>
+                                            <td> <%= log.descricao %> </td>
+                                            <% const data = new Date(log.createdAt) %>
+                                            <td> <%= data.toLocaleDateString('pt-br', {year:"numeric", month:"long", day:"numeric"}) %> </td>
+                                            <td> <%= data.toLocaleTimeString('pt-br', {hour:"numeric", minute:"numeric"}) %> </td>
+                                        </tr>
+                                    <% }) %>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>

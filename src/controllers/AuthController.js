@@ -42,7 +42,7 @@ async function login(req, res) {
 
                 await Log.create({
                     descricao: "Efetuou login",
-                    usuario_id: credencial.id
+                    usuario_id: usuario.id
                 })
 
                 // res.header('Authorization', `Bearer ${token}`);
