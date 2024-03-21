@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-2 onoff text-center">
                                     <span>
-                                        <button class="btn" type="submit">ON</button>
+                                        <button class="btn" type="submit" onclick="enviarComando()">ON</button>
                                     </span>
                                 </div>
                                 <div class="col-5 nome d-flex align-items-center justify-content-end">
@@ -561,7 +561,7 @@
         function enviarComando(temperatura) {
             const id_controlador = document.getElementById("id_controlador").value;
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
-            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura})
+            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user})
 
             console.log(id_controlador)
             console.log(id_arcondicionado)

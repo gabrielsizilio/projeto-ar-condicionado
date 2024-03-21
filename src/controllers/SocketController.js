@@ -1,4 +1,5 @@
 const ArCondicionado = require('../models/ArCondicionado')
+const Log = require('../models/Log')
 const Modelo = require('../models/Modelo')
 const Temperatura = require('../models/Temperatura')
 
@@ -10,7 +11,11 @@ class SocketController {
 
     }
 
-    async enviaComando(comando, macAddressMapping, io) {
+    async enviaComando(comando, macAddressMapping, io, user) {
+
+        console.log(
+            user
+        );
 
         var aparelho = await ArCondicionado.findByPk(comando.id_arcondicionado, {
                 include: [{
@@ -43,6 +48,8 @@ class SocketController {
             return;
         }
         io.to(macAddressMapping[comando.id_controlador]).emit('EnviaIR', codigo_ir)
+        await Log.create(
+        )
     }
 
     disconnect(socket, macAddressMapping) {
