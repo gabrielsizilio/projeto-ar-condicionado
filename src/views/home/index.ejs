@@ -99,8 +99,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div id="controleArMobile1" class="controleArMobile1 mt-5">
+                    <!-- <div id="controleArMobile1" class="controleArMobile1 mt-5">
                         <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
                             <div class="card card-temperatura p-3 col-10" >
                                 <div class="row">
@@ -141,7 +140,34 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                    </div> -->
+
+                    <% predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
+                        <div id="controleArMobile<%= index + 1 %>" class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
+                            <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
+                                <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
+                                    <div class="row">
+                                        <h5 class="card-title d-inline col"><%= arCondicionado.nome  %></h5>
+                                        <div class="form-check form-switch col-1">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault<%= index + 1 %>" onchange="switchMobileChanged(<%= index + 1 %>)">
+                                        </div>
+                                    </div>
+                                    <h6 class="card-subtitle mb-2"><%= predios[0].nome %> - <%= predios[0].salas[0].nome %></h6>
+                                    <% if(arCondicionado.controlador) { %>
+                                        <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.id %>">
+                                        <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.controlador.macAddress %>">
+                                    <% } %>
+                                    <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
+                                        <div class="debug-mobile<%= index + 1 %>">
+                                            <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
+                                        </div>
+                                        <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>" onTouchStart="bloquearRolagem()" onTouchEnd="dotMobileChanged(<%= index + 1 %>)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                    
 
                     <div class="row predios mt-5 col-auto">
                         <select id="selectPredio" class="form-select">
@@ -188,32 +214,6 @@
     <div class="footer"></div>
 
     <script>
-        const controleMobile1 = document.getElementById("dot-mobile1");
-        const controleMobile2 = document.getElementById("dot-mobile2");
-        controleMobile1.addEventListener("touchstart", function(event) {
-            bloquearRolagem();
-        });
-        controleMobile2.addEventListener("touchstart", function(event) {
-            bloquearRolagem();
-        });
-
-        controleMobile1.addEventListener("touchend", function(event) {
-            desbloquearRolagem()
-        });
-        controleMobile2.addEventListener("touchend", function(event) {
-            desbloquearRolagem()
-        });
-
-        function bloquearRolagem() {
-            document.body.style.overflowY = "hidden";
-        }
-
-        function desbloquearRolagem() {
-            document.body.style.overflowY = "";
-        }
-    </script>
-
-    <script>
         let div_id; 
         let input_controlador_id;
         let input_ar_condicionado_id;
@@ -233,14 +233,12 @@
             let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
             if(inputControladorSelecionado) {
                 const macAddress = inputControladorSelecionado.value;
-                console.log(macAddress);
                 inputControlador.value = macAddress;
             }
             let inputArSelecionado = document.getElementById('id_arcondicionado');
 
             if(typeof(input_ar_condicionado_id) != "undefined") {
                 inputArSelecionado.value = document.getElementById(input_ar_condicionado_id).value.trim();
-                console.log(inputArSelecionado.value);
             }
         }
 
@@ -257,6 +255,11 @@
             p.innerHTML = "off";
             enviarComando("off");
         }
+
+        // function alteraMobile() {
+        //     // let temperatura;
+        //     // enviarComando(temperatura);
+        // }
 
         // ATUALIZA SALAS
         var predios = JSON.parse('<%- JSON.stringify(predios) %>');
@@ -281,7 +284,52 @@
         //Seleção do menu
         var selecionado = document.getElementById('home');
         selecionado.classList.add('menu-selecionado');
+    </script>
 
+
+    <!-- Script Versão Mobile -->
+    <script>
+        function dotMobileChanged(dotIndex) {
+            desbloquearRolagem();
+            let switchCheckId = "flexSwitchCheckDefault" + dotIndex; 
+            let switchCheck = document.getElementById(switchCheckId);
+            switchCheck.checked = true;
+            let inputTempId = "rangeArMobile" + dotIndex;
+            let inputTempMobile = document.getElementById(inputTempId);
+            let temperatura = inputTempMobile.value;
+            input_controlador_id = "id_controlador_mobile" + dotIndex;
+            input_ar_condicionado_id = "id_ar_condicionado_mobile" + dotIndex;
+            atualizaControladorSelecionado(input_controlador_id);
+            enviarComando(temperatura);
+        }
+
+        function switchMobileChanged (dotIndex) {
+            let switchCheckId = "flexSwitchCheckDefault" + dotIndex; 
+            let switchCheck = document.getElementById(switchCheckId);
+
+            input_controlador_id = "id_controlador_mobile" + dotIndex;
+            input_ar_condicionado_id = "id_ar_condicionado_mobile" + dotIndex;
+            atualizaControladorSelecionado(input_controlador_id);
+
+            if(switchCheck.checked) {
+                let inputTempId = "rangeArMobile" + dotIndex;
+                let inputTempMobile = document.getElementById(inputTempId);
+                let temperatura = inputTempMobile.value;
+                enviarComando(temperatura);
+                return;
+            }
+            enviarComando("off");
+            return;
+        }
+
+        function bloquearRolagem() {
+            document.body.style.overflowY = "hidden";
+        }
+
+        function desbloquearRolagem() {
+            document.body.style.overflowY = "";
+        }
+        
     </script>
     
     <script>
