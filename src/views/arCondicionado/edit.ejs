@@ -1,0 +1,117 @@
+<div class="modal fade" id="editArCondicionado" tabindex="-1" aria-labelledby="editArCondicionado" aria-hidden="true"
+    data-bs-id="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar ar-condicionado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="form" action="/predio/<%= sala.predio.id %>/sala/<%= sala.id%>/arcondicionado/update/(idAr)" method="POST">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input id="name" type="text" class="form-control" name="nome" required>
+                    </div>
+
+                    <div>
+                        <label for="marca" class="form-label">Marca</label>
+                        <select id="marca" class="form-select" name="marca_id" required>
+                            <option disabled>Selecione uma marca</option>
+                            <% if (marcas.length> 0) { %>
+                                <% marcas.forEach( marca=> { %>
+                                    <option value="<%= marca.id %>">
+                                        <%= marca.nome %>
+                                    </option>
+                                    <% }); %>
+                                <% } %>
+                        </select>
+                    </div>
+
+                    <div>
+                        <a href=""> Adicionar nova marca </a>
+                    </div>
+
+                    <div class="modelo error"></div>
+
+                    <div class="mt-3">
+                        <label class="form-label">Modelo</label>
+                        <div id="modelos" class="d-flex flex-column">
+                            <!-- TODO: REFAZER ESSA LÓGICA PARA FICAR DINÂMICA -->
+                            <% marcas[0].modelos.forEach(modelo=> { %>
+                                <div class="form-check col-8">
+                                    <input class="form-check-input" type="radio" id="modeloEdit_<%= modelo.id %>"
+                                        value="<%= modelo.id %>" name="modelo_id">
+                                    <label class="form-check-label" for="modeloEdit_<%= modelo.id %>">
+                                        <%= modelo.nome %>
+                                    </label>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <div>
+                            <a href="">Novo modelo?</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="form-label">Controlador</label>
+                        <div class="d-flex flex-column">
+                            <% controladores.forEach(controlador=> { %>
+                                <div class="form-check col-8">
+                                    <input class="form-check-input" type="radio"
+                                        id="controladorEdit_<%= controlador.id %>" value="<%= controlador.id %>"
+                                        name="controlador_id">
+                                    <label class="form-check-label" for="controladorEdit_<%= controlador.id %>">
+                                        <%= controlador.macAddress %>
+                                    </label>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <div>
+                            <a href="">Novo controloador?</a>
+                        </div>
+                    </div>
+
+                    <div hidden>
+                        <input type="text" value="<%= sala.id %>" name="sala_id">
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row col-12 d-flex justify-content-end salvar">
+                            <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('editArCondicionado');
+
+
+        modal.addEventListener('show.bs.modal', function (event) {
+            const ares = JSON.parse('<%- JSON.stringify(ares) %>')
+            const marcas = JSON.parse('<%- JSON.stringify(marcas) %>')
+            const arId = modal.getAttribute('data-bs-id');
+
+            const form = document.getElementById('form');
+            let currentAction = form.getAttribute('action')
+            const updateAction = currentAction.replace("(idAr)", arId)
+            form.setAttribute('action', updateAction);
+
+            const ar = ares.find(ar => ar.id == arId);
+            const modelo = ar.modelo;
+            const marca = marcas.find(marca => marca.id == ar.modelo.marca_id);
+
+            document.getElementById('name').value = ar.nome
+            document.getElementById('marca').value = marca.id
+            document.getElementById(`modeloEdit_${ar.modelo_id}`).checked = true;
+            document.getElementById(`controladorEdit_${ar.controlador_id}`).checked = true;
+        });
+    });
+
+</script>

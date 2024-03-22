@@ -64,15 +64,16 @@ async function store(req, res) {
 async function edit(req, res) {
     const ar_id = req.params
 
+    
     try {
         const arCondicionado = await ArCondicionado.findOne({
             where: { id: ar_id.id }
         })
-
+        
         if (!arCondicionado) {
             return res.status(404).json({ msgErr: 'Ar-condicionado não cadastrado no sistema' })
         }
-
+        
         res.json(arCondicionado)
     } catch (error) {
         console.log(error)
@@ -81,17 +82,13 @@ async function edit(req, res) {
 
 
 async function update(req, res) {
-    const ar_id = req.params
-    const { nome, modelo_id } = req.body
+    const id = req.params
+    const updateValues = { nome, marca_id, modelo_id, controlador_id } = req.body
 
+    
     if (!nome || !modelo_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
-
-    if (!ar_id.id) {
-        return res.status(400).json({ msgErr: 'É necessário informar qual o ar-condicionado a ser editado.' })
-    }
-
     try {
         const arCondicionado = await ArCondicionado.findOne({
             where: { id: ar_id.id },

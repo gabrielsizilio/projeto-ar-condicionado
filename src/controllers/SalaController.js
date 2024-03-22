@@ -16,6 +16,8 @@ async function index(req, res) {
             model: ArCondicionado, as: 'ares_condicionados',
             include: [{
                 model: Controlador, as: 'controlador'
+            },{
+                model: Modelo, as: 'modelo'
             }] 
         }]
     })
@@ -29,7 +31,7 @@ async function index(req, res) {
     const controladores = await Controlador.findAll();
 
 
-    res.status(200).render('salas/index', { controladores, sala, marcas })
+    return res.status(200).render('salas/index', { controladores, sala, marcas })
 }
 
 async function create(req, res) {
