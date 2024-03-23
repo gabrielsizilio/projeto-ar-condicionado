@@ -114,15 +114,15 @@ async function update(req, res) {
         if (updateValues.macAdressNovoControlador) {
 
             const controlador = await Controlador.create({
-                nome: updateValues.macAdressNovoControladors,
+                macAddress: updateValues.macAdressNovoControlador
             })
+            controlador_id = controlador.id
         }
         
-        console.log(">>", modelo_id);
-
         await arCondicionado.update({
             nome,
             modelo_id,
+            controlador_id
         })
 
         return res.status(200).redirect('back')

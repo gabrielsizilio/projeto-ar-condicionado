@@ -36,7 +36,7 @@
 
                     <div class="modelo error"></div>
 
-                    <div class="mt-3">
+                    <div class="card p-2 mt-3">
                         <label class="form-label">Modelo</label>
                         <div id="modelos" class="d-flex flex-column">
                             <!-- TODO: REFAZER ESSA LÓGICA PARA FICAR DINÂMICA -->
@@ -55,7 +55,7 @@
                             <div class="form-check mt-2">
                                 <input class="form-check-input" type="radio" id="novoModelo" name="modelo_id"
                                     data-bs-toggle="collapse" data-bs-target="#collapseNovoModelo" aria-expanded="false"
-                                    aria-controls="collapseNovoModelo"/>
+                                    aria-controls="collapseNovoModelo" />
                                 <label class="form-check-label" for="novoModelo"> Novo modelo?</label>
                             </div>
 
@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-3">
+                    <div class="card p-2 mt-3">
                         <label class="form-label">Controlador</label>
                         <div class="d-flex flex-column">
                             <% controladores.forEach(controlador=> { %>
@@ -89,8 +89,8 @@
                         <div class="">
                             <div class="form-check mt-2">
                                 <input class="form-check-input" type="radio" id="novoControlador" name="controlador_id"
-                                    data-bs-toggle="collapse" data-bs-target="#collapseNovoControlador" aria-expanded="false"
-                                    aria-controls="collapseNovoControlador"/>
+                                    data-bs-toggle="collapse" data-bs-target="#collapseNovoControlador"
+                                    aria-expanded="false" aria-controls="collapseNovoControlador" />
                                 <label class="form-check-label" for="novoControlador"> Novo controlador?</label>
                             </div>
 
@@ -99,7 +99,7 @@
                                     <div class="mb-1">
                                         <label for="macAdressNovoControlador" class="form-label">macAddress*</label>
                                         <input type="text" class="form-control" name="macAdressNovoControlador"
-                                            id="macAdressNovoControlador"/>
+                                            id="macAdressNovoControlador" />
                                     </div>
                                 </div>
                             </div>
@@ -121,6 +121,14 @@
 </div>
 </div>
 <%- include('../marca/create.ejs') %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.1.0/vanilla-masker.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var macInput = document.getElementById('macAdressNovoControlador');
+            VMasker(macInput).maskPattern('SS:SS:SS:SS:SS:SS');
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -147,5 +155,43 @@
                 document.getElementById(`controladorEdit_${ar.controlador_id}`).checked = true;
             });
         });
+    </script>
+
+    <script>
+        // Obter elementos de marca e modelo
+        const marcaSelect = document.getElementById('marca');
+        const modeloSelect = document.getElementById('modelos');
+        const marcas = JSON.parse('<%- JSON.stringify(marcas) %>')
+
+        marcaSelect.addEventListener('change', function () {
+            const selectedMarcaId = this.value;
+
+            const marcaSelected = marcas.find(marca => marca.id == selectedMarcaId)
+            console.log(selectedMarcaId);
+
+            modeloSelect.innerHTML = '';
+
+
+            marcaSelected.modelos.forEach(modelo => {
+                const div = document.createElement('div');
+                div.classList.add('form-check', 'col-8');
+
+                const input = document.createElement('input');
+                input.classList.add('form-check-input');
+                input.type = 'radio';
+                input.id = `modeloEdit_${modelo.id}`;
+                input.value = modelo.id;
+                input.name = 'modelo_id';
+
+                const label = document.createElement('label');
+                label.classList.add('form-check-label');
+                label.htmlFor = `modeloEdit_${modelo.id}`;
+                label.textContent = modelo.nome;
+
+                div.appendChild(input);
+                div.appendChild(label);
+                modeloSelect.appendChild(div);
+            });
+        })
 
     </script>
