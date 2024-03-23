@@ -1,0 +1,25 @@
+<div>
+    <table class="table usuarios-tabela table-sm mt-5 text-center">
+        <tbody id="salaTables">
+            <% predio.salas.forEach(sala=> { %>
+                <tr>
+                    <td>
+                        <a href="/predio/<%= predio.id %>/sala/<%= sala.id %>">
+                            <%= sala.nome %>
+                        </a>
+                    </td>
+                    <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>"><box-icon
+                                name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
+                    </td>
+                    <td><a href="" data-bs-toggle="modal" data-bs-target="#editSala_<%= sala.id %>">
+                            <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
+                        </a>
+                    </td>
+
+                    <%- include('../remove.ejs', { sala: sala }) %>
+                    <%- include('../edit.ejs', { sala, predios }) %>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</div>

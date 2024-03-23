@@ -2,6 +2,8 @@ const Sala = require('../models/Sala')
 const Predio = require('../models/Predio')
 const ArCondicionado = require('../models/ArCondicionado')
 const Controlador = require('../models/Controloador')
+const Marca = require('../models/Marca')
+const Modelo = require('../models/Modelo')
 
 
 async function index(req, res) {
@@ -14,13 +16,25 @@ async function index(req, res) {
             model: ArCondicionado, as: 'ares_condicionados',
             include: [{
                 model: Controlador, as: 'controlador'
+            },{
+                model: Modelo, as: 'modelo',
+                include: [{
+                    model: Marca, as: 'marca'
+                }]
             }] 
         }]
     })
 
-    console.log(sala.ares_condicionados[0].nome);
+    const marcas = await Marca.findAll({
+        include: [{
+            model: Modelo, as: 'modelos',
+        }]
+    })
 
-    res.status(200).render('salas/index', {sala})
+    const controladores = await Controlador.findAll();
+
+
+    return res.status(200).render('salas/index', { controladores, sala, marcas })
 }
 
 async function create(req, res) {
@@ -28,21 +42,35 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, predio, gerenciarSala } = req.body
+    const { nome, nomeNovoPredio, gerenciarSala } = req.body
+    var { predio } = req.body
 
-    if (!nome || !predio) {
+    if(nomeNovoPredio) {
+        const novoPredio = await Predio.create({
+            nome: nomeNovoPredio
+        })
+
+        predio = novoPredio.id
+    }
+
+    if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
     try {
-        await Sala.create({
+
+        const sala = await Sala.create({
             nome,
             predio_id: predio
         })
 
-        res.redirect('/predio')
+        if(gerenciarSala) {
+            return res.redirect(`/predio/${sala.predio_id}/sala/${sala.id}`)
+        } else {
+            return res.redirect('/predio')
+        }
     } catch (error) {
-        res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
+        return res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
 }
 
@@ -114,8 +142,7 @@ async function remove(req, res) {
 
         await sala.destroy()
 
-        res.json({ msg: "Sala excluída do sistema" })
-
+        return res.redirect('back')
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
     }

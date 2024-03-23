@@ -12,6 +12,7 @@ module.exports = {
       },
       macAddress: {
         allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
       createdAt: {

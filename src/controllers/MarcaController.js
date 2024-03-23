@@ -24,7 +24,7 @@ async function store(req, res) {
             nome
         })
 
-        res.redirect('/ar-condicionado')
+        return res.redirect('back');
     } catch (error) {
         res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }

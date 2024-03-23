@@ -17,7 +17,7 @@
                                     data-bs-toggle="modal">Adicionar</button>
                             </div>
 
-                            <%- include('./create', {predios}) %>
+                            <%- include('../salas/create.ejs', {predios}) %>
 
                                 <div class="row predio s mt-5 col-4">
                                     <h4>Prédios</h4>
@@ -29,31 +29,29 @@
                                             <% }) %>
                                     </select>
                                 </div>
+
                                 <div id="salasContainer" class="row salas mt-5 justify-content-between">
                                     <table class="table usuarios-tabela table-sm mt-5 text-center">
                                         <tbody id="salaTables">
-                                            <% var index=0 %>
-                                                <% predios[index].salas.forEach(sala=> { %>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="/predio/<%= predios[index].id %>/sala/<%= sala.id %>">
-                                                                <%= sala.nome %>
-                                                            </a>
-                                                        </td>
-                                                        <td><a href="" data-bs-toggle="modal"
-                                                                data-bs-target="#excluir_<%= sala.id %>"><box-icon
-                                                                    name='trash-alt' type='solid'
-                                                                    color='#ff6467'></box-icon></a>
-                                                        </td>
-                                                        <td><a href="" data-bs-toggle="modal"
-                                                                data-bs-target="#editSala_<%= sala.id %>">
-                                                                <box-icon name='edit-alt' type='solid'
-                                                                    color='#fcff64'></box-icon>
-                                                            </a>
-                                                        </td>
-                                                        <%- include('./components/editSala.ejs', {salaId: sala.id}) %>
-                                                    </tr>
-                                                    <% }) %>
+                                            <% predios[0].salas.forEach(sala=> { %>
+                                                <tr id="salaRow">
+                                                    <td>
+                                                        <a href="/predio/<%= sala.predio_id %>/sala/<%= sala.id %>">
+                                                            <%= sala.nome %>
+                                                        </a>
+                                                    </td>
+                                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>"><box-icon
+                                                                name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
+                                                    </td>
+                                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#editSala_<%= sala.id %>">
+                                                            <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
+                                                        </a>
+                                                    </td>
+
+                                                    <%- include('../salas/remove.ejs', { sala }) %>
+                                                    <%- include('../salas/edit.ejs', { sala, predios }) %>
+                                                </tr>
+                                                <% }) %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -74,12 +72,20 @@
             var salasTable = document.getElementById('salaTables')
             salasTable.innerHTML = "";
 
+            var predioSelecionado = predios.find((predio) => {
+                return predio.id == selectedPredioId;
+            })
+
+            console.log(predioSelecionado);
+
             predioSelecionado.salas.forEach(function (sala) {
                 var row = document.createElement('tr')
 
                 var cell = document.createElement('td')
-                cell.textContent = sala.nome
-
+                var linkSala = document.createElement('a')
+                linkSala.href = `/predio/${selectedPredioId}/sala/${sala.id}`
+                linkSala.innerText = sala.nome
+                cell.appendChild(linkSala);
                 row.appendChild(cell)
 
                 // Adiciona um link de exclusão em outra célula
@@ -102,8 +108,9 @@
                 cellEditar.appendChild(linkEditar);
                 row.appendChild(cellEditar);
 
+
                 // Adiciona a linha à tabela
-                salaTables.appendChild(row);
+                salasTable.appendChild(row);
             })
         }
     </script>

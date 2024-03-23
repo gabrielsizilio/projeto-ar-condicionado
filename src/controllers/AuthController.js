@@ -6,6 +6,7 @@ const Log = require('../models/Log')
 const Usuario = require('../models/Usuario')
 
 function index(req, res) {
+
     return res.render('login')
 }
 

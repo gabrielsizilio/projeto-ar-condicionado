@@ -1,0 +1,26 @@
+<div class="modal fade" id="createMarca" tabindex="-1" aria-labelledby="createMarca" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Marca</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/marca/store" method="post">
+
+                    <div class="mb-3 m-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="nome" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row col-12 d-flex justify-content-end salvar">
+                            <button type="submit" class="btn btn-primary col-2">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

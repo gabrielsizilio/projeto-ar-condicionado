@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const arCondiciandoController = require('../controllers/ArCondicionadoController')
 
-const marca = require('./marca')
 const modelo = require('./modelo')
 const temperatura = require('./temperatura')
 
@@ -17,8 +16,6 @@ router.get('/edit/:id', arCondiciandoController.edit)
 router.post('/update/:id', arCondiciandoController.update)
 
 router.post('/remove/:id', arCondiciandoController.remove)
-
-router.use('/marca', marca)
 
 router.use('/modelo', modelo)
 
