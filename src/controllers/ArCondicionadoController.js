@@ -133,14 +133,14 @@ async function update(req, res) {
 }
 
 async function remove(req, res) {
-    const ar_id = req.params
+    const id = req.params.id
 
-    if (!ar_id.id) {
+    if (!id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o ar-condicionado a ser removido.' })
     }
 
     try {
-        const arCondicionado = await ArCondicionado.findByPk(ar_id.id)
+        const arCondicionado = await ArCondicionado.findByPk(id)
 
         if (!arCondicionado) {
             return res.status(404).json({ msgErr: 'Ar-condicionado não encontrado.' })
@@ -148,7 +148,8 @@ async function remove(req, res) {
 
         await arCondicionado.destroy()
 
-        res.json({ msg: "Ar-condicionado excluído do sistema" })
+        return res.status(200).json({msg: "Ar-condicionado excluído do sistema"}).redirect('back')
+        
 
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });

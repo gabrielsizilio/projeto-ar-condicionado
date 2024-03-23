@@ -1,0 +1,40 @@
+<div class="modal fade remove" id="excluirArCondicionado" tabindex="-1" aria-labelledby="excluirLabel" aria-hidden="true" data-bs-id="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id="formExcluir" action="/predio/<%= sala.predio_id %>/sala/<%= sala.id %>/ar-condicionado/remove/(idAr)" method="post">
+                    <div id="excluir-topo">
+                        <strong>
+                            <p>Excluir ar-condicionado</p>
+                        </strong>
+                    </div>
+                    <div class="excluir-corpo text-center mt-5">
+                        <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
+                        <p>Você realmente deseja excluir o ar-condiocioando <%= sala.nome %>? </p>
+                    </div>
+                    <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
+                        <button type="submit" class="btn excluir-confirma">EXCLUIR</button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('excluirArCondicionado');
+
+
+        modal.addEventListener('show.bs.modal', function (event) {
+            const arId = modal.getAttribute('data-bs-id');
+
+            const form = document.getElementById('formExcluir');
+            let currentAction = form.getAttribute('action')
+            const updateAction = currentAction.replace("(idAr)", arId)
+            form.setAttribute('action', updateAction);
+
+        });
+    });
+</script>

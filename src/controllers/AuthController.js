@@ -4,6 +4,7 @@ const Credencial = require('../models/Credencial')
 const { createToken } = require('../config/auth')
 
 function index(req, res) {
+
     return res.render('login')
 }
 

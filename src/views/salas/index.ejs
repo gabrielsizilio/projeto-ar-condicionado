@@ -49,8 +49,9 @@
 
                                                             <div class="d-flex justify-content-evenly mt-3">
                                                                 <a href="" data-bs-toggle="modal"
-                                                                    data-bs-target="#excluir_<%= sala.id %>"><box-icon
-                                                                        name='trash-alt' type='solid'
+                                                                    data-bs-target="#excluirArCondicionado"
+                                                                    data-bs-whatever="<%= ar.id %>">
+                                                                    <box-icon name='trash-alt' type='solid'
                                                                         color='#ff6467'></box-icon>
                                                                 </a>
                                                                 <a href="" data-bs-toggle="modal"
@@ -69,6 +70,7 @@
                                                     </div>
                                                 <% } %>
                                             <%- include('../arCondicionado/edit.ejs', {ares: sala.ares_condicionados, sala}) %>
+                                            <%- include('../arCondicionado/remove.ejs', {ares: sala.ares_condicionados, sala}) %>
                                         </div>
                                         <div>
                                         </div>
@@ -83,6 +85,7 @@
     <script>
 
         const editModal = document.getElementById('editArCondicionado')
+        const excluirModal = document.getElementById('excluirArCondicionado')
         if (editModal) {
             editModal.addEventListener('show.bs.modal', event => {
 
@@ -90,7 +93,15 @@
                 const arCondicionadoId = button.getAttribute('data-bs-whatever')
 
                 editModal.setAttribute('data-bs-id', arCondicionadoId)
+            })
+        }
+        if (excluirModal) {
+            excluirModal.addEventListener('show.bs.modal', event => {
 
+                const button = event.relatedTarget
+                const arCondicionadoId = button.getAttribute('data-bs-whatever')
+
+                excluirModal.setAttribute('data-bs-id', arCondicionadoId)
             })
         }
     </script>
