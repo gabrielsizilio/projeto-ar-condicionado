@@ -1,6 +1,7 @@
 const ArCondicionado = require('../models/ArCondicionado')
 const Modelo = require('../models/Modelo')
 const Marca = require('../models/Marca')
+const Controlador = require('../models/Controloador')
 
 
 async function index(req, res) {
@@ -64,16 +65,16 @@ async function store(req, res) {
 async function edit(req, res) {
     const ar_id = req.params
 
-    
+
     try {
         const arCondicionado = await ArCondicionado.findOne({
             where: { id: ar_id.id }
         })
-        
+
         if (!arCondicionado) {
             return res.status(404).json({ msgErr: 'Ar-condicionado não cadastrado no sistema' })
         }
-        
+
         res.json(arCondicionado)
     } catch (error) {
         console.log(error)
@@ -82,29 +83,49 @@ async function edit(req, res) {
 
 
 async function update(req, res) {
-    const id = req.params
+    const arId = req.params.id
     const updateValues = { nome, marca_id, modelo_id, controlador_id } = req.body
 
-    
-    if (!nome || !modelo_id) {
+
+    if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
     try {
         const arCondicionado = await ArCondicionado.findOne({
-            where: { id: ar_id.id },
+            where: { id: arId },
             include: [{ model: Modelo, as: 'modelo' }]
         })
+
 
         if (!arCondicionado) {
             return res.status(404).json({ msgErr: 'Ar-condicionado não encontrado.' })
         }
+
+        if (updateValues.nomeNovoModelo) {
+
+            const marca = await Marca.findByPk(marca_id)
+            const modelo = await marca.createModelo({
+                nome: updateValues.nomeNovoModelo
+            })
+
+            modelo_id = modelo.id
+        }
+
+        if (updateValues.macAdressNovoControlador) {
+
+            const controlador = await Controlador.create({
+                nome: updateValues.macAdressNovoControladors,
+            })
+        }
+        
+        console.log(">>", modelo_id);
 
         await arCondicionado.update({
             nome,
             modelo_id,
         })
 
-        return res.status(200).json({ arCondicionado })
+        return res.status(200).redirect('back')
 
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });

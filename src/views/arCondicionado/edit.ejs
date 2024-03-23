@@ -7,7 +7,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="form" action="/predio/<%= sala.predio.id %>/sala/<%= sala.id%>/arcondicionado/update/(idAr)" method="POST">
+            <form id="form" action="/predio/<%= sala.predio.id %>/sala/<%= sala.id%>/arcondicionado/update/(idAr)"
+                method="POST">
                 <div class="modal-body">
 
                     <div class="mb-3">
@@ -25,12 +26,12 @@
                                         <%= marca.nome %>
                                     </option>
                                     <% }); %>
-                                <% } %>
+                                        <% } %>
                         </select>
                     </div>
 
                     <div>
-                        <a href=""> Adicionar nova marca </a>
+                        <a href="" data-bs-target="#createMarca" data-bs-toggle="modal"> Adicionar nova marca </a>
                     </div>
 
                     <div class="modelo error"></div>
@@ -49,8 +50,24 @@
                                 </div>
                                 <% }) %>
                         </div>
-                        <div>
-                            <a href="">Novo modelo?</a>
+
+                        <div class="">
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" id="novoModelo" name="modelo_id"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseNovoModelo" aria-expanded="false"
+                                    aria-controls="collapseNovoModelo"/>
+                                <label class="form-check-label" for="novoModelo"> Novo modelo?</label>
+                            </div>
+
+                            <div class="collapse mt-2" id="collapseNovoModelo">
+                                <div class="card card-body">
+                                    <div class="mb-1">
+                                        <label for="nomeNovoModelo" class="form-label">Nome do novo modelo*</label>
+                                        <input type="text" class="form-control" name="nomeNovoModelo"
+                                            id="nomeNovoModelo" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -68,8 +85,24 @@
                                 </div>
                                 <% }) %>
                         </div>
-                        <div>
-                            <a href="">Novo controloador?</a>
+
+                        <div class="">
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" id="novoControlador" name="controlador_id"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseNovoControlador" aria-expanded="false"
+                                    aria-controls="collapseNovoControlador"/>
+                                <label class="form-check-label" for="novoControlador"> Novo controlador?</label>
+                            </div>
+
+                            <div class="collapse mt-2" id="collapseNovoControlador">
+                                <div class="card card-body">
+                                    <div class="mb-1">
+                                        <label for="macAdressNovoControlador" class="form-label">macAddress*</label>
+                                        <input type="text" class="form-control" name="macAdressNovoControlador"
+                                            id="macAdressNovoControlador"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -87,31 +120,32 @@
     </div>
 </div>
 </div>
+<%- include('../marca/create.ejs') %>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const modal = document.getElementById('editArCondicionado');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('editArCondicionado');
 
 
-        modal.addEventListener('show.bs.modal', function (event) {
-            const ares = JSON.parse('<%- JSON.stringify(ares) %>')
-            const marcas = JSON.parse('<%- JSON.stringify(marcas) %>')
-            const arId = modal.getAttribute('data-bs-id');
+            modal.addEventListener('show.bs.modal', function (event) {
+                const ares = JSON.parse('<%- JSON.stringify(ares) %>')
+                const marcas = JSON.parse('<%- JSON.stringify(marcas) %>')
+                const arId = modal.getAttribute('data-bs-id');
 
-            const form = document.getElementById('form');
-            let currentAction = form.getAttribute('action')
-            const updateAction = currentAction.replace("(idAr)", arId)
-            form.setAttribute('action', updateAction);
+                const form = document.getElementById('form');
+                let currentAction = form.getAttribute('action')
+                const updateAction = currentAction.replace("(idAr)", arId)
+                form.setAttribute('action', updateAction);
 
-            const ar = ares.find(ar => ar.id == arId);
-            const modelo = ar.modelo;
-            const marca = marcas.find(marca => marca.id == ar.modelo.marca_id);
+                const ar = ares.find(ar => ar.id == arId);
+                const modelo = ar.modelo;
+                const marca = marcas.find(marca => marca.id == ar.modelo.marca_id);
 
-            document.getElementById('name').value = ar.nome
-            document.getElementById('marca').value = marca.id
-            document.getElementById(`modeloEdit_${ar.modelo_id}`).checked = true;
-            document.getElementById(`controladorEdit_${ar.controlador_id}`).checked = true;
+                document.getElementById('name').value = ar.nome
+                document.getElementById('marca').value = marca.id
+                document.getElementById(`modeloEdit_${ar.modelo_id}`).checked = true;
+                document.getElementById(`controladorEdit_${ar.controlador_id}`).checked = true;
+            });
         });
-    });
 
-</script>
+    </script>

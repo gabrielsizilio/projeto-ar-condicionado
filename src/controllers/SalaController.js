@@ -17,7 +17,10 @@ async function index(req, res) {
             include: [{
                 model: Controlador, as: 'controlador'
             },{
-                model: Modelo, as: 'modelo'
+                model: Modelo, as: 'modelo',
+                include: [{
+                    model: Marca, as: 'marca'
+                }]
             }] 
         }]
     })
