@@ -159,17 +159,16 @@
 
     <script>
         // Obter elementos de marca e modelo
-        const marcaSelect = document.getElementById('marca');
-        const modeloSelect = document.getElementById('modelos');
+        const marcaSelectAr = document.getElementById('marca');
+        const modeloSelectAr = document.getElementById('modelos');
         const marcas = JSON.parse('<%- JSON.stringify(marcas) %>')
 
-        marcaSelect.addEventListener('change', function () {
+        marcaSelectAr.addEventListener('change', function () {
             const selectedMarcaId = this.value;
 
             const marcaSelected = marcas.find(marca => marca.id == selectedMarcaId)
-            console.log(selectedMarcaId);
 
-            modeloSelect.innerHTML = '';
+            modeloSelectAr.innerHTML = '';
 
 
             marcaSelected.modelos.forEach(modelo => {
@@ -182,6 +181,7 @@
                 input.id = `modeloEdit_${modelo.id}`;
                 input.value = modelo.id;
                 input.name = 'modelo_id';
+                input.required = true;
 
                 const label = document.createElement('label');
                 label.classList.add('form-check-label');
@@ -190,7 +190,7 @@
 
                 div.appendChild(input);
                 div.appendChild(label);
-                modeloSelect.appendChild(div);
+                modeloSelectAr.appendChild(div);
             });
         })
 

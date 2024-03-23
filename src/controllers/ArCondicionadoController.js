@@ -39,24 +39,39 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, modelo_id, sala_id } = req.body
-
-    // return res.json(req.body);
-
+    const novoAr = { nome, marca_id, modelo_id, controlador_id, sala_id} = req.body
     if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
     try {
-        const modelo = await Modelo.findByPk(modelo_id)
+        if (novoAr.nomeNovoModelo) {
+            const marca = await Marca.findByPk(marca_id)
+            const modelo = await marca.createModelo({
+                nome: novoAr.nomeNovoModelo
+            })
+
+            modelo_id = modelo.id
+        }
+
+        if (novoAr.macAdressNovoControlador) {
+
+            const controlador = await Controlador.create({
+                macAddress: novoAr.macAdressNovoControlador
+            })
+            controlador_id = controlador.id
+        }
+
+        console.log(">> ", );
 
         await ArCondicionado.create({
             nome,
             modelo_id,
-            sala_id
+            sala_id,
+            controlador_id
         })
 
-        return res.redirect('back')
+        return res.status(200).redirect('back')
     } catch (error) {
         res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
@@ -118,7 +133,7 @@ async function update(req, res) {
             })
             controlador_id = controlador.id
         }
-        
+
         await arCondicionado.update({
             nome,
             modelo_id,
@@ -148,8 +163,8 @@ async function remove(req, res) {
 
         await arCondicionado.destroy()
 
-        return res.status(200).json({msg: "Ar-condicionado excluído do sistema"}).redirect('back')
-        
+        return res.status(200).redirect('back')
+
 
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });

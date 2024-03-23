@@ -41,9 +41,11 @@
                                                                 style="width: 100%;">
                                                                 <h5>Controlador</h5>
                                                                 <p class="font-monospace">
-                                                                    <% if (ar.controlador.macAddress) { %>
+                                                                    <% if (ar.controlador != null) { %>
                                                                         <%= ar.controlador.macAddress %>
-                                                                            <% } %>
+                                                                    <% } else { %>
+                                                                        <span>Sem controlador</span>
+                                                                    <% } %>
                                                                 </p>
                                                             </div>
 

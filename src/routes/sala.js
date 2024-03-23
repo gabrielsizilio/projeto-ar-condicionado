@@ -15,6 +15,6 @@ router.post('/update/:id', salaController.update)
 
 router.post('/remove/:id', salaController.remove)
 
-router.use('/:id/arcondicionado', aresCondicionado)
+router.use('/:id/ar-condicionado', aresCondicionado)
 
 module.exports = router;

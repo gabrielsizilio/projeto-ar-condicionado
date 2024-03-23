@@ -1,5 +1,5 @@
 <div class="modal fade" id="addArCondicioando" tabindex="-1" aria-labelledby="addArCondicioando" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar ar-condicionado</h1>
@@ -16,7 +16,7 @@
                     
                     <div>
                         <label for="marca" class="form-label">Marca</label>
-                        <select class="form-select" name="marca_id" required>
+                        <select id="marcaS" class="form-select" name="marca_id" required>
                             <option disabled>Selecione uma marca</option>
                             <% if (marcas.length > 0) { %>
                                 <% marcas.forEach( marca => { %>
@@ -29,17 +29,18 @@
                     </div>
 
                     <div>
-                        <a href=""> Adicionar nova marca </a>
+                        <a href="" data-bs-target="#createMarca" data-bs-toggle="modal"> Adicionar nova marca </a>
                     </div>
 
                     <div class="modelo error"></div>
 
-                    <div class="mt-3">
+                    <div class="card p-2 mt-3">
                         <label class="form-label">Modelo</label>
-                        <div class="d-flex flex-column">
+                        <div id="modelosS" class="d-flex flex-column">
+                            <!-- TODO: REFAZER ESSA LÓGICA PARA FICAR DINÂMICA -->
                             <% marcas[0].modelos.forEach(modelo => { %>
                                 <div class="form-check col-8">
-                                    <input class="form-check-input" type="radio" id="modelo_<%= modelo.id %>" value="<%= modelo.id %>" name="modelo_id">
+                                    <input class="form-check-input" type="radio" id="modelo_<%= modelo.id %>" value="<%= modelo.id %>" name="modelo_id" required>
                                     <label class="form-check-label" for="modelo_<%= modelo.id %>">
                                         <%= modelo.nome %>
                                     </label>
@@ -47,16 +48,31 @@
                             <% }) %>
                         </div>
                         <div>
-                            <a href="">Novo modelo?</a>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" id="novoModelo" name="modelo_id"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseNovoModelo" aria-expanded="false"
+                                    aria-controls="collapseNovoModelo" />
+                                <label class="form-check-label" for="novoModelo"> Novo modelo?</label>
+                            </div>
+
+                            <div class="collapse mt-2" id="collapseNovoModelo">
+                                <div class="card card-body">
+                                    <div class="mb-1">
+                                        <label for="nomeNovoModelo" class="form-label">Nome do novo modelo*</label>
+                                        <input type="text" class="form-control" name="nomeNovoModelo"
+                                            id="nomeNovoModelo"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mt-3">
+                    <div class="card p-2 mt-3">
                         <label class="form-label">Controlador</label>
                         <div class="d-flex flex-column">
                             <% controladores.forEach(controlador => { %>
                                 <div class="form-check col-8">
-                                    <input class="form-check-input" type="radio" id="controlador_<%= controlador.id %>" value="<%= controlador.id %>" name="controlador_id">
+                                    <input class="form-check-input" type="radio" id="controlador_<%= controlador.id %>" value="<%= controlador.id %>" name="controlador_id" required>
                                     <label class="form-check-label" for="controlador_<%= controlador.id %>">
                                         <%= controlador.macAddress %>
                                     </label>
@@ -64,7 +80,22 @@
                             <% }) %>
                         </div>
                         <div>
-                            <a href="">Novo controloador?</a>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" id="novoControlador" name="controlador_id"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseNovoControlador"
+                                    aria-expanded="false" aria-controls="collapseNovoControlador" />
+                                <label class="form-check-label" for="novoControlador"> Novo controlador?</label>
+                            </div>
+
+                            <div class="collapse mt-2" id="collapseNovoControlador">
+                                <div class="card card-body">
+                                    <div class="mb-1">
+                                        <label for="macAdressNovoControlador" class="form-label">macAddress*</label>
+                                        <input type="text" class="form-control" name="macAdressNovoControlador"
+                                            id="macAdressNovoControlador" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -82,3 +113,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Obter elementos de marca e modelo
+    const marcaSelect = document.getElementById('marcaS');
+    const modeloSelect = document.getElementById('modelosS');
+    const marcasAr = JSON.parse('<%- JSON.stringify(marcas) %>')
+    marcaSelect.addEventListener('change', function () {
+        const selectedMarcaId = this.value;
+
+        const marcaSelected = marcasAr.find(marca => marca.id == selectedMarcaId)
+
+        modeloSelect.innerHTML = '';
+
+
+        marcaSelected.modelos.forEach(modelo => {
+            const div = document.createElement('div');
+            div.classList.add('form-check', 'col-8');
+
+            const input = document.createElement('input');
+            input.classList.add('form-check-input');
+            input.type = 'radio';
+            input.id = `modeloEdit_${modelo.id}`;
+            input.value = modelo.id;
+            input.name = 'modelo_id';
+            input.required = true;
+
+            const label = document.createElement('label');
+            label.classList.add('form-check-label');
+            label.htmlFor = `modeloEdit_${modelo.id}`;
+            label.textContent = modelo.nome;
+
+            div.appendChild(input);
+            div.appendChild(label);
+            modeloSelect.appendChild(div);
+        });
+    })
+
+</script>
