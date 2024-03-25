@@ -2,13 +2,16 @@ const Usuario = require('../models/Usuario')
 const CredencialController = require('../controllers/CredencialController')
 const Credencial = require('../models/Credencial')
 const Areas = require('../models/Area')
+const Role = require('../models/Role')
 
 async function index(req, res) {
 
-    const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }, {association: 'areas'}] })
+    const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }, { association: 'areas' }] })
     const areas = await Areas.findAll()
+    const roles = await Role.findAll()
+
     try {
-        res.status(200).render('usuarios/index', { usuarios, areas })
+        res.status(200).render('usuarios/index', { usuarios, areas, roles })
     } catch (error) {
         res.send(`Erro: ${error}`)
 
@@ -16,32 +19,35 @@ async function index(req, res) {
 }
 
 async function store(req, res) {
-    const { nome, tipo, nickname, areas } = req.body
+    const { nome, role_id, nickname, areas } = req.body
 
-    return res.send(req.body)
-
-    if (!nome || !tipo || !nickname) {
+    if (!nome || !nickname) {
         return res.status(400).json({ msgErr: "Campos obrigatório não preenchidos" })
     }
 
     const { credencial } = await CredencialController.create(req, res)
     try {
-        const usuario = await Usuario.create({
-            nome: nome,
-            nickname: nickname,
-            tipo: tipo,
-            credencial_id: credencial.id
-        })
+        const role = await Role.findByPk(role_id)
 
-        if (areas) {
-            areas.forEach(async (areaId) => {
-                var area = await Areas.findByPk(areaId)
-                if (area) {
-                    await usuario.addArea(area)
-                } else {
-                    return res.send('!> Área não encontrada no banco')   
-                }
-            });
+        if (role) {
+            const usuario = await Usuario.create({
+                nome: nome,
+                nickname: nickname,
+                role_id: role.id,
+                credencial_id: credencial.id
+            })
+
+
+            if (areas) {
+                areas.forEach(async (areaId) => {
+                    var area = await Areas.findByPk(areaId)
+                    if (area) {
+                        await usuario.addArea(area)
+                    } else {
+                        return res.send('!> Área não encontrada no banco')
+                    }
+                });
+            }
         }
 
         res.status(200).redirect('/usuario')
@@ -64,8 +70,8 @@ async function update(req, res) {
     }
 
     const usuario = await Usuario.findOne({
-        where: {id : usuario_id},
-        include:[{ association: 'credencial' }, {association: 'areas'}]
+        where: { id: usuario_id },
+        include: [{ association: 'credencial' }, { association: 'areas' }]
     })
 
     if (!usuario) {
@@ -75,11 +81,11 @@ async function update(req, res) {
     res.send(usuario)
 
     try {
-     
+
     } catch (error) {
         return res.send(`Erro ao atualizar usuário: ${error}`)
     }
-    
+
 }
 
 async function remove(req, res) {

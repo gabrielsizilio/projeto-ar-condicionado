@@ -14,11 +14,11 @@
                             <input name="nome" autocomplete="off" type="text" class="form-control" id="nome" required>
                         </div>
                         <div class="col-3">
-                            <label for="tipo" class="form-label">Tipo*:</label>
-                            <select name="tipo" id="tipo" class="form-select">
-                                <option value="Padrão">Padrão</option>
-                                <option value="Administrador">Administrador</option>
-                                <option value="Manutenção">Manutenção</option>
+                            <label for="role" class="form-label">Tipo*:</label>
+                            <select name="role_id" id="role" class="form-select">
+                                <% roles.forEach(role => { %>
+                                    <option value="<%= role.id %>"> <%= role.nome %> </option>
+                                <% }) %>
                             </select>
                         </div>
                         <div class="col-3">

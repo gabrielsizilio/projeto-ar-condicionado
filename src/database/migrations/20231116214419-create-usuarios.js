@@ -18,10 +18,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      tipo: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       credencial_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

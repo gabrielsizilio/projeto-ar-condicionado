@@ -5,7 +5,6 @@ class Usuario extends Model {
         super.init({
             nome: DataTypes.STRING,
             nickname: DataTypes.STRING,
-            tipo: DataTypes.STRING,
         }, {
             sequelize,
             tableName: 'usuarios'
