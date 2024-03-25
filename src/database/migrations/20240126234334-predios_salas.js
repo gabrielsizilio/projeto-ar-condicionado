@@ -31,7 +31,7 @@ module.exports = {
     }]);
 
     const modeloAgratto = await queryInterface.bulkInsert('modelos', [{
-      nome: 'Agratto-001',
+      nome: 'Agratto',
       marca_id: marcaAgratto,
       createdAt: new Date(),
       updatedAt: new Date()

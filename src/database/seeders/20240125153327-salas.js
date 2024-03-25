@@ -70,6 +70,7 @@ module.exports = {
     await queryInterface.bulkDelete('predios', null, {});
     await queryInterface.bulkDelete('marcas', null, {});
     await queryInterface.bulkDelete('modelos', null, {});
+    await queryInterface.bulkDelete('controladores', null, {});
     await queryInterface.bulkDelete('ares_condicionados', null, {});
     await queryInterface.bulkDelete('temperaturas', null, {});
 

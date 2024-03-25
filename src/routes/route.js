@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const authentication = require('../middleware/authMiddleware')
+const accessMiddleware = require('../middleware/accessMiddleware')
 
 const usuario = require('./usuario')
 const login = require('./login')
@@ -22,9 +23,9 @@ router.get('/historico', function(req,res){
 router.use('/login', login)
 router.use('/logout', logout)
 router.use('/usuario',  usuario)
-router.use('/predio', authentication, predio)
-router.use('/grade', authentication, grade)
-router.use('/logs', authentication, log)
-router.use('/marca', authentication, marca)
+router.use('/predio', authentication, accessMiddleware(['Administrador', 'Manutenção']), predio)
+router.use('/grade', authentication, accessMiddleware(['Administrador', 'Manutenção']), grade)
+router.use('/logs', authentication, accessMiddleware(['Administrador', 'Manutenção']), log)
+router.use('/marca', authentication, accessMiddleware(['Manutenção']), marca)
 
 module.exports = router

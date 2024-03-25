@@ -14,24 +14,24 @@ async function login(req, res) {
     const { email, senha } = req.body
     // const email = req.body.email
     // const senha = req.body.senha
-
+    
     if (!email) {
         return res.status(401).json({ errorEmail: "Email é obrigatório!" })
     }
-
+    
     if (!senha) {
         return res.status(401).json({ errorSenha: "Senha é obrigatório!" })
     }
-
+    
     try {
         const credencial = await Credencial.findOne({ where: { email } })
-
+        
         if (!credencial) {
             return res.status(404).json({ errorEmail: "Usuário não cadastrado" });
         }
-
+        
         const senhaHash = (await bcrypt.compare(senha, credencial.senha))
-
+        
         if (senhaHash) {
             const token = await createToken(credencial)
             if (token == 500) {
@@ -45,8 +45,6 @@ async function login(req, res) {
                     descricao: "Efetuou login",
                     usuario_id: usuario.id
                 })
-
-                // res.header('Authorization', `Bearer ${token}`);
                 // TODO: colcoar 'secure: true' qnd der deploy
                 res.cookie('jwt', token, {/* secure: true,*/ httpOnly: true, maxAge: process.env.AUTH_EXPIRE_TOKEN * 1000 })
                 res.status(200).json({ msg: "Logado com sucesso!", success: true })
