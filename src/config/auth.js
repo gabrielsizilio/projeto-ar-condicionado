@@ -1,15 +1,25 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
+const Usuario = require('../models/Usuario')
+const Role = require('../models/Role')
 
-function createToken(credencial) {
+async function createToken(credencial) {
 
     const secret = process.env.AUTH_TOKEN_SECRET
     const option = { expiresIn: `${process.env.AUTH_EXPIRE_TOKEN}s` }
-    const payload = {
-        id: credencial.id,
-        role: 'Administrador'
-    }
+
     try {
+        const user = await Usuario.findOne({
+            where: { credencial_id: credencial.id }
+        });
+
+        const userRole = await user.getRole();
+
+        const payload = {
+            id: credencial.id,
+            role: userRole.nome
+        }
+        
         const token = jwt.sign(payload, secret, option);
         return token;
     } catch (error) {

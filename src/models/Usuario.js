@@ -30,7 +30,7 @@ class Usuario extends Model {
                 foreignKey: 'usuario_id',
                 as: 'logs'
             }),
-            this.hasOne(models.Role, {
+            this.belongsTo(models.Role, {
                 foreignKey: 'role_id', as: 'role'
             })
     }
