@@ -22,7 +22,6 @@
                                 <tr>
                                     <th scope="col">USUÁRIO</th>
                                     <th scope="col">NICK</th>
-                                    <th scope="col">PERMISSÃO</th>
                                     <th scope="col">AÇÃO</th>
                                     <th scope="col">DATA</th>
                                     <th scope="col">HORA</th>
@@ -34,7 +33,6 @@
                                         <tr>
                                             <td> <%= log.usuario.nome %> </td>
                                             <td> <%= log.usuario.nickname %> </td>
-                                            <td> <%= log.usuario.tipo %> </td>
                                             <td> <%= log.descricao %> </td>
                                             <% const data = new Date(log.createdAt) %>
                                             <td> <%= data.toLocaleDateString('pt-br', {year:"numeric", month:"long", day:"numeric"}) %> </td>

@@ -11,70 +11,16 @@
             </tr>
         </thead>
         <tbody id="tabela">
-            <tr>                
-                <th scope="row"> <%= horarios[0].horario_ini %></th>
-                <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[1].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[2].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[3].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[4].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[5].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[6].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <th scope="row"> <%= horarios[7].horario_ini %></th>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
+            <% horarios.forEach(horario => { %>
+                <tr>                
+                    <th scope="row"> <%= horario.horario_ini.split(':').slice(0, 2).join(':') %></th>
+                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
+                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
+                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
+                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
+                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
+                </tr>
+            <% }) %>
         </tbody>
     </table>
 </div>
