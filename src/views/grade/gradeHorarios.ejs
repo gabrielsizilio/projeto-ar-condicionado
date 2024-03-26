@@ -1,26 +1,50 @@
-<div  class="card mt-5 grade-horarios p-3">
-    <table  class="table text-center">
+<div class="card mt-5 grade-horarios p-3">
+    <table class="table text-center">
         <thead>
             <tr>
                 <th scope="col"></th>
-                <th scope="col"><%= semana[0].nome.toUpperCase() %></th>
-                <th scope="col"><%= semana[1].nome.toUpperCase() %></th>
-                <th scope="col"><%= semana[2].nome.toUpperCase() %></th>
-                <th scope="col"><%= semana[3].nome.toUpperCase() %></th>
-                <th scope="col"><%= semana[4].nome.toUpperCase() %></th>
+                <th scope="col">
+                    <%= semana[0].nome.toUpperCase() %>
+                </th>
+                <th scope="col">
+                    <%= semana[1].nome.toUpperCase() %>
+                </th>
+                <th scope="col">
+                    <%= semana[2].nome.toUpperCase() %>
+                </th>
+                <th scope="col">
+                    <%= semana[3].nome.toUpperCase() %>
+                </th>
+                <th scope="col">
+                    <%= semana[4].nome.toUpperCase() %>
+                </th>
+                <th scope="col">
+                    <%= semana[5].nome.toUpperCase() %>
+                </th>
+                <th scope="col">
+                    <%= semana[6].nome.toUpperCase() %>
+                </th>
             </tr>
         </thead>
         <tbody id="tabela">
             <% horarios.forEach(horario => { %>
-                <tr>                
-                    <th scope="row"> <%= horario.horario_ini.split(':').slice(0, 2).join(':') %></th>
-                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
-                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
-                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
-                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
-                    <td data-bs-toggle="modal" data-bs-target="#alterarProfessor"><%= usuarios[0].nome %></td>
+                <tr>
+                    <th scope="row">
+                        <%= horario.horario_ini.split(':').slice(0, 2).join(':') %>
+                    </th>
+        
+                    <% semana.forEach(dia => { %>
+                        <td data-bs-toggle="modal" data-bs-target="#alterarProfessor">
+                            <% const alocacao = alocacaoHorarios.find(a => a.horario_id === horario.id && a.semana_id === dia.id); %>
+                            <% if (alocacao) { %>
+                                <%= alocacao.usuario.nome %>
+                            <% } else { %>
+                                -
+                            <% } %>
+                        </td>
+                    <% }); %>
                 </tr>
-            <% }) %>
+            <% }); %>
         </tbody>
     </table>
 </div>

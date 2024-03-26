@@ -5,6 +5,12 @@ module.exports = {
   async up(queryInterface, Sequelize) {
 
     await queryInterface.createTable('alocacao_horarios', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       sala_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
