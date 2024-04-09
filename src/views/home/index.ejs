@@ -286,7 +286,6 @@
         selecionado.classList.add('menu-selecionado');
     </script>
 
-
     <!-- Script Versão Mobile -->
     <script>
         function dotMobileChanged(dotIndex) {
@@ -552,6 +551,9 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        const user  = JSON.parse('<%- JSON.stringify(user) %>');
+        console.log(user);
+
         const socket = io();
 
         socket.on('eventoTeste', () => {
@@ -562,10 +564,6 @@
             const id_controlador = document.getElementById("id_controlador").value;
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
             socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user})
-
-            console.log(id_controlador)
-            console.log(id_arcondicionado)
-            console.log(temperatura)
         }
     </script>
 

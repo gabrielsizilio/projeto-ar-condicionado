@@ -11,11 +11,10 @@ class SocketController {
 
     }
 
-    async enviaComando(comando, macAddressMapping, io, user) {
+    async enviaComando(comando, macAddressMapping, io) {
+        const { user } = comando;
 
-        console.log(
-            user
-        );
+        console.log("usuario: " + user.nome);
 
         var aparelho = await ArCondicionado.findByPk(comando.id_arcondicionado, {
                 include: [{
@@ -44,8 +43,8 @@ class SocketController {
 
         if (!macAddressMapping[comando.id_controlador]) {
             console.log("Deu Ruim controlador não encontrado");
-            // Precisa tratar o erro corretamente
-            return;
+            // TODO: tratar o erro corretamente
+            // return;
         }
         io.to(macAddressMapping[comando.id_controlador]).emit('EnviaIR', codigo_ir)
         

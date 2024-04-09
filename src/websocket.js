@@ -9,7 +9,7 @@ io.on('connection', (socket) => {
 
     socket.on('setup', (esp) => { SocketController.setup(esp, socket, macAddressMapping) });
 
-    socket.on('enviarComandoAr', async (comando, user) => { SocketController.enviaComando(comando, macAddressMapping , io, user) });
+    socket.on('enviarComandoAr', async (comando, user) => { SocketController.enviaComando(comando, macAddressMapping , io) });
 
     socket.on('disconnect', () => { SocketController.disconnect(socket, macAddressMapping) });
 
