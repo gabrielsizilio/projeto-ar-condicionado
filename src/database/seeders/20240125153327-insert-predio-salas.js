@@ -4,6 +4,13 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
 
+    // PREDIOS
+    const predio = await queryInterface.bulkInsert('predios', [{
+      nome: 'Edificações',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+
     const predio2 = await queryInterface.bulkInsert('predios', [{
       nome: 'Computação',
       createdAt: new Date(),
@@ -16,10 +23,34 @@ module.exports = {
       updatedAt: new Date()
     }]);
 
-    
+
+
+    // SALAS
+    const sala = await queryInterface.bulkInsert('salas', [{
+      nome: 'Maker Space',
+      predio_id: predio,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+
     const sala12 = await queryInterface.bulkInsert('salas', [{
       nome: 'Sala 12',
       predio_id: predio2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+
+    await queryInterface.bulkInsert('salas', [{
+      nome: 'Biblioteca',
+      predio_id: predio3,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+
+
+    // MARCAS
+    const marca = await queryInterface.bulkInsert('marcas', [{
+      nome: 'Philco',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
@@ -30,30 +61,21 @@ module.exports = {
       updatedAt: new Date()
     }]);
 
-    const modeloAgratto = await queryInterface.bulkInsert('modelos', [{
-      nome: 'Agratto',
+
+
+    // MODELO
+    const modelo = await queryInterface.bulkInsert('modelos', [{
+      nome: 'Agrato-000',
       marca_id: marcaAgratto,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
 
-    const controlador = await queryInterface.bulkInsert('controladores', [{
-      macAddress: "8C:AA:B5:02:4A:02",
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }])
 
-    const arCondicionado = await queryInterface.bulkInsert('ares_condicionados', [{
-      nome: 'Agratto-01',
-      modelo_id: modeloAgratto,
-      sala_id: sala12,
-      controlador_id: controlador,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
 
-    const temperatura = await queryInterface.bulkInsert('temperaturas', [{
-      modelo_id: modeloAgratto,
+    // TEMPERATURA
+    await queryInterface.bulkInsert('temperaturas', [{
+      modelo_id: modelo,
       off: "3444, 1616, 464, 1240, 464, 1240, 464, 300, 552, 296, 556, 296, 556, 1240, 464, 296, 552, 300, 552, 1240, 464, 1240, 464, 300, 552, 1240, 464, 300, 552, 300, 552, 1240, 464, 1236, 468, 296, 556, 1236, 464, 1240, 464, 300, 552, 300, 552, 1240, 464, 300, 552, 300, 552, 1240, 464, 296, 556, 296, 556, 296, 556, 296, 556, 296, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 296, 556, 296, 556, 296, 552, 304, 552, 296, 552, 304, 548, 1240, 464, 300, 552, 300, 552, 1240, 464, 1240, 464, 300, 552, 300, 552, 300, 552, 300, 552, 296, 556, 300, 552, 296, 552, 1240, 464, 1240, 464, 300, 552, 300, 552, 300, 552, 300, 552, 1240, 464, 296, 556, 296, 556, 300, 552, 300, 552, 300, 552, 296, 552, 304, 548, 304, 548, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 552, 300, 548, 304, 548, 304, 548, 304, 548, 304, 548, 300, 552, 300, 552, 304, 548, 300, 552, 304, 548, 300, 552, 300, 552, 300, 552, 300, 552, 300, 548, 304, 548, 304, 548, 304, 548, 304, 548, 304, 548, 304, 548, 1240, 464, 1240, 464, 1240, 464, 1240, 464, 1236, 464, 360, 492, 1240, 464",
       temp16: "3504, 1568, 536, 1180, 536, 1184, 528, 360, 472, 380, 480, 384, 472, 1216, 508, 372, 484, 356, 504, 1212, 536, 1180, 536, 352, 472, 1216, 540, 264, 560, 384, 472, 1216, 532, 1184, 540, 348, 476, 1212, 540, 1184, 528, 356, 472, 384, 476, 1212, 544, 320, 500, 384, 472, 1216, 532, 284, 548, 384, 476, 376, 452, 412, 472, 388, 468, 392, 472, 384, 472, 384, 480, 384, 472, 360, 500, 380, 448, 416, 468, 364, 500, 384, 472, 384, 476, 360, 496, 388, 472, 1216, 512, 348, 504, 380, 476, 1216, 532, 328, 500, 360, 500, 1216, 504, 1212, 528, 360, 444, 416, 468, 364, 500, 356, 504, 384, 444, 412, 476, 1212, 536, 1184, 532, 1184, 532, 1184, 544, 260, 560, 384, 472, 360, 500, 1216, 504, 384, 472, 360, 500, 360, 496, 344, 516, 384, 476, 384, 448, 412, 472, 364, 492, 364, 496, 388, 472, 360, 496, 392, 472, 360, 496, 364, 492, 364, 500, 384, 472, 360, 500, 388, 472, 384, 472, 360, 500, 388, 468, 364, 472, 388, 496, 364, 496, 360, 500, 384, 472, 360, 496, 388, 472, 388, 472, 360, 500, 360, 496, 360, 504, 356, 472, 416, 468, 388, 472, 360, 496, 364, 500, 356, 504, 360, 492, 364, 500, 1212, 536, 1184, 504, 356, 500, 1216, 504, 384, 472, 360, 496, 1220, 504, 1212, 504",
       temp17: "3444, 1616, 464, 1240, 464, 1240, 464, 388, 464, 388, 464, 388, 464, 1240, 464, 388, 464, 388, 460, 1244, 464, 1236, 464, 388, 464, 1240, 464, 388, 464, 388, 464, 1240, 464, 1240, 464, 388, 464, 1240, 464, 1240, 464, 384, 464, 388, 464, 1240, 464, 388, 464, 388, 464, 1240, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 460, 392, 464, 388, 464, 384, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 1240, 464, 388, 464, 388, 460, 1244, 460, 388, 464, 388, 464, 1240, 464, 1240, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 460, 1240, 464, 1244, 460, 1240, 464, 388, 464, 388, 464, 388, 464, 1240, 464, 388, 464, 388, 464, 388, 464, 1240, 460, 1244, 460, 1240, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 460, 392, 460, 392, 460, 392, 460, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 460, 392, 464, 388, 464, 388, 464, 388, 460, 392, 464, 388, 460, 388, 464, 392, 460, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 464, 388, 460, 1244, 460, 392, 460, 392, 460, 392, 460, 392, 460, 392, 460, 392, 460",
@@ -70,9 +92,21 @@ module.exports = {
     }]);
 
 
-    await queryInterface.bulkInsert('salas', [{
-      nome: 'Biblioteca',
-      predio_id: predio3,
+    // CONTROLADOR
+    const controlador = await queryInterface.bulkInsert('controladores', [{
+      macAddress: "8C:AA:B5:02:4A:02",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }])
+
+
+
+    // AR CONDICIONADO
+    const arCondicionado = await queryInterface.bulkInsert('ares_condicionados', [{
+      nome: 'Agratto',
+      modelo_id: modelo,
+      sala_id: sala,
+      controlador_id: controlador,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
@@ -80,8 +114,13 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
 
-    await queryInterface.bulkDelete('predios', null, {});
+    await queryInterface.bulkDelete('ares_condicionados', null, {});
+    await queryInterface.bulkDelete('controladores', null, {});
+    await queryInterface.bulkDelete('temperaturas', null, {});
+    await queryInterface.bulkDelete('marcas', null, {});
+    await queryInterface.bulkDelete('modelos', null, {});
     await queryInterface.bulkDelete('salas', null, {});
+    await queryInterface.bulkDelete('predios', null, {});
 
   }
 };

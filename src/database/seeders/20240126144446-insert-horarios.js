@@ -3,6 +3,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
+
+    // HORARIOS
     await queryInterface.bulkInsert('horarios', [{
       horario_ini: '07:20',
       horario_fim: '09:00',
