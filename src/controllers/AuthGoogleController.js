@@ -5,7 +5,7 @@ exports.googleAuth = passport.authenticate('google', { scope: ['profile', 'email
 exports.googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login' });
 
 exports.googleAuthCallbackSuccess = (req, res) => {
-    res.redirect('/user/dashboard');
+    res.redirect('/');
 };
 
 exports.logout = (req, res) => {
