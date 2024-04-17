@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const session = require('express-session');
+const passport = require('passport')
 const { app } = require('./http')
 const { server } = require('./http')
 require('dotenv').config()
@@ -9,33 +11,15 @@ require('./database')
 require('./websocket')
 
 
-// PASSPORT
-const session = require('express-session');
-const passport = require('passport')
+// AuthRoutes
 const authRoutes = require('./routes/authRoutes');
 require('./config/passport')(passport)
 
-// Express Session Middleware
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true
-}));
 
-// Passport Middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Routes
-app.use('/auth', authRoutes);
-
-
-
-
-
+// Express
 const router = require('./routes/route')
-
 const port = (process.env.PORT ? process.env.PORT : 8081)
+
 
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
@@ -45,8 +29,22 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json())
 
-app.use('/', router);
 
+// Express Session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: process.env.SESSION_EXPIRE*1 },
+}));
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
+app.use('/auth', authRoutes);
+app.use('/', router);
 
 try {
     server.listen(port)

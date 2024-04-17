@@ -5,12 +5,12 @@ const Predio = require('../models/Predio')
 async function index(req, res) {
 
     try {
-        if (!req.credencial.id) {
+        if (!req.session.passport.user) {
             res.status(404).json({ msgErr: "Não foi possível ler o usuario. É necessário autenticar-se novamente!" })
             return res.redirect('/logout')
         }
-        // const user = await Credencial.findByPk(req.credencial.id)
-        const credencial = await Credencial.findByPk(req.credencial.id,
+        // const user = await Credencial.findByPk(req.session.passport.user)
+        const credencial = await Credencial.findByPk(req.session.passport.user,
         {
             include: [
                 { association: 'usuario'}
