@@ -18,6 +18,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      google_id: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
       credencial_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

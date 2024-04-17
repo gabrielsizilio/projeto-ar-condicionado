@@ -33,8 +33,9 @@ module.exports = {
 
     // USUARIO
     await queryInterface.bulkInsert('usuarios', [{
-      nome: 'Chefão',
-      nickname: 'Administrador 007',
+      nome: 'Gabriel Mendes Sizilio',
+      nickname: 'gabrielsizilio',
+      google_id: '112204181590559979552',
       role_id: adm,
       credencial_id: credencial,
       createdAt: new Date(),

@@ -8,6 +8,31 @@ require('dotenv').config()
 require('./database')
 require('./websocket')
 
+
+// PASSPORT
+const session = require('express-session');
+const passport = require('passport')
+const authRoutes = require('./routes/authRoutes');
+require('./config/passport')(passport)
+
+// Express Session Middleware
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
+app.use('/auth', authRoutes);
+
+
+
+
+
 const router = require('./routes/route')
 
 const port = (process.env.PORT ? process.env.PORT : 8081)
