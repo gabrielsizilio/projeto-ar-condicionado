@@ -1,8 +1,14 @@
+const authenticationMiddleware = require("./authMiddleware");
+
 const authMiddleware = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
+    if(req.cookies.jwt) {
+        authenticationMiddleware(req, res, next);
     } else {
-        return res.redirect('/login');
+        if (req.isAuthenticated()) {
+            return next();
+        } else {
+            return res.redirect('/login');
+        }
     }
 };
 

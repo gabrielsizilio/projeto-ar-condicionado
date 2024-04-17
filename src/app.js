@@ -10,16 +10,11 @@ require('dotenv').config()
 require('./database')
 require('./websocket')
 
-
-// AuthRoutes
 const authRoutes = require('./routes/authRoutes');
 require('./config/passport')(passport)
 
-
-// Express
 const router = require('./routes/route')
 const port = (process.env.PORT ? process.env.PORT : 8081)
-
 
 app.set('view engine', 'ejs')
 app.set('views', './src/views')
@@ -29,8 +24,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json())
 
-
-// Express Session
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -38,11 +31,9 @@ app.use(session({
     cookie: { maxAge: process.env.SESSION_EXPIRE*1 },
 }));
 
-// Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
 app.use('/auth/google', authRoutes);
 app.use('/', router);
 

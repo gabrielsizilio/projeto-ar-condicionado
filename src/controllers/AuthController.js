@@ -40,7 +40,6 @@ async function login(req, res) {
                 
                 // TODO: alterar para middleware de logs
                 const usuario = await Usuario.findOne({where: {credencial_id: credencial.id}})
-
                 await Log.create({
                     descricao: "Efetuou login",
                     usuario_id: usuario.id
@@ -48,7 +47,7 @@ async function login(req, res) {
                 // TODO: colcoar 'secure: true' qnd der deploy
                 res.cookie('jwt', token, {/* secure: true,*/ httpOnly: true, maxAge: process.env.AUTH_EXPIRE_TOKEN * 1000 })
                 res.status(200).json({ msg: "Logado com sucesso!", success: true })
-
+                
                 // return res.redirect('/')
             }
 

@@ -6,6 +6,7 @@ const accessMiddleware = require('../middleware/accessMiddleware')
 const usuario = require('./usuario')
 const login = require('./login')
 const log = require('./log')
+const logout = require('./logout')
 
 const predio = require('./predio')
 const grade = require('./grade')
@@ -20,6 +21,7 @@ router.get('/historico', function(req,res){
 })
 
 router.use('/login', login)
+router.use('/logout', logout)
 router.use('/usuario', authentication, usuario)
 router.use('/predio', authentication, accessMiddleware(['Administrador', 'Manutenção']), predio)
 router.use('/grade', authentication, accessMiddleware(['Administrador', 'Manutenção']), grade)
