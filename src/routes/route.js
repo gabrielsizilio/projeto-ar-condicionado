@@ -16,13 +16,9 @@ const homeController = require('../controllers/HomeController')
 
 router.get('/', authentication, homeController.index)
 
-router.get('/historico', function(req,res){
-    res.render('historico')
-})
-
 router.use('/login', login)
 router.use('/logout', logout)
-router.use('/usuario', authentication, usuario)
+router.use('/usuario', authentication, accessMiddleware(['Administrador', 'Manutenção']), usuario)
 router.use('/predio', authentication, accessMiddleware(['Administrador', 'Manutenção']), predio)
 router.use('/grade', authentication, accessMiddleware(['Administrador', 'Manutenção']), grade)
 router.use('/logs', authentication, accessMiddleware(['Administrador', 'Manutenção']), log)
