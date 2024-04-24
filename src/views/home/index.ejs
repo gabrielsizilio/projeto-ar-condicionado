@@ -29,10 +29,11 @@
                                 <h4>Olá </h4>
                                 <h2><%= user.nome %></h2>
                             </strong>
-                        </div>
+                        </div>  
                     </div>
                     <input id="id_controlador" type="hidden" value="">
                     <input id="id_arcondicionado" type="hidden" value="">
+
                     <div class="row controle-ar justify-content-center mt-5">
                         <div id="controle-individual" class="card col-8 p-2">
                             <div class="row justify-content-between pt-2 pb-2">
@@ -48,6 +49,7 @@
                                     <span><strong>Temperatura Padrão: 22°C</strong></span>
                                 </div>
                             </div>
+
                             <div class="row justify-content-evenly infor-ar">
                                 <div id="seletorAr1" onclick="alteraIdDivSelecionada('tempA1', 'id_controlador1', 'id_ar_condicionado1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                     <% if(predios[0].salas[0].ares_condicionados[0]) { %>
@@ -99,49 +101,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="controleArMobile1" class="controleArMobile1 mt-5">
-                        <div class="card-temperatura1 d-flex position-relative justify-content-center col-12">
-                            <div class="card card-temperatura p-3 col-10" >
-                                <div class="row">
-                                    <h5 class="card-title d-inline col">Komeko</h5>
-                                    <div class="form-check form-switch col-1">
-                                        
-                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                    </div>
-                                </div>
-                                <h6 class="card-subtitle mb-2">Prédio 01 - Sala 02</h6>
-                                
-                                    <div class="circle-mobile1 mt-3 mb-0">
-                                        <div class="debug-mobile1" >
-                                        <input id="rangeArMobile1" class="form-control" value="18°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
-                                        </div>
-                                        <div id="dot-mobile1" class="dot-mobile1"></div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    <div id="controleArMobile2" class="controleArMobile2 mt-3">
-                        <div class="card-temperatura2 d-flex position-relative justify-content-center col-12">
-                            <div class="card card-temperatura2 p-3 col-10" >
-                                <div class="row">
-                                    <h5 class="card-title d-inline col">Philco</h5>
-                                    <div class="form-check form-switch col-1">
-                                        
-                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                    </div>
-                                </div>
-                                <h6 class="card-subtitle mb-2">Prédio 01 - Sala 02</h6>
-                                
-                                    <div class="circle-mobile2 mt-3 mb-0">
-                                        <div class="debug-mobile2" >
-                                            <input id="rangeArMobile2" class="form-control" value="20°C" type="text" min="18" max="23" step="1" onmousedown="return false;" disabled>
-                                        </div>
-                                        <div id="dot-mobile2" class="dot-mobile2"></div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div> -->
 
+                    <!-- Card Temperatura - Mobiel -->
                     <% predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
                         <div id="controleArMobile<%= index + 1 %>" class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
                             <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
@@ -168,8 +129,9 @@
                         </div>
                     <% }); %>
                     
-
-                    <div class="row predios mt-5 col-auto">
+                    
+                    <!-- Seleção de Prédios - Desktop -->
+                    <div class="row predios-desktop mt-5 col-auto">
                         <select id="selectPredio" class="form-select">
                             <% predios.forEach(element=> { %>
                                 <option value="<%= element.id %>">
@@ -178,7 +140,9 @@
                                 <% }) %>
                         </select>
                     </div>
-                    <div class="salas mt-5 justify-content-between">
+
+                    <!-- Modal de Seleção de Salas - Desktop -->
+                    <div class="salas-desktop mt-5 justify-content-between">
                         <div class="modal fade" id="trocaSala" tabindex="-1" aria-labelledby="trocaSalaLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -195,6 +159,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Seleção de Salas - Desktop -->
                     <div>
                         <div id="salasContainer" class="row justify-content-start">
                             <% var index=0 %>
@@ -256,10 +222,7 @@
             enviarComando("off");
         }
 
-        // function alteraMobile() {
-        //     // let temperatura;
-        //     // enviarComando(temperatura);
-        // }
+        
 
         // ATUALIZA SALAS
         var predios = JSON.parse('<%- JSON.stringify(predios) %>');
@@ -301,6 +264,7 @@
             input_ar_condicionado_id = "id_ar_condicionado_mobile" + dotIndex;
             atualizaControladorSelecionado(input_controlador_id);
             enviarComando(temperatura);
+
         }
 
         function switchMobileChanged (dotIndex) {
@@ -548,6 +512,26 @@
         myModal.addEventListener('shown.bs.modal', () => {
             myInput.focus()
         })
+
+
+
+        function alteraSala(predioAtual){
+            let predioId = predioAtual.value;
+            const select = document.getElementById("selectSalasMobile")
+            predio1.forEach(predio => {
+                if (predio.id == predioId) {
+                    select.innerText = ""
+                    predio.salas.forEach(sala => {
+                        let option = document.createElement('option')
+                        option.value = sala.id
+                        option.text = sala.nome
+                        select.appendChild(option)
+                    })
+                }
+            });
+
+        }
+        
     </script>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -567,6 +551,8 @@
             console.log(id_arcondicionado)
             console.log(temperatura)
         }
+        alteraSala(document.getElementById('selectPredioMobile'))
+
     </script>
 
 </body>

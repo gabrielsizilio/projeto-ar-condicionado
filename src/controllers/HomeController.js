@@ -44,6 +44,8 @@ async function index(req, res) {
                 }
             ]
         });
+
+        console.log(predios)
         
         console.log("Modelo: ");
         // console.log(predios[0].salas[0].ares_condicionados[0].modelo);
