@@ -11,6 +11,8 @@ const authController = require('../controllers/AuthController')
 
 router.get('/', authController.index)
 
+router.get('/unauthorized', authController.unauthorized)
+
 router.post('/', authController.login)
 
 module.exports = router

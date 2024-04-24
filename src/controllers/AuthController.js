@@ -65,8 +65,14 @@ function logout(req, res) {
     res.redirect('/login')
 }
 
+function unauthorized(req, res) {
+    res.status(401).send('Acesso negado, reavalie suas credenciais.');
+}
+
+
 module.exports = {
     login,
     logout,
+    unauthorized,
     index
 }

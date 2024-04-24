@@ -5,7 +5,7 @@ const passport = require('passport');
 
 const googleAuth = passport.authenticate('google', { scope: ['profile', 'email'] });
 
-const googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login' });
+const googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login/unauthorized' });
 
 const googleAuthCallbackSuccess = (req, res) => {
     res.redirect('/');
