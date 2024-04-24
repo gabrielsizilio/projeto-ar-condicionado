@@ -1,5 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/Usuario');
+const Role = require('../models/Role');
+const Usuario = require('../models/Usuario');
+const { createUsuario } = require('../services/usuarioService');
 
 module.exports = function (passport) {
     passport.use(new GoogleStrategy({
@@ -16,15 +18,15 @@ module.exports = function (passport) {
 
             if (newUser.email.endsWith('ifnmg.edu.br')) {
                 try {
-                    let user = await User.findOne({ where: { google_id: profile.id } });
-
+                    let user = await Usuario.findOne({ where: { google_id: profile.id } });
+                    
                     if (user) {
                         done(null, user);
                     } else {
-                        return done(null, false, { message: 'Usuário não cadastrado no sistema!.' });
-                        // TODO: criar um novo usuário
-                        // user = await User.create(newUser);
-                        // done(null, user);
+                        user = await createUsuario(profile);
+                        console.log(user);
+
+                        done(null, user);
                     }
                 } catch (err) {
                     console.error(err);
@@ -40,7 +42,7 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser(async (id, done) => {
-        await User.findByPk(id)
+        await Usuario.findByPk(id)
             .then(user => {
                 done(null, user);
             })
