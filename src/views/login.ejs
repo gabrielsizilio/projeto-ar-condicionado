@@ -9,59 +9,59 @@
 
 
         <div class="container-alert d-flex justify-content-center">
-            <div id="alerta" class="alert alert-danger position-absolute mt-3" role="alert" style="display: none;">
+            <div id="alerta" class="alert alert-danger justify-content-center position-absolute mt-3" role="alert" style="display: none; z-index: 10;">
                 Usuário ou senha incorretos! Tente novamente.
             </div>
         </div>
 
-        <div id="container-card" class="container">
+        <div id="container-card" class="container justify-content-center">
             <div class="row justify-content-around">
-
-
-                <div id="card-login" class="card col-4 pb-3 pl-3 pr-3">
-                    <h3 class="card-title  text-center"> Login </h3>
-
-                    <div>
-                        <p>
-                            Possui email institucional?
-                        </p>
-
-                        <a href="/auth/google/login">Google</a>
-
-                    </div>
-
-                    <div>
-                        <form action="/login">
-                            <div class="card-body">
-                                <div class="row mt-4 col-mb-12">
-                                    <div class="input-group">
-                                        <input name="email" type="email" placeholder="Usuário" class="form-control">
-                                        <span class="input-group-text">
-                                            <box-icon name='user' type='solid' color="#7964ff"></box-icon>
-                                        </span>
-                                    </div>
-                                    <div class="email error"></div>
+                <div id="card-login" class="card col-4 pb-3 pl-3 pr-3 justify-content-center">  
+                    <div class="d-flex justify-content-around pt-3">
+                        <img width="75" src="/img/logo_ifnmg.png" alt="">
+                        <img width="75" src="/img/LogoSmartCor2.png" alt="">
+                    </div>                  
+                    <hr>
+                    <p class="mt-3" style="text-align: center; margin: 0px;">Preencha os campos para entrar</p>
+                    <form action="/login">
+                        <div class="card-body">
+                            <div class="row mt-4 col-mb-12">
+                                <div class="input-group">
+                                    <input name="email" type="email" placeholder="Usuário" class="form-control">
+                                    <span class="input-group-text">
+                                        <box-icon name='user' type='solid' color="#7964ff"></box-icon>
+                                    </span>
                                 </div>
-                                <div class="row">
-                                    <div class="mt-2 input-group">
-                                        <input name="senha" type="password" placeholder="Senha" class="form-control">
-                                        <span class="input-group-text">
-                                            <box-icon name='lock-alt' type='solid' color="#7964ff"></box-icon>
-                                        </span>
-                                    </div>
-                                    <div class="senha error"></div>
-                                </div>
-                                <div class="row mt-4 mb-4">
-                                    <a href="#" class="link-underline link-underline-opacity-0" style="color:#7964ff;">
-                                        Recuperar senha
-                                    </a>
-                                </div>
+                                <div class="email error"></div>
                             </div>
-                            <div class="row botao justify-content-around">
-                                <input type="submit" value="Entrar" class="col-10  btn btn-primary">
+                            <div class="row">
+                                <div class="mt-2 input-group">
+                                    <input name="senha" type="password" placeholder="Senha" class="form-control">
+                                    <span class="input-group-text">
+                                        <box-icon name='lock-alt' type='solid' color="#7964ff"></box-icon>
+                                    </span>
+                                </div>
+                                <div class="senha error"></div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="row mt-4 mb-4">
+                                <a href="#" class="link-underline link-underline-opacity-0" style="color:#7964ff;">
+                                    Recuperar senha
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row botao justify-content-around">
+                            <input type="submit" value="Entrar" class="col-10  btn btn-primary">
+                        </div>
+                    </form>
+                    <p class="mb-3 mt-3" style="text-align: center; margin: 0px;">ou</p>
+                    <button class="btn col-12 login_google d-flex justify-content-">
+                        <div class="d-flex icon_google col-auto">
+                            <box-icon name='google' type='logo' color='#7964ff' ></box-icon>
+                        </div>
+                        <div class="d-flex texto_google justify-content-center col-11">
+                            Continuar com o Google
+                        </div>
+                    </button>  
                 </div>
             </div>
         </div>
