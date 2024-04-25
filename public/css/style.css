@@ -137,11 +137,13 @@ box-icon{
     color: #4F4F4F !important;
     font-size: small;
 }
-.img-perfil img{
-    width: 40%;
+.img-perfil .img{
+    width: 80px;
+    height: 80px;
+    background-color: #FFFFFF;
     border-radius: 50px;
     border: 2px solid #7964ff !important;
-    padding: 1px; 
+    padding: 10px; 
 }
 .controle-ar .card{
     border: 1px solid #7964ff !important;
@@ -756,14 +758,15 @@ box-icon{
         color: #FFFFFF !important;
         display: inline !important;
     }
-    .img-perfil img{
+    .img-perfil .img{
         display: none;
     }
-    .img-perfil-mobile img{
-        width: 85% !important;
+    .img-perfil-mobile .img{
+        width: 60px !important;
         border-radius: 50px;
         border: 2px solid #7964ff;
-        padding: 1px; 
+        padding: 10px; 
+        background-color: #FFFFFF;
     }
     .controle-ar{
         display: none !important;
