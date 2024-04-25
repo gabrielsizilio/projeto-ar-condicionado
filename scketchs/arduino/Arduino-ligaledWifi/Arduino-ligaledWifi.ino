@@ -2,13 +2,13 @@
 #define MAX_IR_SIZE 230
 #define MAX_MESSAGE_SIZE 50
 
-#define IR_SEND_PIN 2
 
 IRsend irsend;
 
 unsigned int IRSignal[MAX_IR_SIZE];
 char receivedMessage[MAX_MESSAGE_SIZE];
 bool irComplete = 0;
+unsigned int indexControlador;
 
 
 void setup() {
@@ -27,6 +27,19 @@ void loop() {
         Serial.println("Mensagem \"EnviaIR\" recebida.");
         char buffer[10];
         unsigned int bufferIndex = 0;
+
+        int reads = 0;
+
+        while(reads < 1){
+            if( Serial.available() > 0){
+                String aux = Serial.readStringUntil(',');
+                aux[0] = aux[1];
+                aux[1] = '\0';
+                indexControlador= aux.toInt();
+                reads++;
+            }
+        }
+
 
         while(!irComplete) {
             if (Serial.available() > 0) {
@@ -51,9 +64,13 @@ void loop() {
         }
         // Serial.println(irIndex);
         // irsend.sendRaw(IRSignal, sizeof(IRSignal) / sizeof(IRSignal[0]), khz);
-        Serial.println(irIndex);
+
+
+        irsend.setSendPin(indexControlador);
         irsend.sendRaw(IRSignal, irIndex, khz);
         IRSignal[irIndex] = '\0';
+        
+        Serial.println(irIndex);
 
         for(int i=0; i < irIndex; i++) {
             Serial.print(IRSignal[i]);
