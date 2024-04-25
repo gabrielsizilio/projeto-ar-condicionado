@@ -2,49 +2,57 @@ const User = require('../models/Usuario')
 const Credencial = require('../models/Credencial')
 const Predio = require('../models/Predio');
 const { checkToken } = require('../config/auth');
+const Usuario = require('../models/Usuario');
 
 async function index(req, res) {
 
     let userId;
-    if(req.cookies.jwt) {
-        userId = req.cookies.jwt;
-        userId = checkToken(userId).id;
-    } else if(req.session.passport.user) {
+    let credencialId;
+    let user;
+
+    if (req.cookies.jwt) {
+        credencialId = req.cookies.jwt;
+        credencialId = checkToken(credencialId).id;
+
+        const credencial = await Credencial.findByPk(credencialId,
+            {
+                include: [
+                    { association: 'usuario' }
+                ]
+            }
+        )
+
+        user = credencial.usuario;
+        
+    } else if (req.session.passport.user) {
         userId = req.session.passport.user
+        
+        user = await Usuario.findByPk(userId,
+            {
+                include: [
+                    { association: 'credencial' }
+                ]
+            }
+        )
     }
 
     try {
-        if (!userId) {
-            res.status(404).json({ msgErr: "Não foi possível ler o usuario. É necessário autenticar-se novamente!" })
-            return res.redirect('/logout')
-        }
-        // const user = await Credencial.findByPk(userId)
-        const credencial = await Credencial.findByPk(userId,
-        {
-            include: [
-                { association: 'usuario'}
-            ]
-        })
-        const user = credencial.usuario
-
-        console.log(">>> ", user);
 
         if (!user) {
-            // res.status(404).json({ msgErr: "Usuário não cadastrado no sistema!" })
             return res.redirect('/logout')
         }
 
         const predios = await Predio.findAll({
             include: [
-                { 
-                    association: 'salas', 
+                {
+                    association: 'salas',
                     include: [
-                        { 
-                            association: 'ares_condicionados', 
+                        {
+                            association: 'ares_condicionados',
                             include: [
-                                { 
+                                {
                                     association: 'modelo'
-                                    
+
                                 },
                                 {
                                     association: 'controlador'
@@ -57,7 +65,7 @@ async function index(req, res) {
         });
 
         console.log(predios)
-        
+
         console.log("Modelo: ");
         // console.log(predios[0].salas[0].ares_condicionados[0].modelo);
         console.log("Controlador: ");

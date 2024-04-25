@@ -24,7 +24,6 @@ module.exports = function (passport) {
                         done(null, user);
                     } else {
                         user = await createUsuario(profile);
-                        console.log(user);
 
                         done(null, user);
                     }
