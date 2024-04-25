@@ -108,7 +108,8 @@ void setup() {
 
   // server address, port and URL
   // socketIO.begin("192.168.0.7", 8081, "/socket.io/?EIO=4");
-  socketIO.begin("192.168.65.72", 8989, "/socket.io/?EIO=4");
+  // socketIO.begin("192.168.65.72", 8989, "/socket.io/?EIO=4");
+  socketIO.begin("192.168.45.152", 8989, "/socket.io/?EIO=4");
 
   // event handler
   socketIO.onEvent(socketIOEvent);
