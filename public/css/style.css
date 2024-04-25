@@ -24,6 +24,9 @@ label h1{
     display: inline-block;
     font-size: 4rem !important;
 }
+box-icon{
+    vertical-align: middle; 
+}
 .form-control:focus{
     box-shadow: none !important;
 }
@@ -98,6 +101,9 @@ label h1{
     color: #FFFFFF !important;
     background-color: #6a53ff !important;
 }
+.login_google:hover{
+    background-color: #ece9ff !important;
+}
 
 
 
@@ -131,11 +137,13 @@ label h1{
     color: #4F4F4F !important;
     font-size: small;
 }
-.img-perfil img{
-    width: 40%;
+.img-perfil .img{
+    width: 80px;
+    height: 80px;
+    background-color: #FFFFFF;
     border-radius: 50px;
     border: 2px solid #7964ff !important;
-    padding: 1px; 
+    padding: 10px; 
 }
 .controle-ar .card{
     border: 1px solid #7964ff !important;
@@ -166,16 +174,19 @@ label h1{
     font-size: 3.25em;
     cursor: pointer;
 }
-.salas .card{
+.salas-desktop .card{
     border: 1px solid #7964ff;
     color: #7964ff !important;
 }
-.salas .card:hover{
+.salas-desktop .card:hover{
     cursor: pointer;
     color: #FFFFFF !important;
 }
 .sala{
     width: 23% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 #salvar-temperatura button{
     background-color: #7964ff;
@@ -350,6 +361,7 @@ label h1{
     user-select: none !important;
 }
 
+
 @media only screen and (min-width: 601px){
     /* Menu */
     .navbar{
@@ -370,17 +382,6 @@ label h1{
     .nav-link{
         display: flex;
         justify-content: center;
-    }
-    #logo{
-        border-top: #7964ff 1px  solid;
-        border-bottom: #7964ff 1px  solid;
-        text-align: center;
-    }
-    #logo h1{
-        color: white !important;
-        font-family: 'Lobster Two', sans-serif;
-        font-size: 2em !important;
-        max-width: 4rem;
     }
     .nav-item{
         width: 4rem;
@@ -690,16 +691,8 @@ label h1{
         display: flex;
         justify-content: center;
     }
-    #logo{
-        border-top: #7964ff 1px  solid;
-        border-bottom: #7964ff 1px  solid;
+    #logo{        
         text-align: center;
-    }
-    #logo h1{
-        color: white !important;
-        font-family: 'Lobster Two', sans-serif;
-        font-size: 2em !important;
-        max-width: 4rem;
     }
     .nav-item{
         width: 4rem;
@@ -727,6 +720,9 @@ label h1{
         display: none;
     }
     .controleArMobile1, .controleArMobile2{
+        display: none !important;
+    }
+    .selecao-sala-mobile{
         display: none !important;
     }
 }
@@ -762,14 +758,15 @@ label h1{
         color: #FFFFFF !important;
         display: inline !important;
     }
-    .img-perfil img{
+    .img-perfil .img{
         display: none;
     }
-    .img-perfil-mobile img{
-        width: 85% !important;
+    .img-perfil-mobile .img{
+        width: 60px !important;
         border-radius: 50px;
         border: 2px solid #7964ff;
-        padding: 1px; 
+        padding: 10px; 
+        background-color: #FFFFFF;
     }
     .controle-ar{
         display: none !important;

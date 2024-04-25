@@ -2,30 +2,25 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('usuarios', {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.createTable('roles_salas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nome: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      nickname: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      google_id: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      credencial_id: {
+      role_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'credencials', key: 'id' },
+        references: { model: 'roles', key: 'id' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      sala_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'salas', key: 'id' },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
@@ -38,11 +33,10 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+     
   },
 
-  async down(queryInterface, Sequelize) {
-
-    await queryInterface.dropTable('usuarios');
-
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable('roles_salas');
   }
 };

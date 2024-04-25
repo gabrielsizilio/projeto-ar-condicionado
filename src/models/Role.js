@@ -14,6 +14,11 @@ class Role extends Model {
         this.hasMany(models.Usuario, {
             foreignKey: 'role_id',
             as: 'usuarios'
+        }),
+        this.belongsToMany(models.Sala, {
+            foreignKey:'role_id',
+            through: 'roles_salas',
+            as: 'salas'
         })
     }
 }
