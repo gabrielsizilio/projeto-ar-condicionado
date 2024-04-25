@@ -11,12 +11,12 @@ class SocketController {
 
     }
 
-    async enviaComando(comando, macAddressMapping, io) {
-        const { user } = comando;
+    async enviaComando(comandoParm, macAddressMapping, io) {
+        const { user } = comandoParm;
 
         console.log("usuario: " + user.nome);
 
-        var aparelho = await ArCondicionado.findByPk(comando.id_arcondicionado, {
+        var aparelho = await ArCondicionado.findByPk(comandoParm.id_arcondicionado, {
                 include: [{
                     model: Modelo, as: 'modelo',
                     include: [{
@@ -28,25 +28,28 @@ class SocketController {
         let codigo_ir;
         let temperatura;
 
-        if(comando.temperatura.trim() != "off"){
-            temperatura = "temp" + comando.temperatura.replace('°C', '');
+        if(comandoParm.temperatura.trim() != "off"){
+            temperatura = "temp" + comandoParm.temperatura.replace('°C', '');
         } else {
             temperatura = "off";
         }
 
+        
         codigo_ir  = aparelho.modelo.temperatura[temperatura];
-
+        
         codigo_ir = codigo_ir.split(',').map(numero => parseInt(numero.trim()));
-
+        
         console.log(codigo_ir.length);
         console.log(codigo_ir);
-
-        if (!macAddressMapping[comando.id_controlador]) {
+        
+        if (!macAddressMapping[comandoParm.id_controlador]) {
             console.log("Deu Ruim controlador não encontrado");
             // TODO: tratar o erro corretamente
             // return;
         }
-        io.to(macAddressMapping[comando.id_controlador]).emit('EnviaIR', codigo_ir)
+
+        let comando = [aparelho.pinEmissor, codigo_ir]
+        io.to(macAddressMapping[comandoParm.id_controlador]).emit('EnviaIR', comando);
         
         await Log.create({
             descricao: "Alterou para temperatura",
