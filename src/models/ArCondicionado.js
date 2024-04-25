@@ -3,7 +3,8 @@ const { Model, DataTypes } = require('sequelize')
 class ArCondicionado extends Model {
     static init(sequelize) {
         super.init({
-            nome: DataTypes.STRING
+            nome: DataTypes.STRING,
+            pinEmissor: DataTypes.INTEGER
         }, {
             sequelize,
             tableName: 'ares_condicionados'

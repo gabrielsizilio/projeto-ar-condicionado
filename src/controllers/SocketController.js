@@ -49,6 +49,7 @@ class SocketController {
         }
 
         let comando = [aparelho.pinEmissor, codigo_ir]
+        console.log(comando);
         io.to(macAddressMapping[comandoParm.id_controlador]).emit('EnviaIR', comando);
         
         await Log.create({
