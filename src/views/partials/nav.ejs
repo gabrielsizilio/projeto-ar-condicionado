@@ -14,27 +14,32 @@
                     <box-icon name='home' color='#ffffff' ></box-icon>
                 </a>
             </li>
-            
-            <!-- <li class="nav-item" id="historico" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Logs">
-                <a class="nav-link active" aria-current="page" href="/logs">
-                    <box-icon name='time' type='solid' color='#ffffff' ></box-icon>
-                </a>
-            </li>
-            <li class="nav-item" id="grade" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Grade de Horários">
-                <a class="nav-link active" aria-current="page" href="/grade">
-                    <box-icon name='grid' color='#ffffff' ></box-icon>
-                </a>
-            </li>
-            <li class="nav-item" id="usuarios" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Usuários">
-                <a class="nav-link active" aria-current="page" href="/usuario">
-                    <box-icon name='user' type='solid' color='#ffffff' ></box-icon>
-                </a>
-            </li>
-            <li class="nav-item" id="configuracoes"  data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Configurações">
-                <a class="nav-link active" aria-current="page" href="/predio">
-                    <box-icon name='cog' type='solid' color='#ffffff' ></box-icon>
-                </a>
-            </li> -->
+
+            <% if (user.role_id === 1 || user.role_id === 2) { %>
+                <li class="nav-item" id="historico" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Logs">
+                    <a class="nav-link active" aria-current="page" href="/logs">
+                        <box-icon name='time' type='solid' color='#ffffff' ></box-icon>
+                    </a>
+                </li>
+                <li class="nav-item" id="grade" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Grade de Horários">
+                    <a class="nav-link active" aria-current="page" href="/grade">
+                        <box-icon name='grid' color='#ffffff' ></box-icon>
+                    </a>
+                </li>
+                <li class="nav-item" id="usuarios" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Usuários">
+                    <a class="nav-link active" aria-current="page" href="/usuario">
+                        <box-icon name='user' type='solid' color='#ffffff' ></box-icon>
+                    </a>
+                </li>
+                <% } %>
+                <% if (user.role_id === 2) { %>
+                 
+                    <li class="nav-item" id="configuracoes"  data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Configurações">
+                        <a class="nav-link active" aria-current="page" href="/predio">
+                            <box-icon name='cog' type='solid' color='#ffffff' ></box-icon>
+                        </a>
+                    </li>
+                <% } %>
         </ul>
         <ul class="navbar-nav item">
             <li class="nav-item" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Log Out">

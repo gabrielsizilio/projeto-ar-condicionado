@@ -32,9 +32,20 @@ async function index(req, res) {
     })
 
     const controladores = await Controlador.findAll();
+    
+    const credencialId = checkToken(credencialId).id;
+    const credencial = await Credencial.findByPk(credencialId,
+        {
+            include: [{
+                model: Usuario,
+                as: 'usuario',
+            }]
+        }
+    )
 
+    user = credencial.usuario;
 
-    return res.status(200).render('salas/index', { controladores, sala, marcas })
+    return res.status(200).render('salas/index', { user, controladores, sala, marcas })
 }
 
 async function create(req, res) {

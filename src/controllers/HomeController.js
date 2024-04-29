@@ -16,17 +16,18 @@ async function index(req, res) {
 
         const credencial = await Credencial.findByPk(credencialId,
             {
-                include: [
-                    { association: 'usuario' }
-                ]
+                include: [{
+                    model: Usuario,
+                    as: 'usuario',
+                }]
             }
         )
 
         user = credencial.usuario;
-        
+
     } else if (req.session.passport.user) {
         userId = req.session.passport.user
-        
+
         user = await Usuario.findByPk(userId,
             {
                 include: [
@@ -63,13 +64,6 @@ async function index(req, res) {
                 }
             ]
         });
-
-        console.log(predios)
-
-        console.log("Modelo: ");
-        // console.log(predios[0].salas[0].ares_condicionados[0].modelo);
-        console.log("Controlador: ");
-        // console.log(predios[0].salas[0].ares_condicionados[0].controlador);
 
         res.status(200).render('home/index', { user, predios })
 

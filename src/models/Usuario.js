@@ -16,23 +16,23 @@ class Usuario extends Model {
         this.belongsTo(models.Credencial, {
             foreignKey: 'credencial_id',
             as: 'credencial'
-        }),
-            this.hasOne(models.AlocacaoHorario, {
-                foreignKey: 'usuario_id',
-                as: 'alocacoes'
-            }),
-            this.belongsToMany(models.Area, {
-                foreignKey: 'usuario_id',
-                through: 'usuarios_areas',
-                as: 'areas'
-            }),
-            this.hasMany(models.Log, {
-                foreignKey: 'usuario_id',
-                as: 'logs'
-            }),
-            this.belongsTo(models.Role, {
-                foreignKey: 'role_id', as: 'role'
-            })
+        });
+        this.hasOne(models.AlocacaoHorario, {
+            foreignKey: 'usuario_id',
+            as: 'alocacoes'
+        });
+        this.belongsToMany(models.Area, {
+            foreignKey: 'usuario_id',
+            through: 'usuarios_areas',
+            as: 'areas'
+        });
+        this.hasMany(models.Log, {
+            foreignKey: 'usuario_id',
+            as: 'logs'
+        });
+        this.belongsTo(models.Role, {
+            foreignKey: 'role_id', as: 'role'
+        });
     }
 }
 

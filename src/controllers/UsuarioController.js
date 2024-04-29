@@ -3,15 +3,30 @@ const CredencialController = require('../controllers/CredencialController')
 const Credencial = require('../models/Credencial')
 const Areas = require('../models/Area')
 const Role = require('../models/Role')
+const { checkToken } = require('../config/auth')
+const Area = require('../models/Area')
 
 async function index(req, res) {
 
-    const usuarios = await Usuario.findAll({ include: [{ association: 'credencial' }, { association: 'areas' }] })
+    const usuarios = await Usuario.findAll({ include: [{ model: Credencial, as: 'credencial' }, {model: Area, as: 'areas'}] })
     const areas = await Areas.findAll()
     const roles = await Role.findAll()
 
+    let credencialId = req.cookies.jwt;
+    credencialId = checkToken(credencialId).id;
+    const credencial = await Credencial.findByPk(credencialId,
+        {
+            include: [{
+                model: Usuario,
+                as: 'usuario',
+            }]
+        }
+    )
+
+    user = credencial.usuario;
+
     try {
-        res.status(200).render('usuarios/index', { usuarios, areas, roles })
+        res.status(200).render('usuarios/index', { user, usuarios, areas, roles })
     } catch (error) {
         res.send(`Erro: ${error}`)
 
