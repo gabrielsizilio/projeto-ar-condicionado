@@ -4,6 +4,9 @@
     color: #7964ff !important;
     /* border-color: #7964ff !important; */
 }
+a{
+    text-decoration: none;
+}
 body{
     background-color: #F9F8F8 !important;
     min-height: 100vh;

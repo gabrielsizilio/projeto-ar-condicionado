@@ -2,19 +2,19 @@
 <html lang="pt-br">
 <%- include('../partials/header.ejs')%>
 
-    <body class="container-fluid">
+    <body class="container-body">
 
-        <div class="row d-flex">
+        <div class="d-flex">
             <%- include('../partials/nav.ejs')%>
 
                 <div class="col-11 container-conteudo">
                     <%- include('./alterarProfessor.ejs') %>
                     <div class="container-conteudo">
-                        <div class="row grade-top d-flex justify-content-between">
-                            <div class="titulo d-flex justify-content-start col-8">
-                                <h2>Grade de Horários</h2>
-                            </div>
-                            <div class="row predios mt-5 col-4">
+                        <div class="titulo d-flex justify-content-start row">
+                            <h2>Grade de Horários</h2>
+                        </div>
+                        <div class="row predios mt-5 justify-content-between">
+                            <div class="col">
                                 <select id="selectPredio" onchange="trocaPredio(this)" class="form-select">
                                     <% predios.forEach(predio=> { %>
                                         <option value="<%= predio.id %>">
@@ -22,6 +22,8 @@
                                         </option>
                                         <% }) %>
                                 </select>
+                            </div>
+                            <div class="col">
                                 <select id="selectSala" onchange="trocaSala(this)" class="form-select">
                                     <% predios[0].salas.forEach(sala=> { %>
                                         <option value="<%= sala.id%>">
@@ -29,7 +31,6 @@
                                         </option>
                                     <% }) %>
                                 </select> 
-                                <button class="btn col-10 mt-4" onclick="mudaGrade()">Mudar</button>
                             </div>
                         </div>
                         <%- include('./gradeHorarios.ejs') %>
@@ -83,11 +84,13 @@
 
             function trocaPredio(predioSelecionado){
                 salaAtual = predios[predioSelecionado.selectedIndex].salas[0].id
+                mudaGrade(salaAtual)
             }
 
             function trocaSala(salaSelecionada){
                 var predioSelecionado = document.getElementById('selectPredio')
                 salaAtual = predios[predioSelecionado.selectedIndex].salas[salaSelecionada.selectedIndex].id
+                mudaGrade(salaAtual)
             }
 
             function mudaGrade(){
@@ -109,7 +112,7 @@
                 horario.forEach(function (horarios){
                     var celulas1 = document.createElement('th')
                     celulas1.scope = "row"
-                    celulas1.textContent = horarios.horario_ini 
+                    celulas1.textContent = horarios.horario_ini.slice(0, 5)
                     var celulas3 = document.createElement('tr') 
                     celulas3.appendChild(celulas1)
                     var celulas2 = []
@@ -121,9 +124,9 @@
                                     celulas2[semana].textContent = usuarios.nome
                                     celulas2[semana].setAttribute('data-bs-toggle', 'modal');
                                     celulas2[semana].setAttribute('data-bs-target', "#alterarProfessor")
-                                }/*else{
-                                    //celulas2[semana].textContent = "-"
-                                }*/
+                                }else{
+                                    celulas2[semana].textContent = "-"
+                                }
                                 
                             })
                         })

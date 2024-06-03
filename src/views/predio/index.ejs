@@ -2,63 +2,63 @@
 <html lang="pt-br">
 <%- include('../partials/header.ejs')%>
 
-    <body class="container-fluid">
-
-        <div class="row d-flex">
+    <body class="container-body">
+        <div class="d-flex">
             <%- include('../partials/nav.ejs')%>
-                <div class="col-11 container-conteudo">
-                    <div class="container-conteudo">
-                        <div class="row usuarios-top d-flex justify-content-between">
-                            <div class="titulo d-flex justify-content-start col-8">
-                                <h2>Gerenciamento de salas</h2>
-                            </div>
-                            <div class="botao d-flex justify-content-end col-3">
-                                <button type="button" class="btn" data-bs-target="#addSala"
-                                    data-bs-toggle="modal">Adicionar</button>
-                            </div>
+            <div class="col-11 container-conteudo">
+                <div class="container-conteudo">
+                    <div class="row usuarios-top d-flex justify-content-between">
+                        <div class="titulo col-8">
+                            <h2>Gerenciamento de salas</h2>
+                        </div>
+                        <div class="botao d-flex justify-content-end col-3">
+                            <button type="button" class="btn" data-bs-target="#addSala"
+                                data-bs-toggle="modal">Adicionar</button>
+                        </div>
 
-                            <%- include('./create', {predios}) %>
+                        <%- include('./create', {predios}) %>
 
-                                <div class="row predio s mt-5 col-4">
-                                    <h4>Prédios</h4>
-                                    <select id="selectPredio" class="form-select" onchange="updateTable(this)">
-                                        <% predios.forEach(predio=> { %>
-                                            <option value="<%= predio.id %>">
-                                                <%= predio.nome %>
-                                            </option>
-                                            <% }) %>
-                                    </select>
-                                </div>
-                                <div id="salasContainer" class="row salas mt-5 justify-content-between">
-                                    <table class="table usuarios-tabela table-sm mt-5 text-center">
-                                        <tbody id="salaTables">
-                                            <% var index=0 %>
-                                                <% predios[index].salas.forEach(sala=> { %>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="/predio/<%= predios[index].id %>/sala/<%= sala.id %>">
-                                                                <%= sala.nome %>
-                                                            </a>
-                                                        </td>
-                                                        <td><a href="" data-bs-toggle="modal"
-                                                                data-bs-target="#excluir_<%= sala.id %>"><box-icon
-                                                                    name='trash-alt' type='solid'
-                                                                    color='#ff6467'></box-icon></a>
-                                                        </td>
-                                                        <td><a href="" data-bs-toggle="modal"
-                                                                data-bs-target="#editSala_<%= sala.id %>">
-                                                                <box-icon name='edit-alt' type='solid'
-                                                                    color='#fcff64'></box-icon>
-                                                            </a>
-                                                        </td>
-                                                        <%- include('./components/editSala.ejs', {salaId: sala.id}) %>
-                                                    </tr>
-                                                    <% }) %>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="row predio s mt-5 col-4">
+                            <!-- <h4>Prédios</h4> -->
+                            <select id="selectPredio" class="form-select" onchange="updateTable(this)">
+                                <% predios.forEach(predio=> { %>
+                                    <option value="<%= predio.id %>">
+                                        <%= predio.nome %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                        <div id="salasContainer" class="row salas mt-5 justify-content-between">
+                            <table class="table usuarios-tabela table-sm mt-5">
+                                <tbody id="salaTables">
+                                    <% var index=0 %>
+                                    <% predios[index].salas.forEach(sala=> { %>
+                                        <tr>
+                                            <td class="col-11">
+                                                <a href="/predio/<%= predios[index].id %>/sala/<%= sala.id %>">
+                                                    <%= sala.nome %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>">
+                                                    <box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#editSala_<%= sala.id %>">
+                                                    <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
+                                                </a>
+                                            </td>
+                                            <%- include('./components/editSala.ejs', {salaId: sala.id}) %>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -71,6 +71,7 @@
         function updateTable(select) {
             var selectedPredioId = select.value;
 
+            //Limpando a tabela
             var salasTable = document.getElementById('salaTables')
             salasTable.innerHTML = "";
 
@@ -85,6 +86,7 @@
                 // Adiciona um link de exclusão em outra célula
                 var cellExcluir = document.createElement('td');
                 var linkExcluir = document.createElement('a');
+                cellExcluir.classList.add('col-10')
                 linkExcluir.href = "";
                 linkExcluir.dataset.bsToggle = "modal";
                 linkExcluir.dataset.bsTarget = "#excluir_" + sala.id;
