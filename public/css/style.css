@@ -7,6 +7,9 @@
 a{
     text-decoration: none;
 }
+li{
+    list-style: none;
+}
 body{
     background-color: #F9F8F8 !important;
     min-height: 100vh;
@@ -37,10 +40,10 @@ box-icon{
     padding: 0px !important;
 }
 .modal{
-    border: 1px solid #7964ff;
+    border: none !important;
 }
 .modal input{
-    border: #7964ff 1px solid;
+    border: #7964ff 1px solid !important;
     color: #a698ff !important;
 }
 .modal .salvar button{
@@ -107,9 +110,6 @@ box-icon{
 .login_google:hover{
     background-color: #ece9ff !important;
 }
-
-
-
 .select-nulo {
     pointer-events: none;
     user-select: none;
@@ -203,19 +203,20 @@ box-icon{
     color: #FFFFFF !important;
 }
 .salas .modal-content{
-    background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
-    border: none;
-    color: #FFFFFF !important;
+    border: 1px solid #7964ff;
+}
+.salas #btnCurso{
+    border: 1px solid #7964ff;
+    color: #6a53ff;
 }
 .salas h4{
     color: #FFFFFF !important;
 }
-.salas button{
+/* .salas button{
     border: 1px solid #FFFFFF !important;
     color: #4F4F4F !important;
-}
+} */
 .salas button:nth-child(2){
-    background: transparent !important;
     border: 1px solid transparent !important;
     color: #FFFFFF !important;
 }
@@ -265,6 +266,15 @@ box-icon{
     background: transparent !important;
     color: #FFFFFF !important;
     font-size: small;
+}
+#areaUsuario span, .areaUsuario span{
+    border: 1px solid #553eef;
+    padding: 8px;
+    font-size: small;
+    background-color: #edebfa;
+    color: #553eef !important;
+    margin-right: 7px;
+    border-radius: 15px;
 }
 
 

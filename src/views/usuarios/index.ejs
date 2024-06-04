@@ -3,6 +3,7 @@
     <%- include('../partials/header.ejs')%>
     
     <%- include('./escolherCurso') %>
+    <%- include('./escolherCursoEdit') %>
     <body class="container-body">
         
         <div class="d-flex">
@@ -35,7 +36,7 @@
                                 
                             </div>
                             
-                            <table class="table usuari os-tabela table-sm mt-5 text-center">
+                            <table class="table usuarios-tabela table-sm mt-5 text-center">
                                 <tbody>
                                     <% usuarios.forEach(usuario=> { %>
                                         <tr>
@@ -46,15 +47,15 @@
                                                 <%= usuario.credencial.email %>
                                             </td>
                                             <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
-                                            <td><a href="" data-bs-toggle="modal"
-                                                data-bs-target="#excluir_<%= usuario.id %>"><box-icon
-                                                name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
+                                            <td>
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
+                                                    <box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon>
+                                                </a>
                                             </td>
                                             <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
-                                                <td><a href="" data-bs-toggle="modal"
-                                                    data-bs-target="#edit_<%= usuario.id %>">
-                                                    <box-icon name='edit-alt' type='solid'
-                                                    color='#fcff64'></box-icon>
+                                            <td>
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
+                                                    <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
                                                 </a>
                                             </td>
                                         </tr>
@@ -65,16 +66,7 @@
                 </div>
             </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-        
         <script>
-            // Inicializa os popovers
-            var popovers = new bootstrap.Popover(document.body, {
-                selector: '[data-bs-toggle="popover"]',
-                container: 'body',
-                trigger: 'hover'
-            });
 
             // Recuperar informações para os inputs
             function preencheInputs() {
@@ -94,10 +86,11 @@
 
                     areasId.forEach(areaId => {
                         var area = areas.find(a => a.id == areaId.value)
-                        var li = document.createElement('li')
+                        var curso = document.createElement('span')
+                        curso.classList.add('cursoEscolhido')
 
-                        li.textContent = area.nome
-                        areaUsuario.appendChild(li)
+                        curso.textContent = area.nome
+                        areaUsuario.appendChild(curso)
                     });
                 } else {
                     areaUsuario.hidden = true;
