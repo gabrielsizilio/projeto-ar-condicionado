@@ -1,5 +1,4 @@
-<div class="modal fade" id="edit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel"
-    tabindex="-1">
+<div class="modal fade" id="edit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,22 +6,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                    <form method="POST" action="/usuario/update/<%= usuario.id %>">
+                <form method="POST" action="/usuario/update/<%= usuario.id %>">
                     <div class="row justify-content-between">
                         <div class="col-6">
                             <label for="nome" class="form-label">Nome*:</label>
-                            <input id="nome" name="nome" autocomplete="off" type="text" class="form-control"
-                                value="<%= usuario.nome %>" required>
+                            <input id="nome" name="nome" autocomplete="off" type="text" class="form-control" value="<%= usuario.nome %>" required>
                         </div>
                         <div class="col-3">
                             <label for="tipo" class="form-label">Tipo*:</label>
                             <select name="tipo" id="tipo" class="form-select">
-                                <option value="Padrão" <%=(usuario.tipo==='Padrão' ) ? 'selected' : '' %>>Padrão
-                                </option>
-                                <option value="Administrador" <%=(usuario.tipo==='Administrador' ) ? 'selected' : '' %>
-                                    >Administrador</option>
-                                <option value="Manutenção" <%=(usuario.tipo==='Manutenção' ) ? 'selected' : '' %>
-                                    >Manutenção</option>
+                                <option value="Padrão" <%=(usuario.tipo==='Padrão' ) ? 'selected' : '' %>>Padrão</option>
+                                <option value="Administrador" <%=(usuario.tipo==='Administrador' ) ? 'selected' : '' %>>Administrador</option>
+                                <option value="Manutenção" <%=(usuario.tipo==='Manutenção' ) ? 'selected' : '' %>>Manutenção</option>
                             </select>
                         </div>
                         <div class="col-3">
@@ -34,8 +29,7 @@
                     <div class="row mt-4">
                         <div class="col-8">
                             <label for="email" class="form-label">Email*:</label>
-                            <input name="email" autocomplete="off" type="text" class="form-control" id="email"
-                                value="<%= usuario.credencial.email %>" required>
+                            <input name="email" autocomplete="off" type="text" class="form-control" id="email" value="<%= usuario.credencial.email %>" required>
                         </div>
                         <div class="col-4">
                             <label for="senha" class="form-label">Senha*:</label>
@@ -45,26 +39,23 @@
                     </div>
                     <div class="col-4 mt-4" id="escolha-curso">
                         <label for="curso" class="form-label">Área(s):</label><br>
-                            <div id="areaUsuarioEdit_<%= usuario.id %>">
-                                <% areasUsuario.forEach(area=> { %>
-                                    <input name="areasEdit[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>" checked>
-                                    <li>
-                                        <%= area.nome %>
-                                    </li>
-                                    <% }) %>
-                                </div>
-                        <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCurso"
-                            data-bs-toggle="modal"
-                            onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
+                        <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCursoEdit" data-bs-toggle="modal" onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
+                        <div class="areaUsuario mt-3" id="areaUsuarioEdit_<%= usuario.id %>">
+                            <% areasUsuario.forEach(area=> { %>
+                                <span class="cursoEscolhido">
+                                    <%= area.nome %>
+                                </span>
+                            <% }) %>
                         </div>
-                        <div class=" row col-12 d-flex justify-content-end salvar">
-                            <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
+                    </div>
+                    <div class=" row col-12 d-flex justify-content-end salvar">
+                        <button type="submit" class="btn btn-primary mt-5 col-2">Salvar</button>
                     </div>
                 </form>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 <script>
     function atualizaArea(id, areas) {
@@ -101,19 +92,11 @@
             areasId.forEach(areaId => {
                 var area = areas.find(a => a.id == areaId.value)
                 
-                var li = document.createElement('li')
-                li.textContent = area.nome
-                areaUsuario.appendChild(li)
+                var span = document.createElement('span')
+                span.textContent = area.nome
+                areaUsuario.appendChild(span)
                 
-                var inputCheckbox = document.createElement('input');
-                inputCheckbox.type = 'checkbox';
-                inputCheckbox.name = 'areasEdit[]';
-                inputCheckbox.id = `area_${area.id}`;
-                inputCheckbox.className = 'form-check-input';
-                inputCheckbox.value = area.id;
-                inputCheckbox.checked = true;
-                // inputCheckbox.hidden = true;
-                areaUsuario.appendChild(inputCheckbox)
+                
             });
         } else {
             var p = document.createElement('p')
