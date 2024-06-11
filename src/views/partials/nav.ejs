@@ -33,12 +33,20 @@
                 </li>
                 <% } %>
                 <% if (user.role_id === 2) { %>
+                    
+                    <li class="nav-item" id="gerenciamento" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Gerenciamento de salas">
+                        <a class="nav-link active" aria-current="page" href="/predio">
+                            <box-icon name='sitemap' color='#ffffff' ></box-icon>
+                        </a>
+                    </li>
                  
                     <li class="nav-item" id="configuracoes"  data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Configurações">
-                        <a class="nav-link active" aria-current="page" href="/predio">
+                        <a class="nav-link active" aria-current="page" href="/#">
                             <box-icon name='cog' type='solid' color='#ffffff' ></box-icon>
                         </a>
                     </li>
+
+
                 <% } %>
         </ul>
         <ul class="navbar-nav item">

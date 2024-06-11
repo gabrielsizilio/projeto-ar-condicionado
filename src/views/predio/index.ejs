@@ -18,42 +18,59 @@
 
                             <%- include('../salas/create.ejs', {predios}) %>
 
-                                <div class="row predio s mt-5 col-4">
-                                    <h4>Prédios</h4>
-                                    <select id="selectPredio" class="form-select" onchange="updateTable(this)">
-                                        <% predios.forEach(predio=> { %>
-                                            <option value="<%= predio.id %>">
-                                                <%= predio.nome %>
-                                            </option>
-                                            <% }) %>
-                                    </select>
+                            <div class="predio mt-5">
+                                <h4>Prédios</h4>
+                                <div class="form-check check mt-4">
+                                    <% predios.forEach(predio=> { %>
+                                        <% if(predio === predios[0]){ %>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox<%= predio.id %>" value="<%= predio.id %>" name="teste" checked onchange="updateTable(this)">
+                                                <label class="form-check-label" for="inlineCheckbox<%= predio.id %>">
+                                                    <%= predio.nome %>
+                                                </label>
+                                            </div>
+                                        <% } else{ %>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineCheckbox<%= predio.id %>" value="<%= predio.id %>" name="teste"  onchange="updateTable(this)">
+                                                <label class="form-check-label" for="inlineCheckbox<%= predio.id %>">
+                                                    <%= predio.nome %>
+                                                </label>
+                                            </div>
+                                        <% } %>
+                                    <% }) %>
                                 </div>
+                            </div>
 
-                                <div id="salasContainer" class="row salas mt-5 justify-content-between">
-                                    <table class="table usuarios-tabela table-sm mt-5 text-center">
+                            <div class="row salas mt-5 justify-content-center">
+                                <div id="salasContainerPredios" class="col-8 mt-3">
+                                    <table class="table table-borderless usuarios-tabela table-sm">
                                         <tbody id="salaTables">
                                             <% predios[0].salas.forEach(sala=> { %>
-                                                <tr id="salaRow">
-                                                    <td>
+                                                <tr>
+                                                    <td class="col-10"> 
                                                         <a href="/predio/<%= sala.predio_id %>/sala/<%= sala.id %>">
                                                             <%= sala.nome %>
                                                         </a>
                                                     </td>
-                                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>"><box-icon
-                                                                name='trash-alt' type='solid' color='#ff6467'></box-icon></a>
+                                                    <td class="text-end">
+                                                        <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>">
+                                                            <box-icon name='trash' color='#ff0000'></box-icon>
+                                                        </a>
                                                     </td>
-                                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#editSala_<%= sala.id %>">
-                                                            <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
+                                                    <td class="text-end">
+                                                        <a href="" data-bs-toggle="modal" data-bs-target="#editSala_<%= sala.id %>">
+                                                            <box-icon name='edit-alt' color='#ffb43f'></box-icon>
                                                         </a>
                                                     </td>
 
-                                                    <%- include('../salas/remove.ejs', { sala }) %>
+                                                    <%- include('remove.ejs', { sala }) %>
                                                     <%- include('../salas/edit.ejs', { sala, predios }) %>
                                                 </tr>
                                                 <% }) %>
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,17 +103,18 @@
                 linkSala.href = `/predio/${selectedPredioId}/sala/${sala.id}`
                 linkSala.innerText = sala.nome
                 cell.appendChild(linkSala);
+                cell.classList.add('col-10')
                 row.appendChild(cell)
 
                 // Adiciona um link de exclusão em outra célula
                 var cellExcluir = document.createElement('td');
                 var linkExcluir = document.createElement('a');
-                cellExcluir.classList.add('col-10')
                 linkExcluir.href = "";
                 linkExcluir.dataset.bsToggle = "modal";
                 linkExcluir.dataset.bsTarget = "#excluir_" + sala.id;
                 linkExcluir.innerHTML = "<box-icon name='trash' color='#ff0000' ></box-icon>";
                 cellExcluir.appendChild(linkExcluir);
+                cellExcluir.classList.add('text-end')
                 row.appendChild(cellExcluir);
 
                 // Adiciona um link de edição em outra célula
@@ -105,8 +123,9 @@
                 linkEditar.href = "";
                 linkEditar.dataset.bsToggle = "modal";
                 linkEditar.dataset.bsTarget = "#edit_" + sala.id;
-                linkEditar.innerHTML = "<box-icon name='edit-alt' color='#ffad00' ></box-icon>";
+                linkEditar.innerHTML = "<box-icon name='edit-alt' color='#ffb43f' ></box-icon>";
                 cellEditar.appendChild(linkEditar);
+                cellEditar.classList.add('text-end')
                 row.appendChild(cellEditar);
 
 

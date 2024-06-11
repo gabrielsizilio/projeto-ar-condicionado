@@ -27,6 +27,7 @@
                             </thead>
                             <tbody class="table-group-divider">
                                 <% if (logs) { %>
+                                    <% logs.reverse() %>
                                     <% logs.forEach(log=> { %>
                                         <tr>
                                             <td> <%= log.usuario.nome %> </td>
@@ -41,34 +42,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <table class="table table-hover  text-center mt-5">
-                        <thead>
-                            <tr>
-                                <th scope="col">USUÁRIO</th>
-                                <th scope="col">NICK</th>
-                                <th scope="col">PERMISSÃO</th>
-                                <th scope="col">AÇÃO</th>
-                                <th scope="col">DATA</th>
-                                <th scope="col">HORA</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            <% if (logs) { %>
-                                <% logs.forEach(log=> { %>
-                                    <tr>
-                                        <td> <%= log.usuario.nome %> </td>
-                                        <td> <%= log.usuario.nickname %> </td>
-                                        <td> <%= log.usuario.tipo %> </td>
-                                        <td> <%= log.descricao %> </td>
-                                        <% const data = new Date(log.createdAt) %>
-                                        <td> <%= data.toLocaleDateString('pt-br', {year:"numeric", month:"long", day:"numeric"}) %> </td>
-                                        <td> <%= data.toLocaleTimeString('pt-br', {hour:"numeric", minute:"numeric"}) %> </td>
-                                    </tr>
-                                <% }) %>
-                            <% } %>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
