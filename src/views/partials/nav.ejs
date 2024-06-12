@@ -50,13 +50,40 @@
                 <% } %>
         </ul>
         <ul class="navbar-nav item">
-            <li class="nav-item" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Log Out">
-                <a class="nav-link" href="/auth/google/logout">
-                    <box-icon name='exit' color='#ffffff' ></box-icon>
-                </a>
+            <li class="nav-item" tabindex="0"  data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Log Out">
+                <span data-bs-toggle="modal" data-bs-target="#modalLogOut">
+                    <box-icon name='log-out' color='#ffffff' ></box-icon>
+                </span>
             </li>
         </ul>
     </nav>
+</div>
+
+<!-- Modal de confirmação de LogOut -->
+<div class="modal fade logout" id="modalLogOut" tabindex="-1" aria-labelledby="modalLogOut" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form method="post">
+                    <div id="excluir-topo">
+                        <strong>
+                            <p>Encerrar Sessão</p>
+                        </strong>
+                    </div>
+                    <div class="excluir-corpo text-center mt-5">
+                        <box-icon name='log-out' color="#ffffff" size="lg"></box-icon>
+                        <p>Você realmente deseja encerrar sua sessão?</p>
+                    </div>
+                    <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
+                        <button type="submit" class="btn logout-confirma">
+                            <a class="nav-link" href="/auth/google/logout"> SAIR </a>
+                        </button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

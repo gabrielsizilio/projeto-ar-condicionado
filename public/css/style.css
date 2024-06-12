@@ -461,6 +461,17 @@ box-icon{
     .input-pesquisa-mobile{
         display: none !important;
     }
+    .logout .modal-content{
+        background: linear-gradient(87deg,#7964ff,#a698ff)!important;
+        border: none !important;
+        color: #FFFFFF !important;
+    }
+    .logout .modal-content p{
+        color: #FFFFFF !important;
+    }
+    .logout .logout-confirma:hover{
+        background-color: #dedafa !important;
+    }
 }
 @media only screen and (max-width: 600px) {
     body{
