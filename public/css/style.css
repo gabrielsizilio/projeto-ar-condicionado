@@ -323,73 +323,72 @@ box-icon{
 #modal-temperatura{
     height: 40vh !important;    
 }
-    .debug1, .debug2, .debug-mobile1, .debug-mobile2 {
-        margin: 150px auto;
-        width: 100%;
-        text-align: center;
-    }
-    .debug1 input, .debug2 input, .debug-mobile1 input, .debug-mobile2 input{
-        border: none !important;
-        display: inline-block;
-        font-size: 30px;
-        width: 100px;
-        background: transparent;
-        color: #4379ff;
-        text-align: center;
-        font-family: monospace;
-        position: fixed;
-        top: 34%;
-        left: 12%;
-    }
+.debug1, .debug2, .debug-mobile1, .debug-mobile2 {
+    margin: 150px auto;
+    width: 100%;
+    text-align: center;
+}
+.debug1 input, .debug2 input, .debug-mobile1 input, .debug-mobile2 input{
+    border: none !important;
+    display: inline-block;
+    font-size: 30px;
+    width: 100px;
+    background: transparent;
+    color: #4379ff;
+    text-align: center;
+    font-family: monospace;
+    position: fixed;
+    top: 34%;
+    left: 12%;
+}
 
-    .circle, .circle-mobile1, .circle-mobile2 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        background: linear-gradient(145deg, #d4d8d9, #fdffff);
-        border-radius: 100%;
-        width: 150px;
-        height: 150px;
-        box-shadow:  20px 20px 60px #c9cccd;
+.circle, .circle-mobile1, .circle-mobile2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: linear-gradient(145deg, #d4d8d9, #fdffff);
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+    box-shadow:  20px 20px 60px #c9cccd;
 
-        /* padding-bottom: 250px; */
-        transform: translate3d(-50%, -50%, 0);
-        margin-bottom: 15px;
-    }
-    .circle:before, .circle-mobile1:before, .circle-mobile2:before {
-        content: "";
-        position: absolute;
-        width: 90%;
-        height: 90%;
-        background-color: #ecf0f1;
-        box-shadow: -20px -20px 60px #fff;
-        border-radius: 50%;
-        top: 5%;
-        left: 5%;
-    }
-    .dot1, .dot2, .dot-mobile1, .dot-mobile2{
-        position: absolute;
-        width: 7%;
-        height: 50%;
-        left: 47.5%;
-        top: 0;
-        transform: rotate(0deg);
-        transform-origin: center bottom;
-    }
-    .dot1:before, .dot2:before, .dot-mobile1:before, .dot-mobile2:before {
-        content: "";
-        position: absolute;
-        background-color: #4379FF;
-        box-shadow: 0 0 20px 10px rgba(0, 0, 0, .1);
-        width: 200%;
-        transform: translate3d(-25%, -25%, 0);
-        height: 0;
-        padding-bottom: 200%;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-.debug,
-.debug input{
+    /* padding-bottom: 250px; */
+    transform: translate3d(-50%, -50%, 0);
+    margin-bottom: 15px;
+}
+.circle:before, .circle-mobile1:before, .circle-mobile2:before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background-color: #ecf0f1;
+    box-shadow: -20px -20px 60px #fff;
+    border-radius: 50%;
+    top: 5%;
+    left: 5%;
+}
+.dot1, .dot2, .dot-mobile1, .dot-mobile2{
+    position: absolute;
+    width: 7%;
+    height: 50%;
+    left: 47.5%;
+    top: 0;
+    transform: rotate(0deg);
+    transform-origin: center bottom;
+}
+.dot1:before, .dot2:before, .dot-mobile1:before, .dot-mobile2:before {
+    content: "";
+    position: absolute;
+    background-color: #4379FF;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, .1);
+    width: 200%;
+    transform: translate3d(-25%, -25%, 0);
+    height: 0;
+    padding-bottom: 200%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.debug, .debug input{
     border: none !important;
     user-select: none !important;
 }

@@ -15,12 +15,9 @@
                                 <% predios.forEach(predio=> { %>
                                     <option value="<%= predio.id %>">
                                         <%= predio.nome %>
-                                    </option>
-                                    <% }) %>
+                                    </option>  
+                                <% }) %>
                             </select>
-                            <div>
-                                <a href="" class="fw-lighter fs-6">Criar novo prédio</a>
-                            </div>
                         </div>
                         <div class="col-7 mt-3">
                             <label for="nome" class="form-label">Nome*:</label>
@@ -33,11 +30,7 @@
                         <div class="mt-5 d-flex justify-content-between">
                             <div>
                                 <input type="checkbox" name="gerenciarSala" id="gerenciarSala" checked>
-                                <label for="gerenciarSala"> 
-                                    <span class="italic">
-                                        Prosseguir para o gerenciamento da sala
-                                    </span>
-                                </label>
+                                <label for="gerenciarSala"> Prosseguir para o gerenciamento da sala</label>
                             </div>
                             <button type="submit" class="btn btn-primary col-2">Salvar</button>
                         </div>
