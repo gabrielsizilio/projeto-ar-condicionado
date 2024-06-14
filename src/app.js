@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport')
 const { app } = require('./http')
 const { server } = require('./http')
+const flash = require('connect-flash')
 require('dotenv').config()
 require('./database')
 require('./websocket')
@@ -33,6 +34,13 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.successMessages = req.flash('success');
+    res.locals.errorMessages = req.flash('error');
+    next();
+});
 
 app.use('/auth/google', authRoutes);
 app.use('/', router);

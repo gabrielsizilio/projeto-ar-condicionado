@@ -4,11 +4,18 @@
     
     <%- include('./escolherCurso') %>
     <%- include('./escolherCursoEdit') %>
+    
     <body class="container-body">
         
         <div class="d-flex">
             <%- include('../partials/nav.ejs')%>
                 <div class="col-11 container-conteudo">
+
+                    <% if (successMessages.length > 0) { %>
+                        <div class="alert alert-success">
+                            <%= successMessages[0] %>
+                        </div>
+                    <% } %>
                     <div class="container-conteudo">
                         <div class="row usuarios-top d-flex justify-content-between">
                             <div class="titulo d-flex justify-content-start col-8">
@@ -53,6 +60,7 @@
                                                 </a>
                                             </td>
                                             <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                            <%- include('./updatePassword', { usuario }) %>
                                             <td>
                                                 <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
                                                     <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>

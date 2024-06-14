@@ -1,6 +1,7 @@
 const Usuario = require('../models/Usuario')
 const CredencialController = require('../controllers/CredencialController')
 const Credencial = require('../models/Credencial')
+const bcrypt = require('bcryptjs')
 const Areas = require('../models/Area')
 const Role = require('../models/Role')
 const { checkToken } = require('../config/auth')
@@ -8,7 +9,7 @@ const Area = require('../models/Area')
 
 async function index(req, res) {
 
-    const usuarios = await Usuario.findAll({ include: [{ model: Credencial, as: 'credencial' }, {model: Area, as: 'areas'}] })
+    const usuarios = await Usuario.findAll({ include: [{ model: Credencial, as: 'credencial' }, { model: Area, as: 'areas' }] })
     const areas = await Areas.findAll()
     const roles = await Role.findAll()
 
@@ -71,14 +72,9 @@ async function store(req, res) {
     }
 }
 
-async function edit(req, res) {
-
-}
-
 async function update(req, res) {
     const usuario_id = req.params.id
 
-    return res.send(req.body)
 
     if (!usuario_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser editado.' })
@@ -93,9 +89,24 @@ async function update(req, res) {
         return res.status(400).json({ msgErr: 'Usuário não encontrado no sistema.' })
     }
 
-    res.send(usuario)
+    if (req.body.novaSenha) {
+        const novaSenha = req.body.novaSenha;
+        const salt = await bcrypt.genSalt(12);
+        const senhaHash = await bcrypt.hash(novaSenha, salt);
+
+        const credencial = await usuario.credencial.update({
+            senha: senhaHash
+        });
+
+        // return res.status(200).json({msgSuccess: "Senha alterada com sucesso."});
+        req.flash('success', 'Senha atualizada com sucesso');
+        return res.redirect('back');
+    }
+
+    return res.send(usuario);
 
     try {
+
 
     } catch (error) {
         return res.send(`Erro ao atualizar usuário: ${error}`)
