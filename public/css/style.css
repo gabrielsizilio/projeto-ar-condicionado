@@ -12,7 +12,7 @@ li{
 }
 body{
     background-color: #F9F8F8 !important;
-    min-height: 100vh;
+    min-height: 100vh;  
     max-width: 99vw;
 }
 select{
@@ -224,7 +224,7 @@ box-icon{
 }
 
 
-/* Contúdo - Usuários */
+/* Conteúdo - Usuários */
 .usuarios-top .botao button{
     border: 1px solid #7964ff;
 }
@@ -278,6 +278,11 @@ box-icon{
     margin-right: 7px;
     border-radius: 15px;
 }
+#usuariosContainer{
+    border: 1px solid rgb(197, 197, 197) !important;
+    border-radius: 5px;
+    padding: 8px 10px;
+}
 
 
 /* Conteúdo - Grade de Horários */
@@ -290,6 +295,24 @@ box-icon{
 #salvar-grade button{
     border: 1px solid #7964ff !important;
     color: #7964ff !important;
+}
+
+
+/* Conteúdo - Gerenciamento de Salas */
+.predio .check{
+    padding-left: 0 !important;
+}
+#salasContainerPredios{
+    border: 1px solid rgb(197, 197, 197) !important;
+    border-radius: 5px;
+    padding: 8px 10px;
+}
+.excluir-confirma{
+    border: none !important; 
+}
+.excluir-confirma:hover {
+    background-color: rgb(255, 184, 184) !important;
+    color: #ffffff !important;
 }
 
 
@@ -365,8 +388,7 @@ box-icon{
     border-radius: 50%;
     cursor: pointer;
 }
-.debug,
-.debug input{
+.debug, .debug input{
     border: none !important;
     user-select: none !important;
 }
@@ -438,6 +460,17 @@ box-icon{
     }
     .input-pesquisa-mobile{
         display: none !important;
+    }
+    .logout .modal-content{
+        background: linear-gradient(87deg,#7964ff,#a698ff)!important;
+        border: none !important;
+        color: #FFFFFF !important;
+    }
+    .logout .modal-content p{
+        color: #FFFFFF !important;
+    }
+    .logout .logout-confirma:hover{
+        background-color: #dedafa !important;
     }
 }
 @media only screen and (max-width: 600px) {

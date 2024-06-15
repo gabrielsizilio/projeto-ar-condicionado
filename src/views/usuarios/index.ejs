@@ -9,70 +9,61 @@
         
         <div class="d-flex">
             <%- include('../partials/nav.ejs')%>
-                <div class="col-11 container-conteudo">
-
-                    <% if (successMessages.length > 0) { %>
-                        <div class="alert alert-success">
-                            <%= successMessages[0] %>
+            <div class="col-10 container-conteudo">
+                <div class="container-conteudo">
+                    <div class="row usuarios-top d-flex justify-content-between">
+                        <div class="titulo d-flex justify-content-start col-8">
+                            <h2>Usuários</h2>
                         </div>
-                    <% } %>
-                    <div class="container-conteudo">
-                        <div class="row usuarios-top d-flex justify-content-between">
-                            <div class="titulo d-flex justify-content-start col-8">
-                                <h2>Usuários</h2>
-                            </div>
-                            <div class="botao d-flex justify-content-end col-3">
-                                <button type="button" class="btn" data-bs-target="#adicionaUsuario"
-                                data-bs-toggle="modal">Adicionar</button>
-                            </div>
-
-                            <%- include('./create') %>
-
+                        <div class="botao d-flex justify-content-end col-3">
+                            <button type="button" class="btn" data-bs-target="#adicionaUsuario"
+                            data-bs-toggle="modal">Adicionar</button>
                         </div>
-                        <div class="row usuarios-pesquisa mt-5 d-flex justify-content-center">
-                            <div class="input-pesquisa col-5">
-                                <div class="input-group">
-                                    <input autocomplete="off" type="text" class="form-control"
-                                    placeholder="Pesquisar..." aria-label="Username"
-                                        aria-describedby="basic-addon1">
-                                        <span class="input-group-text" id="basic-addon1">
-                                            <box-icon name='search' color='#7964ff'></box-icon>
-                                        </span>
-                                    </div>
-                                </div>
-                                
+
+                        <%- include('./create') %>
+
+                    </div>
+                    <div class="row usuarios-pesquisa mt-5 d-flex justify-content-center">
+                        <div class="input-pesquisa col-5">
+                            <div class="input-group">
+                                <input autocomplete="off" type="text" class="form-control" placeholder="Pesquisar..." aria-label="Username" aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <box-icon name='search' color='#7964ff'></box-icon>
+                                </span>
                             </div>
-                            
-                            <table class="table usuarios-tabela table-sm mt-5 text-center">
-                                <tbody>
-                                    <% usuarios.forEach(usuario=> { %>
-                                        <tr>
-                                            <td>
-                                                <%= usuario.nome %>
-                                            </td>
-                                            <td>
-                                                <%= usuario.credencial.email %>
-                                            </td>
-                                            <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
-                                            <td>
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
-                                                    <box-icon name='trash-alt' type='solid' color='#ff6467'></box-icon>
-                                                </a>
-                                            </td>
-                                            <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
-                                            <%- include('./updatePassword', { usuario }) %>
-                                            <td>
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
-                                                    <box-icon name='edit-alt' type='solid' color='#fcff64'></box-icon>
-                                                </a>
-                                            </td>
-                                        </tr>
+                        </div>  
+                    </div>
+                    <div id="usuariosContainer" class="mt-5">
+                        <table class="table table-borderless usuarios-tabela table-sm">
+                            <tbody>
+                                <% usuarios.forEach(usuario=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= usuario.nome %>
+                                        </td>
+                                        <td>
+                                            <%= usuario.credencial.email %>
+                                        </td>
+                                        <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                        <td class="text-end">
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
+                                                <box-icon name='trash' color='#ff0000'></box-icon>
+                                            </a>
+                                        </td>
+                                        <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                        <td class="text-end">
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
+                                                <box-icon name='edit-alt' color='#ffb43f'></box-icon>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 <% }); %>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
         
         <script>
 
