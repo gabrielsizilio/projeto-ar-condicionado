@@ -1,0 +1,46 @@
+    <div class="modal fade" id="editaPredios" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Alterar Prédios</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table  m-0 table-sm">
+                        <tbody>
+                            <% predios.forEach(predio=> { %>
+                                <tr>
+                                    <td class="col-10"><%= predio.nome %></td>
+                                    <td><box-icon name='rename' color='#7964ff' ></box-icon></td>
+                                    <td><box-icon name='x' color='#7964ff' ></box-icon></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxNovoPredio = document.getElementById("novoPredio");
+
+        checkboxNovoPredio.addEventListener("change", handleNovoPredio);
+        const selectPredio = document.getElementById("selectPredio");
+        const inputNomeNovoPredio = document.getElementById("nomeNovoPredio");
+        
+        function handleNovoPredio() {
+
+            if (checkboxNovoPredio.checked) {
+                selectPredio.disabled = true;
+                selectPredio.required = false;
+                inputNomeNovoPredio.required = true;
+            } else {
+                selectPredio.disabled = false;
+                selectPredio.required = true;
+                inputNomeNovoPredio.required = false;
+            }
+        }
+    });
+</script>

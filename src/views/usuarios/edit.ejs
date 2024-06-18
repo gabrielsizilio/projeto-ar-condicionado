@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-4 mt-4" id="escolha-curso">
                         <label for="curso" class="form-label">Área(s):</label><br>
-                        <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCursoEdit" data-bs-toggle="modal" onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
+                        <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCursoEdit_<%= usuario.id %>" data-bs-toggle="modal" onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
                         <div class="areaUsuario mt-3" id="areaUsuarioEdit_<%= usuario.id %>">
                             <% areasUsuario.forEach(area=> { %>
                                 <span class="cursoEscolhido">
@@ -56,6 +56,39 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="escolheCursoEdit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="escolheCursoLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="escolheCursoLabel">Cursos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-2">
+                <% if (areas) { %>
+                    <% areas.forEach(area=> { %>
+                        <div class="form-check">
+                            <input name="areas[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>">
+                            <label class="form-check-label" for="area_<%= area.id %>">
+                                <%= area.nome %>
+                            </label>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <p>Não há áreas cadastradas no sistema</p>
+                            <% } %>
+                            <div class="row col-12 d-flex justify-content-center salvar">
+                                <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
+                                        data-bs-target="#edit_<%= usuario.id %>"
+                                    data-bs-toggle="modal" onclick="preencheInputsEdit()">Escolher</button>
+                            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
     function atualizaArea(id, areas) {
