@@ -4,10 +4,16 @@ const ArCondicionado = require('../models/ArCondicionado')
 const Controlador = require('../models/Controloador')
 const Marca = require('../models/Marca')
 const Modelo = require('../models/Modelo')
+const { checkToken } = require('../config/auth')
+const Credencial = require('../models/Credencial')
+const Usuario = require('../models/Usuario')
+const { getUserByJWT } = require('../services/usuarioService')
 
 
 async function index(req, res) {
     const { id } = req.params
+
+    const user = await getUserByJWT(req.cookies.jwt);
 
     const sala = await Sala.findByPk(id, {
         include: [{
@@ -33,18 +39,6 @@ async function index(req, res) {
 
     const controladores = await Controlador.findAll();
     
-    const credencialId = checkToken(credencialId).id;
-    const credencial = await Credencial.findByPk(credencialId,
-        {
-            include: [{
-                model: Usuario,
-                as: 'usuario',
-            }]
-        }
-    )
-
-    user = credencial.usuario;
-
     return res.status(200).render('salas/index', { user, controladores, sala, marcas })
 }
 

@@ -1,5 +1,9 @@
+const { checkToken } = require('../config/auth');
+const Credencial = require('../models/Credencial');
 const Predio = require('../models/Predio')
-const Sala = require('../models/Sala')
+const Sala = require('../models/Sala');
+const Usuario = require('../models/Usuario');
+const { getUserByJWT } = require('../services/usuarioService');
 
 
 async function index(req, res) {
@@ -8,7 +12,9 @@ async function index(req, res) {
         include: {association: 'salas'}
     })
 
-    res.status(200).render('predio/index' ,{ predios });
+    const user = await getUserByJWT(req.cookies.jwt);
+
+    res.status(200).render('predio/index' ,{ predios, user });
 }
 
 async function create(req, res) {
