@@ -3,6 +3,8 @@ const Credencial = require('../models/Credencial')
 const Predio = require('../models/Predio');
 const { checkToken } = require('../config/auth');
 const Usuario = require('../models/Usuario');
+const Role = require('../models/Role');
+const Sala = require('../models/Sala');
 
 async function index(req, res) {
 
@@ -37,41 +39,36 @@ async function index(req, res) {
         )
     }
 
-    try {
+    const role = await Role.findByPk( user.role_id ,{
+        include:[{
+            association: 'salas'
+        }]
+    })
+    
+    const authorizedSalas = role.salas.map(sala => sala.id);
 
-        if (!user) {
-            return res.redirect('/logout')
-        }
-
-        const predios = await Predio.findAll({
-            include: [
+    const predios = await Predio.findAll({
+        include: [
+            {
+                association: 'salas',
+                include: [{
+                    association: 'roles'
+                },
                 {
-                    association: 'salas',
+                    association: 'ares_condicionados',
                     include: [
                         {
-                            association: 'ares_condicionados',
-                            include: [
-                                {
-                                    association: 'modelo'
+                            association: 'modelo'
+                        },
+                        {
+                            association: 'controlador'
+                        }]
+                }]
+            }
+        ]
+    });
 
-                                },
-                                {
-                                    association: 'controlador'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        });
-
-        res.status(200).render('home/index', { user, predios })
-
-    } catch (error) {
-        console.error('Ocorreu um erro: ', error);
-        return res.redirect('/logout')
-    }
-
+    res.status(200).render('home/index', { user, predios, authorizedSalas })
 }
 
 module.exports = {
