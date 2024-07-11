@@ -32,10 +32,15 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div>
+                        <div class="col-8   ">
                             <label for="email" class="form-label">Email*:</label>
                             <input name="email" autocomplete="off" type="text" class="form-control" id="email"
                                 value="<%= usuario.credencial.email %>" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="curso" class="form-label">Senha:</label><br>
+                            <button type="button" id="btnCurso" class="btn" data-bs-target="#updatePassword"
+                                data-bs-toggle="modal">Atualizar senha</button>
                         </div>
                     </div>
                     <div>
@@ -52,13 +57,6 @@
                                     <% }) %>
                         </div>
                     </div>
-            </div>
-            <div>
-                <div class="col-4 mt-4">
-                    <label for="curso" class="form-label">Senha:</label><br>
-                    <button type="button" id="btnCurso" class="btn" data-bs-target="#updatePassword"
-                        data-bs-toggle="modal">Atualizar senha</button>
-                </div>
             </div>
 
             <div class=" row col-12 d-flex justify-content-end salvar">
