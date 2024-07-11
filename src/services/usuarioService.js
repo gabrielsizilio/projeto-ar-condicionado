@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const Role = require("../models/Role")
 const Usuario = require("../models/Usuario")
 const Credencial = require('../models/Credencial')
+const { checkToken } = require('../config/auth')
 
 async function createUsuario(profile) {
     const role = await Role.findOne({
@@ -29,6 +30,26 @@ async function createUsuario(profile) {
     return usuario;
 }
 
+async function getUserByJWT(jwt) {
+
+    if(jwt) {
+        const credencialId = checkToken(jwt).id;
+
+        const credencial = await Credencial.findByPk(credencialId,
+            {
+                include: [{
+                    model: Usuario,
+                    as: 'usuario',
+                }]
+            }
+        )
+
+        const user = credencial.usuario;
+        return user;
+    }
+}
+
 module.exports = {
-    createUsuario
+    createUsuario,
+    getUserByJWT
 }
