@@ -76,8 +76,6 @@ async function update(req, res) {
     const usuario_id = req.params.id
     const { nome, nickname, tipo, email } = req.body;
 
-
-
     if (!usuario_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser editado.' })
     }
@@ -135,9 +133,45 @@ async function remove(req, res) {
 
 }
 
+async function registerUser(req, res) {
+    const { email } = req.params;
+
+    try {
+        const credencial = await Credencial.findOne({
+            where: {
+                email: email
+            }
+        })
+
+        if (credencial) {
+            if (req.body.novaSenha) {
+                const novaSenha = req.body.novaSenha;
+                const salt = await bcrypt.genSalt(12);
+                const senhaHash = await bcrypt.hash(novaSenha, salt);
+
+                await credencial.update({
+                    senha: senhaHash
+                });
+        
+                req.flash('success', 'Senha atualizada com sucesso');
+                return res.status(200).redirect('/');
+            } else {
+                return res.status(400).send({ message: 'O campo de nova senha não pode estar vazio' });
+            }
+        } else {
+            console.log(">> Credencial NÃO encontrada!");
+            return res.status(404).send({message: "Credencial não encontrada"});
+        }
+    } catch (error) {
+        return res.status(500).send({ message: 'Erro ao buscar credencial' });
+    }
+}
+
+
 module.exports = {
     index,
     store,
     update,
-    remove
+    remove,
+    registerUser
 }
