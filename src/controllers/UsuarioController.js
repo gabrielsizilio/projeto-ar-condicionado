@@ -42,6 +42,7 @@ async function store(req, res) {
     }
 
     const { credencial } = await CredencialController.create(req, res)
+
     try {
         const role = await Role.findByPk(role_id)
 
@@ -93,7 +94,7 @@ async function update(req, res) {
     usuario.nickname = nickname;
     usuario.credencial.email = email;
     usuario.role_id = tipo;
-    
+
     if (req.body.novaSenha) {
         const novaSenha = req.body.novaSenha;
         const salt = await bcrypt.genSalt(12);
@@ -152,7 +153,7 @@ async function registerUser(req, res) {
                 await credencial.update({
                     senha: senhaHash
                 });
-        
+
                 req.flash('success', 'Senha atualizada com sucesso');
                 return res.status(200).redirect('/');
             } else {
@@ -160,11 +161,29 @@ async function registerUser(req, res) {
             }
         } else {
             console.log(">> Credencial NÃO encontrada!");
-            return res.status(404).send({message: "Credencial não encontrada"});
+            return res.status(404).send({ message: "Credencial não encontrada" });
         }
     } catch (error) {
         return res.status(500).send({ message: 'Erro ao buscar credencial' });
     }
+}
+
+async function registerUserIndex(req, res) {
+    const { email } = req.params;
+
+    const usuario = await Usuario.findOne(
+        {
+            include: [{
+                association: 'credencial',
+                where: {
+                    email:email
+                }
+            }]
+        }
+    )
+
+    // res.status(200).render('usuarios/registerUser', { usuario })
+    return res.send(usuario);
 }
 
 
@@ -173,5 +192,6 @@ module.exports = {
     store,
     update,
     remove,
-    registerUser
+    registerUser,
+    registerUserIndex
 }
