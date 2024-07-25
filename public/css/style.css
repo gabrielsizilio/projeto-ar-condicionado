@@ -32,6 +32,7 @@ label h1{
 }
 box-icon{
     vertical-align: middle; 
+    cursor: pointer;
 }
 .form-control:focus{
     box-shadow: none !important;
@@ -314,7 +315,6 @@ box-icon{
     background-color: rgb(255, 184, 184) !important;
     color: #ffffff !important;
 }
-
 
 #alterarAr .modal-content{
     background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
