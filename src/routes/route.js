@@ -11,7 +11,7 @@ const logout = require('./logout')
 const predio = require('./predio')
 const grade = require('./grade')
 const marca = require('./marca')
-const registerUser = require('./registerUser')
+const firstAccess = require('./firstAccess')
 
 const homeController = require('../controllers/HomeController')
 
@@ -24,6 +24,6 @@ router.use('/predio', authentication, accessMiddleware(['Administrador', 'Manute
 router.use('/grade', authentication, accessMiddleware(['Administrador', 'Manutenção']), grade)
 router.use('/logs', authentication, accessMiddleware(['Administrador', 'Manutenção']), log)
 router.use('/marca', authentication, accessMiddleware(['Manutenção']), marca)
-router.use('/registerUser', registerUser);
+router.use('/firstAccess', firstAccess);
 
 module.exports = router

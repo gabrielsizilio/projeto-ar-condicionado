@@ -6,6 +6,7 @@ const Areas = require('../models/Area')
 const Role = require('../models/Role')
 const { checkToken } = require('../config/auth')
 const Area = require('../models/Area')
+const { getLinkFirstAccess, getUserByLinkHash } = require('../services/usuarioService')
 
 async function index(req, res) {
 
@@ -65,9 +66,12 @@ async function store(req, res) {
                     }
                 });
             }
+            
+            const linkFirstAccess = await getLinkFirstAccess(usuario);
+
+            return res.send(linkFirstAccess);
         }
 
-        res.status(200).redirect('/usuario')
     } catch (error) {
         return res.send(`!> Ocorreu um erro ao cadastrar novo usuário: ${error}`)
     }
@@ -169,21 +173,11 @@ async function registerUser(req, res) {
 }
 
 async function registerUserIndex(req, res) {
-    const { email } = req.params;
+    const { token } = req.query;
 
-    const usuario = await Usuario.findOne(
-        {
-            include: [{
-                association: 'credencial',
-                where: {
-                    email:email
-                }
-            }]
-        }
-    )
+    const user = await getUserByLinkHash(token);
 
-    // res.status(200).render('usuarios/registerUser', { usuario })
-    return res.send(usuario);
+    res.status(200).render('primeiroAcesso/index', { user })
 }
 
 
