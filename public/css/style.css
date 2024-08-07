@@ -115,7 +115,9 @@ box-icon{
     pointer-events: none;
     user-select: none;
 }
-
+/* #botao_loading button{
+    display: none;
+} */
 
 
 /* background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);!important; */
