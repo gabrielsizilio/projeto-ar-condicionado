@@ -45,7 +45,8 @@ async function index(req, res) {
         }]
     })
     
-    const authorizedSalas = role.salas.map(sala => sala.id);
+    // const authorizedSalas = role.salas.map(sala => sala.id);
+    const authorizedSalas = role.salas
 
     const predios = await Predio.findAll({
         include: [

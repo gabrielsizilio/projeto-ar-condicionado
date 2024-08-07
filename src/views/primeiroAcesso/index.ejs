@@ -8,11 +8,12 @@
         <div class="card p-4">
             <h2 class="text-center">Primeiro Acesso</h2>
             <p class="text-center">Este é o seu primeiro acesso para a geração da senha para o sistema</p>
-            <form class="form-group mt-2" action="">
+
+            <form class="form-group mt-2" action="/firstAccess/<%= user.credencial.email %>" method="post">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-column">
                         <label for="senha">Digite senha</label>
-                        <input oninput="liberaConfirmacao()" class="rounded p-1" type="password" name="senha" id="senha" required>
+                        <input oninput="liberaConfirmacao()" class="rounded p-1" type="password" name="novaSenha" id="senha" required>
                     </div>
                     <div class="d-flex flex-column">
                         <label for="confirmaSenha">Confirmar senha</label>
