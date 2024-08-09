@@ -1,8 +1,9 @@
-const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const Role = require("../models/Role")
 const Usuario = require("../models/Usuario")
 const Credencial = require('../models/Credencial')
 const { checkToken } = require('../config/auth')
+require('dotenv').config()
 
 async function createUsuario(profile) {
     const role = await Role.findOne({
@@ -32,7 +33,7 @@ async function createUsuario(profile) {
 
 async function getUserByJWT(jwt) {
 
-    if(jwt) {
+    if (jwt) {
         const credencialId = checkToken(jwt).id;
 
         const credencial = await Credencial.findByPk(credencialId,
@@ -49,7 +50,52 @@ async function getUserByJWT(jwt) {
     }
 }
 
+async function getLinkFirstAccess(newUser) {
+    const credencial = await Credencial.findByPk(newUser.credencial_id);
+    const secret = process.env.FIRST_ACCESS_TK_SECRET;
+    const option = { expiresIn: `${process.env.FIRST_ACCESS_TK_EXPIRE}d` }
+
+    const payload = {
+        email:credencial.email,
+        userName: newUser.nome,
+        tipoToken: 'first-access'
+    }
+
+    try {
+        const token = jwt.sign(payload, secret, option);
+        const link = `${process.env.BASEURL}:${process.env.PORT}/firstAccess?token=${token}`
+
+        console.log(">>> ", link);
+        
+        return link;
+    } catch (error) {
+        console.error("!! Erro ao gerar link: " + error);
+    }
+}
+
+async function getUserByLinkHash(token) {
+    const secret = process.env.FIRST_ACCESS_TK_SECRET;
+    const decoded = jwt.verify(token, secret);
+
+    if (decoded.tipoToken != 'first-access') {
+        return res.status(400).json({ message: 'Token inválido.' });
+    }
+
+    const user = await Usuario.findOne({
+        include:[{
+            association: 'credencial',
+            where: {
+                email: decoded.email
+            }
+        }]
+    })
+
+    return user;
+}
+
 module.exports = {
     createUsuario,
-    getUserByJWT
+    getUserByJWT,
+    getLinkFirstAccess,
+    getUserByLinkHash
 }

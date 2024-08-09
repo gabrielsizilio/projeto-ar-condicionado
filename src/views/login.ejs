@@ -49,8 +49,14 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="row botao justify-content-around">
-                            <input type="submit" value="Entrar" class="col-10  btn btn-primary">
+                        <div id="botao" class="row botao justify-content-around">
+                            <input onclick="carregando()" type="submit" value="Entrar" class="col-10 btn btn-primary">
+                        </div>
+                        <div id="botao_loading" class="row justify-content-around" hidden>
+                            <button class="col-10 btn disabled">
+                                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                <!-- <span role="status">Carregando...</span> -->
+                            </button>
                         </div>
                     </form>
                     <!-- <p class="mb-3 mt-3" style="text-align: center; margin: 0px;">ou</p>
@@ -122,8 +128,16 @@
     function abre_alert() {
         alerta.style.display = 'block'
         setTimeout(fecha_alert, 4000)
+        document.getElementById('botao_loading').setAttribute('hidden', true);
+        document.getElementById('botao').style.display = 'flex';
     }
     function fecha_alert() {
         alerta.style.display = 'none'
+    }
+    
+    //Loading
+    function carregando(){
+        document.getElementById('botao').style.display = 'none';
+        document.getElementById('botao_loading').removeAttribute('hidden');
     }
 </script>

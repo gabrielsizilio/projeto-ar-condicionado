@@ -9,41 +9,50 @@
                 <div class="container-conteudo">
                     <div class="row usuarios-top d-flex justify-content-between">
                         <div class="titulo col-8">
-                            <h2>Gerenciamento de salas</h2>
+                            <h2>Gerenciamento de Salas</h2>
                         </div>
                         <div class="botao d-flex justify-content-end col-3">
-                            <button type="button" class="btn" data-bs-target="#addSala"
-                                data-bs-toggle="modal">Adicionar</button>
+                            <button type="button" class="btn" data-bs-target="#addSala" data-bs-toggle="modal">
+                                Nova Sala
+                            </button>
                         </div>
 
                             <%- include('../salas/create.ejs', {predios}) %>
+                            <%- include('../salas/editBuildings.ejs', {predios}) %>
 
-                            <div class="predio mt-5">
-                                <!-- <h4>Prédios</h4> -->
-                                <div class="form-check check mt-4">
-                                    <% predios.forEach(predio=> { %>
-                                        <% if(predio === predios[0]){ %>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox<%= predio.id %>" value="<%= predio.id %>" name="teste" checked onchange="updateTable(this)">
-                                                <label class="form-check-label" for="inlineCheckbox<%= predio.id %>">
-                                                    <%= predio.nome %>
-                                                </label>
-                                            </div>
-                                        <% } else{ %>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" id="inlineCheckbox<%= predio.id %>" value="<%= predio.id %>" name="teste"  onchange="updateTable(this)">
-                                                <label class="form-check-label" for="inlineCheckbox<%= predio.id %>">
-                                                    <%= predio.nome %>
-                                                </label>
-                                            </div>
-                                        <% } %>
-                                    <% }) %>
+                            <div class="selecaoPredios d-flex justify-content-between mt-5">
+                                <div class="predio col-10 justify-content-start">
+                                    <!-- <h4>Prédios</h4> -->
+                                    <div class="form-check check">
+                                        <% predios.forEach(predio=> { %>
+                                            <% if(predio === predios[0]){ %>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inlineCheckbox<%= predio.id %>" value="<%= predio.id %>" name="teste" checked onchange="updateTable(this)">
+                                                    <label class="form-check-label" for="inlineCheckbox<%= predio.id %>">
+                                                        <%= predio.nome %>
+                                                    </label>
+                                                </div>
+                                            <% } else{ %>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inlineCheckbox<%= predio.id %>" value="<%= predio.id %>" name="teste"  onchange="updateTable(this)">
+                                                    <label class="form-check-label" for="inlineCheckbox<%= predio.id %>">
+                                                        <%= predio.nome %>
+                                                    </label>
+                                                </div>
+                                            <% } %>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                                <div class="editaPredios d-flex col-2 justify-content-end">
+                                        <box-icon data-bs-target="#editaPredios" data-bs-toggle="modal" name='buildings' color='#7964ff'>
+                                            
+                                        </box-icon>  
                                 </div>
                             </div>
 
                             <div class="row salas mt-5 justify-content-center">
                                 <div id="salasContainerPredios" class="col-8 mt-3">
-                                    <table class="table table-borderless usuarios-tabela table-sm">
+                                    <table class="table table-borderless usuarios-tabela m-0 table-sm">
                                         <tbody id="salaTables">
                                             <% predios[0].salas.forEach(sala=> { %>
                                                 <tr>
