@@ -52,8 +52,10 @@ async function index(req, res) {
         include: [
             {
                 association: 'salas',
+                required: true,
                 include: [{
-                    association: 'roles'
+                    association: 'roles',
+                    where: { id: user.role_id}
                 },
                 {
                     association: 'ares_condicionados',
