@@ -37,9 +37,6 @@ box-icon{
 .form-control:focus{
     box-shadow: none !important;
 }
-.menu-lateral, .conteudo, .conteudo{
-    padding: 0px !important;
-}
 .modal{
     border: none !important;
 }
@@ -397,6 +394,17 @@ box-icon{
 #rangeArMobile1, #rangeArMobile2{
     user-select: none !important;
 }
+.logout .modal-content{
+    background: linear-gradient(87deg,#7964ff,#a698ff)!important;
+    border: none !important;
+    color: #FFFFFF !important;
+}
+.logout .modal-content p{
+    color: #FFFFFF !important;
+}
+.logout .logout-confirma:hover{
+    background-color: #dedafa !important;
+}
 
 
 @media only screen and (min-width: 601px){
@@ -463,16 +471,8 @@ box-icon{
     .input-pesquisa-mobile{
         display: none !important;
     }
-    .logout .modal-content{
-        background: linear-gradient(87deg,#7964ff,#a698ff)!important;
-        border: none !important;
-        color: #FFFFFF !important;
-    }
-    .logout .modal-content p{
-        color: #FFFFFF !important;
-    }
-    .logout .logout-confirma:hover{
-        background-color: #dedafa !important;
+    .nav-top{
+        display: none !important;
     }
 }
 @media only screen and (max-width: 600px) {
@@ -643,6 +643,16 @@ box-icon{
       .custom-multiselect .options label:hover {
         background-color: rgb(178, 178, 238);
         color: #FFFFFF !important;
+      }
+      .nav-top{
+        background-color: rgba(66,37,251,1)!important;
+        color: white !important;
+      }
+      .nav-top .offcanvas{
+        background-color: white !important;
+      }
+      .navbar-toggler{
+        border: none !important;
       }
 }
 #modal-temperatura{
