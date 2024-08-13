@@ -81,8 +81,6 @@ async function update(req, res) {
     const usuario_id = req.params.id
     const { nome, nickname, tipo, email } = req.body;
 
-
-
     if (!usuario_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser editado.' })
     }
@@ -96,11 +94,16 @@ async function update(req, res) {
         return res.status(400).json({ msgErr: 'Usuário não encontrado no sistema.' })
     }
 
+
+
     usuario.nome = nome;
     usuario.nickname = nickname;
     usuario.credencial.email = email;
     usuario.role_id = tipo;
-
+    usuario.credencial.update({
+        email
+    });
+    
     if (req.body.novaSenha) {
         const novaSenha = req.body.novaSenha;
         const salt = await bcrypt.genSalt(12);
