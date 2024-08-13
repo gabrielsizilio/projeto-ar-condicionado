@@ -66,7 +66,7 @@ async function store(req, res) {
                     }
                 });
             }
-            
+
             const linkFirstAccess = await getLinkFirstAccess(usuario);
 
             return res.send(linkFirstAccess);
@@ -80,6 +80,8 @@ async function store(req, res) {
 async function update(req, res) {
     const usuario_id = req.params.id
     const { nome, nickname, tipo, email } = req.body;
+
+
 
     if (!usuario_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual o usuário a ser editado.' })
@@ -113,7 +115,12 @@ async function update(req, res) {
         return res.redirect('back');
     }
 
-    await usuario.save();
+    console.log(">>>>>>>>>>>>>>> ", tipo);
+    try {
+        await usuario.save();
+    } catch (error) {
+        console.log("Erro ao atualizar o usuario: ", error);
+    }
 
     return res.redirect('back');
 }
