@@ -14,15 +14,18 @@
                             <input id="nome" name="nome" autocomplete="off" type="text" class="form-control"
                                 value="<%= usuario.nome %>" required>
                         </div>
+
                         <div class="col-3">
                             <label for="tipo" class="form-label">Tipo*:</label>
                             <select name="tipo" id="tipo" class="form-select">
-                                <option value="0" <%=(usuario.tipo==='Padrão' ) ? 'selected' : '' %>
-                                    >Padrão</option>
-                                <option value="1" <%=(usuario.tipo==='Administrador' ) ? 'selected' : '' %>
+                                <option value="1" <%=(usuario.role_id==1 ) ? 'selected' : '' %>
                                     >Administrador</option>
-                                <option value="2" <%=(usuario.tipo==='Manutenção' ) ? 'selected' : '' %>
+                                <option value="2" <%=(usuario.role_id==2 ) ? 'selected' : '' %>
                                     >Manutenção</option>
+                                <option value="3" <%=(usuario.role_id==3 ) ? 'selected' : '' %>
+                                    >Padrão</option>
+                                <option value="4" <%=(usuario.role_id==4 ) ? 'selected' : '' %>
+                                    >Maker</option>
                             </select>
                         </div>
                         <div class="col-3">
@@ -69,7 +72,8 @@
 </div>
 
 
-<div class="modal fade" id="escolheCursoEdit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="escolheCursoLabel" tabindex="-1">
+<div class="modal fade" id="escolheCursoEdit_<%= usuario.id %>" aria-hidden="true" aria-labelledby="escolheCursoLabel"
+    tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -80,7 +84,8 @@
                 <% if (areas) { %>
                     <% areas.forEach(area=> { %>
                         <div class="form-check">
-                            <input name="areas[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox" value="<%= area.id %>">
+                            <input name="areas[]" id="area_<%= area.id %>" class="form-check-input" type="checkbox"
+                                value="<%= area.id %>">
                             <label class="form-check-label" for="area_<%= area.id %>">
                                 <%= area.nome %>
                             </label>
@@ -88,12 +93,12 @@
                         <% }) %>
                             <% } else { %>
                                 <p>Não há áreas cadastradas no sistema</p>
-                            <% } %>
-                            <div class="row col-12 d-flex justify-content-center salvar">
-                                <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
-                                        data-bs-target="#edit_<%= usuario.id %>"
-                                    data-bs-toggle="modal" onclick="preencheInputsEdit()">Escolher</button>
-                            </div>
+                                <% } %>
+                                    <div class="row col-12 d-flex justify-content-center salvar">
+                                        <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
+                                            data-bs-target="#edit_<%= usuario.id %>" data-bs-toggle="modal"
+                                            onclick="preencheInputsEdit()">Escolher</button>
+                                    </div>
             </div>
         </div>
     </div>

@@ -66,7 +66,7 @@ async function store(req, res) {
                     }
                 });
             }
-            
+
             const linkFirstAccess = await getLinkFirstAccess(usuario);
 
             return res.send(linkFirstAccess);
@@ -94,11 +94,16 @@ async function update(req, res) {
         return res.status(400).json({ msgErr: 'Usuário não encontrado no sistema.' })
     }
 
+
+
     usuario.nome = nome;
     usuario.nickname = nickname;
     usuario.credencial.email = email;
     usuario.role_id = tipo;
-
+    usuario.credencial.update({
+        email
+    });
+    
     if (req.body.novaSenha) {
         const novaSenha = req.body.novaSenha;
         const salt = await bcrypt.genSalt(12);
@@ -113,7 +118,11 @@ async function update(req, res) {
         return res.redirect('back');
     }
 
-    await usuario.save();
+    try {
+        await usuario.save();
+    } catch (error) {
+        console.log("Erro ao atualizar o usuario: ", error);
+    }
 
     return res.redirect('back');
 }
