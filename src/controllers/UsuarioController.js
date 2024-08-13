@@ -115,7 +115,6 @@ async function update(req, res) {
         return res.redirect('back');
     }
 
-    console.log(">>>>>>>>>>>>>>> ", tipo);
     try {
         await usuario.save();
     } catch (error) {
