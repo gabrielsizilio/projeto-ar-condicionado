@@ -82,10 +82,9 @@ box-icon{
 }
 
 #card-login{
-    min-width: 300px;
     box-sizing: border-box;
     border-top: 3px solid #6a53ff !important;
-    min-width: 250px;
+    min-width: 350px;
 }
 #card-login input{
     border: 1px solid #e6e6e6 !important;
