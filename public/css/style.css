@@ -523,7 +523,7 @@ box-icon{
         display: none !important;
  
     }
-    .card-temperatura, .card-temperatura2{
+    .card-temperatura1, .card-temperatura2{
         border-radius: 15px !important;
     }
     .card-temperatura1 .card, .card-temperatura2 .card{
