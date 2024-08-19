@@ -729,6 +729,9 @@ box-icon{
 #rangeArMobile1, #rangeArMobile2{
     user-select: none !important;
 }
+.temperaturaMobile .form-control:disabled {
+    background-color: transparent !important;
+}
 
 @media only screen and (min-width: 601px){
     /* Menu */
