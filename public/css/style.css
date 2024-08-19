@@ -645,7 +645,7 @@ box-icon{
         color: #FFFFFF !important;
       }
       .nav-top{
-        background-color: rgba(66,37,251,1)!important;
+        background-color: transparent !important;
         color: white !important;
       }
       .nav-top .offcanvas{

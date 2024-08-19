@@ -7,8 +7,8 @@
     <div class="d-flex">
 
             <%- include('../partials/nav.ejs') %>
-            <!-- <%- include('../partials/nav-mobile.ejs') %> -->
-            
+           <%# include('../partials/nav-mobile.ejs') %> 
+
             <div class="col container-conteudo">
                 <%- include('../partials/nav-top-mobile.ejs') %>
                 <div class="container-conteudo row justify-content-between">
@@ -38,7 +38,11 @@
                         <div id="controle-individual" class="card col-8 p-2">
                             <div class="row justify-content-between pt-2 pb-2">
                                 <div class="col-5 identificacao d-flex align-items-center justify-content-start">
-                                    <span id="span1"><strong><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></strong></span>
+                                    <% if (predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { %>
+                                        <span id="span1"><strong><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></strong></span>
+                                    <% } else { %>
+                                        <span id="span1"><strong>Dados indisponíveis</strong></span>
+                                    <% } %>
                                 </div>
                                 <div class="col-2 onoff text-center">
                                     <span>
@@ -52,7 +56,7 @@
 
                             <div class="row justify-content-evenly infor-ar">
                                 <div id="seletorAr1" onclick="alteraIdDivSelecionada('tempA1', 'id_controlador1', 'id_ar_condicionado1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
-                                    <% if(predios[0].salas[0].ares_condicionados[0]) { %>
+                                    <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0 && predios[0].salas[0].ares_condicionados[0]) { %>
                                         <p><strong id="nome_ar1"><%= predios[0].salas[0].ares_condicionados[0].nome %></strong></p>
                                         <% if(predios[0].salas[0].ares_condicionados[0].controlador) { %>
                                             <input id="id_ar_condicionado1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].id %>">
@@ -65,7 +69,7 @@
                                     <div class="vr" style="height: 95%;"></div>
                                 </div>
                                 <div id="seletorAr2" onclick="alteraIdDivSelecionada('tempA2', 'id_controlador2', 'id_ar_condicionado2')" class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
-                                    <% if(predios[0].salas[0].ares_condicionados[1]) { %>
+                                    <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0 && predios[0].salas[0].ares_condicionados[1]) { %>
                                         <p><strong id="nome_ar2"><%= predios[0].salas[0].ares_condicionados[1].nome %></strong></p>
                                         <% if(predios[0].salas[0].ares_condicionados[1].controlador) { %>
                                             <input id="id_ar_condicionado2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
@@ -81,7 +85,7 @@
                                             <div id="modal-temperatura" class="position-relative">
                                                 <div class="circle">
                                                     <div class="debug2 select-nulo" >
-                                                        <input id="rangeAr2" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" >
+                                                        <input id="rangeAr2" class="form-control" value="18°C" type="text" min="20" max="25" step="1" onmousedown="return false;" >
                                                     </div>
                                                     <div class="dot2"></div>
                                                 </div>
@@ -93,7 +97,7 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <input type="hidden" class="form-range mt-4" id="temperatura2Range" min="18" max="23" step="1" value="23">
+                                            <input type="hidden" class="form-range mt-4" id="temperatura2Range" min="20" max="23" step="1" value="23">
                                         </div>
                                     </div>
                                 </div>  
@@ -103,7 +107,9 @@
                     </div>
 
                     <!-- Card Temperatura - Mobiel -->
-                    <% predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
+                    
+                    <%  if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { 
+                        predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
                         <div id="controleArMobile<%= index + 1 %>" class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
                             <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
                                 <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
@@ -127,7 +133,7 @@
                                 </div>
                             </div>
                         </div>
-                    <% }); %>
+                    <% }) } %>
                     
                     
                     <!-- Seleção de Prédios - Desktop -->
@@ -164,11 +170,12 @@
                     <div>
                         <div id="salasContainer" class="row justify-content-start">
                             <% var index=0 %>
-                            <% predios[index].salas.forEach(element=> { %>
+                            <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) {
+                                predios[index].salas.forEach(element=> { %>
                                 <div onclick="trocaSala(this)" class="btn me-3 mb-4 sala col-2 text-center p-2 col-auto">
                                     <%= element.nome %>
                                 </div>
-                            <% }) %>
+                            <% })} %>
                         </div>
                     </div>
                 </div>
