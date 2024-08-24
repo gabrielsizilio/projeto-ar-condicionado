@@ -26,10 +26,6 @@ async function index(req, res) {
     )
 
     user = credencial.usuario;
-    usuarios.forEach(element => {
-        console.log(">>>>>>>>>>>>>", element);
-    });
-
 
     try {
         res.status(200).render('usuarios/index', { user, usuarios, areas, roles })
@@ -151,6 +147,25 @@ async function remove(req, res) {
 
 }
 
+async function restoreUser(req, res) {
+    const usuario_id = req.params.id;
+
+    const usuario = await Usuario.findByPk(usuario_id, {
+        include: [{
+            model: Credencial,
+            as: 'credencial'
+        }]
+    });
+
+    await Credencial.restore({
+        where: {
+            id: usuario.credencial_id
+        }
+    })
+
+    return res.redirect('back');
+}
+
 async function registerUser(req, res) {
     const { email } = req.params;
 
@@ -200,5 +215,6 @@ module.exports = {
     update,
     remove,
     registerUser,
-    registerUserIndex
+    registerUserIndex,
+    restoreUser
 }

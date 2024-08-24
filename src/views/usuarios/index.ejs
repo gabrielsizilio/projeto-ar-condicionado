@@ -51,12 +51,25 @@
                                                 </p>
                                             <%}%>
                                         </td>
-                                        <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
-                                        <td class="text-end">
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
-                                                <box-icon name='trash' color='#ff0000'></box-icon>
-                                            </a>
-                                        </td>
+                                        <% if (usuario.credencial) { %>
+                                            <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                            <td class="text-end">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
+                                                    <box-icon name='trash' color='#ff0000'></box-icon>
+                                                </a>
+                                            </td>
+                                            <% } else { %>
+                                                <td>
+                                                    <!-- TODO: COLOCAR ELEMNTO DE RESTORE -->
+                                                     <form action="usuario/restore/<%= usuario.id %>" method="post">
+                                                         
+                                                        <button class="btn" type="submit">
+                                                            <box-icon name='trash' color='#ff0000'></box-icon>
+                                                        </button>
+                                                     </form>
+                                                    </a>
+                                                </td>
+                                            <% } %>
                                         <% if (usuario.credencial) { %>
                                             <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
                                         <% } %>

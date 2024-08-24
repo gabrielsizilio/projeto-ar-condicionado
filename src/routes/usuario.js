@@ -10,4 +10,6 @@ router.post('/update/:id', UsuarioController.update)
 
 router.post('/remove/:id', UsuarioController.remove)
 
+router.post('/restore/:id', UsuarioController.restoreUser)
+
 module.exports = router
