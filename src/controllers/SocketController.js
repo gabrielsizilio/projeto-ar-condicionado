@@ -1,7 +1,7 @@
 const ArCondicionado = require('../models/ArCondicionado')
-const Log = require('../models/Log')
 const Modelo = require('../models/Modelo')
 const Temperatura = require('../models/Temperatura')
+const { registerLogUpdateTemperatura } = require('../services/logService')
 
 class SocketController {
     setup(esp, socket, macAddressMapping) {
@@ -17,31 +17,31 @@ class SocketController {
         console.log("usuario: " + user.nome);
 
         var aparelho = await ArCondicionado.findByPk(comandoParm.id_arcondicionado, {
+            include: [{
+                model: Modelo, as: 'modelo',
                 include: [{
-                    model: Modelo, as: 'modelo',
-                    include: [{
-                        model: Temperatura, as: 'temperatura'
-                    }]
+                    model: Temperatura, as: 'temperatura'
                 }]
+            }]
         });
 
         let codigo_ir;
         let temperatura;
 
-        if(comandoParm.temperatura.trim() != "off"){
+        if (comandoParm.temperatura.trim() != "off") {
             temperatura = "temp" + comandoParm.temperatura.replace('°C', '');
         } else {
             temperatura = "off";
         }
 
-        
-        codigo_ir  = aparelho.modelo.temperatura[temperatura];
-        
+
+        codigo_ir = aparelho.modelo.temperatura[temperatura];
+
         codigo_ir = codigo_ir.split(',').map(numero => parseInt(numero.trim()));
-        
+
         console.log(codigo_ir.length);
         console.log(codigo_ir);
-        
+
         if (!macAddressMapping[comandoParm.id_controlador]) {
             console.log("Deu Ruim controlador não encontrado");
             // TODO: tratar o erro corretamente
@@ -51,11 +51,8 @@ class SocketController {
         let comando = [aparelho.pinEmissor, codigo_ir]
         console.log(comando);
         io.to(macAddressMapping[comandoParm.id_controlador]).emit('EnviaIR', comando);
-        
-        await Log.create({
-            descricao: "Alterou para temperatura",
-            usuario_id: user.id
-        })
+
+        await registerLogUpdateTemperatura(comandoParm);
     }
 
     disconnect(socket, macAddressMapping) {
