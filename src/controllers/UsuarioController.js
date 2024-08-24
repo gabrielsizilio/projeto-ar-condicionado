@@ -26,6 +26,10 @@ async function index(req, res) {
     )
 
     user = credencial.usuario;
+    usuarios.forEach(element => {
+        console.log(">>>>>>>>>>>>>", element);
+    });
+
 
     try {
         res.status(200).render('usuarios/index', { user, usuarios, areas, roles })
@@ -103,7 +107,7 @@ async function update(req, res) {
     usuario.credencial.update({
         email
     });
-    
+
     if (req.body.novaSenha) {
         const novaSenha = req.body.novaSenha;
         const salt = await bcrypt.genSalt(12);

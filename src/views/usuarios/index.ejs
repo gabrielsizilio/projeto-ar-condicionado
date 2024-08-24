@@ -43,7 +43,13 @@
                                             <%= usuario.nome %>
                                         </td>
                                         <td>
-                                            <%= usuario.credencial.email %>
+                                            <% if (usuario.credencial) { %>
+                                                <%= usuario.credencial.email %>
+                                            <% } else { %>
+                                                <p>
+                                                    Conta desabilitada!
+                                                </p>
+                                            <%}%>
                                         </td>
                                         <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
                                         <td class="text-end">
@@ -51,7 +57,9 @@
                                                 <box-icon name='trash' color='#ff0000'></box-icon>
                                             </a>
                                         </td>
-                                        <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                        <% if (usuario.credencial) { %>
+                                            <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                        <% } %>
                                         <td class="text-end">
                                             <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
                                                 <box-icon name='edit-alt' color='#ffb43f'></box-icon>
