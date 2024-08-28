@@ -90,11 +90,10 @@ async function update(req, res) {
         include: [{ association: 'credencial' }, { association: 'areas' }, { association: 'role' }]
     })
 
+
     if (!usuario) {
         return res.status(400).json({ msgErr: 'Usuário não encontrado no sistema.' })
     }
-
-
 
     usuario.nome = nome;
     usuario.nickname = nickname;
@@ -103,6 +102,8 @@ async function update(req, res) {
     usuario.credencial.update({
         email
     });
+
+
 
     if (req.body.novaSenha) {
         const novaSenha = req.body.novaSenha;

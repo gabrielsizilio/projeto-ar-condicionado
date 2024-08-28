@@ -4,7 +4,6 @@
     
     <%- include('./escolherCurso') %>
     <%- include('./escolherCursoEdit') %>
-    <%- include('./updatePassword') %>
     
     <body class="container-body">
         
@@ -72,6 +71,7 @@
                                             <% } %>
                                         <% if (usuario.credencial) { %>
                                             <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                            <%- include('./updatePassword', {usuario}) %>
                                         <% } %>
                                         <td class="text-end">
                                             <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
