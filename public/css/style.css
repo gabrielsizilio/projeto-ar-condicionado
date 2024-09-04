@@ -522,7 +522,7 @@ box-icon{
         display: none !important;
  
     }
-    .card-temperatura, .card-temperatura2{
+    .card-temperatura1, .card-temperatura2{
         border-radius: 15px !important;
     }
     .card-temperatura1 .card, .card-temperatura2 .card{
@@ -644,7 +644,7 @@ box-icon{
         color: #FFFFFF !important;
       }
       .nav-top{
-        background-color: rgba(66,37,251,1)!important;
+        background-color: transparent !important;
         color: white !important;
       }
       .nav-top .offcanvas{
@@ -728,6 +728,9 @@ box-icon{
 }
 #rangeArMobile1, #rangeArMobile2{
     user-select: none !important;
+}
+.temperaturaMobile .form-control:disabled {
+    background-color: transparent !important;
 }
 
 @media only screen and (min-width: 601px){

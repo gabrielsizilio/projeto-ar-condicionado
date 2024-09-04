@@ -106,34 +106,37 @@
                         </div>
                     </div>
 
-                    <!-- Card Temperatura - Mobiel -->
-                    
-                    <%  if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { 
-                        predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
-                        <div id="controleArMobile<%= index + 1 %>" class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
-                            <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
-                                <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
-                                    <div class="row">
-                                        <h5 class="card-title d-inline col"><%= arCondicionado.nome  %></h5>
-                                        <div class="form-check form-switch col-1">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault<%= index + 1 %>" onchange="switchMobileChanged(<%= index + 1 %>)">
+                    <!-- Card Temperatura - Mobile -->
+
+                    <div class="temperaturaMobile">
+                        <%  if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { 
+                            predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
+                            <div id="controleArMobile<%= index + 1 %>" class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
+                                <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
+                                    <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
+                                        <div class="row">
+                                            <h5 class="card-title d-inline col"><%= arCondicionado.nome  %></h5>
+                                            <div class="form-check form-switch col-1">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault<%= index + 1 %>" onchange="switchMobileChanged(<%= index + 1 %>)">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <h6 class="card-subtitle mb-2"><%= predios[0].nome %> - <%= predios[0].salas[0].nome %></h6>
-                                    <% if(arCondicionado.controlador) { %>
-                                        <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.id %>">
-                                        <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.controlador.macAddress %>">
-                                    <% } %>
-                                    <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
-                                        <div class="debug-mobile<%= index + 1 %>">
-                                            <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
+                                        <h6 class="card-subtitle mb-2"><%= predios[0].nome %> - <%= predios[0].salas[0].nome %></h6>
+                                        <% if(arCondicionado.controlador) { %>
+                                            <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.id %>">
+                                            <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.controlador.macAddress %>">
+                                        <% } %>
+                                        <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
+                                            <div class="debug-mobile<%= index + 1 %>">
+                                                <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
+                                            </div>
+                                            <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>" onTouchStart="bloquearRolagem()" onTouchEnd="dotMobileChanged(<%= index + 1 %>)"></div>
                                         </div>
-                                        <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>" onTouchStart="bloquearRolagem()" onTouchEnd="dotMobileChanged(<%= index + 1 %>)"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <% }) } %>
+                        <% }) } %>
+                    </div>
+                    
                     
                     
                     <!-- Seleção de Prédios - Desktop -->
