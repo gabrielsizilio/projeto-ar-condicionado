@@ -45,26 +45,24 @@
                                             <% if (usuario.credencial) { %>
                                                 <%= usuario.credencial.email %>
                                             <% } else { %>
-                                                <p>
-                                                    Conta desabilitada!
-                                                </p>
+                                
+                                                    INATIVO
+                                            
                                             <%}%>
                                         </td>
                                         <% if (usuario.credencial) { %>
                                             <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
                                             <td class="text-end">
                                                 <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
-                                                    <box-icon name='trash' color='#ff0000'></box-icon>
+                                                    <box-icon name='user-minus' color='#ff1800' ></box-icon>
                                                 </a>
                                             </td>
                                             <% } else { %>
-                                                <td>
+                                                <td class="d-flex justify-content-end">
                                                     <!-- TODO: COLOCAR ELEMNTO DE RESTORE -->
-                                                     <form action="usuario/restore/<%= usuario.id %>" method="post">
-                                                         
+                                                     <form class="icon-enable" action="usuario/restore/<%= usuario.id %>" method="post">
                                                         <button class="btn" type="submit">
-                                                            <box-icon name='trash' color='#ff0000'></box-icon>
-                                                        </button>
+                                                            <box-icon name='user-plus' color='#15d23a' ></box-icon>
                                                      </form>
                                                     </a>
                                                 </td>
@@ -127,3 +125,18 @@
     </body>
 
 </html>
+
+<style>
+    .icon-enable{
+        padding: 0px !important;
+        width: min-content;
+    }
+    .icon-enable button{
+        padding: 0px !important;
+        border: none !important;
+        background-color: transparent !important;
+    }
+    .icon-enable button:hover{
+        background: none !important;
+    }
+</style>
