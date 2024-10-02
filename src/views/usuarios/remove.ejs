@@ -7,15 +7,15 @@
                 <form action="usuario/remove/<%= usuarioId %>" method="post">
                     <div id="excluir-topo">
                         <strong>
-                            <p>Excluir Usuário</p>
+                            <p>Inativar Usuário</p>
                         </strong>
                     </div>
                     <div class="excluir-corpo text-center mt-5">
-                        <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
-                        <p>Você realmente deseja excluir o usuário <%= nome %>? </p>
+                        <box-icon name='user-minus' color='#ffffff' size='lg'></box-icon>
+                        <p>Você realmente deseja inativar o usuário <%= nome %>? </p>
                     </div>
                     <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
-                        <button type="submit" class="btn excluir-confirma">EXCLUIR</button>
+                        <button type="submit" class="btn excluir-confirma">INATIVAR</button>
                         <button type="button" class="btn" data-bs-dismiss="modal">CANCELAR</button>
                     </div>
                 </form>
