@@ -653,6 +653,10 @@ box-icon{
       .navbar-toggler{
         border: none !important;
       }
+      #body{
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 }
 #modal-temperatura{
     height: 40vh !important;    
