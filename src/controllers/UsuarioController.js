@@ -66,7 +66,7 @@ async function store(req, res) {
                     }
                 });
             }
-            
+
             const linkFirstAccess = await getLinkFirstAccess(usuario);
 
             return res.send(linkFirstAccess);
@@ -90,6 +90,7 @@ async function update(req, res) {
         include: [{ association: 'credencial' }, { association: 'areas' }, { association: 'role' }]
     })
 
+
     if (!usuario) {
         return res.status(400).json({ msgErr: 'Usuário não encontrado no sistema.' })
     }
@@ -98,6 +99,11 @@ async function update(req, res) {
     usuario.nickname = nickname;
     usuario.credencial.email = email;
     usuario.role_id = tipo;
+    usuario.credencial.update({
+        email
+    });
+
+
 
     if (req.body.novaSenha) {
         const novaSenha = req.body.novaSenha;
@@ -113,7 +119,11 @@ async function update(req, res) {
         return res.redirect('back');
     }
 
-    await usuario.save();
+    try {
+        await usuario.save();
+    } catch (error) {
+        console.log("Erro ao atualizar o usuario: ", error);
+    }
 
     return res.redirect('back');
 }
@@ -136,6 +146,25 @@ async function remove(req, res) {
         return res.send(`Erro: ${error}`)
     }
 
+}
+
+async function restoreUser(req, res) {
+    const usuario_id = req.params.id;
+
+    const usuario = await Usuario.findByPk(usuario_id, {
+        include: [{
+            model: Credencial,
+            as: 'credencial'
+        }]
+    });
+
+    await Credencial.restore({
+        where: {
+            id: usuario.credencial_id
+        }
+    })
+
+    return res.redirect('back');
 }
 
 async function registerUser(req, res) {
@@ -187,5 +216,6 @@ module.exports = {
     update,
     remove,
     registerUser,
-    registerUserIndex
+    registerUserIndex,
+    restoreUser
 }

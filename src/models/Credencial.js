@@ -7,13 +7,14 @@ class Credencial extends Model {
             senha: DataTypes.STRING
         }, {
             sequelize,
-            tableName: 'credencials'
+            tableName: 'credencials',
+            paranoid: true
         })
     }
 
     static associate(models) {
         this.hasOne(models.Usuario, {
-            foreignKey:'credencial_id',
+            foreignKey: 'credencial_id',
             as: 'usuario'
         })
 

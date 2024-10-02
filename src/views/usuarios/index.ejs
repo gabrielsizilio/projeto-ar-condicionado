@@ -4,7 +4,6 @@
     
     <%- include('./escolherCurso') %>
     <%- include('./escolherCursoEdit') %>
-    <%- include('./updatePassword') %>
     
     <body class="container-body">
         
@@ -43,15 +42,37 @@
                                             <%= usuario.nome %>
                                         </td>
                                         <td>
-                                            <%= usuario.credencial.email %>
+                                            <% if (usuario.credencial) { %>
+                                                <%= usuario.credencial.email %>
+                                            <% } else { %>
+                                                <p>
+                                                    Conta desabilitada!
+                                                </p>
+                                            <%}%>
                                         </td>
-                                        <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
-                                        <td class="text-end">
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
-                                                <box-icon name='trash' color='#ff0000'></box-icon>
-                                            </a>
-                                        </td>
-                                        <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                        <% if (usuario.credencial) { %>
+                                            <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                            <td class="text-end">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
+                                                    <box-icon name='trash' color='#ff0000'></box-icon>
+                                                </a>
+                                            </td>
+                                            <% } else { %>
+                                                <td>
+                                                    <!-- TODO: COLOCAR ELEMNTO DE RESTORE -->
+                                                     <form action="usuario/restore/<%= usuario.id %>" method="post">
+                                                         
+                                                        <button class="btn" type="submit">
+                                                            <box-icon name='trash' color='#ff0000'></box-icon>
+                                                        </button>
+                                                     </form>
+                                                    </a>
+                                                </td>
+                                            <% } %>
+                                        <% if (usuario.credencial) { %>
+                                            <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
+                                            <%- include('./updatePassword', {usuario}) %>
+                                        <% } %>
                                         <td class="text-end">
                                             <a href="" data-bs-toggle="modal" data-bs-target="#edit_<%= usuario.id %>">
                                                 <box-icon name='edit-alt' color='#ffb43f'></box-icon>
