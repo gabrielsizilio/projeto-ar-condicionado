@@ -22,6 +22,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "primevue": "^3.49.0",
+    "projeto": "file:",
     "sequelize": "^6.34.0",
     "socket.io": "^4.7.4"
   },
