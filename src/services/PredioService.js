@@ -30,7 +30,7 @@ class PredioService {
                 throw new Error('Já existe um prédio com esse nome.');
             }
 
-            return await predio.update({ nome });
+            return await Predio.update({ nome });
         } catch (error) {
             throw new Error('Erro ao atualizar o prédio: ' + error.message);
         }
@@ -39,7 +39,7 @@ class PredioService {
     static async deletePredio(predio_id) {
 
         try {
-            const predio = await predio.findByPk(predio_id)
+            const predio = await Predio.findByPk(predio_id)
 
             if (!predio) {
                 return res.status(404).json({ msgErr: 'Prédio não encontrada.' })
