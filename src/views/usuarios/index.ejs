@@ -58,12 +58,13 @@
                                                 </a>
                                             </td>
                                             <% } else { %>
+
+                                                <%- include('./ativaUsuario', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                                
                                                 <td class="d-flex justify-content-end">
                                                     <!-- TODO: COLOCAR ELEMNTO DE RESTORE -->
-                                                     <form class="icon-enable" action="usuario/restore/<%= usuario.id %>" method="post">
-                                                        <button class="btn" type="submit">
-                                                            <box-icon name='user-plus' color='#15d23a' ></box-icon>
-                                                     </form>
+                                                    <a href="" data-bs-toggle="modal" type="submit" data-bs-target="#ativar_<%= usuario.id %>">
+                                                        <box-icon name='user-plus' color='#15d23a' ></box-icon>
                                                     </a>
                                                 </td>
                                             <% } %>
