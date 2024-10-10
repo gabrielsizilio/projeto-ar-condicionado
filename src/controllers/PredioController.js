@@ -1,9 +1,5 @@
-const { checkToken } = require('../config/auth');
-const Credencial = require('../models/Credencial');
 const Predio = require('../models/Predio')
 const PredioService = require('../services/PredioService')
-const Sala = require('../models/Sala');
-const Usuario = require('../models/Usuario');
 const { getUserByJWT } = require('../services/usuarioService');
 
 
