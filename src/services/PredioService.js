@@ -42,7 +42,7 @@ class PredioService {
             const predio = await Predio.findByPk(predio_id)
 
             if (!predio) {
-                return res.status(404).json({ msgErr: 'Prédio não encontrada.' })
+                return res.status(404).json({ msgErr: 'Prédio não encontrado.' })
             }
 
             return await predio.destroy()
