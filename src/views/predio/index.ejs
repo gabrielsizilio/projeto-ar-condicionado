@@ -71,11 +71,14 @@
                                                             <box-icon name='edit-alt' color='#ffb43f'></box-icon>
                                                         </a>
                                                     </td>
-
-                                                    <%- include('remove.ejs', { sala }) %>
-                                                    <%- include('../salas/edit.ejs', { sala, predios }) %>
                                                 </tr>
                                                 <% }) %>
+                                                <% predios.forEach(predio => { 
+                                                    predio.salas.forEach(sala => { %>
+                                                        <%- include('remove.ejs', { sala }) %>
+                                                        <%- include('../salas/edit.ejs', { sala, predios }) %>
+                                                    <% }) 
+                                                }) %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -89,26 +92,24 @@
 
     <script>
         // ATUALIZA SALAS
-        var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+        let predios = JSON.parse('<%- JSON.stringify(predios) %>');
 
         function updateTable(select) {
-            var selectedPredioId = select.value;
+            let selectedPredioId = select.value;
 
             //Limpando a tabela
-            var salasTable = document.getElementById('salaTables')
+            let salasTable = document.getElementById('salaTables')
             salasTable.innerHTML = "";
 
-            var predioSelecionado = predios.find((predio) => {
+            let predioSelecionado = predios.find((predio) => {
                 return predio.id == selectedPredioId;
-            })
-
-            console.log(predioSelecionado);
+            })  
 
             predioSelecionado.salas.forEach(function (sala) {
-                var row = document.createElement('tr')
+                let row = document.createElement('tr')
 
-                var cell = document.createElement('td')
-                var linkSala = document.createElement('a')
+                let cell = document.createElement('td')
+                let linkSala = document.createElement('a')
                 linkSala.href = `/predio/${selectedPredioId}/sala/${sala.id}`
                 linkSala.innerText = sala.nome
                 cell.appendChild(linkSala);
@@ -116,8 +117,8 @@
                 row.appendChild(cell)
 
                 // Adiciona um link de exclusão em outra célula
-                var cellExcluir = document.createElement('td');
-                var linkExcluir = document.createElement('a');
+                let cellExcluir = document.createElement('td');
+                let linkExcluir = document.createElement('a');
                 linkExcluir.href = "";
                 linkExcluir.dataset.bsToggle = "modal";
                 linkExcluir.dataset.bsTarget = "#excluir_" + sala.id;
@@ -127,11 +128,11 @@
                 row.appendChild(cellExcluir);
 
                 // Adiciona um link de edição em outra célula
-                var cellEditar = document.createElement('td');
-                var linkEditar = document.createElement('a');
+                let cellEditar = document.createElement('td');
+                let linkEditar = document.createElement('a');
                 linkEditar.href = "";
                 linkEditar.dataset.bsToggle = "modal";
-                linkEditar.dataset.bsTarget = "#edit_" + sala.id;
+                linkEditar.dataset.bsTarget = "#editSala_" + sala.id;
                 linkEditar.innerHTML = "<box-icon name='edit-alt' color='#ffb43f' ></box-icon>";
                 cellEditar.appendChild(linkEditar);
                 cellEditar.classList.add('text-end')
@@ -146,7 +147,7 @@
 
     <script>
         //Seleção do menu
-        var selecionado = document.getElementById('gerenciamento');
+        let selecionado = document.getElementById('gerenciamento');
         selecionado.classList.add('menu-selecionado');
     </script>
 

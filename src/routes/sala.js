@@ -11,7 +11,7 @@ router.post('/store', salaController.store)
 
 router.get('/edit/:id', salaController.edit)
 
-router.post('/update/:id', salaController.update)
+router.post('/update/:sala_id', salaController.update)
 
 router.post('/remove/:id', salaController.remove)
 
