@@ -12,7 +12,7 @@
                             <form action="/predio/update/<%= predio.id %>" method="post" class="d-flex justify-content-between">
                                 <div class="col-auto">
                                     <span id="predio_<%= predio.id %>"><%= predio.nome %></span>
-                                    <input name="nome" class="p-1 rounded-1 border-0" id="input_predio_<%= predio.id %>" type="text" value="<%= predio.nome %>" onfocusout="cancelar('<%= predio.id %>')" hidden required minlength="3" maxlength="50">
+                                    <input name="nome" class="p-1 rounded-1 border-0" id="input_predio_<%= predio.id %>" type="text" onfocusout="cancelar('<%= predio.id %>')" hidden required minlength="3" maxlength="50">
                                 </div>
                                 <div class="col-auto">
                                     <box-icon id="<%= predio.id %>" onclick="edita(this)" name='rename' color='#7964ff'></box-icon>
@@ -58,6 +58,7 @@
         const predio = document.getElementById(`predio_${predio_id}`);
 
         predio.setAttribute('hidden', '');
+        input_predio.value = predio.textContent;
         input_predio.removeAttribute('hidden');
         input_predio.focus();
         const length = input_predio.value.length;
