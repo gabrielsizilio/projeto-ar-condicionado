@@ -334,6 +334,9 @@ box-icon{
     background-color: rgb(255, 184, 184) !important;
     color: #ffffff !important;
 }
+#editaPredios input{
+    outline: none !important;
+}
 
 #alterarAr .modal-content{
     background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
