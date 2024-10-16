@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="editaPredios" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -8,6 +9,7 @@
             <div class="modal-body">
                 <div class="container">
                     <% predios.forEach(predio=> { %>
+                        <!-- <%= include('removePredio.ejs', { predio }) %> -->
                         <div class="row">
                             <form action="/predio/update/<%= predio.id %>" method="post" class="d-flex justify-content-between">
                                 <div class="col-auto">
@@ -16,8 +18,8 @@
                                 </div>
                                 <div class="col-auto">
                                     <box-icon id="<%= predio.id %>" onclick="edita(this)" name='rename' color='#7964ff'></box-icon>
-                                    <box-icon id="excluir_predio_<%= predio.id %>" name='x' color='#7964ff' ></box-icon>
-                                    <button type="submit" id="confirma_edita_<%= predio.id %>" onclick="edita(this)" class="border-0 bg-transparent p-0" hidden></button>
+                                    <box-icon id="excluir_predio_<%= predio.id %>" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#modal_excluir_predio_<%= predio.id %>" name='x' color='#7964ff'></box-icon>
+                                    <button type="submit" id="confirma_edita_<%= predio.id %>" class="border-0 bg-transparent p-0" hidden></button>
                                 </div>
                             </form>
                         </div>
@@ -27,7 +29,34 @@
         </div>                    
     </div>   
 </div>
-    
+
+
+<% predios.forEach(predio=> { %>
+    <!-- Modal Exclusão-->
+    <div class="modal fade modal_excluir_predio" id="modal_excluir_predio_<%= predio.id %>" tabindex="-1" aria-labelledby="excluirLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="/predio/remove/<%= predio.id %>" method="post">
+                        <div id="excluir-topo">
+                            <strong>
+                                <p>Excluir Prédio</p>
+                            </strong>
+                        </div>
+                        <div class="excluir-corpo text-center mt-5">
+                            <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
+                            <p>Todas as salas vinculadas ao prédio <%= predio.nome %> também serão excluídas!</p>
+                        </div>
+                        <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
+                            <button type="submit" class="btn excluir-confirma">EXCLUIR</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#editaPredios" class="btn">CANCELAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<% }) %>
 
 
 <script>

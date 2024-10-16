@@ -250,12 +250,12 @@ box-icon{
     width: 0%;
     border-radius: 50px;
 }
-.remove .modal-content{
+.remove .modal-content, .removePredio .modal-content, .modal_excluir_predio .modal-content{
     background: linear-gradient(87deg,#f5365c,#f56036)!important;
     border: none !important;
     color: #FFFFFF !important;
 }
-.remove .modal-content p{
+.remove .modal-content p, .removePredio .modal-content p, .modal_excluir_predio p{
     color: #FFFFFF !important;
 }
 .ativaUsuario .modal-content{
@@ -337,6 +337,7 @@ box-icon{
 #editaPredios input{
     outline: none !important;
 }
+
 
 #alterarAr .modal-content{
     background: linear-gradient(90deg, rgba(66,37,251,1) 0%, rgba(154,138,251,1) 100%);
