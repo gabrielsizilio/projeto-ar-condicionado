@@ -9,7 +9,6 @@
             <div class="modal-body">
                 <div class="container">
                     <% predios.forEach(predio=> { %>
-                        <!-- <%= include('removePredio.ejs', { predio }) %> -->
                         <div class="row">
                             <form action="/predio/update/<%= predio.id %>" method="post" class="d-flex justify-content-between">
                                 <div class="col-auto">
