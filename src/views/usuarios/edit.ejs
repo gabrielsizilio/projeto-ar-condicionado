@@ -49,7 +49,7 @@
                     <div>
                         <div class="col-4 mt-4" id="escolha-curso">
                             <label for="curso" class="form-label">Área(s):</label><br>
-                            <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCursoEdit"
+                            <button type="button" id="btnCurso" class="btn" data-bs-target="#escolheCursoEdit_<%= usuario.id %>"
                                 data-bs-toggle="modal"
                                 onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
                             <div class=" areaUsuario mt-3" id="areaUsuarioEdit_<%= usuario.id %>">
@@ -90,15 +90,15 @@
                                 <%= area.nome %>
                             </label>
                         </div>
-                        <% }) %>
-                            <% } else { %>
-                                <p>Não há áreas cadastradas no sistema</p>
-                                <% } %>
-                                    <div class="row col-12 d-flex justify-content-center salvar">
-                                        <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
-                                            data-bs-target="#edit_<%= usuario.id %>" data-bs-toggle="modal"
-                                            onclick="preencheInputsEdit()">Escolher</button>
-                                    </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>Não há áreas cadastradas no sistema</p>
+                <% } %>
+                <div class="row col-12 d-flex justify-content-center salvar">
+                    <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
+                        data-bs-target="#edit_<%= usuario.id %>" data-bs-toggle="modal"
+                        onclick="preencheInputsEdit('<%= usuario.id %>')">Escolher</button>
+                </div>
             </div>
         </div>
     </div>
@@ -107,6 +107,41 @@
 
 
 <script>
+    function preencheInputsEdit(id) {
+        var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
+        atualizaAreaUsuarioEdit(areasId, id);
+    }
+
+    function atualizaAreaUsuarioEdit(areasId, id) {
+        var areas = [];
+        areasId.forEach(area => {
+            areas.push(area.value);
+        });
+
+        var areasIndice = JSON.parse('<%- JSON.stringify(areas) %>')
+
+
+        var areaUsuario = document.getElementById(`areaUsuarioEdit_${id}`)
+        console.log(`areaUsuarioEdit_${id}`)
+
+        if (areasId && areasId.length > 0) {
+            areaUsuario.innerHTML = '';
+            areaUsuario.hidden = false;
+
+            areas.forEach(areaId => {
+                var area = areasIndice.find(a => a.id == areaId);
+                var curso = document.createElement('span');
+                curso.classList.add('cursoEscolhido');
+
+                curso.textContent = area.nome;
+                areaUsuario.appendChild(curso);
+            });
+        } else {
+            areaUsuario.hidden = true;
+        }
+        // preencheInputsEdit();
+    }
+
     function atualizaArea(id, areas) {
 
         var btnEscolheArea = document.getElementById('btnEscolheArea')

@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-4 mt-4" id="escolha-curso">
                         <label for="curso" class="form-label">Área(s):</label><br>
-                        <button id="btnCurso" type="button" class="btn" data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
+                        <button id="btnCurso" type="button" onclick="guardaDadosInputs()" class="btn" data-bs-target="#escolheCurso" data-bs-toggle="modal">Escolher</button>
                         <div id="areaUsuario" class="mt-3" hidden></div>
                     </div>
                     <div class="row col-12 d-flex justify-content-end salvar">
@@ -50,4 +50,40 @@
             </div>
         </div>
     </div>
-    </form>
+</form>
+
+<script>
+
+    var nome, funcao, usuario, email, senha;
+
+    //Guarda dados dos inputs antes de prosseguir para o outro modal
+    function guardaDadosInputs(){
+        nome = document.getElementById('nome').value;
+        funcao = document.getElementById('role').value;
+        usuario = document.getElementById('usuario').value;
+        email = document.getElementById('email').value;
+        senha = document.getElementById('senha').value;
+    }
+
+
+    //Recuperar dados dos inputs
+    function preencheInputs(){
+        console.log(nome)
+        document.getElementById('nome').value = nome;
+        document.getElementById('role').value = funcao;
+        document.getElementById('usuario').value = usuario;
+        document.getElementById('email').value = email;
+        document.getElementById('senha').value = senha;
+    }
+
+    //Executar ações quando modal fecha
+    document.getElementById('adicionaUsuario').addEventListener('hidden.bs.modal', function (event) {
+        document.getElementById('nome').value = '';
+        document.getElementById('role').value = '';
+        document.getElementById('usuario').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('senha').value = '';
+        document.getElementById('areaUsuario').hidden = true;
+
+    });
+</script>

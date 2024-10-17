@@ -14,16 +14,65 @@
                                 <%= area.nome %>
                             </label>
                         </div>
-                        <% }) %>
-                            <% } else { %>
-                                <p>Não há áreas cadastradas no sistema</p>
-                                <% } %>
-                                    <div class="row col-12 d-flex justify-content-center salvar">
-                                        <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
-                                             data-bs-target="#adicionaUsuario"
-                                            data-bs-toggle="modal" onclick="preencheInputs()">Escolher</button>
-                                    </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>Não há áreas cadastradas no sistema</p>
+                <% } %>
+                <div class="row col-12 d-flex justify-content-center salvar">
+                    <button id="btnEscolheArea" type="button" class="btn btn-primary col-4  mt-4"
+                            data-bs-target="#adicionaUsuario"
+                        data-bs-toggle="modal" onclick="preencheCursos()">Escolher</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    //Recuperar dados dos inputs
+    function preencheInputs(){
+        console.log(nome)
+        document.getElementById('nome').value = nome;
+        document.getElementById('role').value = funcao;
+        document.getElementById('usuario').value = usuario;
+        document.getElementById('email').value = email;
+        document.getElementById('senha').value = senha;
+    }
+
+
+    //Recupera Cursos
+    function preencheCursos() {
+        var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
+        atualizaAreaUsuario(areasId);
+    }
+
+    function atualizaAreaUsuario(areasId) {
+
+        var areas = [];
+        areasId.forEach(area => {
+            areas.push(area.value);
+        });
+
+        var areasIndice = JSON.parse('<%- JSON.stringify(areas) %>')
+
+
+        var areaUsuario = document.getElementById('areaUsuario')
+
+        if (areasId && areasId.length > 0) {
+            areaUsuario.innerHTML = '';
+            areaUsuario.hidden = false;
+
+            areas.forEach(areaId => {
+                var area = areasIndice.find(a => a.id == areaId);
+                var curso = document.createElement('span');
+                curso.classList.add('cursoEscolhido');
+
+                curso.textContent = area.nome;
+                areaUsuario.appendChild(curso);
+            });
+        } else {
+            areaUsuario.hidden = true;
+        }
+        preencheInputs();
+    }
+</script>

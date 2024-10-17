@@ -3,7 +3,6 @@
     <%- include('../partials/header.ejs')%>
     
     <%- include('./escolherCurso') %>
-    <%- include('./escolherCursoEdit') %>
     
     <body class="container-body">
         
@@ -87,40 +86,9 @@
         </div>
         
         <script>
-
-            // Recuperar informações para os inputs
-            function preencheInputs() {
-                var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
-                atualizaAreaUsuario(areasId)
-            }
-
-            function atualizaAreaUsuario(areasId) {
-                var areas = JSON.parse('<%- JSON.stringify(areas) %>');
-                var areaUsuario = document.getElementById('areaUsuario')
-
-                console.log(JSON.stringify(areasId));
-
-                if (areasId && areasId.length > 0) {
-                    areaUsuario.innerHTML = ''
-                    areaUsuario.hidden = false
-
-                    areasId.forEach(areaId => {
-                        var area = areas.find(a => a.id == areaId.value)
-                        var curso = document.createElement('span')
-                        curso.classList.add('cursoEscolhido')
-
-                        curso.textContent = area.nome
-                        areaUsuario.appendChild(curso)
-                    });
-                } else {
-                    areaUsuario.hidden = true;
-                }
-            }
-
             //Seleção do menu
             var selecionado = document.getElementById('usuarios');
             selecionado.classList.add('menu-selecionado');
-
         </script>
 
     </body>
