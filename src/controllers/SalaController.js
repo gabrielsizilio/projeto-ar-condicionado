@@ -51,17 +51,16 @@ async function store(req, res) {
     const { nome, nomeNovoPredio, gerenciarSala } = req.body
     let { predio } = req.body
 
-    if(nomeNovoPredio) {
-        const novoPredio = await PredioService.createPredio(nomeNovoPredio)
-
-        predio = novoPredio.id
-    }
-
+    
     if (!nome) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
-
+    
     try {
+        if(nomeNovoPredio) {
+            const novoPredio = await PredioService.createPredio(nomeNovoPredio)
+            predio = novoPredio.id
+        }
 
         const sala = await Sala.create({
             nome,
