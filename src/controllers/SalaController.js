@@ -4,6 +4,7 @@ const ArCondicionado = require('../models/ArCondicionado')
 const Controlador = require('../models/Controloador')
 const Marca = require('../models/Marca')
 const Modelo = require('../models/Modelo')
+const PredioService = require('../services/PredioService');
 const { checkToken } = require('../config/auth')
 const Credencial = require('../models/Credencial')
 const Usuario = require('../models/Usuario')
@@ -48,12 +49,10 @@ async function create(req, res) {
 
 async function store(req, res) {
     const { nome, nomeNovoPredio, gerenciarSala } = req.body
-    var { predio } = req.body
+    let { predio } = req.body
 
     if(nomeNovoPredio) {
-        const novoPredio = await Predio.create({
-            nome: nomeNovoPredio
-        })
+        const novoPredio = await PredioService.createPredio(nomeNovoPredio)
 
         predio = novoPredio.id
     }
@@ -101,19 +100,28 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
-    const sala_id = req.params
-    const { nome, predio_id } = req.body
+    const { sala_id } = req.params
+    const { nome, nomeNovoPredio, predio: predio_id } = req.body
 
-    if (!nome || !predio_id) {
-        return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
+    if (!nome) {
+        return res.status(400).json({ msgErr: 'Campo nome é obrigatório.' })
+    }
+    if (!predio_id && !nomeNovoPredio) {
+        return res.status(400).json({ msgErr: 'É necessário informar o id do prédio.' })
     }
 
-    if (!sala_id.id) {
+    if (!sala_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual sala será editada.' })
     }
 
     try {
-        const sala = await Sala.findByPk(marca_id.id)
+        let newPredioId = predio_id;
+        if (nomeNovoPredio) {
+            const novoPredio = await PredioService.createPredio(nomeNovoPredio);
+            newPredioId = novoPredio.id;
+        }
+
+        const sala = await Sala.findByPk(sala_id)
 
         if (!sala) {
             return res.status(404).json({ msgErr: 'Sala não encontrado.' })
@@ -121,10 +129,11 @@ async function update(req, res) {
 
         await sala.update({
             nome,
-            predio_id
+            predio_id: newPredioId
         })
 
-        return res.status(200).json({ sala })
+        res.redirect('/predio')
+        // return res.status(200).json({ sala })
 
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
