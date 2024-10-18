@@ -23,14 +23,14 @@ class PredioService {
             const predio = await Predio.findByPk(predio_id);
 
             if (!predio) throw new Error('Prédio não encontrado.');
-
+            
             const predioExistente = await Predio.findOne({ where: { nome } });
-
+            
             if (predioExistente && predioExistente.id !== predio_id) {
                 throw new Error('Já existe um prédio com esse nome.');
             }
-
-            return await Predio.update({ nome });
+            
+            return await predio.update({ nome });
         } catch (error) {
             throw new Error('Erro ao atualizar o prédio: ' + error.message);
         }
@@ -42,12 +42,12 @@ class PredioService {
             const predio = await Predio.findByPk(predio_id)
 
             if (!predio) {
-                return res.status(404).json({ msgErr: 'Prédio não encontrado.' })
+                throw new Error('Prédio não encontrado.')
             }
 
             return await predio.destroy()
         } catch (error) {
-            throw new Error('Erro ao atualizar o prédio: ' + error.message);
+            throw new Error('Erro ao deletar o prédio: ' + error.message);
         }
     }
 

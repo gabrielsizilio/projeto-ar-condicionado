@@ -49,12 +49,10 @@ async function create(req, res) {
 
 async function store(req, res) {
     const { nome, nomeNovoPredio, gerenciarSala } = req.body
-    var { predio } = req.body
+    let { predio } = req.body
 
     if(nomeNovoPredio) {
-        const novoPredio = await PredioService.createPredio({
-            nome: nomeNovoPredio
-        })
+        const novoPredio = await PredioService.createPredio(nomeNovoPredio)
 
         predio = novoPredio.id
     }
@@ -119,7 +117,7 @@ async function update(req, res) {
     try {
         let newPredioId = predio_id;
         if (nomeNovoPredio) {
-            const novoPredio = await PredioService.createPredio({ nome: nomeNovoPredio });
+            const novoPredio = await PredioService.createPredio(nomeNovoPredio);
             newPredioId = novoPredio.id;
         }
 

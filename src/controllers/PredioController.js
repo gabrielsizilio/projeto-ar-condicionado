@@ -28,14 +28,14 @@ async function store(req, res) {
     try {
         await PredioService.createPredio({ nome })
 
-        res.redirect('/predio')
+        res.status(200).redirect('/predio')
     } catch (error) {
         res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
 }
 
 async function edit(req, res) {
-    const predio_id = req.params
+    const { id: predio_id } = req.params
 
     try {
         const predio = await predio.findByPk(predio_id)
@@ -51,7 +51,7 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
-    const predio_id = req.params
+    const { id: predio_id } = req.params
     const { nome } = req.body
 
     if (!nome) {
@@ -65,23 +65,23 @@ async function update(req, res) {
     try {
         const predio = await PredioService.updatePredio(nome, predio_id)
 
-        return res.status(200).json({ predio })
-
+        res.status(200).redirect('/predio')
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error })
     }
 }
 
 async function remove(req, res) {
-    const predio_id = req.params
+    const { id: predio_id } = req.params
 
     if (!predio_id) {
         return res.status(400).json({ msgErr: 'É necessário informar qual predio será removido.' })
     }
 
     try {
-        PredioService.deletePredio(predio_id);
-        res.json({ msg: "Prédio excluído com sucesso!" })
+        await PredioService.deletePredio(predio_id)
+        res.status(200).redirect('/predio')
+        // res.json({ msg: "Prédio excluído com sucesso!" })
 
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
