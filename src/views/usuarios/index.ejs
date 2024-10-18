@@ -3,7 +3,6 @@
     <%- include('../partials/header.ejs')%>
     
     <%- include('./escolherCurso') %>
-    <%- include('./escolherCursoEdit') %>
     
     <body class="container-body">
         
@@ -45,27 +44,26 @@
                                             <% if (usuario.credencial) { %>
                                                 <%= usuario.credencial.email %>
                                             <% } else { %>
-                                                <p>
-                                                    Conta desabilitada!
-                                                </p>
+                                
+                                                    INATIVO
+                                            
                                             <%}%>
                                         </td>
                                         <% if (usuario.credencial) { %>
                                             <%- include('./remove', {usuarioId: usuario.id, nome: usuario.nome}) %>
                                             <td class="text-end">
                                                 <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= usuario.id %>">
-                                                    <box-icon name='trash' color='#ff0000'></box-icon>
+                                                    <box-icon name='user-minus' color='#ff1800' ></box-icon>
                                                 </a>
                                             </td>
                                             <% } else { %>
-                                                <td>
+
+                                                <%- include('./ativaUsuario', {usuarioId: usuario.id, nome: usuario.nome}) %>
+                                                
+                                                <td class="d-flex justify-content-end">
                                                     <!-- TODO: COLOCAR ELEMNTO DE RESTORE -->
-                                                     <form action="usuario/restore/<%= usuario.id %>" method="post">
-                                                         
-                                                        <button class="btn" type="submit">
-                                                            <box-icon name='trash' color='#ff0000'></box-icon>
-                                                        </button>
-                                                     </form>
+                                                    <a href="" data-bs-toggle="modal" type="submit" data-bs-target="#ativar_<%= usuario.id %>">
+                                                        <box-icon name='user-plus' color='#15d23a' ></box-icon>
                                                     </a>
                                                 </td>
                                             <% } %>
@@ -88,42 +86,26 @@
         </div>
         
         <script>
-
-            // Recuperar informações para os inputs
-            function preencheInputs() {
-                var areasId = document.querySelectorAll('input[name="areas[]"]:checked');
-                atualizaAreaUsuario(areasId)
-            }
-
-            function atualizaAreaUsuario(areasId) {
-                var areas = JSON.parse('<%- JSON.stringify(areas) %>');
-                var areaUsuario = document.getElementById('areaUsuario')
-
-                console.log(JSON.stringify(areasId));
-
-                if (areasId && areasId.length > 0) {
-                    areaUsuario.innerHTML = ''
-                    areaUsuario.hidden = false
-
-                    areasId.forEach(areaId => {
-                        var area = areas.find(a => a.id == areaId.value)
-                        var curso = document.createElement('span')
-                        curso.classList.add('cursoEscolhido')
-
-                        curso.textContent = area.nome
-                        areaUsuario.appendChild(curso)
-                    });
-                } else {
-                    areaUsuario.hidden = true;
-                }
-            }
-
             //Seleção do menu
             var selecionado = document.getElementById('usuarios');
             selecionado.classList.add('menu-selecionado');
-
         </script>
 
     </body>
 
 </html>
+
+<style>
+    .icon-enable{
+        padding: 0px !important;
+        width: min-content;
+    }
+    .icon-enable button{
+        padding: 0px !important;
+        border: none !important;
+        background-color: transparent !important;
+    }
+    .icon-enable button:hover{
+        background: none !important;
+    }
+</style>

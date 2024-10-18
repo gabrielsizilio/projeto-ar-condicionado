@@ -1,0 +1,25 @@
+<!-- Modal -->
+<div class="modal fade ativaUsuario" id="ativar_<%= usuarioId %>" tabindex="-1" aria-labelledby="ativarLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="usuario/restore/<%= usuarioId %>" method="post">
+                    <div id="ativar-topo">
+                        <strong>
+                            <p>Ativar Usuário</p>
+                        </strong>
+                    </div>
+                    <div class="ativar-corpo text-center mt-5">
+                        <box-icon name='user-minus' color='#ffffff' size='lg'></box-icon>
+                        <p>Você realmente deseja ativar o usuário <%= nome %>? </p>
+                    </div>
+                    <div class="ativar-bottom d-flex justify-content-between text-center mt-5">
+                        <button type="submit" class="btn ativar-confirma">ATIVAR</button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

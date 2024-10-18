@@ -1,26 +1,62 @@
-    <div class="modal fade" id="editaPredios" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Alterar Prédios</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<div class="modal fade" id="editaPredios" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Alterar Prédios</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <% predios.forEach(predio=> { %>
+                        <div class="row">
+                            <form action="/predio/update/<%= predio.id %>" method="post" class="d-flex justify-content-between">
+                                <div class="col-auto">
+                                    <span id="predio_<%= predio.id %>"><%= predio.nome %></span>
+                                    <input name="nome" class="p-1 rounded-1 border-0" id="input_predio_<%= predio.id %>" type="text" onfocusout="cancelar('<%= predio.id %>')" hidden required minlength="3" maxlength="50">
+                                </div>
+                                <div class="col-auto">
+                                    <box-icon id="<%= predio.id %>" onclick="edita(this)" name='rename' color='#7964ff'></box-icon>
+                                    <box-icon id="excluir_predio_<%= predio.id %>" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#modal_excluir_predio_<%= predio.id %>" name='x' color='#7964ff'></box-icon>
+                                    <button type="submit" id="confirma_edita_<%= predio.id %>" class="border-0 bg-transparent p-0" hidden></button>
+                                </div>
+                            </form>
+                        </div>
+                    <% }) %>
                 </div>
+            </div>
+        </div>                    
+    </div>   
+</div>
+
+
+<% predios.forEach(predio=> { %>
+    <!-- Modal Exclusão-->
+    <div class="modal fade modal_excluir_predio" id="modal_excluir_predio_<%= predio.id %>" tabindex="-1" aria-labelledby="excluirLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
                 <div class="modal-body">
-                    <table class="table  m-0 table-sm">
-                        <tbody>
-                            <% predios.forEach(predio=> { %>
-                                <tr>
-                                    <td class="col-10"><%= predio.nome %></td>
-                                    <td><box-icon name='rename' color='#7964ff' ></box-icon></td>
-                                    <td><box-icon name='x' color='#7964ff' ></box-icon></td>
-                                </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
+                    <form action="/predio/remove/<%= predio.id %>" method="post">
+                        <div id="excluir-topo">
+                            <strong>
+                                <p>Excluir Prédio</p>
+                            </strong>
+                        </div>
+                        <div class="excluir-corpo text-center mt-5">
+                            <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
+                            <p>Todas as salas vinculadas ao prédio <%= predio.nome %> também serão excluídas!</p>
+                        </div>
+                        <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
+                            <button type="submit" class="btn excluir-confirma">EXCLUIR</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#editaPredios" class="btn">CANCELAR</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+<% }) %>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -43,4 +79,30 @@
             }
         }
     });
+
+    function edita(obj_predio){
+        const predio_id = obj_predio.id;
+        const input_predio = document.getElementById(`input_predio_${predio_id}`);
+        const predio = document.getElementById(`predio_${predio_id}`);
+
+        predio.setAttribute('hidden', '');
+        input_predio.value = predio.textContent;
+        input_predio.removeAttribute('hidden');
+        input_predio.focus();
+        const length = input_predio.value.length;
+        input_predio.setSelectionRange(length, length);
+        document.getElementById(predio_id).setAttribute('hidden', '');
+        document.getElementById(`excluir_predio_${predio_id}`).setAttribute('hidden', '');
+    }
+
+    function cancelar(obj_predio){
+        const predio_id = obj_predio;
+        const input_predio = document.getElementById(`input_predio_${predio_id}`);
+        const predio = document.getElementById(`predio_${predio_id}`);
+
+        predio.removeAttribute('hidden');
+        input_predio.setAttribute('hidden', '');
+        document.getElementById(predio_id).removeAttribute('hidden');
+        document.getElementById(`excluir_predio_${predio_id}`).removeAttribute('hidden');
+    }
 </script>
