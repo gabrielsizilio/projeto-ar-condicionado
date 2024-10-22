@@ -17,9 +17,10 @@ async function createToken(credencial) {
 
         const payload = {
             id: credencial.id,
+            user_id: user.id,
             role: userRole.nome
         }
-        
+
         const token = jwt.sign(payload, secret, option);
         return token;
     } catch (error) {

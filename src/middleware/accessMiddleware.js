@@ -7,21 +7,26 @@ function access(allowedRoles) {
 
         let hasAccess = false;
 
-        if(req.cookies.jwt) {
+        if (req.cookies.jwt) {
             const token = req.cookies.jwt;
             const payload = checkToken(token);
-            
-            hasAccess = allowedRoles.includes(payload.role);
-        } else if(req.user) {
+
+            const user = await Usuario.findByPk(payload.user_id, {
+                include: [{ association: 'role' }]
+            });
+
+            hasAccess = allowedRoles.includes(user.role.nome);
+        } else if (req.user) {
             const role = await Role.findByPk(req.user.role_id);
 
             hasAccess = allowedRoles.includes(role.nome);
         }
 
-        if(hasAccess) {
+        if (hasAccess) {
             return next()
         } else {
-            return res.status(401).json({ error: 'Acesso negado. Você não tem permissão para acessar esta rota.' });
+            return res.redirect('/');
+            // return res.status(401).json({ error: 'Acesso negado. Você não tem permissão para acessar esta rota.' });
         }
     }
 }
