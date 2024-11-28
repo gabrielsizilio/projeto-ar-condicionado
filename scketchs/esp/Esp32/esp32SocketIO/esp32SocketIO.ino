@@ -1,8 +1,8 @@
+#include "config.h"
 #include <Arduino.h>
 #include <IRremote.hpp>
 
 #include <WiFi.h>
-#include <WiFiMulti.h>
 #include <WiFiClientSecure.h>
 
 #include <ArduinoJson.h>
@@ -10,7 +10,6 @@
 #include <WebSocketsClient.h>
 #include <SocketIOclient.h>
 
-WiFiMulti WiFiMulti;
 SocketIOclient socketIO;
 
 #define USE_SERIAL Serial
@@ -30,7 +29,7 @@ void searchWifi() {
 }
 
 void connectWifi() {
-  WiFi.begin("AC", "Rb3608.W");
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   while (WiFi.status() != WL_CONNECTED) {
     USE_SERIAL.print(".");
@@ -50,7 +49,6 @@ void setupSocket() {
     JsonArray array = doc.to<JsonArray>();
 
        // add evnet name
-       // Hint: socket.on('event_name', ....)
        array.add("setup");
 
        // add payload (parameters) for the event
@@ -142,23 +140,13 @@ void setup() {
 
     // searchWifi();
 
-    // WiFiMulti.addAP("Maker", "njf2niab");
-    // WiFiMulti.addAP("AC", "Rb3608.W");
-    // WiFi.softAP("AC","Rb3608.W" );
-
-    // WiFi.disconnect();
-    // while(WiFiMulti.run() != WL_CONNECTED) {
-    //     USE_SERIAL.printf(".");
-    //     delay(100);
-    // }
-
     connectWifi();
 
     String ip = WiFi.localIP().toString();
     USE_SERIAL.printf("[SETUP] WiFi Connected %s\n", ip.c_str());
 
     // server address, port and URL
-    socketIO.begin("200.131.242.55", 3000, "/socket.io/?EIO=4");
+    socketIO.begin("192.168.0.10", 3000, "/socket.io/?EIO=4");
 
     // event handler
     socketIO.onEvent(socketIOEvent);
@@ -166,6 +154,12 @@ void setup() {
 
 unsigned long messageTimestamp = 0;
 void loop() {
-    socketIO.loop();
+
+  if (WiFi.status() != WL_CONNECTED) {
+    USE_SERIAL.println("WiFi disconnected! Reconnecting...");
+    connectWifi();
+  }
+  
+  socketIO.loop();
 
 }
