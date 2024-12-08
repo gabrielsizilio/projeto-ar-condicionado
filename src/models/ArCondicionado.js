@@ -4,7 +4,8 @@ class ArCondicionado extends Model {
     static init(sequelize) {
         super.init({
             nome: DataTypes.STRING,
-            pinEmissor: DataTypes.INTEGER
+            pinEmissor: DataTypes.INTEGER,
+            irBlocked: DataTypes.BOOLEAN
         }, {
             sequelize,
             tableName: 'ares_condicionados'
