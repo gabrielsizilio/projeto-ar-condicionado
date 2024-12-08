@@ -1,9 +1,9 @@
 const ArCondicionado = require('../models/ArCondicionado')
 const Modelo = require('../models/Modelo')
 const Temperatura = require('../models/Temperatura')
-const { registerLogUpdateTemperatura } = require('../services/logService')
+const { registerLogUpdateTemperatura } = require('./logService')
 
-class SocketController {
+class SocketService {
     setup(esp, socket, macAddressMapping) {
         console.log(`Controlador registrado: ${esp.macAddress}`)
         macAddressMapping[esp.macAddress] = socket.id
@@ -67,4 +67,4 @@ class SocketController {
     }
 }
 
-module.exports = new SocketController()
+module.exports = new SocketService()
