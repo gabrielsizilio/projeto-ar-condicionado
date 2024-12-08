@@ -63,7 +63,7 @@ void handleSendIr(DynamicJsonDocument &doc) {
 void handleAddBlockedEmissors(DynamicJsonDocument &doc) {
   Serial.println("Command is AddBlockedEmissors");
 
-  JsonArray pins = doc[1][0];
+  JsonArray pins = doc[1];
 
   size_t arraySize = pins.size();
   numBlockedPins = 0;
