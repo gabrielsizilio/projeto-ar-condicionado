@@ -1,17 +1,25 @@
+const { io } = require('../http');
 const ArCondicionado = require('../models/ArCondicionado')
+const ArCondicionadoService = require('../services/ArCondicionadoService')
 const Modelo = require('../models/Modelo')
 const Temperatura = require('../models/Temperatura')
 const { registerLogUpdateTemperatura } = require('./logService')
 
 class SocketService {
-    setup(esp, socket, macAddressMapping) {
+    async setup(esp, socket, macAddressMapping) {
         console.log(`Controlador registrado: ${esp.macAddress}`)
         macAddressMapping[esp.macAddress] = socket.id
         console.log(macAddressMapping);
-
+        await this.setBlockedPins(esp.macAddress, socket.id, macAddressMapping);
     }
 
-    async enviaComando(comandoParm, macAddressMapping, io) {
+    async setBlockedPins(macAddress, socket_id) {
+        const blockedPins = await ArCondicionadoService.getBlockedIRPins(macAddress);
+
+        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);
+    }
+
+    async enviaComando(comandoParm, macAddressMapping) {
         const { user } = comandoParm;
 
         console.log("usuario: " + user.nome);

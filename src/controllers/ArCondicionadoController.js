@@ -1,7 +1,9 @@
 const ArCondicionado = require('../models/ArCondicionado')
 const Modelo = require('../models/Modelo')
 const Marca = require('../models/Marca')
-const Controlador = require('../models/Controloador')
+const Controlador = require('../models/Controlador')
+const ArCondicionadoService = require('../services/ArCondicionadoService')
+const macAddressMapping = require("../websocket");
 
 
 async function index(req, res) {
@@ -96,7 +98,6 @@ async function edit(req, res) {
     }
 }
 
-
 async function update(req, res) {
     const arId = req.params.id
     const updateValues = { nome, marca_id, modelo_id, controlador_id } = req.body
@@ -147,6 +148,18 @@ async function update(req, res) {
     }
 }
 
+async function setIRBlockState(req, res) {
+    const arCondicionadoId = req.params.id;
+    const { irBlocked } = req.body;
+    
+    try {
+        await ArCondicionadoService.setIRBlockState(arCondicionadoId, irBlocked, macAddressMapping);
+        res.status(200).send('Estado do IR atualizado');
+    } catch (error) {
+        return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
+    }
+}
+
 async function remove(req, res) {
     const id = req.params.id
 
@@ -177,5 +190,6 @@ module.exports = {
     store,
     edit,
     update,
-    remove
+    remove,
+    setIRBlockState
 }
