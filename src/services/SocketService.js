@@ -11,6 +11,7 @@ class SocketService {
         macAddressMapping[esp.macAddress] = socket.id
         console.log(macAddressMapping);
         await this.setBlockedPins(esp.macAddress, socket.id, macAddressMapping);
+        this.checkModuleConnectionStatus(esp.macAddress, macAddressMapping);
     }
 
     async setBlockedPins(macAddress, socket_id) {
@@ -63,15 +64,24 @@ class SocketService {
         await registerLogUpdateTemperatura(comandoParm);
     }
 
+    checkModuleConnectionStatus(macAddress, macAddressMapping) {
+        const isModuleConnected = macAddressMapping[macAddress] ? true : false;
+        io.emit('moduleConnectionStatus', { isModuleConnected, macAddress });
+    }
+
     disconnect(socket, macAddressMapping) {
         console.log(`Usuário desconectado { id: ${socket.id} }`)
 
-        Object.keys(macAddressMapping).forEach(id_controlador => {
-            if (macAddressMapping[id_controlador] == socket.id) {
-                delete macAddressMapping[id_controlador]
+        Object.entries(macAddressMapping).forEach(([id_controlador, socketId]) => {
+            if (socketId == socket.id) {
+                delete macAddressMapping[id_controlador];
+                console.log(`Controlador desconectado: ${id_controlador}`);
+                this.checkModuleConnectionStatus(id_controlador, macAddressMapping);
             }
         });
+
         console.log(macAddressMapping);
+
     }
 }
 

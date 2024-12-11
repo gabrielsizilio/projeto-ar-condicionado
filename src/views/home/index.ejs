@@ -496,14 +496,14 @@
             })
         });
 
-
+        // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
         // Inicializa os modais
-        const myModal = document.getElementById('myModal')
-        const myInput = document.getElementById('myInput')
+        // const myModal = document.getElementById('myModal')
+        // const myInput = document.getElementById('myInput')
 
-        myModal.addEventListener('shown.bs.modal', () => {
-            myInput.focus()
-        })
+        // myModal.addEventListener('shown.bs.modal', () => {
+        //     myInput.focus()
+        // })
 
 
 
@@ -532,16 +532,25 @@
 
         const socket = io();
 
-        socket.on('eventoTeste', () => {
+        socket.on('moduleConnectionStatus', (connectionStatus) => { // Nessa função fazer as modificações no front
             console.log("Chamou o evento corretamente")
+            console.log(connectionStatus); // formato esperado { isModuleConnected, macAddress }
         })
 
         function enviarComando(temperatura) {
             const id_controlador = document.getElementById("id_controlador").value;
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
-            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user})
+            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
         }
-        alteraSala(document.getElementById('selectPredioMobile'))
+
+        // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
+        // alteraSala(document.getElementById('selectPredioMobile'))
+
+        function emitModuleConnectionCheck(macAddress) {
+            socket.emit('checkModuleConnection', macAddress);
+        }
+        
+        emitModuleConnectionCheck('MacAddress Aqui'); // Precisa chamar ao carregar a página para cada ar-condicionado
 
     </script>
 
