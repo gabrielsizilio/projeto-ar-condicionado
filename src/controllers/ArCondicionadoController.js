@@ -54,7 +54,7 @@ async function store(req, res) {
     let controlador_id = reqControladorId;
     let modelo_id = reqModeloId;
 
-    if (!nome || !pinEmissor || sala_id) {
+    if (!nome || !pinEmissor || !sala_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
