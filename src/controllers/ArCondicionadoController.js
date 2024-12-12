@@ -41,40 +41,64 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const novoAr = { nome, marca_id, modelo_id, controlador_id, sala_id} = req.body
-    if (!nome) {
+    const {
+        nome,
+        marca_id,
+        modelo_id: reqModeloId,
+        controlador_id: reqControladorId,
+        pinEmissor,
+        sala_id,
+        nomeNovoModelo,
+        macAdressNovoControlador,
+    } = req.body;
+    let controlador_id = reqControladorId;
+    let modelo_id = reqModeloId;
+
+    if (!nome || !pinEmissor || sala_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
 
     try {
-        if (novoAr.nomeNovoModelo) {
-            const marca = await Marca.findByPk(marca_id)
-            const modelo = await marca.createModelo({
-                nome: novoAr.nomeNovoModelo
+        if (nomeNovoModelo) {
+            const marca = await Marca.findByPk(marca_id);
+            if (!marca) {
+                return res.status(404).json({ msgErr: 'Marca não encontrada.' });
+            }
+
+            const modelo = await Modelo.create({ 
+                nome: nomeNovoModelo,
+                marca_id
             })
 
             modelo_id = modelo.id
         }
 
-        if (novoAr.macAdressNovoControlador) {
-
+        if (macAdressNovoControlador) {
             const controlador = await Controlador.create({
-                macAddress: novoAr.macAdressNovoControlador
+                macAddress: macAdressNovoControlador
             })
             controlador_id = controlador.id
         }
 
-        console.log(">> ", );
+        if (!controlador_id) {
+            return res.status(404).json({ msgErr: 'O id do controlador é obrigatório!' });
+        }
+
+        if (!modelo_id) {
+            return res.status(404).json({ msgErr: 'O id do modelo é obrigatório!' });
+        }
 
         await ArCondicionado.create({
             nome,
             modelo_id,
             sala_id,
-            controlador_id
-        })
+            controlador_id,
+            pinEmissor
+        });
 
         return res.status(200).redirect('back')
     } catch (error) {
+        console.log(error);
         res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
 }
@@ -98,47 +122,64 @@ async function edit(req, res) {
     }
 }
 
-async function update(req, res) {
+async function update(req, res) { 
     const arId = req.params.id
-    const updateValues = { nome, marca_id, modelo_id, controlador_id } = req.body
+    const {
+        nome,
+        marca_id,
+        modelo_id: reqModeloId,
+        controlador_id: reqControladorId,
+        pinEmissor,
+        nomeNovoModelo,
+        macAdressNovoControlador,
+    } = req.body;
+    let controlador_id = reqControladorId;
+    let modelo_id = reqModeloId;
 
-
-    if (!nome) {
+    if (!nome || !pinEmissor) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
     }
+
     try {
         const arCondicionado = await ArCondicionado.findOne({
             where: { id: arId },
             include: [{ model: Modelo, as: 'modelo' }]
         })
 
-
         if (!arCondicionado) {
             return res.status(404).json({ msgErr: 'Ar-condicionado não encontrado.' })
         }
 
-        if (updateValues.nomeNovoModelo) {
+        if (nomeNovoModelo) {
 
-            const marca = await Marca.findByPk(marca_id)
-            const modelo = await marca.createModelo({
-                nome: updateValues.nomeNovoModelo
+            const marca = await Marca.findByPk(marca_id);
+
+            if (!marca) {
+                return res.status(404).json({ msgErr: 'Marca não encontrada.' });
+            }
+
+            const modelo = await Modelo.create({
+                nome: nomeNovoModelo,
+                marca_id
             })
 
             modelo_id = modelo.id
         }
 
-        if (updateValues.macAdressNovoControlador) {
+        if (macAdressNovoControlador) {
 
             const controlador = await Controlador.create({
-                macAddress: updateValues.macAdressNovoControlador
+                macAddress: macAdressNovoControlador
             })
+
             controlador_id = controlador.id
         }
 
         await arCondicionado.update({
             nome,
             modelo_id,
-            controlador_id
+            controlador_id,
+            pinEmissor
         })
 
         return res.status(200).redirect('back')
