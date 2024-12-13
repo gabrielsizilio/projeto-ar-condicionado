@@ -54,12 +54,28 @@ async function store(req, res) {
     let controlador_id = reqControladorId;
     let modelo_id = reqModeloId;
 
+
+    const MIN_NAME_LENGTH = 3;
+    const MAX_NAME_LENGTH = 50;
+
     if (!nome || !pinEmissor || !sala_id) {
-        return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
+        return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' });
+    } else if (nome.length < MIN_NAME_LENGTH) {
+        return res.status(400).json({ msgErr: `O campo 'nome' deve ter no mínimo ${MIN_NAME_LENGTH} caracteres.` });
+    } else if (nome.length > MAX_NAME_LENGTH) {
+        return res.status(400).json({ msgErr: `O campo 'nome' deve ter no máximo ${MAX_NAME_LENGTH} caracteres.` });
     }
+    
 
     try {
         if (nomeNovoModelo) {
+
+            if (nomeNovoModelo.length < MIN_NAME_LENGTH) {
+                return res.status(400).json({ msgErr: `O campo 'nomeNovoModelo' deve ter no mínimo ${MIN_NAME_LENGTH} caracteres.` });
+            } else if (nomeNovoModelo.length > MAX_NAME_LENGTH) {
+                return res.status(400).json({ msgErr: `O campo 'nomeNovoModelo' deve ter no máximo ${MAX_NAME_LENGTH} caracteres.` });
+            }
+
             const marca = await Marca.findByPk(marca_id);
             if (!marca) {
                 return res.status(404).json({ msgErr: 'Marca não encontrada.' });
@@ -74,9 +90,16 @@ async function store(req, res) {
         }
 
         if (macAdressNovoControlador) {
+            const macAddressRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+            const macAddress = macAdressNovoControlador.trim().toUpperCase();
+            if (!macAddressRegex.test(macAddress)) {
+                return res.status(400).json({ msgErr: `O campo 'macAdressNovoControlador' deve conter um endereço MAC válido.`});
+            }
+
             const controlador = await Controlador.create({
-                macAddress: macAdressNovoControlador
-            })
+                macAddress
+            });
+
             controlador_id = controlador.id
         }
 
@@ -99,13 +122,12 @@ async function store(req, res) {
         return res.status(200).redirect('back')
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
+        return res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
     }
 }
 
 async function edit(req, res) {
     const ar_id = req.params
-
 
     try {
         const arCondicionado = await ArCondicionado.findOne({
@@ -136,8 +158,15 @@ async function update(req, res) {
     let controlador_id = reqControladorId;
     let modelo_id = reqModeloId;
 
-    if (!nome || !pinEmissor) {
-        return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' })
+    const MIN_NAME_LENGTH = 3;
+    const MAX_NAME_LENGTH = 50;
+
+    if (!nome || !pinEmissor ) {
+        return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' });
+    } else if (nome.length < MIN_NAME_LENGTH) {
+        return res.status(400).json({ msgErr: `O campo 'nome' deve ter no mínimo ${MIN_NAME_LENGTH} caracteres.` });
+    } else if (nome.length > MAX_NAME_LENGTH) {
+        return res.status(400).json({ msgErr: `O campo 'nome' deve ter no máximo ${MAX_NAME_LENGTH} caracteres.` });
     }
 
     try {
@@ -151,6 +180,12 @@ async function update(req, res) {
         }
 
         if (nomeNovoModelo) {
+
+            if (nomeNovoModelo.length < MIN_NAME_LENGTH) {
+                return res.status(400).json({ msgErr: `O campo 'nomeNovoModelo' deve ter no mínimo ${MIN_NAME_LENGTH} caracteres.` });
+            } else if (nomeNovoModelo.length > MAX_NAME_LENGTH) {
+                return res.status(400).json({ msgErr: `O campo 'nomeNovoModelo' deve ter no máximo ${MAX_NAME_LENGTH} caracteres.` });
+            }
 
             const marca = await Marca.findByPk(marca_id);
 
@@ -167,6 +202,12 @@ async function update(req, res) {
         }
 
         if (macAdressNovoControlador) {
+
+            const macAddressRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+            const macAddress = macAdressNovoControlador.trim().toUpperCase();
+            if (!macAddressRegex.test(macAddress)) {
+                return res.status(400).json({ msgErr: `O campo 'macAdressNovoControlador' deve conter um endereço MAC válido.`});
+            }
 
             const controlador = await Controlador.create({
                 macAddress: macAdressNovoControlador
@@ -192,10 +233,18 @@ async function update(req, res) {
 async function setIRBlockState(req, res) {
     const arCondicionadoId = req.params.id;
     const { irBlocked } = req.body;
+
+    if (!arCondicionadoId) {
+        return res.status(404).json({ msgErr: 'O id do ar-condicionado é obrigatório!' });
+    }
+    
+    if(!irBlocked) {
+        return res.status(400).json({ msgErr: 'O campo irBlocked é obrigatório!' });
+    }
     
     try {
         await ArCondicionadoService.setIRBlockState(arCondicionadoId, irBlocked, macAddressMapping);
-        res.status(200).send('Estado do IR atualizado');
+        return res.status(200).send('Estado do IR atualizado');
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
     }
