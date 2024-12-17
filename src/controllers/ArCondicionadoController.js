@@ -232,8 +232,9 @@ async function update(req, res) {
 
 async function setIRBlockState(req, res) {
     const arCondicionadoId = req.params.id;
-    const { irBlocked } = req.body;
-
+    const { irBlocked: irBlockedString } = req.body;
+    const irBlocked = (irBlockedString == "true") ? true : false;
+    
     if (!arCondicionadoId) {
         return res.status(404).json({ msgErr: 'O id do ar-condicionado é obrigatório!' });
     }
