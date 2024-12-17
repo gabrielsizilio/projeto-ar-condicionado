@@ -68,6 +68,7 @@
                                                 </td>
                                             <% } %>
                                         <% if (usuario.credencial) { %>
+                                            <% console.log(usuario) %>
                                             <%- include('./edit', { usuario, areasUsuario: usuario.areas, areas }) %>
                                             <%- include('./updatePassword', {usuario}) %>
                                         <% } %>

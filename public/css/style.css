@@ -785,3 +785,40 @@ box-icon{
         height: 300px;
     }
 }
+
+
+/* Gerenciamento de Salas */
+#marcaAr{
+    color: #7964ff60 !important;
+}
+.card-custom {
+    position: relative;
+    overflow: visible;
+    padding-bottom: 15px;
+    margin-bottom: 7px; /* Espaço para os botões */
+}
+.card-action-buttons {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+}
+.card-action-buttons .btn {
+    padding: 7px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.card-action-buttons box-icon{
+    fill: #7964ff !important;
+}
+.card-action-buttons .btn:hover box-icon{
+ fill: white !important;
+}
+.card-controlador {
+    background-color: #f2f8fdcc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}

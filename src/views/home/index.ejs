@@ -32,18 +32,13 @@
                             <div class="row justify-content-between pt-2 pb-2">
                                 <div class="col-5 identificacao d-flex align-items-center justify-content-start">
                                     <% if (predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { %>
-                                        <span id="span1"><strong><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></strong></span>
+                                        <span id="span1"><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></span>
                                     <% } else { %>
-                                        <span id="span1"><strong>Dados indisponíveis</strong></span>
+                                        <span id="span1">Dados indisponíveis</span>
                                     <% } %>
                                 </div>
-                                <div class="col-2 onoff text-center">
-                                    <span>
-                                        <button class="btn" type="submit" onclick="enviarComando()">ON</button>
-                                    </span>
-                                </div>
                                 <div class="col-5 nome d-flex align-items-center justify-content-end">
-                                    <span><strong>Temperatura Padrão: 22°C</strong></span>
+                                    <span>Temperatura Padrão: 22°C</span>
                                 </div>
                             </div>
 
