@@ -73,10 +73,10 @@
                                                     </td>
                                                 </tr>
                                                 <% }) %>
-                                                <% predios.forEach(predio => { 
-                                                    predio.salas.forEach(sala => { %>
-                                                        <%- include('remove.ejs', { sala }) %>
-                                                        <%- include('../salas/edit.ejs', { sala, predios }) %>
+                                                    <% predios.forEach(predio => { 
+                                                        predio.salas.forEach(sala => { %>
+                                                            <%- include('remove.ejs', { sala }) %>
+                                                            <%- include('../salas/edit.ejs', { sala, predios }) %>
                                                     <% }) 
                                                 }) %>
                                         </tbody>

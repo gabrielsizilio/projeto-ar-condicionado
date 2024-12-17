@@ -53,11 +53,12 @@
                                 data-bs-toggle="modal"
                                 onclick="atualizaArea('<%=(usuario.id) %>', JSON.parse('<%= JSON.stringify(usuario.areas) %>'))"">Escolher</button>
                             <div class=" areaUsuario mt-3" id="areaUsuarioEdit_<%= usuario.id %>">
-                                <% areasUsuario.forEach(area=> { %>
+
+                                <% usuario.areas.forEach(area=> { %>
                                     <span class="cursoEscolhido">
                                         <%= area.nome %>
                                     </span>
-                                    <% }) %>
+                                <% }) %>
                         </div>
                     </div>
             </div>
