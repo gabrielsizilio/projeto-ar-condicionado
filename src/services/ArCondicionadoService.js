@@ -1,5 +1,6 @@
 const ArCondicionado = require("../models/ArCondicionado");
 const Controlador = require("../models/Controlador");
+const { io } = require('../http')
 class ArCondicionadoService {
     static async setIRBlockState(arCondicionadoId, isBlocked, macAddressMapping) {
         const airConditioner = await ArCondicionado.findByPk(arCondicionadoId, {
@@ -30,7 +31,7 @@ class ArCondicionadoService {
 
         const blockedPins = await this.getBlockedIRPins(macAddress);
 
-        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);
+        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);   
         
     }
 

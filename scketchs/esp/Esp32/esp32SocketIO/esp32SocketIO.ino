@@ -34,6 +34,13 @@ void sendIr(uint16_t irCode[], size_t length, int pinIrSend) {
   interferencePaused = false;
 }
 
+void stopIrInterference() {
+  for (int i = 0; i < numBlockedPins; i++) {
+    digitalWrite(blockedPins[i], LOW);
+  }
+  blockedState = false;
+}
+
 void addBlockedEmissorPin(int pin) {
   if (numBlockedPins < MAX_BLOCKED_PINS) {
     pinMode(pin, OUTPUT);
@@ -66,6 +73,7 @@ void handleAddBlockedEmissors(DynamicJsonDocument &doc) {
   JsonArray pins = doc[1];
 
   size_t arraySize = pins.size();
+  stopIrInterference();
   numBlockedPins = 0;
 
   for (size_t i = 0; i < arraySize; i++) {
@@ -87,19 +95,12 @@ void generateIrInterference() {
   if (currentMillis - previousMillis >= blinkInterval) {
     previousMillis = currentMillis;
     blockedState = !blockedState;
-
     for (int i = 0; i < numBlockedPins; i++) {
       digitalWrite(blockedPins[i], blockedState);
     }
   }
 }
 
-void stopIrInterference() {
-  for (int i = 0; i < numBlockedPins; i++) {
-    digitalWrite(blockedPins[i], LOW);
-  }
-  blockedState = false;
-}
 
 void searchWifi() {
   int numberOfNetwork = WiFi.scanNetworks();

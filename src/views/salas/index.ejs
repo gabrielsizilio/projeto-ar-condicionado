@@ -121,10 +121,10 @@
             })
         }
         function trocaSinal(id){
-            const btnSinal = document.getElementById('btnSinal_1');
-            alert(btnSinal.value)
+            const btnSinal = document.getElementById('btnSinal_' + id);
             if (btnSinal.value == 'true') btnSinal.value = 'false';
             else if (btnSinal.value == 'false') btnSinal.value = 'true';
+
         }
     </script>
 </body>

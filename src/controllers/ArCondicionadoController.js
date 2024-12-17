@@ -46,7 +46,7 @@ async function store(req, res) {
         marca_id,
         modelo_id: reqModeloId,
         controlador_id: reqControladorId,
-        pinEmissor,
+        pinEmissor: pinEmissorString,
         sala_id,
         nomeNovoModelo,
         macAdressNovoControlador,
@@ -54,11 +54,12 @@ async function store(req, res) {
     let controlador_id = reqControladorId;
     let modelo_id = reqModeloId;
 
+    const pinEmissor = Number(pinEmissorString);
 
     const MIN_NAME_LENGTH = 3;
     const MAX_NAME_LENGTH = 50;
-
-    if (!nome || !pinEmissor || !sala_id) {
+    
+    if (!nome || typeof pinEmissor  != 'number' || !sala_id) {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' });
     } else if (nome.length < MIN_NAME_LENGTH) {
         return res.status(400).json({ msgErr: `O campo 'nome' deve ter no mínimo ${MIN_NAME_LENGTH} caracteres.` });
@@ -119,7 +120,7 @@ async function store(req, res) {
             pinEmissor
         });
 
-        return res.status(200).redirect('back')
+        return res.status(201).redirect('back')
     } catch (error) {
         console.log(error);
         return res.status(500).json({ msgErr: 'Ocorreu um erro: ', error })
@@ -161,7 +162,7 @@ async function update(req, res) {
     const MIN_NAME_LENGTH = 3;
     const MAX_NAME_LENGTH = 50;
 
-    if (!nome || !pinEmissor ) {
+    if (!nome || typeof pinEmissor != 'number') {
         return res.status(400).json({ msgErr: 'Campos obrigatórios não preenchidos.' });
     } else if (nome.length < MIN_NAME_LENGTH) {
         return res.status(400).json({ msgErr: `O campo 'nome' deve ter no mínimo ${MIN_NAME_LENGTH} caracteres.` });
@@ -239,13 +240,14 @@ async function setIRBlockState(req, res) {
         return res.status(404).json({ msgErr: 'O id do ar-condicionado é obrigatório!' });
     }
     
-    if(!irBlocked) {
+    if(typeof irBlocked == 'undefined') {
         return res.status(400).json({ msgErr: 'O campo irBlocked é obrigatório!' });
     }
     
     try {
         await ArCondicionadoService.setIRBlockState(arCondicionadoId, irBlocked, macAddressMapping);
-        return res.status(200).send('Estado do IR atualizado');
+        // return res.status(200).send('Estado do IR atualizado');
+        return res.status(200).redirect('back');
     } catch (error) {
         return res.status(500).json({ msgErr: "Ocorreu um erro! ", error });
     }
