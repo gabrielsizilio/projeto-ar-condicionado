@@ -1,4 +1,3 @@
-const User = require('../models/Usuario')
 const Credencial = require('../models/Credencial')
 const Predio = require('../models/Predio');
 const { checkToken } = require('../config/auth');
@@ -44,10 +43,8 @@ async function index(req, res) {
             association: 'salas'
         }]
     })
-    
-    // const authorizedSalas = role.salas.map(sala => sala.id);
-    const authorizedSalas = role.salas
 
+    // const authorizedSalas = (role.nome === "Manutenção" ) ? await Sala.findAll(): role.salas;
     const predios = await Predio.findAll({
         include: [
             {
@@ -55,7 +52,9 @@ async function index(req, res) {
                 required: true,
                 include: [{
                     association: 'roles',
-                    where: { id: user.role_id}
+                    // where: { id: user.role_id}
+                    where: role.nome === "Manutenção" ? {} : { id: user.role_id },
+                    required: role.nome !== "Manutenção",
                 },
                 {
                     association: 'ares_condicionados',
@@ -71,7 +70,8 @@ async function index(req, res) {
         ]
     });
 
-    res.status(200).render('home/index', { user, predios, authorizedSalas })
+    res.status(200).render('home/index', { user, predios })
+    // res.status(200).render('home/index', { user, predios, authorizedSalas })
 }
 
 module.exports = {

@@ -4,7 +4,8 @@
   "description": "Aplicação de gerenciamento de ares-condicionados do IFNMG campus Montes Claros",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "dev:docker": "nodemon -L src/app.js"
   },
   "author": "Gabriel",
   "license": "ISC",

@@ -1,16 +1,20 @@
 const { io } = require('./http')
 
 const macAddressMapping = {}
-const SocketController = require('./controllers/SocketController');
+const SocketService = require('./services/SocketService');
 
 
 io.on('connection', (socket) => {
     console.log(`Um usuário se conectou { id: ${socket.id} }`)
 
-    socket.on('setup', (esp) => { SocketController.setup(esp, socket, macAddressMapping) });
+    socket.on('setup', (esp) => { SocketService.setup(esp, socket, macAddressMapping) });
 
-    socket.on('enviarComandoAr', async (comando, user) => { SocketController.enviaComando(comando, macAddressMapping , io) });
+    socket.on('enviarComandoAr', async (comando, user) => { SocketService.enviaComando(comando, macAddressMapping ) });
 
-    socket.on('disconnect', () => { SocketController.disconnect(socket, macAddressMapping) });
+    socket.on('checkModuleConnection', (macAddress) => { SocketService.checkModuleConnectionStatus(macAddress, macAddressMapping) });
+
+    socket.on('disconnect', () => { SocketService.disconnect(socket, macAddressMapping) });
 
 });
+
+module.exports = macAddressMapping;
