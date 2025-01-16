@@ -44,18 +44,17 @@
                                     </div>
                                     
                                     <div class="card-action-buttons">
-                                        <a href="" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#editArCondicionado" data-bs-whatever="<%= ar.id %>">
+                                        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#editArCondicionado" data-bs-whatever="<%= ar.id %>">
                                             <box-icon name='block' ></box-icon>
                                         </a>
-                                        <a href="" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#excluirArCondicionado" data-bs-whatever="<%= ar.id %>">
+                                        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#excluirArCondicionado" data-bs-whatever="<%= ar.id %>">
                                             <box-icon name='trash' ></box-icon>
                                         </a>
-                                        <a href="" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#editArCondicionado" data-bs-whatever="<%= ar.id %>">
+                                        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#editArCondicionado" data-bs-whatever="<%= ar.id %>">
                                             <box-icon name='edit' ></box-icon>
                                         </a>
                                         <form id="truco" method="post" action="/predio/<%= sala.predio_id %>/sala/<%= sala.id %>/ar-condicionado/setIRBlockState/<%= ar.id %>">
                                             <input type="hidden" name="irBlocked" id="btnSinal_<%= ar.id %>" value="<%= ar.irBlocked %>">
-                                            <button type="submit" class="btn rounded-circle" onclick="trocaSinal('<%= ar.id %>')">
                                                 <% if (ar.irBlocked) { %>
                                                     <box-icon name='signal-5' ></box-icon>
                                                 <% } else { %>
