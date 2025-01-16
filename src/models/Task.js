@@ -13,13 +13,10 @@ class Task extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.ArCondicionado, {
-            foreignKey: 'ar_id',
-            as: 'arCondicionado'
-        });
-        this.belongsTo(models.Temperatura, {
-            foreignKey: 'temperatura_id',
-            as: 'temperatura'
+        this.belongsToMany(models.ArCondicionado, {
+            through: "task_ares_condicionados",
+            foreignKey: 'task_id',
+            otherKey: "ar_id"
         });
     }
 }

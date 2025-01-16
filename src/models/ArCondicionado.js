@@ -25,6 +25,11 @@ class ArCondicionado extends Model {
             foreignKey: 'controlador_id',
             as: 'controlador'
         })
+        this.belongsToMany(models.Task, {
+            through: 'task_ares_condicionados',
+            foreignKey: 'ar_id',
+            otherKey: 'task_id',
+          });
     }
 }
 

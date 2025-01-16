@@ -14,24 +14,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      ar_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'ares_condicionados', key: 'id' },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      },
-      temperatura_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'temperaturas', key: 'id' },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      },
       status: {
         type: Sequelize.ENUM("pending", "completed"),
         allowNull: false,
         defaultValue: "pending"
+      },
+      temperatura: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

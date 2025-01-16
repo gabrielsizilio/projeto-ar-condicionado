@@ -1,5 +1,5 @@
 var cron = require("node-cron");
-const { getAllTasks, getAllTasksPending } = require("./TaskService");
+const { getAllTasks, getAllTasksPending, createTask } = require("./TaskService");
 getTasks();
 
 function dateToCron(dateTime) {
@@ -16,6 +16,12 @@ function dateToCron(dateTime) {
 let tasks = [];
 async function getTasks() {
     try {
+        const dateTime = new Date('2025-01-16T13:40:08.000Z');
+        const temperatura = 1;
+        const aresCondicionadosId = [1, 4];
+
+        createTask(dateTime, temperatura, aresCondicionadosId);
+
         tasks = await getAllTasksPending();
 
         tasks.forEach((task, index) => {
