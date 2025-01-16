@@ -27,10 +27,6 @@ class Sala extends Model {
             foreignKey:'sala_id',
             through: 'roles_salas',
             as: 'roles'
-        }),
-        this.hasOne(models.estado_ar,{
-            foreignKey:'sala_id',
-            as: 'estado_ars'
         })
     }
 }
