@@ -32,18 +32,13 @@
                             <div class="row justify-content-between pt-2 pb-2">
                                 <div class="col-5 identificacao d-flex align-items-center justify-content-start">
                                     <% if (predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { %>
-                                        <span id="span1"><strong><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></strong></span>
+                                        <span id="span1"><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></span>
                                     <% } else { %>
-                                        <span id="span1"><strong>Dados indisponíveis</strong></span>
+                                        <span id="span1">Dados indisponíveis</span>
                                     <% } %>
                                 </div>
-                                <div class="col-2 onoff text-center">
-                                    <span>
-                                        <button class="btn" type="submit" onclick="enviarComando()">ON</button>
-                                    </span>
-                                </div>
                                 <div class="col-5 nome d-flex align-items-center justify-content-end">
-                                    <span><strong>Temperatura Padrão: 22°C</strong></span>
+                                    <span>Temperatura Padrão: 22°C</span>
                                 </div>
                             </div>
 
@@ -496,14 +491,14 @@
             })
         });
 
-
+        // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
         // Inicializa os modais
-        const myModal = document.getElementById('myModal')
-        const myInput = document.getElementById('myInput')
+        // const myModal = document.getElementById('myModal')
+        // const myInput = document.getElementById('myInput')
 
-        myModal.addEventListener('shown.bs.modal', () => {
-            myInput.focus()
-        })
+        // myModal.addEventListener('shown.bs.modal', () => {
+        //     myInput.focus()
+        // })
 
 
 
@@ -532,16 +527,25 @@
 
         const socket = io();
 
-        socket.on('eventoTeste', () => {
+        socket.on('moduleConnectionStatus', (connectionStatus) => { // Nessa função fazer as modificações no front
             console.log("Chamou o evento corretamente")
+            console.log(connectionStatus); // formato esperado { isModuleConnected, macAddress }
         })
 
         function enviarComando(temperatura) {
             const id_controlador = document.getElementById("id_controlador").value;
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
-            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user})
+            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
         }
-        alteraSala(document.getElementById('selectPredioMobile'))
+
+        // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
+        // alteraSala(document.getElementById('selectPredioMobile'))
+
+        function emitModuleConnectionCheck(macAddress) {
+            socket.emit('checkModuleConnection', macAddress);
+        }
+        
+        emitModuleConnectionCheck('MacAddress Aqui'); // Precisa chamar ao carregar a página para cada ar-condicionado
 
     </script>
 

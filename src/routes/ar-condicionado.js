@@ -17,6 +17,8 @@ router.post('/update/:id', arCondiciandoController.update)
 
 router.post('/remove/:id', arCondiciandoController.remove)
 
+router.post('/setIRBlockState/:id', arCondiciandoController.setIRBlockState)
+
 router.use('/modelo', modelo)
 
 router.use('/temperatura', temperatura)

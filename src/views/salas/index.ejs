@@ -2,110 +2,130 @@
 <html lang="pt-br">
 <%- include('../partials/header.ejs')%>
 
-    <body>
 
-        <div class="row d-flex">
-            <%- include('../partials/nav.ejs')%>
-                <div class="col-11 container-conteudo">
-                    <div class="container-conteudo">
-                        <p>Prédio <%= sala.predio.nome %>
-                                </p=>
-                                <div class="row usuarios-top d-flex justify-content-between">
-                                    <div class="titulo d-flex justify-content-start col-8">
-                                        <h2>Gerenciamento da sala: <%= sala.nome %>
-                                        </h2>
-                                    </div>
-                                    <div class="botao d-flex justify-content-end col-3">
-                                        <button type="button" class="btn" data-bs-target="#addArCondicioando"
-                                            data-bs-toggle="modal">Adicionar</button>
-                                    </div>
-                                    <%- include('../arCondicionado/create.ejs', { controladores, marcas, sala }) %>
-
-                                        <div class="row gap-5">
-                                            <% if (sala.ares_condicionados.length> 0) { %>
-                                                <% sala.ares_condicionados.forEach(ar=> { %>
-                                                    <div class="card mt-5" style="width: 25rem; height: 13rem;">
-                                                        <div class="card-body">
-                                                            <div class="d-flex">
-                                                                <div class="flex-fill">
-                                                                    <h3 class="card-title">
-                                                                        <%= ar.nome %>
-                                                                    </h3>
-                                                                </div>
-                                                                <div class="d-flex flex-column">
-                                                                    <span class="fw-light fst-italic">Marca:<%= ar.modelo.marca.nome %></span>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <div id="controladores" class="card ps-2 pt-2"
-                                                                style="width: 100%;">
-                                                                <h5>Controlador</h5>
-                                                                <p class="font-monospace">
-                                                                    <% if (ar.controlador != null) { %>
-                                                                        <%= ar.controlador.macAddress %>
-                                                                    <% } else { %>
-                                                                        <span>Sem controlador</span>
-                                                                    <% } %>
-                                                                </p>
-                                                            </div>
-
-                                                            <div class="d-flex justify-content-evenly mt-3">
-                                                                <a href="" data-bs-toggle="modal"
-                                                                    data-bs-target="#excluirArCondicionado"
-                                                                    data-bs-whatever="<%= ar.id %>">
-                                                                    <box-icon name='trash-alt' type='solid'
-                                                                        color='#ff0000'></box-icon>
-                                                                </a>
-                                                                <a href="" data-bs-toggle="modal"
-                                                                    data-bs-target="#editArCondicionado"
-                                                                    data-bs-whatever="<%= ar.id %>">
-                                                                    <box-icon name='edit-alt' type='solid'
-                                                                        color='#ffb43f'></box-icon>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <% }) %>
-                                                <% } else { %>
-                                                    <div>
-                                                        <p>Não há aparelhos cadastrados!</p>
-                                                    </div>
-                                                <% } %>
-                                            <%- include('../arCondicionado/edit.ejs', {ares: sala.ares_condicionados, sala}) %>
-                                            <%- include('../arCondicionado/remove.ejs', {ares: sala.ares_condicionados, sala}) %>
-                                        </div>
-                                        <div>
-                                        </div>
-
-                                </div>
+<body>
+    <div class="row d-flex">
+        <%- include('../partials/nav.ejs')%>
+        <div class="col-11 container-conteudo">
+            <div class="container-conteudo">
+                <p>Prédio <%= sala.predio.nome %></p>
+                <div class="row usuarios-top d-flex justify-content-between">
+                    <div class="titulo d-flex justify-content-start col-8">
+                        <h2>Gerenciamento da sala: <%= sala.nome %></h2>
                     </div>
-    </body>
+                    <div class="botao d-flex justify-content-end col-3">
+                        <button type="button" class="btn btn-primary" data-bs-target="#addArCondicioando" data-bs-toggle="modal">Adicionar</button>
+                    </div>
+                    <%- include('../arCondicionado/create.ejs', { controladores, marcas, sala }) %>
 
+                    <div class="row justify-content-start mt-5">
+                        <% if (sala.ares_condicionados.length > 0) { %>
+                            <% sala.ares_condicionados.forEach(ar => { %>
+                                <div class="col-md-4 mb-5 position-relative">
+                                    <div class="card card-custom">
+                                        <div class="card-body">
+                                            <div class="row justify-content-between">
+                                                <h3 class="card-title col-auto mb-0"><%= ar.nome %></h3>
+                                                <box-icon color="#7964ff" class="col-auto" name='wifi-off'></box-icon>
+                                            </div>
+                                            <span id="marcaAr" class="mb-3 mt-0 text-muted"><%= ar.modelo.marca.nome %></span>
+                                            
+                                            <div id="controladores" class="card-controlador">
+                                                <h5>Controlador</h5>
+                                                <p class="font-monospace mb-0">
+                                                    <% if (ar.controlador != null) { %>
+                                                        <%= ar.controlador.macAddress %>
+                                                    <% } else { %>
+                                                        <span>Sem controlador</span>
+                                                    <% } %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-action-buttons">
+                                        <a href="" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#editArCondicionado" data-bs-whatever="<%= ar.id %>">
+                                            <box-icon name='block' ></box-icon>
+                                        </a>
+                                        <a href="" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#excluirArCondicionado" data-bs-whatever="<%= ar.id %>">
+                                            <box-icon name='trash' ></box-icon>
+                                        </a>
+                                        <a href="" class="btn rounded-circle" data-bs-toggle="modal" data-bs-target="#editArCondicionado" data-bs-whatever="<%= ar.id %>">
+                                            <box-icon name='edit' ></box-icon>
+                                        </a>
+                                        <form id="truco" method="post" action="/predio/<%= sala.predio_id %>/sala/<%= sala.id %>/ar-condicionado/setIRBlockState/<%= ar.id %>">
+                                            <input type="hidden" name="irBlocked" id="btnSinal_<%= ar.id %>" value="<%= ar.irBlocked %>">
+                                            <button type="submit" class="btn rounded-circle" onclick="trocaSinal('<%= ar.id %>')">
+                                                <% if (ar.irBlocked) { %>
+                                                    <box-icon name='signal-5' ></box-icon>
+                                                <% } else { %>
+                                                        <box-icon name='no-signal' ></box-icon>
+                                                <% } %>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="col-12">
+                                <p>Não há aparelhos cadastrados!</p>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <%- include('../arCondicionado/edit.ejs', {ares: sala.ares_condicionados, sala}) %>
+                    <%- include('../arCondicionado/remove.ejs', {ares: sala.ares_condicionados, sala}) %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        const user  = JSON.parse('<%- JSON.stringify(user) %>');
 
+        const socket = io();
+
+        socket.on('moduleConnectionStatus', (connectionStatus) => { // Nessa função fazer as modificações no front
+            console.log("Chamou o evento corretamente")
+            console.log(connectionStatus); // formato esperado { isModuleConnected, macAddress }
+        })
+
+        function emitModuleConnectionCheck(macAddress) {
+            socket.emit('checkModuleConnection', macAddress);
+        }
+        
+        emitModuleConnectionCheck('MacAddress Aqui'); // Precisa chamar ao carregar a página para cada ar-condicionado
+
+    </script>
+
+    <script>
         const editModal = document.getElementById('editArCondicionado')
         const excluirModal = document.getElementById('excluirArCondicionado')
         if (editModal) {
             editModal.addEventListener('show.bs.modal', event => {
-
                 const button = event.relatedTarget
                 const arCondicionadoId = button.getAttribute('data-bs-whatever')
-
                 editModal.setAttribute('data-bs-id', arCondicionadoId)
             })
         }
         if (excluirModal) {
             excluirModal.addEventListener('show.bs.modal', event => {
-
                 const button = event.relatedTarget
                 const arCondicionadoId = button.getAttribute('data-bs-whatever')
-
                 excluirModal.setAttribute('data-bs-id', arCondicionadoId)
             })
         }
-    </script>
+        function trocaSinal(id){
+            const btnSinal = document.getElementById('btnSinal_' + id);
+            if (btnSinal.value == 'true') btnSinal.value = 'false';
+            else if (btnSinal.value == 'false') btnSinal.value = 'true';
 
+        }
+    </script>
+</body>
 </html>

@@ -1,17 +1,26 @@
+const { io } = require('../http');
 const ArCondicionado = require('../models/ArCondicionado')
+const ArCondicionadoService = require('../services/ArCondicionadoService')
 const Modelo = require('../models/Modelo')
 const Temperatura = require('../models/Temperatura')
-const { registerLogUpdateTemperatura } = require('../services/logService')
+const { registerLogUpdateTemperatura } = require('./logService')
 
-class SocketController {
-    setup(esp, socket, macAddressMapping) {
+class SocketService {
+    async setup(esp, socket, macAddressMapping) {
         console.log(`Controlador registrado: ${esp.macAddress}`)
         macAddressMapping[esp.macAddress] = socket.id
         console.log(macAddressMapping);
-
+        await this.setBlockedPins(esp.macAddress, socket.id, macAddressMapping);
+        this.checkModuleConnectionStatus(esp.macAddress, macAddressMapping);
     }
 
-    async enviaComando(comandoParm, macAddressMapping, io) {
+    async setBlockedPins(macAddress, socket_id) {
+        const blockedPins = await ArCondicionadoService.getBlockedIRPins(macAddress);
+
+        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);
+    }
+
+    async enviaComando(comandoParm, macAddressMapping) {
         const { user } = comandoParm;
 
         console.log("usuario: " + user.nome);
@@ -55,16 +64,25 @@ class SocketController {
         await registerLogUpdateTemperatura(comandoParm);
     }
 
+    checkModuleConnectionStatus(macAddress, macAddressMapping) {
+        const isModuleConnected = macAddressMapping[macAddress] ? true : false;
+        io.emit('moduleConnectionStatus', { isModuleConnected, macAddress });
+    }
+
     disconnect(socket, macAddressMapping) {
         console.log(`Usuário desconectado { id: ${socket.id} }`)
 
-        Object.keys(macAddressMapping).forEach(id_controlador => {
-            if (macAddressMapping[id_controlador] == socket.id) {
-                delete macAddressMapping[id_controlador]
+        Object.entries(macAddressMapping).forEach(([id_controlador, socketId]) => {
+            if (socketId == socket.id) {
+                delete macAddressMapping[id_controlador];
+                console.log(`Controlador desconectado: ${id_controlador}`);
+                this.checkModuleConnectionStatus(id_controlador, macAddressMapping);
             }
         });
+
         console.log(macAddressMapping);
+
     }
 }
 
-module.exports = new SocketController()
+module.exports = new SocketService()
