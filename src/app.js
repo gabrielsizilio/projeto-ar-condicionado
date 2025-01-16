@@ -10,6 +10,7 @@ const flash = require('connect-flash')
 require('dotenv').config()
 require('./database')
 require('./websocket')
+require('./services/CronService')
 
 const authRoutes = require('./routes/authRoutes');
 require('./config/passport')(passport)
