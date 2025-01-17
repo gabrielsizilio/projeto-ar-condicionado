@@ -21,7 +21,7 @@ async function createTask(dateTime, temperatura, aresCondicionadosId, type) {
         })
 
         const associations = aresCondicionadosId.map(async (arId) => {
-            await task.addArCondicionado(arId, { through: { temperatura } });
+            await task.addAresCondicionados(arId, { through: { temperatura } });
         });
 
         await Promise.all(associations);

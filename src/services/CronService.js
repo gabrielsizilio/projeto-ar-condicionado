@@ -5,7 +5,7 @@ verifyTasks();
 function dateToCron(dateTime, gap = 0) {
     const date = new Date(dateTime);
     date.setSeconds(date.getUTCSeconds() + gap);
-    
+
     const seconds = date.getUTCSeconds();
     const minutes = date.getUTCMinutes();
     const hours = date.getUTCHours();
@@ -21,26 +21,35 @@ function dateToCron(dateTime, gap = 0) {
 let tasks = [];
 async function verifyTasks() {
     try {
-        const dateTime = new Date('2025-01-31T23:59:59.000Z');
+        const dateTime = new Date('2025-01-17T11:02:00.000Z');
+        const dateTime2 = new Date('2025-01-17T11:02:01.000Z');
         const temperatura = 1;
-        const aresCondicionadosId = [1, 4];
+        const aresCondicionadosId = [1, 2, 3, 4];
+        const aresCondicionados2Id = [2, 3];
         const type = "single"
 
         // await createTask(dateTime, temperatura, aresCondicionadosId, type);
+        // await createTask(dateTime, temperatura, aresCondicionados2Id, type);
 
         tasks = await getAllTasksPending();
 
         let gap = 0;
         tasks.forEach((task, index) => {
-            console.log(task.aresCondicionados);
-            
-            const cronExpression = dateToCron(task.dateTime, gap);
+            // console.log(task.aresCondicionados);
 
-            cron.schedule(cronExpression, () => {
-                const now = new Date();
-                console.log(`[${now}] >> RUNING TASK_ID: ${task.id}`);
-            });
+            task.aresCondicionados.forEach((arCondicionado, index) => {
+                const cronExpression = dateToCron(task.dateTime, gap);
+                gap += 1;
+
+                cron.schedule(cronExpression, () => {
+                    const now = new Date();
+                    // TODO: Mandar sinal de acordo com a task para o arCondicionado
+                    console.log(`[${now}] >> RUNING TASK_ID: ${task.id} -> ${arCondicionado.nome}`);
+                    
+                });
+            })
         });
+        gap = 0;
 
         console.log(">> TASK FINDEED:", tasks.length);
     } catch (error) {
