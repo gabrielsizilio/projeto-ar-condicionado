@@ -16,11 +16,12 @@ function dateToCron(dateTime) {
 let tasks = [];
 async function getTasks() {
     try {
-        const dateTime = new Date('2025-01-16T13:40:08.000Z');
+        const dateTime = new Date('2025-01-17T10:05:08.000Z');
         const temperatura = 1;
         const aresCondicionadosId = [1, 4];
+        const type = "single"
 
-        createTask(dateTime, temperatura, aresCondicionadosId);
+        // await createTask(dateTime, temperatura, aresCondicionadosId);
 
         tasks = await getAllTasksPending();
 

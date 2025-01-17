@@ -2,7 +2,7 @@ const { where } = require("sequelize");
 const Task = require("../models/Task");
 const ArCondicionado = require("../models/ArCondicionado");
 
-async function createTask(dateTime, temperatura, aresCondicionadosId) {
+async function createTask(dateTime, temperatura, aresCondicionadosId, type) {
 
     const aresCondicionados = await ArCondicionado.findAll({
         where: {
@@ -16,7 +16,8 @@ async function createTask(dateTime, temperatura, aresCondicionadosId) {
 
     try {
         const task = await Task.create({
-            dateTime
+            dateTime,
+            type
         })
 
         const associations = aresCondicionadosId.map(async (arId) => {

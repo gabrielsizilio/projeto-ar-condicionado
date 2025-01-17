@@ -4,7 +4,8 @@ class Task extends Model {
     static init(sequelize) {
         super.init({
             dateTime: DataTypes.DATE,
-            status: DataTypes.ENUM("pending", "completed")
+            status: DataTypes.ENUM("pending", "completed"),
+            type: DataTypes.ENUM("signle", "recurring")
             
         }, {
             sequelize,
