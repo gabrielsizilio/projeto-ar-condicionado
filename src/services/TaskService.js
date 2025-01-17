@@ -40,10 +40,13 @@ async function getAllTasks() {
 }
 
 async function getAllTasksPending() {
-    const tasks = Task.findAll(
+    const tasks = await Task.findAll(
         {
             where: {
                 status: "pending"
+            },
+            include: {
+                association: "aresCondicionados"
             }
         }
     );

@@ -17,7 +17,8 @@ class Task extends Model {
         this.belongsToMany(models.ArCondicionado, {
             through: "task_ares_condicionados",
             foreignKey: 'task_id',
-            otherKey: "ar_id"
+            otherKey: "ar_id",
+            as: "aresCondicionados"
         });
     }
 }
