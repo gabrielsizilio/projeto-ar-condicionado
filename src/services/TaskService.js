@@ -53,8 +53,22 @@ async function getAllTasksPending() {
     return tasks;
 }
 
+async function runTask(task, arCondicionado) {
+    const now = new Date();
+    // TODO: Mandar sinal de acordo com a task para o arCondicionado
+    console.log(`[${now}] >> RUNING TASK_ID: ${task.id} -> ${arCondicionado.nome}`);
+    try {
+        if (task.type == "single") {
+            await task.update({ status: "completed" });
+        }
+    } catch (error) {
+        console.error(`Erro ao atualizar o status da task: ${task.id}`);
+    }
+}
+
 module.exports = {
     createTask,
     getAllTasks,
-    getAllTasksPending
+    getAllTasksPending,
+    runTask
 }
