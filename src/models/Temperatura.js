@@ -25,10 +25,6 @@ class Temperatura extends Model {
         this.belongsTo(models.Modelo, {
             foreignKey: 'modelo_id',
             as: 'modelo'
-        }),
-        this.hasOne(models.estado_ar,{
-            foreignKey: 'temperatura_id',
-            as:'estado_ars'
         })
     }
 }

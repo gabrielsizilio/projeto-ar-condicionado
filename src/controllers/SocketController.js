@@ -2,6 +2,8 @@ const ArCondicionado = require('../models/ArCondicionado')
 const Modelo = require('../models/Modelo')
 const Temperatura = require('../models/Temperatura')
 const { registerLogUpdateTemperatura } = require('../services/logService')
+const estadoArService = require("../services/estadoArService");
+
 
 class SocketController {
     setup(esp, socket, macAddressMapping) {
@@ -51,6 +53,8 @@ class SocketController {
         let comando = [aparelho.pinEmissor, codigo_ir]
         console.log(comando);
         io.to(macAddressMapping[comandoParm.id_controlador]).emit('EnviaIR', comando);
+
+        await estadoArService.updateAr(aparelho.id, temperatura);
 
         await registerLogUpdateTemperatura(comandoParm);
     }

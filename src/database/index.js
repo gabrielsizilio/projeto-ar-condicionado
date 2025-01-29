@@ -15,6 +15,7 @@ const AlocacaoHorario = require('../models/AlocacaoHorario')
 const Area = require('../models/Area')
 const Log = require('../models/Log')
 const Role = require('../models/Role')
+const EstadoAr = require("../models/EstadoAr")
 
 const connection = new Sequelize(configDB);
 
@@ -44,7 +45,7 @@ AlocacaoHorario.init(connection)
 Area.init(connection)
 Log.init(connection)
 Role.init(connection)
-
+EstadoAr.init(connection)
 
 Credencial.associate(connection.models)
 Usuario.associate(connection.models)
@@ -61,5 +62,6 @@ AlocacaoHorario.associate(connection.models)
 Area.associate(connection.models)
 Log.associate(connection.models)
 Role.associate(connection.models)
+EstadoAr.associate(connection.models)
 
 module.exports = connection
