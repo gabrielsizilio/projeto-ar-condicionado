@@ -39,12 +39,12 @@ async function index(req, res) {
         )
     }
 
-    const role = await Role.findByPk( user.role_id ,{
-        include:[{
+    const role = await Role.findByPk(user.role_id, {
+        include: [{
             association: 'salas'
         }]
     })
-    
+
     // const authorizedSalas = role.salas.map(sala => sala.id);
     const authorizedSalas = role.salas
 
@@ -55,7 +55,7 @@ async function index(req, res) {
                 required: true,
                 include: [{
                     association: 'roles',
-                    where: { id: user.role_id}
+                    where: { id: user.role_id }
                 },
                 {
                     association: 'ares_condicionados',
@@ -65,7 +65,11 @@ async function index(req, res) {
                         },
                         {
                             association: 'controlador'
-                        }]
+                        },
+                        {
+                            association: "estado"
+                        }
+                    ]
                 }]
             }
         ]
