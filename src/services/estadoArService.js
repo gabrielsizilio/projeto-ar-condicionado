@@ -1,8 +1,9 @@
 const EstadoAr = require("../models/EstadoAr");
 
-async function updateAr(ar_id, temp) {
+async function createOrUpdateAr(ar_id, temp) {
     try {
-        await EstadoAr.create({ ar_id, temp });
+        await EstadoAr.upsert({ar_id, temp});
+
     } catch (error) {
         console.error(">> Erro ao adicionar um estado no banco: " + error);
     }
@@ -17,6 +18,6 @@ async function getAll() {
 
 
 module.exports = {
-    updateAr,
+    createOrUpdateAr,
     getAll
 }

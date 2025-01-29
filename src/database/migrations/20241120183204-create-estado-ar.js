@@ -3,14 +3,9 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('estado_ares', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       ar_id: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         allowNull: false,
         references: { model: "ares_condicionados", key: "id" },
         onDelete: "CASCADE",

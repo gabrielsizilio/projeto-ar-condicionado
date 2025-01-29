@@ -54,7 +54,7 @@ class SocketController {
         console.log(comando);
         io.to(macAddressMapping[comandoParm.id_controlador]).emit('EnviaIR', comando);
 
-        await estadoArService.updateAr(aparelho.id, temperatura);
+        await estadoArService.createOrUpdateAr(aparelho.id, temperatura);
 
         await registerLogUpdateTemperatura(comandoParm);
     }
