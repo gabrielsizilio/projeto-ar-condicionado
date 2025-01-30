@@ -103,17 +103,27 @@
                                 <div class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
                                     <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
                                         <div class="row">
-                                            <h5 id="nome_ar_mobile1" class="card-title d-inline col"><%= arCondicionado.nome  %></h5>
+                                            <h5 class="card-title d-inline col" id="nome_ar_mobile<%= index + 1 %>"><%= arCondicionado.nome  %></h5>
                                             <div class="form-check form-switch col-1">
                                                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault<%= index + 1 %>" onchange="switchMobileChanged(<%= index + 1 %>)">
                                             </div>
                                         </div>
-                                        <h6 class="card-subtitle mb-2"><%= predios[0].nome %> - <%= predios[0].salas[0].nome %></h6>
-                                        <% if(arCondicionado.controlador) { %>
-                                            <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.id %>">
-                                            <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= arCondicionado.controlador.macAddress %>">
+                                        <h6 class="card-subtitle mb-2">
+                                            <span id="predio_ar<%= index + 1 %>">
+                                                <%= predios[0].nome %>
+                                            </span> - 
+                                            <span id="sala_ar<%= index + 1 %>">
+                                                <%= predios[0].salas[0].nome %>
+                                            </span>
+                                        </h6>
+                                        <% if(predios[0].salas[0].ares_condicionados[index].controlador) { %>
+                                            <script>
+                                                console.log('<%= predios[0].salas[0].ares_condicionados[index].controlador.macAddress %>')
+                                            </script>
+                                            <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[index].id %>">
+                                            <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[index].controlador.macAddress %>">
                                         <% } %>
-                                        <div id="nome_ar_mobile2" class="circle-mobile<%= index + 1 %> mt-3 mb-0">
+                                        <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
                                             <div class="debug-mobile<%= index + 1 %>">
                                                 <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
                                             </div>
@@ -196,6 +206,7 @@
             let inputControlador = document.getElementById("id_controlador");
             let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
             if(inputControladorSelecionado) {
+                alert(inputControladorSelecionado.value)
                 const macAddress = inputControladorSelecionado.value;
                 inputControlador.value = macAddress;
             }
@@ -213,6 +224,7 @@
             p.innerHTML = temperatura;
             enviarComando(temperatura);
         }
+
 
         function desligarAr() {
             let p = document.getElementById(div_id);
@@ -297,159 +309,85 @@
         var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
     
         function trocaSala(divSala) {
-    var predioId = document.getElementById('selectPredio').value
-    var predioSelecionado
-    var salaSelecionada
-
-    predio1.forEach(predio => {
-        if (predio.id == predioId) {
-            predioSelecionado = predio
-        }
-    });
-
-    if(!predioSelecionado) {
-        return;
-    }
-
-    predioSelecionado.salas.forEach(sala => {
-        if(sala.nome == divSala.textContent.trim()){
-            salaSelecionada = sala
-        }
-    })
-    
-    if(!salaSelecionada) {
-        return;
-    }
-
-    // Limpar todas as informações anteriores primeiro
-    // Desktop
-    document.getElementById('nome_ar1').textContent = ""
-    document.getElementById('nome_ar2').textContent = ""
-    document.getElementById('tempA1').textContent = "22°C"
-    document.getElementById('tempA2').textContent = "22°C"
-
-    // Mobile - Limpar informações da primeira unidade
-    let mobile1Title = document.querySelector('#controleArMobile1 .card-title')
-    let mobile1Subtitle = document.querySelector('#controleArMobile1 .card-subtitle')
-    if(mobile1Title) mobile1Title.textContent = ""
-    if(mobile1Subtitle) mobile1Subtitle.textContent = ""
-
-    // Mobile - Limpar informações da segunda unidade
-    let mobile2Title = document.querySelector('#controleArMobile2 .card-title')
-    let mobile2Subtitle = document.querySelector('#controleArMobile2 .card-subtitle')
-    if(mobile2Title) mobile2Title.textContent = ""
-    if(mobile2Subtitle) mobile2Subtitle.textContent = ""
-
-    // Desktop Elements
-    let divSeletor1 = document.getElementById('seletorAr1')
-    let divSeletor2 = document.getElementById('seletorAr2')
-    
-    // Mobile Elements
-    let divSeletorMobile1 = document.getElementById('controleArMobile1')
-    let divSeletorMobile2 = document.getElementById('controleArMobile2')
-
-    // Atualizar primeiro ar-condicionado
-    if(salaSelecionada.ares_condicionados[0]) {
-        // Atualização Desktop
-        let inputArId = document.getElementById('id_ar_condicionado1')
-        let strongNomeAr = document.getElementById('nome_ar1')
-        let inputControladorId = document.getElementById('id_controlador1')
-
-        // Desktop updates
-        inputArId.value = salaSelecionada.ares_condicionados[0].id
-        strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
-        inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
-
-        // Mobile updates
-        if(divSeletorMobile1) {
-            let inputArIdMobile = document.getElementById('id_ar_condicionado_mobile1')
-            let strongNomeArMobile = document.querySelector('#controleArMobile1 .card-title')
-            let subtitleMobile = document.querySelector('#controleArMobile1 .card-subtitle')
-            let inputControladorIdMobile = document.getElementById('id_controlador_mobile1')
-            let switchMobile1 = document.getElementById('flexSwitchCheckDefault1')
-            let dotMobile1 = document.getElementById('dot-mobile1')
-            let rangeMobile1 = document.getElementById('rangeArMobile1')
-
-            if(inputArIdMobile) inputArIdMobile.value = salaSelecionada.ares_condicionados[0].id
-            if(strongNomeArMobile) strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[0].nome
-            if(subtitleMobile) subtitleMobile.textContent = salaSelecionada.nome
-            if(inputControladorIdMobile) inputControladorIdMobile.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
-            if(switchMobile1) switchMobile1.checked = false
-            if(rangeMobile1) {
-                rangeMobile1.value = "22°C"
-                rangeMobile1.disabled = true
+            var predioId = document.getElementById('selectPredio').value
+            var predioSelecionado
+            var salaSelecionada
+            
+            predio1.forEach(predio => {
+                if (predio.id == predioId) {
+                    predioSelecionado = predio
+                }
+            });
+            
+            if(!predioSelecionado) {
+                return ;
             }
-            if(dotMobile1) {
-                const anguloInicial = 120
-                dotMobile1.style.transform = `rotate(${anguloInicial}deg)`
+            
+            predioSelecionado.salas.forEach(sala => {
+                if(sala.nome == divSala.textContent.trim()){
+                    salaSelecionada = sala
+                }
+            })
+            
+            if(!salaSelecionada) {
+                return ;
             }
-        }
 
-        divSeletor1.style.cssText = "display: flex !important"
-        if(divSeletorMobile1) {
-            divSeletorMobile1.style.cssText = "display: flex !important"
-        }
-    } else {
-        divSeletor1.style.cssText = "visibility: hidden"
-        if(divSeletorMobile1) {
-            divSeletorMobile1.style.cssText = "visibility: hidden"
-        }
-    }
+            let divSeletor1 = document.getElementById('seletorAr1')
+            let divSeletorMobile1 = document.getElementById('controleArMobile1')
+            let divSeletor2 = document.getElementById('seletorAr2')
+            let divSeletorMobile2 = document.getElementById('controleArMobile2')
     
-    // Atualizar segundo ar-condicionado
-    if(salaSelecionada.ares_condicionados[1]) {
-        // Atualização Desktop
-        let inputArId = document.getElementById('id_ar_condicionado2')
-        let strongNomeAr = document.getElementById('nome_ar2')
-        let inputControladorId = document.getElementById('id_controlador2')
 
-        // Desktop updates
-        inputArId.value = salaSelecionada.ares_condicionados[1].id
-        strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
-        inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
+            if(salaSelecionada.ares_condicionados[0]) {
+                let inputArId = document.getElementById('id_ar_condicionado1')
+                let strongNomeAr = document.getElementById('nome_ar1')
+                let strongNomeArMobile = document.getElementById('nome_ar_mobile1')
+                let inputControladorId = document.getElementById('id_controlador1')
+                let predio = document.getElementById('predio_ar1')
+                let sala = document.getElementById('sala_ar1')
 
-        // Mobile updates
-        if(divSeletorMobile2) {
-            let inputArIdMobile = document.getElementById('id_ar_condicionado_mobile2')
-            let strongNomeArMobile = document.querySelector('#controleArMobile2 .card-title')
-            let subtitleMobile = document.querySelector('#controleArMobile2 .card-subtitle')
-            let inputControladorIdMobile = document.getElementById('id_controlador_mobile2')
-            let switchMobile2 = document.getElementById('flexSwitchCheckDefault2')
-            let dotMobile2 = document.getElementById('dot-mobile2')
-            let rangeMobile2 = document.getElementById('rangeArMobile2')
-
-            if(inputArIdMobile) inputArIdMobile.value = salaSelecionada.ares_condicionados[1].id
-            if(strongNomeArMobile) strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[1].nome
-            if(subtitleMobile) subtitleMobile.textContent = salaSelecionada.nome
-            if(inputControladorIdMobile) inputControladorIdMobile.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
-            if(switchMobile2) switchMobile2.checked = false
-            if(rangeMobile2) {
-                rangeMobile2.value = "22°C"
-                rangeMobile2.disabled = true
+                inputArId.value = salaSelecionada.ares_condicionados[0].id
+                strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
+                strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[0].nome
+                inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
+                predio.textContent = predio1[predioId - 1].nome
+                sala.textContent = salaSelecionada.nome
+                
+                divSeletor1.style.cssText = "visbility: visible";
+                divSeletorMobile1.style.cssText ="visbility: visible";
+            } else {
+                divSeletor1.style.cssText = "visibility: hidden"
+                divSeletorMobile1.style.cssText = "visibility: hidden !important"
             }
-            if(dotMobile2) {
-                const anguloInicial = 120
-                dotMobile2.style.transform = `rotate(${anguloInicial}deg)`
-            }
-        }
+            
+            if(salaSelecionada.ares_condicionados[1]) {
+                let inputArId = document.getElementById('id_ar_condicionado2')
+                let strongNomeAr = document.getElementById('nome_ar2')
+                let strongNomeArMobile = document.getElementById('nome_ar_mobile2')
+                let inputControladorId = document.getElementById('id_controlador2')
+                let predio = document.getElementById('predio_ar2')
+                let sala = document.getElementById('sala_ar2')
 
-        divSeletor2.style.cssText = "display: flex !important"
-        if(divSeletorMobile2) {
-            divSeletorMobile2.style.cssText = "display: flex !important"
+                inputArId.value = salaSelecionada.ares_condicionados[1].id
+                strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
+                strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[1].nome
+                inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
+                predio.textContent = predio1[predioId - 1].nome
+                sala.textContent = salaSelecionada.nome
+
+                divSeletor2.style.cssText = "visbility: visible";
+                divSeletorMobile2.style.cssText = "visbility: visible";
+            } else {
+                divSeletor2.style.cssText = "visibility: hidden"
+                divSeletorMobile2.style.cssText = "visibility: hidden"
+            }
+            
+            document.getElementById('span1').innerHTML = ""
+            var aux1 = document.createElement('strong')
+            aux1.textContent = divSala.textContent + " - " + predioSelecionado.nome
+            document.getElementById('span1').appendChild(aux1)
         }
-    } else {
-        divSeletor2.style.cssText = "visibility: hidden"
-        if(divSeletorMobile2) {
-            divSeletorMobile2.style.cssText = "visibility: hidden"
-        }
-    }
-    
-    // Atualizar nome da sala e prédio
-    document.getElementById('span1').innerHTML = ""
-    var aux1 = document.createElement('strong')
-    aux1.textContent = divSala.textContent + " - " + predioSelecionado.nome
-    document.getElementById('span1').appendChild(aux1)
-}
     </script>
        
 
@@ -627,6 +565,7 @@
         })
 
         function enviarComando(temperatura) {
+
             const id_controlador = document.getElementById("id_controlador").value;
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
             socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
