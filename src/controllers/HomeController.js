@@ -38,13 +38,15 @@ async function index(req, res) {
         )
     }
 
-    const role = await Role.findByPk( user.role_id ,{
-        include:[{
+    const role = await Role.findByPk(user.role_id, {
+        include: [{
             association: 'salas'
         }]
     })
+    
+    // const authorizedSalas = role.salas.map(sala => sala.id);
+    const authorizedSalas = role.salas
 
-    // const authorizedSalas = (role.nome === "Manutenção" ) ? await Sala.findAll(): role.salas;
     const predios = await Predio.findAll({
         include: [
             {
@@ -64,7 +66,11 @@ async function index(req, res) {
                         },
                         {
                             association: 'controlador'
-                        }]
+                        },
+                        {
+                            association: "estado"
+                        }
+                    ]
                 }]
             }
         ]
