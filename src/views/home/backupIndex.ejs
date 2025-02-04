@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include('../partials/header.ejs') %>
+
+    <body class="container-body">
+
+        <div id="body" class="d-flex row">
+
+            <%- include('../partials/nav.ejs') %>
+                <%# include('../partials/nav-mobile.ejs') %>
+                    <div>
+                        <%- include('../partials/nav-top-mobile.ejs') %>
+                    </div>
+                    <div class="col container-conteudo">
+                        <div class="container-conteudo row justify-content-between">
+
+                            <div class="saudacao col-10">
+                                <h4>Bem vindo</h4>
+                                <strong>
+                                    <h2>
+                                        <%= user.nome %>
+                                    </h2>
+                                </strong>
+                                <p>IFNMG Campus Montes Claros </p>
+                            </div>
+
+
+                            <img src="https://thumbs.dreamstime.com/b/%C3%ADcone-roxo-fino-do-usu%C3%A1rio-sinal-linear-inclina%C3%A7%C3%A3o-136856587.jpg"
+                                width="100" class="border border-3 rounded-circle img-perfil p-0 bg-white">
+
+
+                            <input id="id_controlador" type="hidden" value="">
+                            <input id="id_arcondicionado" type="hidden" value="">
+
+                            <div class="row controle-ar justify-content-center mt-5">
+                                <div id="controle-individual" class="card col-8 p-2">
+                                    <div class="row justify-content-between pt-2 pb-2">
+                                        <div
+                                            class="col-5 identificacao d-flex align-items-center justify-content-start">
+                                            <% if (predios.length> 0 && predios[0].salas && predios[0].salas.length > 0)
+                                                { %>
+                                                <span id="span1"><strong>
+                                                        <%= predios[0].salas[0].nome %> - <%= predios[0].nome %>
+                                                    </strong></span>
+                                                <% } else { %>
+                                                    <span id="span1"><strong>Dados indisponíveis</strong></span>
+                                                    <% } %>
+                                        </div>
+                                        <div class="col-2 onoff text-center">
+                                            <span>
+                                                <button class="btn" type="submit" onclick="enviarComando()">ON</button>
+                                            </span>
+                                        </div>
+                                        <div class="col-5 nome d-flex align-items-center justify-content-end">
+                                            <span><strong>Temperatura Padrão: 22°C</strong></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-evenly infor-ar">
+                                        <div id="seletorAr1"
+                                            onclick="alteraIdDivSelecionada('tempA1', 'id_controlador1', 'id_ar_condicionado1')"
+                                            class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr"
+                                            data-bs-toggle="modal">
+                                            <% if(predios.length> 0 && predios[0].salas && predios[0].salas.length > 0
+                                                && predios[0].salas[0].ares_condicionados[0]) { %>
+                                                <p><strong id="nome_ar1">
+                                                        <%= predios[0].salas[0].ares_condicionados[0].nome %>
+                                                    </strong></p>
+                                                <% if(predios[0].salas[0].ares_condicionados[0].controlador) { %>
+                                                    <input id="id_ar_condicionado1" type="hidden"
+                                                        value="<%= predios[0].salas[0].ares_condicionados[0].id %>">
+                                                    <input id="id_controlador1" type="hidden"
+                                                        value="<%= predios[0].salas[0].ares_condicionados[0].controlador.macAddress %>">
+                                                    <% } %>
+                                                        <p id="tempA1" class="temperatura">22<strong>°C</strong></p>
+                                                        <% } %>
+                                        </div>
+                                        <div class="col-auto d-flex divisoria justify-content-center">
+                                            <div class="vr" style="height: 95%;"></div>
+                                        </div>
+                                        <div id="seletorAr2"
+                                            onclick="alteraIdDivSelecionada('tempA2', 'id_controlador2', 'id_ar_condicionado2')"
+                                            class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr"
+                                            data-bs-toggle="modal">
+                                            <% if(predios.length> 0 && predios[0].salas && predios[0].salas.length > 0
+                                                && predios[0].salas[0].ares_condicionados[1]) { %>
+                                                <p><strong id="nome_ar2">
+                                                        <%= predios[0].salas[0].ares_condicionados[1].nome %>
+                                                    </strong></p>
+                                                <% if(predios[0].salas[0].ares_condicionados[1].controlador) { %>
+                                                    <input id="id_ar_condicionado2" type="hidden"
+                                                        value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
+                                                    <input id="id_controlador2" type="hidden"
+                                                        value="<%= predios[0].salas[0].ares_condicionados[1].controlador.macAddress %>">
+                                                    <% } %>
+                                                        <p id="tempA2" class="temperatura">23<strong>°C</strong></p>
+                                                        <% } %>
+                                        </div>
+                                        <div class="modal fade" id="alterarAr" aria-hidden="true"
+                                            aria-labelledby="alterarArLabel" tabindex="-1">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content d-flex justify-content-center">
+                                                    <div class="modal-body">
+                                                        <div id="modal-temperatura" class="position-relative">
+                                                            <div class="circle">
+                                                                <div class="debug2 select-nulo">
+                                                                    <input id="rangeAr2" class="form-control"
+                                                                        value="18°C" type="text" min="20" max="25"
+                                                                        step="1" onmousedown="return false;">
+                                                                </div>
+                                                                <div class="dot2"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="excluir-bottom d-flex justify-content-around text-center mt-4">
+                                                            <button data-bs-dismiss="modal" onclick="altera()"
+                                                                class="btn excluir-confirma">ALTERAR</button>
+                                                            <button class="btn" data-bs-dismiss="modal"
+                                                                onclick="desligarAr()">DESLIGAR</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <input type="hidden" class="form-range mt-4"
+                                                            id="temperatura2Range" min="20" max="23" step="1"
+                                                            value="23">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Temperatura - Mobile -->
+
+                            <div class="temperaturaMobile">
+                                <% if(predios.length> 0 && predios[0].salas && predios[0].salas.length > 0) {
+                                    predios[0].salas[0].ares_condicionados.forEach(function(arCondicionado, index) { %>
+                                    <div id="controleArMobile<%= index + 1 %>"
+                                        class="controleArMobile<%= index + 1 %> mt-<%= index + 3 %>">
+                                        <div
+                                            class="card-temperatura<%= index + 1 %> d-flex position-relative justify-content-center col-12">
+                                            <div class="card card-temperatura<%= index + 1 %> p-3 col-10">
+                                                <div class="row">
+                                                    <h5 class="card-title d-inline col">
+                                                        <%= arCondicionado.nome %>
+                                                    </h5>
+                                                    <div class="form-check form-switch col-1">
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                            id="flexSwitchCheckDefault<%= index + 1 %>"
+                                                            onchange="switchMobileChanged(<%= index + 1 %>)">
+                                                    </div>
+                                                </div>
+                                                <h6 class="card-subtitle mb-2">
+                                                    <%= predios[0].nome %> - <%= predios[0].salas[0].nome %>
+                                                </h6>
+                                                <% if(arCondicionado.controlador) { %>
+                                                    <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden"
+                                                        value="<%= arCondicionado.id %>">
+                                                    <input id="id_controlador_mobile<%= index + 1 %>" type="hidden"
+                                                        value="<%= arCondicionado.controlador.macAddress %>">
+                                                    <% } %>
+                                                        <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
+                                                            <div class="debug-mobile<%= index + 1 %>">
+                                                                <input id="rangeArMobile<%= index + 1 %>"
+                                                                    class="form-control" value="18°C" type="text"
+                                                                    min="18" max="25" step="1"
+                                                                    onmousedown="return false;" disabled>
+                                                            </div>
+                                                            <div id="dot-mobile<%= index + 1 %>"
+                                                                class="dot-mobile<%= index + 1 %>"
+                                                                onTouchStart="bloquearRolagem()"
+                                                                onTouchEnd="dotMobileChanged(<%= index + 1 %>)"></div>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) } %>
+                            </div>
+
+
+
+                            <!-- Seleção de Prédios - Desktop -->
+                            <div class="row predios-desktop mt-5 col-auto">
+                                <select id="selectPredio" class="form-select">
+                                    <% predios.forEach(element=> { %>
+                                        <option value="<%= element.id %>">
+                                            <%= element.nome %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+
+                            <!-- Modal de Seleção de Salas - Desktop -->
+                            <div class="salas-desktop mt-5 justify-content-between">
+                                <div class="modal fade" id="trocaSala" tabindex="-1" aria-labelledby="trocaSalaLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <h4>Deseja realmente trocar de sala?</h4>
+                                                <div class="row d-flex justify-content-center mt-4">
+                                                    <div class="d-flex justify-content-around col-9">
+                                                        <button class="btn col-auto">Trocar</button>
+                                                        <button class="btn cancelar col-auto">Cancelar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seleção de Salas - Desktop -->
+                            <div>
+                                <div id="salasContainer" class="row justify-content-start">
+                                    <% var index=0 %>
+                                        <% if(predios.length> 0 && predios[0].salas && predios[0].salas.length > 0) {
+                                            predios[index].salas.forEach(element=> { %>
+                                            <div onclick="trocaSala(this)"
+                                                class="btn me-3 mb-4 sala col-2 text-center p-2 col-auto">
+                                                <%= element.nome %>
+                                            </div>
+                                            <% })} %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="footer"></div>
+
+        <script>
+            let div_id;
+            let input_controlador_id;
+            let input_ar_condicionado_id;
+
+            function alteraIdDivSelecionada(id, inputControladorId, inputArCondicionadoId) {
+                div_id = id;
+                input_controlador_id = inputControladorId;
+                input_ar_condicionado_id = inputArCondicionadoId;
+                console.log(div_id);
+                console.log(inputControladorId);
+                atualizaControladorSelecionado(inputControladorId);
+            }
+
+            // Atualiza controlador
+            function atualizaControladorSelecionado(id_controlador_selecionado) {
+                let inputControlador = document.getElementById("id_controlador");
+                let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
+                if (inputControladorSelecionado) {
+                    const macAddress = inputControladorSelecionado.value;
+                    inputControlador.value = macAddress;
+                }
+                let inputArSelecionado = document.getElementById('id_arcondicionado');
+
+                if (typeof (input_ar_condicionado_id) != "undefined") {
+                    inputArSelecionado.value = document.getElementById(input_ar_condicionado_id).value.trim();
+                }
+            }
+
+            function altera() {
+                let inputModal = document.getElementById("rangeAr2");
+                let temperatura = inputModal.value;
+                let p = document.getElementById(div_id);
+                p.innerHTML = temperatura;
+                enviarComando(temperatura);
+            }
+
+            function desligarAr() {
+                let p = document.getElementById(div_id);
+                p.innerHTML = "off";
+                enviarComando("off");
+            }
+
+
+
+            // ATUALIZA SALAS
+            var predios = JSON.parse('<%- JSON.stringify(predios) %>');
+
+            document.getElementById('selectPredio').addEventListener('change', function () {
+                var selectedPredioId = this.value;
+
+                var predioSelecionado = predios.find(function (predio) {
+                    return predio.id == selectedPredioId;
+                });
+
+                document.getElementById('salasContainer').innerHTML = "";
+                predioSelecionado.salas.forEach(function (sala) {
+                    var salaElement = document.createElement('div');
+                    salaElement.setAttribute('onclick', 'trocaSala(this)')
+                    salaElement.className = "btn sala  me-3 mb-4 col-2 text-center p-2 col-auto";
+                    salaElement.textContent = sala.nome;
+                    document.getElementById('salasContainer').appendChild(salaElement);
+                });
+            });
+
+            //Seleção do menu
+            var selecionado = document.getElementById('home');
+            selecionado.classList.add('menu-selecionado');
+        </script>
+
+        <!-- Script Versão Mobile -->
+        <script>
+            function dotMobileChanged(dotIndex) {
+                desbloquearRolagem();
+                let switchCheckId = "flexSwitchCheckDefault" + dotIndex;
+                let switchCheck = document.getElementById(switchCheckId);
+                switchCheck.checked = true;
+                let inputTempId = "rangeArMobile" + dotIndex;
+                let inputTempMobile = document.getElementById(inputTempId);
+                let temperatura = inputTempMobile.value;
+                input_controlador_id = "id_controlador_mobile" + dotIndex;
+                input_ar_condicionado_id = "id_ar_condicionado_mobile" + dotIndex;
+                atualizaControladorSelecionado(input_controlador_id);
+                enviarComando(temperatura);
+
+            }
+
+            function switchMobileChanged(dotIndex) {
+                let switchCheckId = "flexSwitchCheckDefault" + dotIndex;
+                let switchCheck = document.getElementById(switchCheckId);
+
+                input_controlador_id = "id_controlador_mobile" + dotIndex;
+                input_ar_condicionado_id = "id_ar_condicionado_mobile" + dotIndex;
+                atualizaControladorSelecionado(input_controlador_id);
+
+                if (switchCheck.checked) {
+                    let inputTempId = "rangeArMobile" + dotIndex;
+                    let inputTempMobile = document.getElementById(inputTempId);
+                    let temperatura = inputTempMobile.value;
+                    enviarComando(temperatura);
+                    return;
+                }
+                enviarComando("off");
+                return;
+            }
+
+            function bloquearRolagem() {
+                document.body.style.overflowY = "hidden";
+            }
+
+            function desbloquearRolagem() {
+                document.body.style.overflowY = "";
+            }
+
+        </script>
+
+        <script>
+            var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
+
+            function trocaSala(divSala) {
+                var predioId = document.getElementById('selectPredio').value
+                var predioSelecionado
+                var salaSelecionada
+
+                predio1.forEach(predio => {
+                    if (predio.id == predioId) {
+                        predioSelecionado = predio
+                    }
+                });
+
+                if (!predioSelecionado) {
+                    return;
+                }
+
+                predioSelecionado.salas.forEach(sala => {
+                    if (sala.nome == divSala.textContent.trim()) {
+                        salaSelecionada = sala
+                    }
+                })
+
+                if (!salaSelecionada) {
+                    return;
+                }
+
+                let divSeletor1 = document.getElementById('seletorAr1')
+                let divSeletor2 = document.getElementById('seletorAr2')
+
+                if (salaSelecionada.ares_condicionados[0]) {
+                    let inputArId = document.getElementById('id_ar_condicionado1')
+                    let strongNomeAr = document.getElementById('nome_ar1')
+                    let inputControladorId = document.getElementById('id_controlador1')
+
+                    inputArId.value = salaSelecionada.ares_condicionados[0].id
+                    strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
+                    inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
+
+                    divSeletor1.style.cssText = "display: flex !important"
+                } else {
+                    divSeletor1.style.cssText = "visibility: hidden"
+                }
+
+                if (salaSelecionada.ares_condicionados[1]) {
+                    let inputArId = document.getElementById('id_ar_condicionado2')
+                    let strongNomeAr = document.getElementById('nome_ar2')
+                    let inputControladorId = document.getElementById('id_controlador2')
+
+                    inputArId.value = salaSelecionada.ares_condicionados[1].id
+                    strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
+                    inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
+                    divSeletor2.style.cssText = "display: flex !important";
+                } else {
+                    divSeletor2.style.cssText = "visibility: hidden"
+                }
+
+                document.getElementById('span1').innerHTML = ""
+                var aux1 = document.createElement('strong')
+                aux1.textContent = divSala.textContent + " - " + predioSelecionado.nome
+                document.getElementById('span1').appendChild(aux1)
+            }
+        </script>
+
+
+        <script>
+            // Ar-condicionado 02
+            var temperatura2Range = document.getElementById("temperatura2Range");
+            var temperaturaSelecionada2 = document.getElementById("temperaturaSelecionada2");
+
+            temperatura2Range.addEventListener("input", function () {
+                temperaturaSelecionada2.textContent = temperatura2Range.value;
+            });
+
+            // Range circular ar-condicionados desktop
+            $(document).ready(function () {
+                var is_dragging = false;
+                $(document).on("mousedown touchstart", ".circle", function (e) {
+                    is_dragging = true;
+                });
+                $(document).on("mouseup touchend", function (e) {
+                    is_dragging = false;
+                });
+                $(document).on("mousemove touchmove", function (e) {
+                    if (is_dragging) {
+                        var circle = $(".circle")
+                        var touch = undefined;
+                        if (e.originalEvent.touches) {
+                            var touch = e.originalEvent.touches[0];
+                        }
+                        var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                        var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                        var pos_x = (e.pageX || touch.pageX);
+                        var pos_y = (e.pageY || touch.pageY);
+                        var delta_y = center_y - pos_y;
+                        var delta_x = center_x - pos_x;
+                        var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                        angle -= 90;
+                        if (angle < 0) {
+                            angle = 360 + angle;
+                        }
+                        angle = Math.round(angle);
+                        var minimo = document.getElementById('rangeAr2').getAttribute('min');
+                        var qtdTemperaturas = document.getElementById('rangeAr2').getAttribute('max') - document.getElementById('rangeAr2').getAttribute('min')
+
+                        $(".dot2").css("transform", "rotate(" + angle + "deg)");
+                        $(".debug2 input").val(Math.round(angle * qtdTemperaturas / 360 + parseInt(minimo)) + "°C");
+                    }
+                });
+                $(".debug input").on('change', function () {
+                    angle = $(this).val() / 360 * 360;
+                    $(".dot2").css("transform", "rotate(" + angle + 18 + "deg)");
+                })
+            });
+
+            // Range circular ar-condicionados mobile (1)
+            $(document).ready(function () {
+                var is_dragging = false;
+                $(document).on("mousedown touchstart", ".circle-mobile1", function (e) {
+                    is_dragging = true;
+                });
+                $(document).on("mouseup touchend", function (e) {
+                    is_dragging = false;
+                });
+                $(document).on("mousemove touchmove", function (e) {
+                    if (is_dragging) {
+                        var circle = $(".circle-mobile1")
+                        var touch = undefined;
+                        if (e.originalEvent.touches) {
+                            var touch = e.originalEvent.touches[0];
+                        }
+                        var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                        var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                        var pos_x = (e.pageX || touch.pageX);
+                        var pos_y = (e.pageY || touch.pageY);
+                        var delta_y = center_y - pos_y;
+                        var delta_x = center_x - pos_x;
+                        var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                        angle -= 90;
+                        if (angle < 0) {
+                            angle = 360 + angle;
+                        }
+                        angle = Math.round(angle);
+                        var minimo = document.getElementById('rangeArMobile1').getAttribute('min');
+                        var qtdTemperaturas = document.getElementById('rangeArMobile1').getAttribute('max') - document.getElementById('rangeArMobile1').getAttribute('min')
+
+                        $(".dot-mobile1").css("transform", "rotate(" + angle + "deg)");
+                        $(".debug-mobile1 input").val(Math.round(angle * qtdTemperaturas / 360 + parseInt(minimo)) + "°C");
+                    }
+                });
+                $(".debug input").on('change', function () {
+                    angle = $(this).val() / 360 * 360;
+                    $(".dot-mobile1").css("transform", "rotate(" + angle + 18 + "deg)");
+                })
+            });
+
+            // Range circular ar-condicionados mobile (2)
+            $(document).ready(function () {
+                var is_dragging = false;
+                $(document).on("mousedown touchstart", ".circle-mobile2", function (e) {
+                    is_dragging = true;
+                });
+                $(document).on("mouseup touchend", function (e) {
+                    is_dragging = false;
+                });
+                $(document).on("mousemove touchmove", function (e) {
+                    if (is_dragging) {
+                        var circle = $(".circle-mobile2")
+                        var touch = undefined;
+                        if (e.originalEvent.touches) {
+                            var touch = e.originalEvent.touches[0];
+                        }
+                        var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                        var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                        var pos_x = (e.pageX || touch.pageX);
+                        var pos_y = (e.pageY || touch.pageY);
+                        var delta_y = center_y - pos_y;
+                        var delta_x = center_x - pos_x;
+                        var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                        angle -= 90;
+                        if (angle < 0) {
+                            angle = 360 + angle;
+                        }
+                        angle = Math.round(angle);
+                        var minimo = document.getElementById('rangeArMobile2').getAttribute('min');
+                        var qtdTemperaturas = document.getElementById('rangeArMobile2').getAttribute('max') - document.getElementById('rangeArMobile2').getAttribute('min')
+
+                        $(".dot-mobile2").css("transform", "rotate(" + angle + "deg)");
+                        $(".debug-mobile2 input").val(Math.round(angle * qtdTemperaturas / 360 + parseInt(minimo)) + "°C");
+                    }
+                });
+                $(".debug-mobile2 input").on('change', function () {
+                    angle = $(this).val() / 360 * 360;
+                    $(".dot-mobile2").css("transform", "rotate(" + angle + 18 + "deg)");
+                })
+            });
+
+
+            // Inicializa os modais
+            const myModal = document.getElementById('myModal')
+            const myInput = document.getElementById('myInput')
+
+            myModal.addEventListener('shown.bs.modal', () => {
+                myInput.focus()
+            })
+
+
+
+            function alteraSala(predioAtual) {
+                let predioId = predioAtual.value;
+                const select = document.getElementById("selectSalasMobile")
+                predio1.forEach(predio => {
+                    if (predio.id == predioId) {
+                        select.innerText = ""
+                        predio.salas.forEach(sala => {
+                            let option = document.createElement('option')
+                            option.value = sala.id
+                            option.text = sala.nome
+                            select.appendChild(option)
+                        })
+                    }
+                });
+
+            }
+
+        </script>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const user = JSON.parse('<%- JSON.stringify(user) %>');
+
+            const socket = io();
+
+            socket.on('eventoTeste', () => {
+                console.log("Chamou o evento corretamente")
+            })
+
+            function enviarComando(temperatura) {
+                const id_controlador = document.getElementById("id_controlador").value;
+                const id_arcondicionado = document.getElementById('id_arcondicionado').value;
+                socket.emit('enviarComandoAr', { id_controlador, id_arcondicionado, temperatura, user })
+            }
+            alteraSala(document.getElementById('selectPredioMobile'))
+
+        </script>
+
+    </body>
+
+</html>
