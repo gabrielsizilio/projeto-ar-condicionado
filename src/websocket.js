@@ -11,7 +11,9 @@ io.on('connection', (socket) => {
 
     socket.on('enviarComandoAr', async (comando, user) => { SocketService.enviaComando(comando, macAddressMapping ) });
 
-    socket.on('checkModuleConnection', (macAddress) => { SocketService.checkModuleConnectionStatus(macAddress, macAddressMapping) });
+    socket.on('checkModuleConnection', (macAddress) => { SocketService.checkModuleConnectionStatus(macAddress, macAddressMapping, socket) });
+
+    socket.on('getAirConditionerTemperature', async (air_id) => { SocketService.getAirConditionerTemperature(air_id, socket)});
 
     socket.on('disconnect', () => { SocketService.disconnect(socket, macAddressMapping) });
 

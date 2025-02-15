@@ -564,8 +564,14 @@
             console.log(connectionStatus); // formato esperado { isModuleConnected, macAddress }
         })
 
-        function enviarComando(temperatura) {
+        const air_id = 2;
+        socket.emit("getAirConditionerTemperature", air_id); // chama o evento para buscar a temperatura
 
+        socket.on("airConditionerTemperatureResponse", (data) => { // retorno do evento de busca de temperatura
+            console.log(`Temperatura do ar-condicionado (${data.air_id}): ${data.temperature}`);
+        });
+
+        function enviarComando(temperatura) {
             const id_controlador = document.getElementById("id_controlador").value;
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
             socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
