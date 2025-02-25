@@ -65,12 +65,23 @@ class SocketService {
 
         await estadoArService.createOrUpdateAr(aparelho.id, temperatura);
 
+        io.emit("airConditionerTemperatureResponse", { air_id: aparelho.id, temperature: temperatura});
+
         await registerLogUpdateTemperatura(comandoParm);
     }
 
-    checkModuleConnectionStatus(macAddress, macAddressMapping) {
+    checkModuleConnectionStatus(macAddress, macAddressMapping, socket) {
         const isModuleConnected = macAddressMapping[macAddress] ? true : false;
-        io.emit('moduleConnectionStatus', { isModuleConnected, macAddress });
+        socket.emit('moduleConnectionStatus', { isModuleConnected, macAddress });
+    }
+
+    async getAirConditionerTemperature(air_id, socket) {
+        try {
+            const temperature = await ArCondicionadoService.getTemperature(air_id);
+            socket.emit("airConditionerTemperatureResponse", { air_id, temperature });
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     disconnect(socket, macAddressMapping) {
@@ -80,7 +91,7 @@ class SocketService {
             if (socketId == socket.id) {
                 delete macAddressMapping[id_controlador];
                 console.log(`Controlador desconectado: ${id_controlador}`);
-                this.checkModuleConnectionStatus(id_controlador, macAddressMapping);
+                this.checkModuleConnectionStatus(id_controlador, macAddressMapping, io);
             }
         });
 
