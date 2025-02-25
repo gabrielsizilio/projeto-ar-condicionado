@@ -50,7 +50,7 @@
                                             <input id="id_ar_condicionado1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].id %>">
                                             <input id="id_controlador1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].controlador.macAddress %>">
                                         <% } %>
-                                        <p id="tempA1" class="temperatura">22<strong>°C</strong></p>
+                                        <p id="tempA1" class="temperatura"><%= predios[0].salas[0].ares_condicionados[0].estado.temp.replace('temp', '') %>°C</p>
                                     <% } %>
                                 </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
@@ -63,7 +63,7 @@
                                             <input id="id_ar_condicionado2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
                                             <input id="id_controlador2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].controlador.macAddress %>">
                                         <% } %>
-                                        <p id="tempA2" class="temperatura">23<strong>°C</strong></p>
+                                        <p id="tempA2" class="temperatura"><%= predios[0].salas[0].ares_condicionados[1].estado.temp.replace('temp', '') %><strong>°C</strong></p>
                                     <% } %>
                                 </div>
                                 <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
@@ -79,7 +79,7 @@
                                                 </div>
                                             </div>
                                                 <div class="excluir-bottom d-flex justify-content-around text-center mt-4">
-                                                    <button data-bs-dismiss="modal"onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
+                                                    <button data-bs-dismiss="modal" onclick="altera()" class="btn excluir-confirma">ALTERAR</button>
                                                     <button class="btn" data-bs-dismiss="modal" onclick="desligarAr()">DESLIGAR</button>
                                                 </div>
                                         </div>
@@ -117,9 +117,9 @@
                                             </span>
                                         </h6>
                                         <% if(predios[0].salas[0].ares_condicionados[index].controlador) { %>
-                                            <script>
+                                            <!-- <script>
                                                 console.log('<%= predios[0].salas[0].ares_condicionados[index].controlador.macAddress %>')
-                                            </script>
+                                            </script> -->
                                             <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[index].id %>">
                                             <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[index].controlador.macAddress %>">
                                         <% } %>
@@ -196,8 +196,6 @@
             div_id = id;
             input_controlador_id = inputControladorId;
             input_ar_condicionado_id = inputArCondicionadoId;
-            console.log(div_id);
-            console.log(inputControladorId);
             atualizaControladorSelecionado(inputControladorId);
         }
 
@@ -206,7 +204,7 @@
             let inputControlador = document.getElementById("id_controlador");
             let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
             if(inputControladorSelecionado) {
-                alert(inputControladorSelecionado.value)
+                // alert(inputControladorSelecionado.value)
                 const macAddress = inputControladorSelecionado.value;
                 inputControlador.value = macAddress;
             }
@@ -222,7 +220,7 @@
             let temperatura = inputModal.value;
             let p = document.getElementById(div_id);
             p.innerHTML = temperatura;
-            enviarComando(temperatura);
+            enviarComando(temperatura.replace('°C', ''));
         }
 
 
@@ -306,12 +304,14 @@
     </script>
     
     <script>
-        var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
-    
+        
         function trocaSala(divSala) {
+            var predio1 = JSON.parse('<%- JSON.stringify(predios) %>');
             var predioId = document.getElementById('selectPredio').value
             var predioSelecionado
             var salaSelecionada
+
+            
             
             predio1.forEach(predio => {
                 if (predio.id == predioId) {
@@ -327,11 +327,14 @@
                 if(sala.nome == divSala.textContent.trim()){
                     salaSelecionada = sala
                 }
+                console.log('++ ' + predioSelecionado)
             })
             
             if(!salaSelecionada) {
                 return ;
             }
+            
+            console.log(salaSelecionada.ares_condicionados[0].estado.temp)
 
             let divSeletor1 = document.getElementById('seletorAr1')
             let divSeletorMobile1 = document.getElementById('controleArMobile1')
@@ -346,13 +349,16 @@
                 let inputControladorId = document.getElementById('id_controlador1')
                 let predio = document.getElementById('predio_ar1')
                 let sala = document.getElementById('sala_ar1')
-
+                
                 inputArId.value = salaSelecionada.ares_condicionados[0].id
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
                 strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[0].nome
                 inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
                 predio.textContent = predio1[predioId - 1].nome
                 sala.textContent = salaSelecionada.nome
+
+                let temperatura = salaSelecionada.ares_condicionados[0].estado.temp.replace('temp', '') + '°C'
+                document.getElementById('tempA1').textContent = temperatura
                 
                 divSeletor1.style.cssText = "visbility: visible";
                 divSeletorMobile1.style.cssText ="visbility: visible";
@@ -368,6 +374,7 @@
                 let inputControladorId = document.getElementById('id_controlador2')
                 let predio = document.getElementById('predio_ar2')
                 let sala = document.getElementById('sala_ar2')
+                let temperatura = salaSelecionada.ares_condicionados[1].estado.temp.replace('temp', '') + '°C'
 
                 inputArId.value = salaSelecionada.ares_condicionados[1].id
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
@@ -375,6 +382,7 @@
                 inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
                 predio.textContent = predio1[predioId - 1].nome
                 sala.textContent = salaSelecionada.nome
+                document.getElementById('tempA2').textContent = temperatura
 
                 divSeletor2.style.cssText = "visbility: visible";
                 divSeletorMobile2.style.cssText = "visbility: visible";
@@ -564,12 +572,12 @@
             console.log(connectionStatus); // formato esperado { isModuleConnected, macAddress }
         })
 
-        function enviarComando(temperatura) {
-
-            const id_controlador = document.getElementById("id_controlador").value;
-            const id_arcondicionado = document.getElementById('id_arcondicionado').value;
-            socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
-        }
+       function enviarComando(temperatura) {
+                const id_controlador = document.getElementById("id_controlador").value;
+                const id_arcondicionado = document.getElementById('id_arcondicionado').value;
+                socket.emit('enviarComandoAr', { id_controlador, id_arcondicionado, temperatura, user })
+            }
+            // alteraSala(document.getElementById('selectPredioMobile'))
 
         // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
         // alteraSala(document.getElementById('selectPredioMobile'))
