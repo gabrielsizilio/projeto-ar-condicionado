@@ -8,6 +8,8 @@ const estadoArService = require("../services/estadoArService");
 
 
 class SocketService {
+
+    
     async setup(esp, socket, macAddressMapping) {
         console.log(`Controlador registrado: ${esp.macAddress}`)
         macAddressMapping[esp.macAddress] = socket.id
@@ -38,6 +40,7 @@ class SocketService {
 
         let codigo_ir;
         let temperatura;
+        
 
         if (comandoParm.temperatura.trim() != "off") {
             temperatura = "temp" + comandoParm.temperatura.replace('°C', '');
@@ -65,7 +68,9 @@ class SocketService {
 
         await estadoArService.createOrUpdateAr(aparelho.id, temperatura);
 
-        io.emit("airConditionerTemperatureResponse", { air_id: aparelho.id, temperature: temperatura});
+        this.id = null;
+
+        io.emit("airConditionerTemperatureResponse", { ar_id: aparelho.id, temperature: temperatura, id: this.id });
 
         await registerLogUpdateTemperatura(comandoParm);
     }
@@ -75,10 +80,12 @@ class SocketService {
         socket.emit('moduleConnectionStatus', { isModuleConnected, macAddress });
     }
 
-    async getAirConditionerTemperature(air_id, socket) {
+    async getAirConditionerTemperature(data, socket) {
         try {
-            const temperature = await ArCondicionadoService.getTemperature(air_id);
-            socket.emit("airConditionerTemperatureResponse", { air_id, temperature });
+            const { ar_id, id } = data;
+            const temperature = await ArCondicionadoService.getTemperature(ar_id);
+            this.id = id;
+            socket.emit("airConditionerTemperatureResponse", { ar_id, temperature, id });
         } catch(error) {
             console.log(error);
         }

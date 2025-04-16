@@ -7,7 +7,7 @@
     <div id="body" class="d-flex row">
 
             <%- include('../partials/nav.ejs') %>
-           <%# include('../partials/nav-mobile.ejs') %> 
+            <%# include('../partials/nav-mobile.ejs') %> 
             <div>
                 <%- include('../partials/nav-top-mobile.ejs') %>
             </div>
@@ -63,9 +63,10 @@
                                             <input id="id_ar_condicionado2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
                                             <input id="id_controlador2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].controlador.macAddress %>">
                                         <% } %>
-                                        <p id="tempA2" class="temperatura"><%= predios[0].salas[0].ares_condicionados[1].estado.temp.replace('temp', '') %><strong>°C</strong></p>
+                                        <p id="tempA2" class="temperatura"><%= predios[0].salas[0].ares_condicionados[1].estado.temp.replace('temp', '') %>°C</p>
                                     <% } %>
                                 </div>
+
                                 <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content d-flex justify-content-center">
@@ -73,7 +74,7 @@
                                             <div id="modal-temperatura" class="position-relative">
                                                 <div class="circle">
                                                     <div class="debug2 select-nulo" >
-                                                        <input id="rangeAr2" class="form-control" value="18°C" type="text" min="20" max="25" step="1" onmousedown="return false;" >
+                                                        <input id="rangeAr2" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" >
                                                     </div>
                                                     <div class="dot2"></div>
                                                 </div>
@@ -85,7 +86,7 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <input type="hidden" class="form-range mt-4" id="temperatura2Range" min="20" max="23" step="1" value="23">
+                                            <input type="hidden" class="form-range mt-4" id="temperatura2Range" min="18" max="23" step="1" value="23">
                                         </div>
                                     </div>
                                 </div>  
@@ -117,15 +118,12 @@
                                             </span>
                                         </h6>
                                         <% if(predios[0].salas[0].ares_condicionados[index].controlador) { %>
-                                            <!-- <script>
-                                                console.log('<%= predios[0].salas[0].ares_condicionados[index].controlador.macAddress %>')
-                                            </script> -->
                                             <input id="id_ar_condicionado_mobile<%= index + 1 %>" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[index].id %>">
                                             <input id="id_controlador_mobile<%= index + 1 %>" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[index].controlador.macAddress %>">
                                         <% } %>
                                         <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
                                             <div class="debug-mobile<%= index + 1 %>">
-                                                <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
+                                                <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="<%= predios[0].salas[0].ares_condicionados[index].estado.temp.replace('temp', '') %>°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
                                             </div>
                                             <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>" onTouchStart="bloquearRolagem()" onTouchEnd="dotMobileChanged(<%= index + 1 %>)"></div>
                                         </div>
@@ -197,14 +195,22 @@
             input_controlador_id = inputControladorId;
             input_ar_condicionado_id = inputArCondicionadoId;
             atualizaControladorSelecionado(inputControladorId);
+            
+            let inputAr = document.getElementById(id);
+            let inputRange = document.getElementById('rangeAr2');
+            inputRange.value = inputAr.textContent
+
+            let temperatura = parseInt(inputRange.value.replace('°C', ''));
+            const angulo = ((temperatura - 18) / 8) * 360;
+            $(".dot2").css("transform", "rotate(" + angulo + "deg)");
         }
+            
 
         // Atualiza controlador
         function atualizaControladorSelecionado(id_controlador_selecionado) {
             let inputControlador = document.getElementById("id_controlador");
             let inputControladorSelecionado = document.getElementById(id_controlador_selecionado);
             if(inputControladorSelecionado) {
-                // alert(inputControladorSelecionado.value)
                 const macAddress = inputControladorSelecionado.value;
                 inputControlador.value = macAddress;
             }
@@ -310,8 +316,6 @@
             var predioId = document.getElementById('selectPredio').value
             var predioSelecionado
             var salaSelecionada
-
-            
             
             predio1.forEach(predio => {
                 if (predio.id == predioId) {
@@ -320,27 +324,23 @@
             });
             
             if(!predioSelecionado) {
-                return ;
+                return;
             }
             
             predioSelecionado.salas.forEach(sala => {
                 if(sala.nome == divSala.textContent.trim()){
                     salaSelecionada = sala
                 }
-                console.log('++ ' + predioSelecionado)
             })
             
             if(!salaSelecionada) {
-                return ;
+                return;
             }
             
-            console.log(salaSelecionada.ares_condicionados[0].estado.temp)
-
             let divSeletor1 = document.getElementById('seletorAr1')
             let divSeletorMobile1 = document.getElementById('controleArMobile1')
             let divSeletor2 = document.getElementById('seletorAr2')
             let divSeletorMobile2 = document.getElementById('controleArMobile2')
-    
 
             if(salaSelecionada.ares_condicionados[0]) {
                 let inputArId = document.getElementById('id_ar_condicionado1')
@@ -356,15 +356,15 @@
                 inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
                 predio.textContent = predio1[predioId - 1].nome
                 sala.textContent = salaSelecionada.nome
-
-                let temperatura = salaSelecionada.ares_condicionados[0].estado.temp.replace('temp', '') + '°C'
-                document.getElementById('tempA1').textContent = temperatura
                 
-                divSeletor1.style.cssText = "visbility: visible";
-                divSeletorMobile1.style.cssText ="visbility: visible";
+                socket.emit("getAirConditionerTemperature", {ar_id: inputArId.value, id: 'rangeArMobile1'});
+                socket.emit("getAirConditionerTemperature", {ar_id: inputArId.value, id: 'tempA1'});
+                
+                divSeletor1.style.visibility = "visible";
+                divSeletorMobile1.style.visibility = "visible";
             } else {
-                divSeletor1.style.cssText = "visibility: hidden"
-                divSeletorMobile1.style.cssText = "visibility: hidden !important"
+                divSeletor1.style.visibility = "hidden";
+                divSeletorMobile1.style.visibility = "hidden";
             }
             
             if(salaSelecionada.ares_condicionados[1]) {
@@ -374,35 +374,69 @@
                 let inputControladorId = document.getElementById('id_controlador2')
                 let predio = document.getElementById('predio_ar2')
                 let sala = document.getElementById('sala_ar2')
-                let temperatura = salaSelecionada.ares_condicionados[1].estado.temp.replace('temp', '') + '°C'
-
+                
                 inputArId.value = salaSelecionada.ares_condicionados[1].id
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
                 strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[1].nome
                 inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
                 predio.textContent = predio1[predioId - 1].nome
                 sala.textContent = salaSelecionada.nome
-                document.getElementById('tempA2').textContent = temperatura
-
-                divSeletor2.style.cssText = "visbility: visible";
-                divSeletorMobile2.style.cssText = "visbility: visible";
+                
+                socket.emit("getAirConditionerTemperature", {ar_id: inputArId.value, id: 'rangeArMobile2'});
+                socket.emit("getAirConditionerTemperature", {ar_id: inputArId.value, id: 'tempA2'});
+                
+                divSeletor2.style.visibility = "visible";
+                divSeletorMobile2.style.visibility = "visible";
             } else {
-                divSeletor2.style.cssText = "visibility: hidden"
-                divSeletorMobile2.style.cssText = "visibility: hidden"
+                divSeletor2.style.visibility = "hidden";
+                divSeletorMobile2.style.visibility = "hidden";
             }
             
-            document.getElementById('span1').innerHTML = ""
-            var aux1 = document.createElement('strong')
-            aux1.textContent = divSala.textContent + " - " + predioSelecionado.nome
-            document.getElementById('span1').appendChild(aux1)
+            document.getElementById('span1').innerHTML = "";
+            var aux1 = document.createElement('strong');
+            aux1.textContent = divSala.textContent + " - " + predioSelecionado.nome;
+            document.getElementById('span1').appendChild(aux1);
+
+            setTimeout(function() {
+                updateSliderPositions();
+            }, 500);
         }
-    </script>
-       
+
+        function updateSliderPositions() {
+            let div1 = document.querySelector('.debug-mobile1');
+            if (div1) {
+                let input1 = div1.querySelector('input');
+                if (input1) {
+                    let temperatura1 = parseInt(input1.value.replace('°C', ''));
+                    const angulo1 = ((temperatura1 - 18) / 8) * 360;
+                    $(".dot-mobile1").css("transform", "rotate(" + angulo1 + "deg)");
+                }
+            }
+            
+            let div2 = document.querySelector('.debug-mobile2');
+            if (div2) {
+                let input2 = div2.querySelector('input');
+                if (input2) {
+                    let temperatura2 = parseInt(input2.value.replace('°C', ''));
+                    const angulo2 = ((temperatura2 - 18) / 8) * 360;
+                    $(".dot-mobile2").css("transform", "rotate(" + angulo2 + "deg)");
+                }
+            }
+            
+            let modalInput = document.getElementById('rangeAr2');
+            if (modalInput) {
+                let temperaturaModal = parseInt(modalInput.value.replace('°C', ''));
+                const anguloModal = ((temperaturaModal - 18) / 8) * 360;
+                $(".dot2").css("transform", "rotate(" + anguloModal + "deg)");
+            }
+        }
+    </script>       
 
     <script>
         // Ar-condicionado 02
         var temperatura2Range = document.getElementById("temperatura2Range");
         var temperaturaSelecionada2 = document.getElementById("temperaturaSelecionada2");
+
 
         temperatura2Range.addEventListener("input", function() {
             temperaturaSelecionada2.textContent = temperatura2Range.value;
@@ -488,6 +522,10 @@
                 angle = $(this).val()/360*360;
                 $(".dot-mobile1").css("transform", "rotate("+angle + 18 +"deg)");
             })
+            let div = document.querySelector('.debug-mobile1');
+            let temperatura = parseInt(div.querySelector('input').value.replace('°C', ''));
+            const angulo = ((temperatura - 18) / 8) * 360;
+            $(".dot-mobile1").css("transform", "rotate(" + angulo + "deg)");
         });
 
         // Range circular ar-condicionados mobile (2)
@@ -529,36 +567,41 @@
                 angle = $(this).val()/360*360;
                 $(".dot-mobile2").css("transform", "rotate("+angle + 18 +"deg)");
             })
+            let div = document.querySelector('.debug-mobile2');
+            let temperatura = parseInt(div.querySelector('input').value.replace('°C', ''));
+            const angulo = ((temperatura - 18) / 8) * 360;
+            $(".dot-mobile2").css("transform", "rotate(" + angulo + "deg)");
         });
-
-        // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
-        // Inicializa os modais
-        // const myModal = document.getElementById('myModal')
-        // const myInput = document.getElementById('myInput')
-
-        // myModal.addEventListener('shown.bs.modal', () => {
-        //     myInput.focus()
-        // })
-
 
 
         function alteraSala(predioAtual){
-            let predioId = predioAtual.value;
-            const select = document.getElementById("selectSalasMobile")
-            predio1.forEach(predio => {
-                if (predio.id == predioId) {
-                    select.innerText = ""
-                    predio.salas.forEach(sala => {
-                        let option = document.createElement('option')
-                        option.value = sala.id
-                        option.text = sala.nome
-                        select.appendChild(option)
-                    })
-                }
-            });
+            const visorTemp = document.getElementById(data.id);
+            const temperatura = data.temperature.replace('temp','');
+            
+            if(data.id.includes('rangeArMobile')){
+                visorTemp.value = temperatura + '°C';
+            } else {
+                visorTemp.textContent = temperatura + '°C';
+            }
+            
+            setTimeout(updateSliderPositions, 100);
 
         }
         
+    </script>
+
+    <script>
+
+        function alteraTemperatura(data){
+            const visorTemp = document.getElementById(data.id)
+            const temperatura = data.temperature.replace('temp','')
+            if(data.id.includes('rangeArMobile')){
+                visorTemp.value = temperatura + '°C'
+            }else{
+                visorTemp.textContent = temperatura + '°C'
+            }
+        }
+
     </script>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -572,11 +615,9 @@
             console.log(connectionStatus); // formato esperado { isModuleConnected, macAddress }
         })
 
-        const air_id = 2;
-        socket.emit("getAirConditionerTemperature", air_id); // chama o evento para buscar a temperatura
-
         socket.on("airConditionerTemperatureResponse", (data) => { // retorno do evento de busca de temperatura
-            console.log(`Temperatura do ar-condicionado (${data.air_id}): ${data.temperature}`);
+            console.log(`Temperatura do ar-condicionado (${data.ar_id}): ${data.temperature}`);
+            alteraTemperatura(data)            
         });
 
         function enviarComando(temperatura) {
@@ -584,9 +625,6 @@
             const id_arcondicionado = document.getElementById('id_arcondicionado').value;
             socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
         }
-
-        // Isso está quebrando a aplicação porque não existe nenhum elemento com esse ID
-        // alteraSala(document.getElementById('selectPredioMobile'))
 
         function emitModuleConnectionCheck(macAddress) {
             socket.emit('checkModuleConnection', macAddress);

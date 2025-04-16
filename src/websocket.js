@@ -2,8 +2,6 @@ const { io } = require('./http')
 
 const macAddressMapping = {}
 const SocketService = require('./services/SocketService');
-
-
 io.on('connection', (socket) => {
     console.log(`Um usuário se conectou { id: ${socket.id} }`)
 
