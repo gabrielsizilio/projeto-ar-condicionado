@@ -1,4 +1,6 @@
 # Sistema de Gerenciamento de Ar-condicionado ❄️
+![Status](https://img.shields.io/badge/api-Em%20Desenvolvimento-yellow)
+
 O Sistema de Gerenciamento de Ar-condicionado foi desenvolvido para monitorar e controlar os módulos de ar-condicionado em tempo real. Através de um painel de administração, é possível gerenciar a temperatura, verificar o status de conexão dos módulos ESP32, visualizar logs de atividade e até bloquear ou desbloquear o controle remoto, garantindo o gerenciamento mais seguro e eficiente.
 
 ## 🛠️ Funcionalidades
