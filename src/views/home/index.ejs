@@ -50,7 +50,11 @@
                                             <input id="id_ar_condicionado1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].id %>">
                                             <input id="id_controlador1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].controlador.macAddress %>">
                                         <% } %>
-                                        <p id="tempA1" class="temperatura"><%= predios[0].salas[0].ares_condicionados[0].estado.temp.replace('temp', '') %>°C</p>
+                                        <% 
+                                            const tempRaw = predios?.[0]?.salas?.[0]?.ares_condicionados?.[0]?.estado?.temp || 'off';
+                                            const tempValue = tempRaw === 'off' ? 'off' : tempRaw.replace('temp', '') + '°C';
+                                        %>
+                                         <p id="tempA1" class="temperatura"><%= tempValue %> </p>
                                     <% } %>
                                 </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
@@ -63,7 +67,11 @@
                                             <input id="id_ar_condicionado2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
                                             <input id="id_controlador2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].controlador.macAddress %>">
                                         <% } %>
-                                        <p id="tempA2" class="temperatura"><%= predios[0].salas[0].ares_condicionados[1].estado.temp.replace('temp', '') %>°C</p>
+                                        <% 
+                                            const tempRaw = predios?.[0]?.salas?.[0]?.ares_condicionados?.[1]?.estado?.temp || 'off';
+                                            const tempValue = tempRaw === 'off' ? 'off' : tempRaw.replace('temp', '') + '°C';
+                                        %>
+                                        <p id="tempA2" class="temperatura"><%= tempValue %> </p>
                                     <% } %>
                                 </div>
 
@@ -123,7 +131,11 @@
                                         <% } %>
                                         <div class="circle-mobile<%= index + 1 %> mt-3 mb-0">
                                             <div class="debug-mobile<%= index + 1 %>">
-                                                <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="<%= predios[0].salas[0].ares_condicionados[index].estado.temp.replace('temp', '') %>°C" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
+                                                <% 
+                                                    const tempRaw = predios?.[0]?.salas?.[0]?.ares_condicionados?.[index]?.estado?.temp || 'off';
+                                                    const tempValue = tempRaw === 'off' ? 'off' : tempRaw.replace('temp', '') + '°C';
+                                                %>
+                                                <input id="rangeArMobile<%= index + 1 %>" class="form-control" value="<%= tempValue %>" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
                                             </div>
                                             <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>" onTouchStart="bloquearRolagem()" onTouchEnd="dotMobileChanged(<%= index + 1 %>)"></div>
                                         </div>
