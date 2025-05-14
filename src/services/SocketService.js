@@ -68,9 +68,7 @@ class SocketService {
 
         await estadoArService.createOrUpdateAr(aparelho.id, temperatura);
 
-        this.id = null;
-
-        io.emit("airConditionerTemperatureResponse", { ar_id: aparelho.id, temperature: temperatura, id: this.id });
+        io.emit("airConditionerTemperatureResponse", { ar_id: aparelho.id, temperature: temperatura });
 
         await registerLogUpdateTemperatura(comandoParm);
     }
@@ -82,10 +80,9 @@ class SocketService {
 
     async getAirConditionerTemperature(data, socket) {
         try {
-            const { ar_id, id } = data;
+            const { ar_id } = data;
             const temperature = await ArCondicionadoService.getTemperature(ar_id);
-            this.id = id;
-            socket.emit("airConditionerTemperatureResponse", { ar_id, temperature, id });
+            socket.emit("airConditionerTemperatureResponse", { ar_id, temperature });
         } catch(error) {
             console.log(error);
         }
