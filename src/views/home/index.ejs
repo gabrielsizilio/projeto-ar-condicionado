@@ -591,9 +591,9 @@
             const temperatura = data.temperature.replace('temp','');
             
             if(data.id.includes('rangeArMobile')){
-                visorTemp.value = temperatura + '°C';
+                visorTemp.value = temperatura === "off" ? temperatura : temperatura + '°C';
             } else {
-                visorTemp.textContent = temperatura + '°C';
+                visorTemp.textContent = temperatura === "off" ? temperatura : temperatura + '°C';;
             }
             
             setTimeout(updateSliderPositions, 100);
@@ -608,9 +608,9 @@
             const visorTemp = document.getElementById(data.id)
             const temperatura = data.temperature.replace('temp','')
             if(data.id.includes('rangeArMobile')){
-                visorTemp.value = temperatura + '°C'
-            }else{
-                visorTemp.textContent = temperatura + '°C'
+                visorTemp.value = temperatura === "off" ? temperatura : temperatura + '°C';
+            } else{
+                visorTemp.textContent = temperatura === "off" ? temperatura : temperatura + '°C';
             }
         }
 
