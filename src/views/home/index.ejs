@@ -584,21 +584,6 @@
             const angulo = ((temperatura - 18) / 8) * 360;
             $(".dot-mobile2").css("transform", "rotate(" + angulo + "deg)");
         });
-
-
-        function alteraSala(predioAtual){
-            const visorTemp = document.getElementById(data.id);
-            const temperatura = data.temperature.replace('temp','');
-            
-            if(data.id.includes('rangeArMobile')){
-                visorTemp.value = temperatura === "off" ? temperatura : temperatura + '°C';
-            } else {
-                visorTemp.textContent = temperatura === "off" ? temperatura : temperatura + '°C';;
-            }
-            
-            setTimeout(updateSliderPositions, 100);
-
-        }
         
     </script>
 
