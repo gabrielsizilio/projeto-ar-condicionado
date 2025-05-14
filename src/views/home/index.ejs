@@ -43,8 +43,8 @@
                             </div>
 
                             <div class="row justify-content-evenly infor-ar">
-                                <div id="seletorAr1" onclick="alteraIdDivSelecionada(<%= predios[0].salas[0].ares_condicionados[0].id %>, 'id_controlador1', 'id_ar_condicionado1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
-                                    <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0 && predios[0].salas[0].ares_condicionados[0]) { %>
+                                <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0 && predios[0].salas[0].ares_condicionados[0]) { %>
+                                    <div id="seletorAr1" onclick="alteraIdDivSelecionada(<%= predios[0].salas[0].ares_condicionados[0].id %>, 'id_controlador1', 'id_ar_condicionado1')" class="col-5 ar1 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                         <p><strong id="nome_ar1"><%= predios[0].salas[0].ares_condicionados[0].nome %></strong></p>
                                         <% if(predios[0].salas[0].ares_condicionados[0].controlador) { %>
                                             <input id="id_ar_condicionado1" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[0].id %>">
@@ -55,13 +55,13 @@
                                             const tempValue = tempRaw === 'off' ? 'off' : tempRaw.replace('temp', '') + '°C';
                                         %>
                                          <p id="temp_<%=  predios[0].salas[0].ares_condicionados[0].id %>" class="temperatura"><%= tempValue %> </p>
+                                    </div>
                                     <% } %>
-                                </div>
                                 <div class="col-auto d-flex divisoria justify-content-center">
                                     <div class="vr" style="height: 95%;"></div>
                                 </div>
-                                <div id="seletorAr2" onclick="alteraIdDivSelecionada(<%= predios[0].salas[0].ares_condicionados[1].id %>, 'id_controlador2', 'id_ar_condicionado2')" class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
-                                    <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0 && predios[0].salas[0].ares_condicionados[1]) { %>
+                                <% if(predios.length > 0 && predios[0].salas && predios[0].salas.length > 0 && predios[0].salas[0].ares_condicionados[1]) { %>
+                                    <div id="seletorAr2" onclick="alteraIdDivSelecionada(<%= predios[0].salas[0].ares_condicionados[1].id %>, 'id_controlador2', 'id_ar_condicionado2')" class="col-5 ar2 d-flex justify-content-start" data-bs-target="#alterarAr" data-bs-toggle="modal">
                                         <p><strong id="nome_ar2"><%= predios[0].salas[0].ares_condicionados[1].nome %></strong></p>
                                         <% if(predios[0].salas[0].ares_condicionados[1].controlador) { %>
                                             <input id="id_ar_condicionado2" type="hidden" value="<%= predios[0].salas[0].ares_condicionados[1].id %>">
@@ -72,8 +72,8 @@
                                             const tempValue = tempRaw === 'off' ? 'off' : tempRaw.replace('temp', '') + '°C';
                                         %>
                                         <p id="temp_<%= predios[0].salas[0].ares_condicionados[1].id %>" class="temperatura"><%= tempValue %> </p>
-                                    <% } %>
-                                </div>
+                                    </div>
+                                <% } %>
 
                                 <div class="modal fade" id="alterarAr" aria-hidden="true" aria-labelledby="alterarArLabel" tabindex="-1">
                                 <div class="modal-dialog modal-sm">
