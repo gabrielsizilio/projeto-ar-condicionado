@@ -808,7 +808,7 @@ box-icon{
 }
 .card-action-buttons .btn {
     padding: 7px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 .card-action-buttons box-icon{
     fill: #7964ff !important;
