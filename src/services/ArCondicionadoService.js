@@ -24,16 +24,16 @@ class ArCondicionadoService {
         const macAddress = airConditioner.controlador.macAddress;
 
         if (!macAddress) return;
-        
+
         const socket_id =
             macAddressMapping[macAddress];
 
-        if (!socket_id) return; 
+        if (!socket_id) return;
 
         const blockedPins = await this.getBlockedIRPins(macAddress);
 
-        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);   
-        
+        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);
+
     }
 
     static async getBlockedIRPins(macAddress) {
@@ -64,7 +64,7 @@ class ArCondicionadoService {
         if (!airState.temp) return "off";
 
         return airState.temp;
-        
+
     }
 }
 
