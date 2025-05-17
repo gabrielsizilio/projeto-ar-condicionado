@@ -2,9 +2,11 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("task_ares_condicionados", {
+  async up (queryInterface, Sequelize) {
+    
+    await queryInterface.createTable("task_weekly", {
       task_id: {
+        primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'task',
@@ -13,14 +15,13 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      ar_id: {
+      Weekday: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'ares_condicionados',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        allowNull: false
+      },
+      Time: {
+        type: Sequelize.TIME,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -30,10 +31,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('task_ares_condicionados');
+  async down (queryInterface, Sequelize) {
+      await queryInterface.dropTable('task_weekly');
   }
 };

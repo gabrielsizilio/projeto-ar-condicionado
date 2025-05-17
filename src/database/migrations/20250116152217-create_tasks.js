@@ -3,31 +3,22 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('tasks', {
+    await queryInterface.createTable("task", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      dateTime: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       status: {
-        type: Sequelize.ENUM("pending", "completed"),
+        type: Sequelize.ENUM("ATIVA", "INATIVA"),
         allowNull: false,
-        defaultValue: "pending"
+        defaultValue: "ATIVA"
       },
       temperatura: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
-      },
-      type: {
-        type: Sequelize.ENUM("single", "recurring"),
-        allowNull: false,
-        defaultValue: "single"
       },
       createdAt: {
         allowNull: false,
