@@ -17,6 +17,8 @@ const Log = require('../models/Log')
 const Role = require('../models/Role')
 const ArCondicionadoBloqueio = require('../models/ArCondicionadoBloqueio')
 const Task = require('../models/Task')
+const TaskSingle = require('../models/TaskSingle');
+const TaskWeekly = require('../models/TaskWeekly')
 
 const connection = new Sequelize(configDB);
 
@@ -48,6 +50,8 @@ Log.init(connection)
 Role.init(connection)
 ArCondicionadoBloqueio.init(connection)
 Task.init(connection)
+TaskSingle.init(connection)
+TaskWeekly.init(connection)
 
 
 Credencial.associate(connection.models)
@@ -67,5 +71,7 @@ Log.associate(connection.models)
 Role.associate(connection.models)
 ArCondicionadoBloqueio.associate(connection.models)
 Task.associate(connection.models)
+TaskSingle.associate(connection.models)
+TaskWeekly.associate(connection.models)
 
 module.exports = connection

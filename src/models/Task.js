@@ -3,10 +3,8 @@ const { Model, DataTypes } = require('sequelize')
 class Task extends Model {
     static init(sequelize) {
         super.init({
-            dateTime: DataTypes.DATE,
-            status: DataTypes.ENUM("pending", "completed"),
-            type: DataTypes.ENUM("signle", "recurring")
-            
+            temperatura: DataTypes.INTEGER,
+            status: DataTypes.ENUM("ACTIVE", "INACTIVE"),
         }, {
             sequelize,
             tableName: 'tasks'
