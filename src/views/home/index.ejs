@@ -114,7 +114,7 @@
                                         <div class="row">
                                             <h5 class="card-title d-inline col" id="nome_ar_mobile<%= index + 1 %>"><%= arCondicionado.nome  %></h5>
                                             <div class="form-check form-switch col-1">
-                                                <input class="form-check-input" type="checkbox" role="switch" data-air-id="<%= arCondicionado.id %>" id="flexSwitchCheckDefault<%= index + 1 %>" onchange="switchMobileChanged(<%= index + 1 %>, <%= arCondicionado.id %>)">
+                                                <input class="form-check-input" type="checkbox" <%= (arCondicionado?.estado?.temp || 'off') === "off" ? '' : 'checked' %> role="switch" data-air-id="<%= arCondicionado.id %>" id="flexSwitchCheckDefault<%= index + 1 %>" onchange="switchMobileChanged(<%= index + 1 %>, <%= arCondicionado.id %>)">
                                             </div>
                                         </div>
                                         <h6 class="card-subtitle mb-2">
@@ -583,7 +583,7 @@
             })
             let div = document.querySelector('.debug-mobile1');
             let temperatura = parseInt(div.querySelector('input').value.replace('°C', ''));
-            const angulo = ((temperatura - 18) / 8) * 360;
+            const angulo = ((temperatura - 18) / 7) * 360;
             $(".dot-mobile1").css("transform", "rotate(" + angulo + "deg)");
         });
 
@@ -631,7 +631,7 @@
             })
             let div = document.querySelector('.debug-mobile2');
             let temperatura = parseInt(div.querySelector('input').value.replace('°C', ''));
-            const angulo = ((temperatura - 18) / 8) * 360;
+            const angulo = ((temperatura - 18) / 7) * 360;
             $(".dot-mobile2").css("transform", "rotate(" + angulo + "deg)");
         });
         
