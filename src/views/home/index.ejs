@@ -491,8 +491,8 @@
 
     <script>
         // Ar-condicionado 02
-        let temperatura2Range = document.getElementById("temperatura2Range");
-        let temperaturaSelecionada2 = document.getElementById("temperaturaSelecionada2");
+        var temperatura2Range = document.getElementById("temperatura2Range");
+        var temperaturaSelecionada2 = document.getElementById("temperaturaSelecionada2");
 
 
         temperatura2Range.addEventListener("input", function() {
@@ -501,7 +501,7 @@
 
         // Range circular ar-condicionados desktop
         $(document).ready(function(){
-            let is_dragging = false;
+            var is_dragging = false;
             $(document).on("mousedown touchstart",".circle",function(e){
                 is_dragging = true;
             });
@@ -510,25 +510,25 @@
             });
             $(document).on("mousemove touchmove",function(e){
                 if(is_dragging){
-                let circle = $(".circle")
-                let touch = undefined;
+                var circle = $(".circle")
+                var touch = undefined;
                 if (e.originalEvent.touches){
-                    let touch = e.originalEvent.touches[0];
+                    var touch = e.originalEvent.touches[0];
                 }
-                let center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
-                let center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
-                let pos_x = (e.pageX || touch.pageX);
-                let pos_y = (e.pageY || touch.pageY);
-                let delta_y =  center_y - pos_y;
-                let delta_x = center_x - pos_x;
-                let angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                var pos_x = (e.pageX || touch.pageX);
+                var pos_y = (e.pageY || touch.pageY);
+                var delta_y =  center_y - pos_y;
+                var delta_x = center_x - pos_x;
+                var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
                 angle -= 90;
                 if (angle < 0){
                     angle = 360 + angle;
                 }
                 angle = Math.round(angle);
-                let minimo = document.getElementById('rangeAr2').getAttribute('min');
-                let qtdTemperaturas = document.getElementById('rangeAr2').getAttribute('max') - document.getElementById('rangeAr2').getAttribute('min')
+                var minimo = document.getElementById('rangeAr2').getAttribute('min');
+                var qtdTemperaturas = document.getElementById('rangeAr2').getAttribute('max') - document.getElementById('rangeAr2').getAttribute('min')
 
                 $(".dot2").css("transform", "rotate("+angle+"deg)");
                 $(".debug2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
@@ -589,7 +589,7 @@
 
         // Range circular ar-condicionados mobile (2)
         $(document).ready(function(){
-            let is_dragging = false;
+            var is_dragging = false;
             $(document).on("mousedown touchstart",".circle-mobile2",function(e){
                 is_dragging = true;
             });
@@ -598,28 +598,28 @@
             });
             $(document).on("mousemove touchmove",function(e){
                 if(is_dragging){
-                let circle = $(".circle-mobile2")
-                let touch = undefined;
+                var circle = $(".circle-mobile2")
+                var touch = undefined;
                 if (e.originalEvent.touches){
-                    let touch = e.originalEvent.touches[0];
+                    var touch = e.originalEvent.touches[0];
                 }
-                let center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
-                let center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
-                let pos_x = (e.pageX || touch.pageX);
-                let pos_y = (e.pageY || touch.pageY);
-                let delta_y =  center_y - pos_y;
-                let delta_x = center_x - pos_x;
-                let angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
+                var center_x = ($(circle).outerWidth() / 2) + $(circle).offset().left;
+                var center_y = ($(circle).outerHeight() / 2) + $(circle).offset().top;
+                var pos_x = (e.pageX || touch.pageX);
+                var pos_y = (e.pageY || touch.pageY);
+                var delta_y =  center_y - pos_y;
+                var delta_x = center_x - pos_x;
+                var angle = Math.atan2(delta_y, delta_x) * (180 / Math.PI);
                 angle -= 90;
                 if (angle < 0){
                     angle = 360 + angle;
                 }
                 angle = Math.round(angle);
-                // let minimo = document.getElementById('rangeArMobile2').getAttribute('min');
-                // let qtdTemperaturas = document.getElementById('rangeArMobile2').getAttribute('max') - document.getElementById('rangeArMobile2').getAttribute('min')
+                // var minimo = document.getElementById('rangeArMobile2').getAttribute('min');
+                // var qtdTemperaturas = document.getElementById('rangeArMobile2').getAttribute('max') - document.getElementById('rangeArMobile2').getAttribute('min')
 
-                let minimo = 18;
-                let qtdTemperaturas = 25 - minimo;
+                var minimo = 18;
+                var qtdTemperaturas = 25 - minimo;
 
                 $(".dot-mobile2").css("transform", "rotate("+angle+"deg)");
                 $(".debug-mobile2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
