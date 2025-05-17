@@ -3,22 +3,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("task", {
+    await queryInterface.createTable('task_execution', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      status: {
-        type: Sequelize.ENUM("ACTIVE", "INACTIVE"),
-        allowNull: false,
-        defaultValue: "ACTIVE"
-      },
-      temperatura: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0
+        autoIncrement: true,
+        primaryKey: true
+      },
+      task_id: {
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'task',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+      status: {
+        type: Sequelize.ENUM('PENDING', 'RUNNING', 'COMPLETED', 'FAILED', 'CANCELLED'),
+        allowNull: false,
+        defaultValue: 'PENDING'
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +37,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('tasks');
+    await queryInterface.dropTable('task_execution');
   }
 };
