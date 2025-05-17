@@ -366,6 +366,7 @@
             
             if(salaSelecionada.ares_condicionados[0]) {
                 let inputArId = document.getElementById('id_ar_condicionado1')
+                let inputArMobileId = document.getElementById('id_ar_condicionado_mobile1')
                 let strongNomeAr = document.getElementById('nome_ar1')
                 let strongNomeArMobile = document.getElementById('nome_ar_mobile1')
                 let inputControladorId = document.getElementById('id_controlador1')
@@ -388,7 +389,8 @@
                     switchMobileChanged(1, airId);
                 };
                 
-                inputArId.value = salaSelecionada.ares_condicionados[0].id
+                inputArId.value = airId
+                inputArMobileId.value = airId
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
                 strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[0].nome
                 inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
@@ -406,6 +408,7 @@
             
             if(salaSelecionada.ares_condicionados[1]) {
                 let inputArId = document.getElementById('id_ar_condicionado2')
+                let inputArMobileId = document.getElementById('id_ar_condicionado_mobile2')
                 let strongNomeAr = document.getElementById('nome_ar2')
                 let strongNomeArMobile = document.getElementById('nome_ar_mobile2')
                 let inputControladorId = document.getElementById('id_controlador2')
@@ -430,6 +433,7 @@
                 };
 
                 inputArId.value = airId;
+                inputArMobileId.value = airId;
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
                 strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[1].nome
                 inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
@@ -460,8 +464,8 @@
             if (div1) {
                 let input1 = div1.querySelector('input');
                 if (input1) {
-                    let temperatura1 = parseInt(input1.value.replace('°C', ''));
-                    const angulo1 = ((temperatura1 - 18) / 8) * 360;
+                    let temperatura1 = parseInt(input1.value.replace('°C', '')) | 18;
+                    const angulo1 = ((temperatura1 - 18) / 7) * 360;
                     $(".dot-mobile1").css("transform", "rotate(" + angulo1 + "deg)");
                 }
             }
@@ -470,16 +474,16 @@
             if (div2) {
                 let input2 = div2.querySelector('input');
                 if (input2) {
-                    let temperatura2 = parseInt(input2.value.replace('°C', ''));
-                    const angulo2 = ((temperatura2 - 18) / 8) * 360;
+                    let temperatura2 = parseInt(input2.value.replace('°C', '')) | 18;
+                    const angulo2 = ((temperatura2 - 18) / 7) * 360;
                     $(".dot-mobile2").css("transform", "rotate(" + angulo2 + "deg)");
                 }
             }
             
             let modalInput = document.getElementById('rangeAr2');
             if (modalInput) {
-                let temperaturaModal = parseInt(modalInput.value.replace('°C', ''));
-                const anguloModal = ((temperaturaModal - 18) / 8) * 360;
+                let temperaturaModal = parseInt(modalInput.value.replace('°C', '')) | 18;
+                const anguloModal = ((temperaturaModal - 18) / 7) * 360;
                 $(".dot2").css("transform", "rotate(" + anguloModal + "deg)");
             }
         }
@@ -567,7 +571,7 @@
                 // var minimo = document.getElementById('rangeArMobile1').getAttribute('min');
                 // var qtdTemperaturas = document.getElementById('rangeArMobile1').getAttribute('max') - document.getElementById('rangeArMobile1').getAttribute('min')
                 var minimo = 18;
-                var qtdTemperaturas = 25 - 18;
+                var qtdTemperaturas = 25 - minimo;
 
                 $(".dot-mobile1").css("transform", "rotate("+angle+"deg)");
                 $(".debug-mobile1 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
@@ -615,7 +619,7 @@
                 // var qtdTemperaturas = document.getElementById('rangeArMobile2').getAttribute('max') - document.getElementById('rangeArMobile2').getAttribute('min')
 
                 var minimo = 18;
-                var qtdTemperaturas = 25 - 18;
+                var qtdTemperaturas = 25 - minimo;
 
                 $(".dot-mobile2").css("transform", "rotate("+angle+"deg)");
                 $(".debug-mobile2 input").val(Math.round(angle * qtdTemperaturas/360 + parseInt(minimo)) + "°C");
@@ -637,14 +641,17 @@
 
         function alteraTemperatura(data){
             const visorTempDesktop = document.getElementById("temp_" + data.ar_id)
+            const visorTempModalDesktop = document.getElementById('rangeAr2')
             const visorTempMobile = document.getElementById("rangeArMobile" + data.ar_id)
             const temperatura = data.temperature.replace('temp','') === "off" ? "off" : data.temperature.replace('temp','') + '°C';
             const switchMobile = document.querySelector(`input[data-air-id='${data.ar_id}']`);
             if(visorTempDesktop) visorTempDesktop.textContent = temperatura;
+            if(visorTempModalDesktop) visorTempModalDesktop.value = temperatura;
             if(visorTempMobile) visorTempMobile.value = temperatura;
             if(switchMobile) {
                 switchMobile.checked = temperatura === "off" ? false : true;
             }
+            updateSliderPositions()
         }
 
     </script>
