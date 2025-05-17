@@ -1,5 +1,6 @@
 var cron = require("node-cron");
-const { getAllTasks, getAllTasksPending, createTask, runTask } = require("./TaskService");
+const { getAllTasks, getAllTasksPending, createTask, runTask } = require("./Task/TaskService");
+const TaskService = require("./Task/TaskService");
 verifyTasks();
 
 function dateToCron(task, gap = 0) {
@@ -54,8 +55,18 @@ function verifyConcurrence(tasksPending) {
 
 let tasks = [];
 async function verifyTasks() {
+
+    const dateTime = new Date('2025-01-17T12:02:00.000Z');
+    const start_date = new Date('2025-01-17T12:02:00.000Z');
+    const end_date = new Date('2025-01-30T12:02:00.000Z');
+    // await TaskService.createSingleTask({temperatura: 25, arCondicionadoIds: [1, 2], dateTime});
+    await TaskService.createWeeklyTask({temperatura: 22, arCondicionadoIds: [1, 2], weekday: 0, time: "08:30:00", start_date, end_date });
+
+    tasks = await TaskService.getAllTasks();
+}
+
+async function verifyTaskss() {
     try {
-        const dateTime = new Date('2025-01-17T12:02:00.000Z');
         const dateTime2 = new Date('2025-01-17T12:02:01.000Z');
         const temperatura = 1;
         const aresCondicionadosId = [1, 2, 3, 4];
