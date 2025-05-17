@@ -82,7 +82,7 @@
                                             <div id="modal-temperatura" class="position-relative">
                                                 <div class="circle">
                                                     <div class="debug2 select-nulo" >
-                                                        <input id="rangeAr2" class="form-control" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" >
+                                                        <input id="rangeAr2" value="18°C" type="text" min="18" max="25" step="1" onmousedown="return false;" >
                                                     </div>
                                                     <div class="dot2"></div>
                                                 </div>
@@ -135,7 +135,7 @@
                                                     const tempRaw = arCondicionado?.estado?.temp || 'off';
                                                     const tempValue = tempRaw === 'off' ? 'off' : tempRaw.replace('temp', '') + '°C';
                                                 %>
-                                                <input id="rangeArMobile<%= arCondicionado.id %>" class="form-control rangeArMobile" value="<%= tempValue %>" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
+                                                <input id="rangeArMobile<%= arCondicionado.id %>" class="rangeArMobile" value="<%= tempValue %>" type="text" min="18" max="25" step="1" onmousedown="return false;" disabled>
                                             </div>
                                             <div id="dot-mobile<%= index + 1 %>" class="dot-mobile<%= index + 1 %>" onTouchStart="bloquearRolagem()" onTouchEnd="dotMobileChanged(<%= index + 1 %>, <%= arCondicionado.id %>)"></div>
                                         </div>
@@ -210,7 +210,7 @@
             
             let inputAr = document.getElementById(div_id);
             let inputRange = document.getElementById('rangeAr2');
-            inputRange.value = inputAr.textContent
+            inputRange.value = inputAr.textContent.trim();
 
             let temperatura = parseInt(inputRange.value.replace('°C', ''));
             const angulo = ((temperatura - 18) / 7) * 360;

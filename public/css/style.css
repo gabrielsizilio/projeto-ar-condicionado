@@ -344,22 +344,21 @@ box-icon{
     height: 40vh !important;    
 }
 .debug1, .debug2, .debug-mobile1, .debug-mobile2 {
-    margin: 150px auto;
     width: 100%;
-    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .debug1 input, .debug2 input, .debug-mobile1 input, .debug-mobile2 input{
     border: none !important;
-    display: inline-block;
     font-size: 30px;
     width: 100px;
     background: transparent;
     color: #4379ff;
     text-align: center;
     font-family: monospace;
-    position: fixed;
-    top: 34%;
-    left: 12%;
+    position: relative;
 }
 
 .circle, .circle-mobile1, .circle-mobile2 {
@@ -412,7 +411,7 @@ box-icon{
     border: none !important;
     user-select: none !important;
 }
-#rangeArMobile1, #rangeArMobile2{
+#rangeArMobile1, #rangeArMobile2, #rangeAr2{
     user-select: none !important;
 }
 .logout .modal-content{
@@ -430,23 +429,15 @@ box-icon{
 #modal-temperatura{
     height: 40vh !important;    
 }
-.debug1, .debug2, .debug-mobile1, .debug-mobile2 {
-    margin: 150px auto;
-    width: 100%;
-    text-align: center;
-}
 
 .bug1 input, .debug2 input, .debug-mobile1 input, .debug-mobile2 input{
-    display: inline-block;
     font-size: 30px;
     width: 100px;
     background: transparent;
     color: #4379ff;
     text-align: center;
     font-family: monospace;
-    position: fixed;
-    top: 34%;
-    left: 12%;
+    position: relative;
 }
 
 .circle, .circle-mobile1, .circle-mobile2 {
