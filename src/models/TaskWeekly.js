@@ -3,6 +3,10 @@ const { Model, DataTypes } = require('sequelize')
 class TaskWeekly extends Model {
     static init(sequelize) {
         super.init({
+            task_id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true
+            },
             weekday: DataTypes.INTEGER,
             time: DataTypes.TIME,
             start_date: DataTypes.DATE,

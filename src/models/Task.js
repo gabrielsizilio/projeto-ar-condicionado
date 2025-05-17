@@ -7,7 +7,7 @@ class Task extends Model {
             status: DataTypes.ENUM("ACTIVE", "INACTIVE"),
         }, {
             sequelize,
-            tableName: 'tasks'
+            tableName: 'task'
         })
     }
 
