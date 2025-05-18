@@ -27,7 +27,6 @@
                             </thead>
                             <tbody class="table-group-divider">
                                 <% if (logs) { %>
-                                    <% logs.reverse() %>
                                     <% logs.forEach(log=> { %>
                                         <tr>
                                             <td> <%= log.usuario.nome %> </td>
@@ -41,6 +40,57 @@
                                 <% } %>
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end">
+                            <nav>
+                                <ul class="pagination">
+
+                                    <% if (currentPage > 1) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=<%= currentPage - 1 %>">Anterior</a>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="page-item disabled">
+                                            <span class="page-link">Anterior</span>
+                                        </li>
+                                    <% } %>
+
+                                    <% 
+                                        const delta = 2;
+                                        const range = [];
+                                        const start = Math.max(2, currentPage - delta);
+                                        const end = Math.min(totalPages - 1, currentPage + delta);
+
+                                        range.push(1);
+                                        if (start > 2) range.push('...');
+                                        for (let i = start; i <= end; i++) range.push(i);
+                                        if (end < totalPages - 1) range.push('...');
+                                        if (totalPages > 1) range.push(totalPages);
+                                    %>
+
+                                    <% range.forEach(p => { %>
+                                        <% if (p === '...') { %>
+                                            <li class="page-item disabled"><span class="page-link">…</span></li>
+                                        <% } else { %>
+                                            <li class="page-item <%= p === currentPage ? 'page-active' : '' %>">
+                                                <a class="page-link <%= p === currentPage ? 'page-active text-white' : '' %>" href="?page=<%= p %>"><%= p %></a>
+                                            </li>
+                                        <% } %>
+                                    <% }) %>
+
+                                    <% if (currentPage < totalPages) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=<%= currentPage + 1 %>">Próxima</a>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="page-item disabled">
+                                            <span class="page-link">Próxima</span>
+                                        </li>
+                                    <% } %>
+
+                                </ul>
+                            </nav>
+                        </div>
+
                     </div>
                 </div>
             </div>
