@@ -19,10 +19,8 @@
                         <strong><h2><%= user.nome %></h2></strong>
                         <p>IFNMG Campus Montes Claros </p>
                     </div>
-
-                
+                    
                     <img src="https://thumbs.dreamstime.com/b/%C3%ADcone-roxo-fino-do-usu%C3%A1rio-sinal-linear-inclina%C3%A7%C3%A3o-136856587.jpg" width="100" class="border border-3 rounded-circle img-perfil p-0 bg-white">
-
                     
                     <input id="id_controlador" type="hidden" value="">
                     <input id="id_arcondicionado" type="hidden" value="">
@@ -35,6 +33,13 @@
                                         <span id="span1"><%= predios[0].salas[0].nome %> - <%= predios[0].nome %></span>
                                     <% } else { %>
                                         <span id="span1">Dados indisponíveis</span>
+                                    <% } %>
+                                </div>
+                                <div class="col-2 d-flex align-items-start justify-content-center" id="agendamento" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="agendamento">
+                                    <% if (predios.length > 0 && predios[0].salas && predios[0].salas.length > 0) { %>
+                                        <a id="schedule_link" class="nav-link active" aria-current="page" href="./agendamento/<%= predios[0].salas[0].id %>">
+                                            <box-icon name='time' type='solid' color='#ccc' ></box-icon>
+                                        </a>
                                     <% } %>
                                 </div>
                                 <div class="col-5 nome d-flex align-items-center justify-content-end">
@@ -348,7 +353,9 @@
             if(!salaSelecionada) {
                 return;
             }
-            
+
+            const scheduleLink = document.getElementById('schedule_link');
+
             let divSeletor1 = document.getElementById('seletorAr1');
             let tempDiv1 = divSeletor1.querySelector(".temperatura");
 
@@ -363,6 +370,9 @@
             let divDotMobile2 = document.getElementById('dot-mobile2');
             let switchMobile1 = document.getElementById('flexSwitchCheckDefault1');
             let switchMobile2 = document.getElementById('flexSwitchCheckDefault2');
+
+            const novaSalaId = salaSelecionada.id;
+            scheduleLink.setAttribute('href', `./agendamento/${novaSalaId}`);
             
             if(salaSelecionada.ares_condicionados[0]) {
                 let inputArId = document.getElementById('id_ar_condicionado1')
