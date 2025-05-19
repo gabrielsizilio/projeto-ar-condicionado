@@ -4,7 +4,7 @@ const ArCondicionado = require("../../models/ArCondicionado");
 const TaskSingle = require("../../models/TaskSingle");
 const TaskWeekly = require("../../models/TaskWeekly");
 
-async function createTask(temperatura, aresCondicionadosId) {
+async function createTask(temperatura, aresCondicionadosId, time) {
 
     const aresCondicionados = await ArCondicionado.findAll({
         where: {
@@ -19,6 +19,7 @@ async function createTask(temperatura, aresCondicionadosId) {
     try {
         const task = await Task.create({
             temperatura,
+            time,
             status: "ACTIVE"
         })
 
@@ -36,55 +37,25 @@ async function createTask(temperatura, aresCondicionadosId) {
     }
 }
 
-async function createSingleTask({ temperatura, arCondicionadoIds, dateTime }) {
-    console.log(">> " + dateTime);
-    
-    const task = await createTask(temperatura, arCondicionadoIds);
-
-    try {
-        const taskSingle = await TaskSingle.create({
-            date: dateTime,
-            task_id: task.id
-        });
-
-        return task;
-
-    } catch (error) {
-        console.error(">> Erro ao criar uma taskSingle: ", error);
-        throw error;
-    }
-}
-
-async function createWeeklyTask({ temperatura, arCondicionadoIds, weekday, time, start_date, end_date }) {
-    const task = await createTask(temperatura, arCondicionadoIds);
-
-    try {
-        const taskWeekly = await TaskWeekly.create({
-            task_id: task.id,
-            weekday,
-            time,
-            start_date,
-            end_date
-        });
-
-        return taskWeekly;
-    } catch (error) {
-        console.error(">> Erro ao criar uma taskWeekly: ", error);
-        throw error;
-    }
-}
-
 async function getAllTasks() {
     const tasks = Task.findAll();
 
     return tasks;
 }
 
+async function getTaskById(taskId) {
+    const task = await Task.findByPk(taskId);
+    if (task == null) {
+        throw error("Task não encontrada!");
+    }
+    return task;
+}
+
 async function getAllTasksPending() {
     const tasks = await Task.findAll(
         {
             where: {
-                status: "pending"
+                status: "   "
             },
             include: {
                 association: "aresCondicionados"
@@ -108,10 +79,8 @@ async function runTask(task, arCondicionado) {
 }
 
 module.exports = {
+    getTaskById,
     createTask,
-    createSingleTask,
-    createWeeklyTask,
-
     getAllTasks,
     getAllTasksPending,
     runTask

@@ -1,25 +1,23 @@
 var cron = require("node-cron");
-const { getAllTasks, getAllTasksPending, createTask, runTask } = require("./Task/TaskService");
 const TaskService = require("./Task/TaskService");
+const TaskWeeklyService = require("./Task/TaskWeeklyService");
+const TaskSingleService = require("./Task/TaskSingleService");
+const TaskExecutionService = require("./Task/TaskExecutionService");
+const { runTask } = require("./Task/TaskExecutionService")
 verifyTasks();
 
-function dateToCron(task, gap = 0) {
-    const date = new Date(task.dateTime);
-    date.setSeconds(date.getUTCSeconds() + gap);
+function dateToCron(date) {
+    const taskDate = new Date(date);
 
-    const seconds = date.getUTCSeconds();
-    const minutes = date.getUTCMinutes();
-    const hours = date.getUTCHours();
-    let dayOfMonth = date.getUTCDate();
-    let month = date.getUTCMonth() + 1;
+    date.setSeconds(date.getSeconds());
 
-    if (task.type == "recurring") {
-        dayOfMonth = "*"
-        month = "*"
-    }
+    const seconds = date.getSeconds();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    let dayOfMonth = date.getDate();
+    let month = date.getMonth() + 1;
 
     const cronExpression = `${seconds} ${minutes} ${hours} ${dayOfMonth} ${month} *`
-    // console.log(cronExpression);
 
     return cronExpression;
 }
@@ -56,55 +54,30 @@ function verifyConcurrence(tasksPending) {
 let tasks = [];
 async function verifyTasks() {
 
-    const dateTime = new Date('2025-01-17T12:02:00.000Z');
+    const dateTime = new Date('2025-05-18 12:02:00.000Z');
     const start_date = new Date('2025-01-17T12:02:00.000Z');
     const end_date = new Date('2025-01-30T12:02:00.000Z');
-    // await TaskService.createSingleTask({temperatura: 25, arCondicionadoIds: [1, 2], dateTime});
-    await TaskService.createWeeklyTask({temperatura: 22, arCondicionadoIds: [1, 2], weekday: 0, time: "08:30:00", start_date, end_date });
+    //  await TaskSingleService.createSingleTask({ temperatura: 24, arCondicionadoIds: [1], dateTime });
+    //  await TaskSingleService.createSingleTask({ temperatura: 25, arCondicionadoIds: [2], dateTime });
+    // await TaskWeeklyService.createWeeklyTask({ temperatura: 22, arCondicionadoIds: [3, 4], weekday: 0, time: "08:30:00", start_date, end_date });
 
-    tasks = await TaskService.getAllTasks();
+    const tasks = await TaskExecutionService.getAllTasksValidTasks();
+    TaskExecutionService.createExecutionTask(tasks);
+    tasksToday = await TaskExecutionService.getAllExecutionTask();
+
+    await cronSchedule(tasksToday);
 }
 
-async function verifyTaskss() {
-    try {
-        const dateTime2 = new Date('2025-01-17T12:02:01.000Z');
-        const temperatura = 1;
-        const aresCondicionadosId = [1, 2, 3, 4];
-        const aresCondicionados2Id = [2, 3];
-        const type = "single"
-        const type2 = "recurring"
+async function cronSchedule(tasks) {
 
-        // await createTask(dateTime, temperatura, aresCondicionadosId, type2);
-        // await createTask(dateTime2, temperatura, aresCondicionados2Id, type);
+    tasks.forEach(async (taskWrap, index) => {
+        const task = taskWrap.task;
+        
+        const cronExpression = dateToCron(taskWrap.scheduled_for);
+        // const cronExpression = "* * * * * *";
 
-        tasks = await getAllTasksPending();
-        console.log(">> TASK FINDEED:", tasks.length);
-        const taskMap = verifyConcurrence(tasks);
-
-        let gap = 0;
-        let lastScheduledTime = {};
-        tasks.forEach((task, index) => {
-            gap = 0;
-            task.aresCondicionados.forEach((arCondicionado, index) => {
-                const taskKey = task.dateTime.toISOString();
-
-                if (lastScheduledTime[taskKey]) {
-                    gap += 1;
-                } else {
-                    lastScheduledTime[taskKey] = true;
-                }
-
-                const cronExpression = dateToCron(task, gap);
-
-                cron.schedule(cronExpression, async () => {
-                    await runTask(task, arCondicionado);
-                });
-            })
+        cron.schedule(cronExpression, async () => {
+            await runTask(task);
         });
-
-
-    } catch (error) {
-        console.error(">> Erro ao verificar todas as tasks:: " + error);
-
-    }
+    });
 }

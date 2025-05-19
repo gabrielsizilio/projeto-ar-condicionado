@@ -19,6 +19,9 @@ const ArCondicionadoBloqueio = require('../models/ArCondicionadoBloqueio')
 const Task = require('../models/Task')
 const TaskSingle = require('../models/TaskSingle');
 const TaskWeekly = require('../models/TaskWeekly')
+const TaskException = require('../models/TaskException')
+const TaskExecution = require('../models/TaskExecution')
+
 
 const connection = new Sequelize(configDB);
 
@@ -52,6 +55,8 @@ ArCondicionadoBloqueio.init(connection)
 Task.init(connection)
 TaskSingle.init(connection)
 TaskWeekly.init(connection)
+TaskException.init(connection)
+TaskExecution.init(connection)
 
 
 Credencial.associate(connection.models)
@@ -73,5 +78,7 @@ ArCondicionadoBloqueio.associate(connection.models)
 Task.associate(connection.models)
 TaskSingle.associate(connection.models)
 TaskWeekly.associate(connection.models)
+TaskException.associate(connection.models)
+TaskExecution.associate(connection.models)
 
 module.exports = connection

@@ -20,6 +20,10 @@ module.exports = {
         allowNull: false,
         defaultValue: 0
       },
+      time: {
+        type: Sequelize.TIME,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

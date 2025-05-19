@@ -11,7 +11,7 @@ module.exports = {
         primaryKey: true
       },
       task_id: {
-        primaryKey: true,
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'task',
@@ -19,6 +19,10 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+      },
+      scheduled_for: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
       status: {
         type: Sequelize.ENUM('PENDING', 'RUNNING', 'COMPLETED', 'FAILED', 'CANCELLED'),

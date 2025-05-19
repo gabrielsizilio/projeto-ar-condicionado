@@ -4,6 +4,7 @@ class Task extends Model {
     static init(sequelize) {
         super.init({
             temperatura: DataTypes.INTEGER,
+            time: DataTypes.TIME,
             status: DataTypes.ENUM("ACTIVE", "INACTIVE"),
         }, {
             sequelize,
@@ -17,6 +18,11 @@ class Task extends Model {
             foreignKey: 'task_id',
             otherKey: "ar_id",
             as: "aresCondicionados"
+        });
+
+        this.hasMany(models.TaskExecution, {
+            foreignKey: "task_id",
+            as: "executions"
         });
     }
 }

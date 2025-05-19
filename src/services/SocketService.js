@@ -23,8 +23,6 @@ class SocketService {
     async enviaComando(comandoParm, macAddressMapping) {
         const { user } = comandoParm;
 
-        console.log("usuario: " + user.nome);
-
         var aparelho = await ArCondicionado.findByPk(comandoParm.id_arcondicionado, {
             include: [{
                 model: Modelo, as: 'modelo',
@@ -61,7 +59,7 @@ class SocketService {
         console.log(comando);
         io.to(macAddressMapping[comandoParm.id_controlador]).emit('EnviaIR', comando);
 
-        await registerLogUpdateTemperatura(comandoParm);
+        if(user) await registerLogUpdateTemperatura(comandoParm);
     }
 
     checkModuleConnectionStatus(macAddress, macAddressMapping) {
