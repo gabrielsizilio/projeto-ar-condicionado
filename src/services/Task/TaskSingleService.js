@@ -7,6 +7,8 @@ async function createSingleTask({ temperatura, arCondicionadoIds, dateTime }) {
     const date = new Date(dateTime);
     const time = date.toTimeString().slice(0, 8);
 
+    console.log(arCondicionadoIds);
+    
     const task = await createTask(temperatura, arCondicionadoIds, time);
 
     try {

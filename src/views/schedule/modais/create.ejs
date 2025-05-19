@@ -46,7 +46,7 @@
                             <label for="tem" class="form-label">Temperatura:</label>
                             <select id="temp" name="temp" class="form-select" required>
                                 <% for (let t = 18; t <= 25; t++) { %>
-                                <option value="temp<%= t %>"><%= t %> ºC</option>
+                                <option value="<%= t %>"><%= t %> ºC</option>
                                 <% } %>
                             </select>
                         </div>

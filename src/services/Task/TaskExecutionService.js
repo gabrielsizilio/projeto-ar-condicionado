@@ -66,9 +66,25 @@ async function getAllTasksValidTasks() {
     const allTasks = [...taskSingle, ...taskWeekly]
 
     const validTasks = await TaskExceptionService.filterTasksWithoutException(allTasks);
+    const readyTasks = await filterTasksWithoutExecution(validTasks);
 
-    const taskMap = verifyConcurrence(validTasks, 1);
+    const taskMap = verifyConcurrence(readyTasks, 1);
     return taskMap;
+}
+
+async function filterTasksWithoutExecution(tasks) {
+    const taskIds = tasks.map(t => t.task.id);
+    
+    const exceptions = await TaskExecution.findAll({
+        where: {
+            task_id: { [Op.in]: taskIds }
+        }
+    });
+
+    const exceptionTaskIds = new Set(exceptions.map(e => e.task_id));
+    const validTasks = tasks.filter(t => !exceptionTaskIds.has(t.task.id));
+
+    return validTasks;
 }
 
 async function getAllExecutionTask() {
@@ -118,11 +134,11 @@ async function createExecutionTask(taskMap) {
     for (const [key, tasks] of taskMap.entries()) {
         for (const task of tasks) {
             try {
-                // await TaskExecution.create({
-                //     task_id: task.task.id,
-                //     scheduled_for: new Date(key),
-                //     status: "PENDING"
-                // });
+                await TaskExecution.create({
+                    task_id: task.task.id,
+                    scheduled_for: new Date(key),
+                    status: "PENDING"
+                });
 
             } catch (err) {
                 console.error(`Erro ao criar execução para task_id=${task.task_id}:`, err);
@@ -157,11 +173,17 @@ async function runTask(task) {
     }
     task.aresCondicionados[0].controlador
 
-    // TODO: Mandar sinal de acordo com a task para o arCondicionado
-    // socket.emit('enviarComandoAr', {id_controlador, id_arcondicionado, temperatura, user});
-    console.log(macAddressMapping);
+    await SocketService.enviaComando(comando, macAddressMapping);
 
-    SocketService.enviaComando(comando, macAddressMapping);
+    await TaskExecution.update(
+        { status: "COMPLETED" },
+        {
+            where: {
+                task_id: task.id
+            }
+        }
+    );
+
 
 }
 

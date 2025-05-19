@@ -4,7 +4,7 @@ const TaskWeeklyService = require("./Task/TaskWeeklyService");
 const TaskSingleService = require("./Task/TaskSingleService");
 const TaskExecutionService = require("./Task/TaskExecutionService");
 const { runTask } = require("./Task/TaskExecutionService")
-verifyTasks();
+// verifyTasks();
 
 function dateToCron(date) {
     const taskDate = new Date(date);
@@ -53,6 +53,8 @@ function verifyConcurrence(tasksPending) {
 
 let tasks = [];
 async function verifyTasks() {
+    console.log("verificando...");
+    
 
     const dateTime = new Date('2025-05-18 12:02:00.000Z');
     const start_date = new Date('2025-01-17T12:02:00.000Z');
@@ -62,7 +64,7 @@ async function verifyTasks() {
     // await TaskWeeklyService.createWeeklyTask({ temperatura: 22, arCondicionadoIds: [3, 4], weekday: 0, time: "08:30:00", start_date, end_date });
 
     const tasks = await TaskExecutionService.getAllTasksValidTasks();
-    TaskExecutionService.createExecutionTask(tasks);
+    await TaskExecutionService.createExecutionTask(tasks);
     tasksToday = await TaskExecutionService.getAllExecutionTask();
 
     await cronSchedule(tasksToday);
@@ -80,4 +82,8 @@ async function cronSchedule(tasks) {
             await runTask(task);
         });
     });
+}
+
+module.exports = {
+    verifyTasks
 }

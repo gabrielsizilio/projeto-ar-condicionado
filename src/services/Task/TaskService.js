@@ -6,6 +6,8 @@ const TaskWeekly = require("../../models/TaskWeekly");
 
 async function createTask(temperatura, aresCondicionadosId, time) {
 
+    console.log(aresCondicionadosId);
+    
     const aresCondicionados = await ArCondicionado.findAll({
         where: {
             id: aresCondicionadosId
