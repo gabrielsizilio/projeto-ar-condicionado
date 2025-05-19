@@ -367,6 +367,7 @@
             if(salaSelecionada.ares_condicionados[0]) {
                 let inputArId = document.getElementById('id_ar_condicionado1')
                 let inputArMobileId = document.getElementById('id_ar_condicionado_mobile1')
+                let inputControladorMobileId = document.getElementById('id_controlador_mobile1')
                 let strongNomeAr = document.getElementById('nome_ar1')
                 let strongNomeArMobile = document.getElementById('nome_ar_mobile1')
                 let inputControladorId = document.getElementById('id_controlador1')
@@ -393,6 +394,7 @@
                 inputArMobileId.value = airId
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[0].nome
                 strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[0].nome
+                inputControladorMobileId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
                 inputControladorId.value = salaSelecionada.ares_condicionados[0].controlador.macAddress
                 predio.textContent = predio1[predioId - 1].nome
                 sala.textContent = salaSelecionada.nome
@@ -409,6 +411,7 @@
             if(salaSelecionada.ares_condicionados[1]) {
                 let inputArId = document.getElementById('id_ar_condicionado2')
                 let inputArMobileId = document.getElementById('id_ar_condicionado_mobile2')
+                let inputControladorMobileId = document.getElementById('id_controlador_mobile2')
                 let strongNomeAr = document.getElementById('nome_ar2')
                 let strongNomeArMobile = document.getElementById('nome_ar_mobile2')
                 let inputControladorId = document.getElementById('id_controlador2')
@@ -436,6 +439,7 @@
                 inputArMobileId.value = airId;
                 strongNomeAr.textContent = salaSelecionada.ares_condicionados[1].nome
                 strongNomeArMobile.textContent = salaSelecionada.ares_condicionados[1].nome
+                inputControladorMobileId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
                 inputControladorId.value = salaSelecionada.ares_condicionados[1].controlador.macAddress
                 predio.textContent = predio1[predioId - 1].nome
                 sala.textContent = salaSelecionada.nome
