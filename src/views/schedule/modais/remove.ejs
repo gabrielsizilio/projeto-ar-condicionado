@@ -1,0 +1,25 @@
+<!-- Modal -->
+<div class="modal fade remove" id="excluir_<%= sala.id %>" tabindex="-1" aria-labelledby="excluirLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="/agendamento/<%= sala.id %>/remove" method="post">
+                    <div id="excluir-topo">
+                        <strong>
+                            <p>Excluir Tarefa?</p>
+                        </strong>
+                    </div>
+                    <div class="excluir-corpo text-center mt-5">
+                        <box-icon name='trash' color='#ffffff' size='lg'></box-icon>
+                        <p>Você realmente deseja excluir a tarefa ? </p>
+                    </div>
+                    <div class="excluir-bottom d-flex justify-content-between text-center mt-5">
+                        <button type="submit" class="btn excluir-confirma">EXCLUIR</button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

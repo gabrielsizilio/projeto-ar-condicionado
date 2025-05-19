@@ -1,0 +1,91 @@
+<form method="POST" action="/agendamento/<%= sala.id %>/store">
+    <div class="modal fade" id="addSala" aria-hidden="true" aria-labelledby="adicionaUsuarioLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Nova Tarefa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-between">
+                        <div class="col-6">
+                            <label for="taskType" class="form-label">Tipo de Tarefa:</label>
+                            <select id="taskType" name="taskType" class="form-select" required>
+                            <% for (let key in task_types) { %>
+                                <option value="<%= task_types[key] %>"><%= key %></option>
+                            <% } %>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <div class="collapse" id="collapseWeekDay">
+                                <label for="weekday" class="form-label">Selecione o dia da semana:</label>
+                                <select id="weekday" name="weekday" class="form-select">
+                                    <option value="0">Domingo</option>
+                                    <option value="1">Segunda-feira</option>
+                                    <option value="2">Terça-feira</option>
+                                    <option value="3">Quarta-feira</option>
+                                    <option value="4">Quinta-feira</option>
+                                    <option value="5">Sexta-feira</option>
+                                    <option value="6">Sábado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label for="startDateTime" class="form-label">Data e Hora de ínicio:</label>
+                            <input type="datetime-local" id="startDateTime" name="startDateTime" class="form-control" required>
+                        </div>
+                        <div id="collapseEndDateTime" class="col-6 collapse mb-3">
+                            <label for="endDateTime" class="form-label">Data e Hora de término:</label>
+                            <input type="datetime-local" id="endDateTime" name="endDateTime" class="form-control" required>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="tem" class="form-label">Temperatura:</label>
+                            <select id="temp" name="temp" class="form-select" required>
+                                <% for (let t = 18; t <= 25; t++) { %>
+                                <option value="temp<%= t %>"><%= t %> ºC</option>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                <div class="modal-footer salvar justify-content-between">
+                    <button type="submit" class="btn btn-primary col-2">Salvar</button>
+                </div>  
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const taskTypeSelect = document.getElementById('taskType');
+    const collapseWeekDay = document.getElementById('collapseWeekDay');
+    const collapseEndDateTime = document.getElementById('collapseEndDateTime');
+
+    function toggleWeekdaySelect() {
+        const weekday = document.getElementById('weekday');
+        const endDateTime = document.getElementById('endDateTime');
+
+        if (taskTypeSelect.value === 'WEEKLY') {
+            collapseWeekDay.classList.add('show');
+            collapseEndDateTime.classList.add('show');
+            if (weekday) weekday.required = true;
+            if (endDateTime) endDateTime.required = true;
+        } else {
+            collapseWeekDay.classList.remove('show');
+            collapseEndDateTime.classList.remove('show');
+            if (weekday) weekday.required = false;
+            if (endDateTime) endDateTime.required = false;
+        }
+    }
+
+    toggleWeekdaySelect();
+
+    taskTypeSelect.addEventListener('change', toggleWeekdaySelect);
+  });
+</script>

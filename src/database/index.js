@@ -22,6 +22,7 @@ const TaskWeekly = require('../models/TaskWeekly')
 const TaskException = require('../models/TaskException')
 const TaskExecution = require('../models/TaskExecution')
 
+const EstadoAr = require("../models/EstadoAr")
 
 const connection = new Sequelize(configDB);
 
@@ -58,6 +59,7 @@ TaskWeekly.init(connection)
 TaskException.init(connection)
 TaskExecution.init(connection)
 
+EstadoAr.init(connection)
 
 Credencial.associate(connection.models)
 Usuario.associate(connection.models)
@@ -80,5 +82,6 @@ TaskSingle.associate(connection.models)
 TaskWeekly.associate(connection.models)
 TaskException.associate(connection.models)
 TaskExecution.associate(connection.models)
+EstadoAr.associate(connection.models)
 
 module.exports = connection

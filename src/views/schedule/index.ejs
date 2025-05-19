@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include('../partials/header.ejs')%>
+    <body class="container-body">
+        <div class="d-flex">
+            <%- include('../partials/nav.ejs')%>
+            <div class="col-11 container-conteudo">
+                <div class="container-conteudo">
+                    <div class="row usuarios-top d-flex justify-content-between">
+                        <div class="titulo col-8">
+                            <h2>Agendamento de tarefas</h2>
+                        </div>
+                        <div class="botao d-flex justify-content-end col-3">
+                            <button type="button" class="btn" data-bs-target="#addSala" data-bs-toggle="modal">
+                                Nova Tarefa
+                            </button>
+                        </div>
+                        <%- include('./modais/create.ejs', { sala, task_types }) %>
+                        <%- include('./modais/remove.ejs', { sala }) %>
+                        <div> <%= sala.nome %> </div>
+                            <div class="row salas mt-5 justify-content-center">
+                                <div id="salasContainerPredios" class="col-8 mt-3">
+                                    <table class="table table-borderless usuarios-tabela m-0 table-sm">
+                                        <tbody id="salaTables">
+                                                <tr>
+                                                    <td class="col-10"> 
+                                                        <a>
+                                                            teste
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>">
+                                                            <box-icon name='trash' color='#ff0000'></box-icon>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

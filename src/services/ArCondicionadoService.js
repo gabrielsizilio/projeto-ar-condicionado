@@ -1,6 +1,7 @@
 const ArCondicionado = require("../models/ArCondicionado");
 const Controlador = require("../models/Controlador");
-const { io } = require('../http')
+const { io } = require('../http');
+const EstadoAr = require("../models/EstadoAr");
 class ArCondicionadoService {
     static async setIRBlockState(arCondicionadoId, isBlocked, macAddressMapping) {
         const airConditioner = await ArCondicionado.findByPk(arCondicionadoId, {
@@ -23,16 +24,16 @@ class ArCondicionadoService {
         const macAddress = airConditioner.controlador.macAddress;
 
         if (!macAddress) return;
-        
+
         const socket_id =
             macAddressMapping[macAddress];
 
-        if (!socket_id) return; 
+        if (!socket_id) return;
 
         const blockedPins = await this.getBlockedIRPins(macAddress);
 
-        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);   
-        
+        io.to(socket_id).emit('AddBlockedEmissors', blockedPins);
+
     }
 
     static async getBlockedIRPins(macAddress) {
@@ -52,6 +53,18 @@ class ArCondicionadoService {
         return blockedAirConditioners.map(
             (airConditioner) => airConditioner.pinEmissor
         );
+    }
+
+    static async getTemperature(id) {
+        if (!id) throw new Error("O ID é obrigatório.");
+
+        const airState = await EstadoAr.findByPk(id);
+
+        if (!airState) throw new Error("Ar-condicionado não encontrado");
+        if (!airState.temp) return "off";
+
+        return airState.temp;
+
     }
 }
 
