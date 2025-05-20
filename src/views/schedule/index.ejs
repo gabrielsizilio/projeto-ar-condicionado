@@ -22,18 +22,20 @@
                                 <div id="salasContainerPredios" class="col-8 mt-3">
                                     <table class="table table-borderless usuarios-tabela m-0 table-sm">
                                         <tbody id="salaTables">
+                                            <% tasks.forEach(task => { %>
                                                 <tr>
-                                                    <td class="col-10"> 
+                                                    <td class="col-10">
                                                         <a>
-                                                            teste
+                                                            <%= task.temperatura %> °C - <%= task.time %> 
                                                         </a>
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="" data-bs-toggle="modal" data-bs-target="#excluir_<%= sala.id %>">
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#excluir_<%= task.id %>">
                                                             <box-icon name='trash' color='#ff0000'></box-icon>
                                                         </a>
                                                     </td>
                                                 </tr>
+                                            <% }) %>
                                         </tbody>
                                     </table>
                                 </div>

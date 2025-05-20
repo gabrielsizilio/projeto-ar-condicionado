@@ -1,6 +1,7 @@
 const ArCondicionado = require("../models/ArCondicionado");
 const Sala = require("../models/Sala");
 const { verifyTasks } = require("../services/CronService");
+const { getTasksBySala } = require("../services/Task/TaskService");
 const { createSingleTask } = require("../services/Task/TaskSingleService");
 const { getUserByJWT } = require("../services/usuarioService");
 
@@ -18,7 +19,9 @@ class ScheduleController {
 
         const sala = await Sala.findByPk(sala_id);
 
-        return res.status(200).render('schedule/index', { user, sala, task_types });;
+        const tasks = await getTasksBySala(sala_id);
+
+        return res.status(200).render('schedule/index', { user, sala, task_types, tasks });;
     }
 
     async store(req, res) {
@@ -36,8 +39,8 @@ class ScheduleController {
         await createSingleTask({ temperatura: temp, arCondicionadoIds: ids, dateTime: startDateTime });
         await verifyTasks();
 
-        res.status(201).json({ sala_id, temp, startDateTime, endDateTime, taskType, weekday });
-
+        // res.status(201).json({ sala_id, temp, startDateTime, endDateTime, taskType, weekday });
+        return res.status(201).redirect('back')
     }
 
     async remove(req, res) {
