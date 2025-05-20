@@ -15,7 +15,7 @@ class SocketService {
         macAddressMapping[esp.macAddress] = socket.id
         console.log(macAddressMapping);
         await this.setBlockedPins(esp.macAddress, socket.id, macAddressMapping);
-        this.checkModuleConnectionStatus(esp.macAddress, socket, macAddressMapping);
+        this.checkModuleConnectionStatus(esp.macAddress, macAddressMapping, socket);
     }
 
     async setBlockedPins(macAddress, socket_id) {
