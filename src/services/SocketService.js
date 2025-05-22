@@ -27,6 +27,10 @@ class SocketService {
     async enviaComando(comandoParm, macAddressMapping) {
         const { user } = comandoParm;
 
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..");
+        console.log(comandoParm.id_controlador);
+
+
         var aparelho = await ArCondicionado.findByPk(comandoParm.id_arcondicionado, {
             include: [{
                 model: Modelo, as: 'modelo',

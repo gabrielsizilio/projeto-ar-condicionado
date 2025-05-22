@@ -160,6 +160,7 @@ async function runTask(taskPayload) {
         temperatura: taskPayload.temperatura == 0 ? "off" : `${taskPayload.temperatura}`
     }
 
+    
     await SocketService.enviaComando(comando, macAddressMapping);
 
     await TaskExecution.update(
