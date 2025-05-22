@@ -44,7 +44,7 @@ async function cronSchedule(tasks) {
         const taskPayload = {
             task_execution_id: taskExecution.id,
             task_id: taskExecution.task.id,
-            id_controlador: taskExecution.arCondicionado.controlador.id,
+            id_controlador: taskExecution.arCondicionado.controlador.macAddress,
             id_arcondicionado: taskExecution.arCondicionado.id,
             temperatura: taskExecution.task.temperatura
         }
