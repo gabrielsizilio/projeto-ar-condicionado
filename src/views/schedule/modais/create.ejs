@@ -45,7 +45,7 @@
                         <div class="col-6">
                             <label for="tem" class="form-label">Temperatura:</label>
                             <select id="temp" name="temp" class="form-select" required>
-                                <option value="off">Desligar</option>
+                                <option value="0">Desligar</option>
                                 <% for (let t = 18; t <= 25; t++) { %>
                                 <option value="<%= t %>"><%= t %> ºC</option>
                                 <% } %>

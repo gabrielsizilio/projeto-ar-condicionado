@@ -157,7 +157,7 @@ async function runTask(taskPayload) {
     const comando = {
         id_controlador: taskPayload.id_controlador,
         id_arcondicionado: taskPayload.id_arcondicionado,
-        temperatura: `${taskPayload.temperatura}`
+        temperatura: taskPayload.temperatura == 0 ? "off" : `${taskPayload.temperatura}`
     }
 
     await SocketService.enviaComando(comando, macAddressMapping);
