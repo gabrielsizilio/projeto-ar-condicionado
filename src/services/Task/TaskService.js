@@ -8,7 +8,7 @@ const TaskWeekly = require("../../models/TaskWeekly");
 async function createTask(temperatura, aresCondicionadosId, time) {
 
     console.log(aresCondicionadosId);
-    
+
     const aresCondicionados = await ArCondicionado.findAll({
         where: {
             id: aresCondicionadosId
@@ -49,16 +49,22 @@ async function getAllTasks() {
 async function getTasksBySala(salaId) {
 
     const tasks = await Task.findAll({
-        include: {
+        include: [{
             association: "aresCondicionados",
             where: {
                 sala_id: salaId
             }
-        }
+        },
+        {
+            association: "executions",
+            where: {
+                status: "PENDING"
+            }
+        }]
     });
 
     console.log(tasks);
-    
+
     // const aresCondicionados = await ArCondicionado.findAll({
     //     where: {
     //         sala_id: salaId

@@ -9,7 +9,7 @@ module.exports = {
     port: process.env.DB_PORT,
 
     define: {
-        timestamps:true,
-        undescored:true
+        timestamps: true,
+        undescored: true
     }
 }
