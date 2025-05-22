@@ -4,7 +4,7 @@ const TaskWeeklyService = require("./Task/TaskWeeklyService");
 const TaskSingleService = require("./Task/TaskSingleService");
 const TaskExecutionService = require("./Task/TaskExecutionService");
 const { runTask } = require("./Task/TaskExecutionService")
-// verifyTasks();
+verifyTasks();
 
 function dateToCron(date) {
     const taskDate = new Date(date);
@@ -22,64 +22,38 @@ function dateToCron(date) {
     return cronExpression;
 }
 
-function verifyConcurrence(tasksPending) {
-    let taskMap = new Map();
-
-    tasksPending.forEach((task, taskIndex) => {
-        task.aresCondicionados.forEach((arCondicionado, index) => {
-            const newDateTime = new Date(task.dateTime);
-            newDateTime.setSeconds(newDateTime.getUTCSeconds() + index);
-
-            while (taskMap.has(newDateTime.toISOString())) {
-                newDateTime.setSeconds(newDateTime.getUTCSeconds() + 1);
-            }
-
-            if (!taskMap.has(newDateTime.toISOString())) {
-                taskMap.set(newDateTime.toISOString(), []);
-            }
-
-            taskMap.get(newDateTime.toISOString()).push({ arCondicionado, dateTime: newDateTime, taskIndex });
-        });
-    });
-
-    taskMap.forEach((tasks, key) => {
-        console.log(`Horário: ${key}`);
-        tasks.forEach((taskData, index) => {
-            console.log(`  Task ${taskData.taskIndex + 1}: ${taskData.arCondicionado.nome} às ${taskData.dateTime.toISOString()} \n`);
-        });
-    });
-}
-
-
 let tasks = [];
 async function verifyTasks() {
     console.log("verificando...");
-    
 
     const dateTime = new Date('2025-05-18 12:02:00.000Z');
     const start_date = new Date('2025-01-17T12:02:00.000Z');
     const end_date = new Date('2025-01-30T12:02:00.000Z');
-    //  await TaskSingleService.createSingleTask({ temperatura: 24, arCondicionadoIds: [1], dateTime });
-    //  await TaskSingleService.createSingleTask({ temperatura: 25, arCondicionadoIds: [2], dateTime });
-    // await TaskWeeklyService.createWeeklyTask({ temperatura: 22, arCondicionadoIds: [3, 4], weekday: 0, time: "08:30:00", start_date, end_date });
 
     const tasks = await TaskExecutionService.getAllTasksValidTasks();
     await TaskExecutionService.createExecutionTask(tasks);
-    tasksToday = await TaskExecutionService.getAllExecutionTask();
+    tasksToday = await TaskExecutionService.getAllExecutionTaskToday();
 
     await cronSchedule(tasksToday);
 }
 
 async function cronSchedule(tasks) {
+    
+    tasks.forEach(async (taskExecution, index) => {
 
-    tasks.forEach(async (taskWrap, index) => {
-        const task = taskWrap.task;
+        const taskPayload = {
+            task_execution_id: taskExecution.id,
+            task_id: taskExecution.task.id,
+            id_controlador: taskExecution.arCondicionado.controlador.id,
+            id_arcondicionado: taskExecution.arCondicionado.id,
+            temperatura: taskExecution.task.temperatura
+        }
         
-        const cronExpression = dateToCron(taskWrap.scheduled_for);
-        // const cronExpression = "* * * * * *";
+        const cronExpression = dateToCron(taskExecution.scheduled_for);
+        // const cronExpression = "* * * * *";
 
         cron.schedule(cronExpression, async () => {
-            await runTask(task);
+            await runTask(taskPayload);
         });
     });
 }

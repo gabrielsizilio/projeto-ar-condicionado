@@ -20,6 +20,16 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
+      ar_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "ares_condicionados",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onuPDATE: "CASCADE"
+      },
       scheduled_for: {
         type: Sequelize.DATE,
         allowNull: false

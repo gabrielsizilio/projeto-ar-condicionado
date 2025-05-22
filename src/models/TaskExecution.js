@@ -17,6 +17,10 @@ class TaskExecution extends Model {
             foreignKey: 'task_id',
             as: "task"
         });
+        this.belongsTo(models.ArCondicionado, {
+            foreignKey: "ar_id",
+            as: "arCondicionado"
+        })
     }
 }
 
